@@ -1,0 +1,135 @@
+﻿@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.Invoice.InvoicePagingModel
+
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/KJScripts/Paging.js"></script>
+<script src="~/KJScripts/Invoices/InvoiceIndex.js"></script>
+<link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet" />
+@using System.Web.Script.Serialization
+@{ var data = new JavaScriptSerializer().Serialize(Model); }
+
+
+<div class="col-md-8" id="Invoice">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <span class="panel-title">Search Invoices<img src="~/Content/images/IconSearch.png" /></span>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-12">
+                <div class="col-md-4 control-group">
+                    <input type="text" class="form-control" placeholder="Invoice Reference." data-bind="value: InvoiceSearch().InvoiceReference" />
+                </div>
+                <div class="col-md-4  control-group">
+                    <input type="text" class="form-control" placeholder="Customer"/>
+                </div>
+                <div class="col-md-4  control-group">
+                    <select class="form-control">
+                        <option>1 week</option>
+                        <option>2 weeks</option>
+                        <option>3 weeks</option>
+                        <option>4 weeks</option>
+                    </select>
+                </div>
+                <div class="col-md-4  control-group">
+                    <input type="text" class="form-control" placeholder="Ticket Reference." data-bind="value: InvoiceSearch().TicketReference" />
+                </div>
+
+                <div class="col-md-4  control-group">
+                    <input type="text" class="form-control" placeholder="Consignment Reference." data-bind="value: InvoiceSearch().ConsignmentReference" />
+                </div>
+
+                <div class="pull-right col-md-1 control-group">
+                   
+                </div>
+
+            </div>
+            <div class="clearfix"></div>
+            <div class="row well well-sm">
+                <div class="col-md-3 pull-left">
+                    @Html.BuildKnockoutNextPreviousLinks("Index", "/Invoice")
+                </div>
+                <div class="col-md-6 pull-center-md">
+                    @Html.BuildKnockoutSortableLink("Reference", "Index", "/Invoice", "TicketReference")
+                    @Html.BuildKnockoutSortableLink("Create Date", "Index", "/Invoice", "CreatedDate")
+                    @Html.BuildKnockoutSortableLink("Customer", "Index", "/Invoice", "Customer")
+                </div>
+                <div class="col-md-3 pull-right">
+                    <a href="~/TabPanel/Index/18" class="col-md-push-1 btn btn-default" title="New">
+                        &nbsp;Credit Ticket <!---->
+                    </a>
+                </div>
+            </div>
+            <div class="clearfix"><br /></div>
+            <div class="col-md-12">
+                <div class="col-md-2 pull-left">
+                    Reference
+                </div>
+                <div class="col-md-2 ">
+                    Executed By
+                </div>
+                <div class="col-md-2">
+                    Customer Department
+                </div>
+                <div class="col-md-3">
+                    Sales Invoice Date
+                </div>
+
+                <div class="col-md-3 pull-right">
+                    <!--spacer-->&nbsp;
+                </div>
+            </div>
+            <div class="clearfix"><br /></div>
+            <div class="search-results" data-bind="foreach: Paging().Entities">
+                <div class="clearfix"><br /></div>
+                <div class="col-md-12">
+                    <div class="col-md-2 pull-left">
+                        <a data-bind="attr: { 'href': '@Url.Action("Details", "Invoice")' + '/' + SalesInvoiceID }">
+                            <img alt="Ticket Details" src="~/Content/images/iconinvoice.png" /><span class="NavigationLinks" data-bind="text:  SalesInvoiceReference"></span>
+                        </a>&nbsp;
+                    </div>
+                    <div class="col-md-2">
+                        <span data-bind="text: CreatedBy"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span data-bind="text:  CustomerDepartmentName"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <span data-bind="text:  SalesInvoiceDate"></span>
+                    </div>
+
+                    <div class="col-md-3 pull-right">
+                        <a data-bind="attr: { 'href': '@Url.Action("Details", "Invoice")' + '/' + SalesInvoiceID }">
+                            <img alt="Ticket Details" src="~/Content/images/view-details-512.png" />
+                        </a>&nbsp;
+                        <img alt="Print Ticket" src="~/Content/images/IconPrint-orange.png" />
+
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"><br /></div>
+
+            <div class="row">
+                <div class="well well-sm">
+                    <div class="pull-right">
+                    </div>
+                    @Html.BuildKnockoutNextPreviousLinks("Index", "/Invoice")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var invoiceModel = new InvoiceModel(@Html.Raw(data));
+    ko.validation.init({
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: true,
+        parseInputAttributes: true,
+        messageTemplate: null
+    }, true);
+
+    ko.applyBindings(invoiceModel, document.getElementById("Invoice"));
+</script>

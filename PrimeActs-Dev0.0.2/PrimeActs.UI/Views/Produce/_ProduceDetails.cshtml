@@ -1,0 +1,58 @@
+﻿@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.Produce.ProduceEditModel
+@{
+    ViewBag.Title = "View Produce";
+}
+@{ var data = new JavaScriptSerializer().Serialize(Model); }
+<script src="~/TypeScripts/Produce/ProduceDetailModel.js"></script>
+
+<div class="col-md-12" id="@ViewBag.ProducePanelId">
+
+    @Html.Partial("_TabUserContext")
+
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title">Produce Details</h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-push-2 col-md-4">
+                    <fieldset disabled="disabled">
+                        @Html.EditorFor(model => model.ProduceName, new { htmlAttributes = new { @class = "form-control", @readonly = true, @placeholder = "Produce name" } })
+                        Active @Html.CheckBoxFor(m => m.IsActive.Value, new { @readonly = true, @disable = true })
+                        @Html.EditorFor(model => model.ProduceCode, new { htmlAttributes = new { @class = "form-control", @readonly = true, @placeholder = "Produce name" } })
+                        @Html.EditorFor(model => model.RelatedProduceGroup.ProduceGroupName, new { htmlAttributes = new { @class = "form-control", @readonly = true, @placeholder = "Produce name" } })
+                        @Html.EditorFor(model => model.RelatedMasterGroup.MasterGroupName, new { htmlAttributes = new { @class = "form-control", @readonly = true, @placeholder = "Produce name" } })
+                    </fieldset>
+                </div>
+                <a href="/Produce/Index" class="NavigationLinks bottom-align-text">Back to list</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var produceName = '@ViewBag.PanelName';
+    //appViewModel.selectedSection._latestValue.tabTitle(produceName);
+    
+    var produceDetailPanelName = '@ViewBag.ProducePanelId';
+    var producedetailModel = new ProduceDetailModel(@Html.Raw(data));
+
+    ko.validation.init({
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: true,
+        parseInputAttributes: true,
+        messageTemplate: null
+    }, true);
+
+    ko.applyBindings(producedetailModel, document.getElementById(produceDetailPanelName));
+
+    var section_iterator = -1;
+    $.each(appViewModel.sections(), function (i, item) { // find existing object so that we can create an object with the same Section Details
+        if (item.name === produceDetailPanelName) {
+            section_iterator = i;
+            item.tabTitle(produceName);
+            return false;
+        }
+    });
+</script>

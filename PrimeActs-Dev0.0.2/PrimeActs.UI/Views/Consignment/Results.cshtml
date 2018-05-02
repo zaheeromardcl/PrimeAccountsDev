@@ -1,0 +1,284 @@
+﻿@model PrimeActs.Domain.ViewModels.ConsignmentPagingModel
+
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/Scripts/Consignment.js"></script>
+<script src="~/KJScripts/Paging.js"></script>
+<link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet"/>
+
+
+<body onload="FocusOnInput()">
+
+<div class="col-md-8" id="consignment">
+<div class="panel panel-default">
+    <div class="panel-heading clearfix">
+        <span class="panel-title">
+            Consignments
+            <img src="~/Content/images/IconConsignmentNavy.png" />
+        </span>
+    </div>
+<div class="panel-body">
+
+<div class="form-group">
+    <div class="row">
+
+        <div class="col-md-12 col-md-offset-1">
+            @*@Html.TextBox("searchString", "", new { @class = "form-control-search", @placeholder = "Search...." })*@
+            <input type="text" name="searchString" id="SearchCriteria" placeholder=" No or supplier code" class="form-control-search" tabindex="0"/>
+            &nbsp;&nbsp; <input class="form-control-date" id="iconFrom" type="text" placeholder="From"/>&nbsp;&nbsp;
+            <input class="form-control-date" id="iconTo" type="text" placeholder="To"/>&nbsp;&nbsp;
+            <button class="btn-search" value="">
+                <img src="~/Content/images/IconSearch.png"/>
+            </button>
+        </div>
+
+
+    </div>
+    <div class="row">
+
+        <div>
+            <div class="col-md-4 col-md-offset-1">
+                <input type="radio" name="View"/>Drafts
+
+                <input type="radio" name="View"/>Saved
+            </div>
+            <div class="col-md-2 col-md-push-3">
+                <input type="checkbox" name="To"/>Show Archived
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4 ">
+        <p> Showing page <span data-bind="text: Paging.queryOptions.currentPage"></span> of <span data-bind="text: Paging.queryOptions.totalPages"></span></p>
+    </div>
+
+</div>
+<div class="col-md-12">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-3 ">
+        @Html.BuildKnockoutNextPreviousLinks("Results", "Consignment")
+    </div>
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-3 col-md-push-1 ">
+
+
+    </div>
+</div>
+<div class="col-md-12 container-fluid panel-gridrow">
+    <div class="col-md-2 pull-left">&nbsp;</div>
+    <div class="col-md-2">&nbsp;</div>
+    <div class="col-md-2">&nbsp;</div>
+    <div class="col-md-2">&nbsp;</div>
+    <div class="col-md-2">&nbsp;</div>
+    <div class="col-md-4 pull-right">
+        Page 1 of 10
+        <select>
+            <option selected>Show me</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+        </select>
+    </div>
+</div>
+
+<div class="search-results" data-bind="foreach: Paging.Entities">
+    <div class="col-md-12 container-fluid panel-gridrow">
+        <div class="col-md-2 pull-left">&nbsp;</div>
+        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-4 pull-right">
+            &nbsp;
+        </div>
+    </div>
+    <!--column headers-->
+    <div class="col-md-12 panel-title-consignments">
+        <div class="col-md-2 pull-left">Consignment #<span class="glyphicon glyphicon-sort"></span></div>
+        <div class="col-md-2">Department</div>
+        <div class="col-md-2 pull-left">Supplied by</div>
+        <div class="col-md-2">Supplier Ref</div>
+        <div class="col-md-2">Despatched on</div>
+    </div>
+    <div class="col-md-12 panel-info">
+        <div class="col-md-2 pull-left">&nbsp;</div>
+        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-2 pull-left">&nbsp;</div>
+        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-2">&nbsp;</div>
+    </div>
+    <!--row 1-->
+    <div class="col-md-12 container-fluid panel-gridrow">
+
+        <div class="row">
+            <div class="col-md-2 NavigationLinks pull-left">C12345</div>
+            <div class="col-md-2">Fruit</div>
+            <div class="col-md-2 pull-left">AB FRuits</div>
+            <div class="col-md-2">theref</div>
+            <div class="col-md-2">21/10/2015</div>
+            <div class="col-md-2">
+                <img src="~/Content/images/IconEditNavy.png"/>
+                <img src="~/Content/images/view-details-512.png"/>
+                <img src="~/Content/images/IconPrint-orange.png"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">&nbsp;</div>
+            <div class="col-md-3 NavigationLinks">Total value: £232.23</div>
+            <div class="col-md-3 NavigationLinks">Total quantity: 12</div>
+            <div class="col-md-3">&nbsp;</div>
+        </div>
+
+    </div>
+
+    <!--row 2-->
+    <div class="col-md-12 container-fluid panel-body">
+
+        <div class="row">
+            <div class="col-md-2 NavigationLinks pull-left">C12345</div>
+            <div class="col-md-2">Fruit</div>
+            <div class="col-md-2 pull-left">AB FRuits</div>
+            <div class="col-md-2">theref</div>
+            <div class="col-md-2">21/10/2015</div>
+            <div class="col-md-2">
+                <img src="~/Content/images/IconEditNavy.png"/>
+                <img src="~/Content/images/view-details-512.png"/>
+                <img src="~/Content/images/IconPrint-orange.png"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">&nbsp;</div>
+            <div class="col-md-3 NavigationLinks">Total value: £232.23</div>
+            <div class="col-md-3 NavigationLinks">Total quantity: 12</div>
+            <div class="col-md-3">&nbsp;</div>
+        </div>
+
+    </div>
+
+    <div class="col-md-12 container-fluid panel-info">
+
+        <div class="row">
+            <div class="col-md-2 NavigationLinks pull-left">C12345</div>
+            <div class="col-md-2">Fruit</div>
+            <div class="col-md-2 pull-left">AB FRuits</div>
+            <div class="col-md-2">theref</div>
+            <div class="col-md-2">21/10/2015</div>
+            <div class="col-md-2">
+                <img src="~/Content/images/IconEditNavy.png"/>
+                <img src="~/Content/images/view-details-512.png"/>
+                <img src="~/Content/images/IconPrint-orange.png"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">&nbsp;</div>
+            <div class="col-md-3 NavigationLinks">Total value: £232.23</div>
+            <div class="col-md-3 NavigationLinks">Total quantity: 12</div>
+            <div class="col-md-3">&nbsp;</div>
+        </div>
+
+    </div>
+    <div class="col-md-12 container-fluid panel-footer">
+
+        <div class="row">
+            <div class="col-md-2 NavigationLinks pull-left">C12345</div>
+            <div class="col-md-2">Fruit</div>
+            <div class="col-md-2 pull-left">AB FRuits</div>
+            <div class="col-md-2">theref</div>
+            <div class="col-md-2">21/10/2015</div>
+            <div class="col-md-2">
+                <img src="~/Content/images/IconEditNavy.png"/>
+                <img src="~/Content/images/view-details-512.png"/>
+                <img src="~/Content/images/IconPrint-orange.png"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">&nbsp;</div>
+            <div class="col-md-3 NavigationLinks">Total value: £232.23</div>
+            <div class="col-md-3 NavigationLinks">Total quantity: 12</div>
+            <div class="col-md-3">&nbsp;</div>
+        </div>
+
+    </div>
+    <div class="col-md-12 container-fluid panel-info">
+
+        <div class="row">
+            <div class="col-md-2 NavigationLinks pull-left">C12345</div>
+            <div class="col-md-2">Fruit</div>
+            <div class="col-md-2 pull-left">AB FRuits</div>
+            <div class="col-md-2">theref</div>
+            <div class="col-md-2">21/10/2015</div>
+            <div class="col-md-2">
+                <img src="~/Content/images/IconEditNavy.png"/>
+                <img src="~/Content/images/view-details-512.png"/>
+                <img src="~/Content/images/IconPrint-orange.png"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">&nbsp;</div>
+            <div class="col-md-3 NavigationLinks">Total value: £232.23</div>
+            <div class="col-md-3 NavigationLinks">Total quantity: 12</div>
+            <div class="col-md-3">&nbsp;</div>
+        </div>
+
+    </div>
+    <div class="col-md-12 container-fluid panel-footer">
+
+        <div class="row">
+            <div class="col-md-2 NavigationLinks pull-left">C12345</div>
+            <div class="col-md-2">Fruit</div>
+            <div class="col-md-2 pull-left">AB FRuits</div>
+            <div class="col-md-2">theref</div>
+            <div class="col-md-2">21/10/2015</div>
+            <div class="col-md-2">
+                <img src="~/Content/images/IconEditNavy.png"/>
+                <img src="~/Content/images/view-details-512.png"/>
+                <img src="~/Content/images/IconPrint-orange.png"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">&nbsp;</div>
+            <div class="col-md-3 NavigationLinks">Total value: £232.23</div>
+            <div class="col-md-3 NavigationLinks">Total quantity: 12</div>
+            <div class="col-md-3">&nbsp;</div>
+        </div>
+
+    </div>
+
+    <div class="col-md-12 container-fluid panel-info">
+
+        <div class="row">
+            <div class="col-md-2 NavigationLinks pull-left">C12345</div>
+            <div class="col-md-2">Fruit</div>
+            <div class="col-md-2 pull-left">AB FRuits</div>
+            <div class="col-md-2">theref</div>
+            <div class="col-md-2">21/10/2015</div>
+            <div class="col-md-2">
+                <img src="~/Content/images/IconEditNavy.png"/>
+                <img src="~/Content/images/view-details-512.png"/>
+                <img src="~/Content/images/IconPrint-orange.png"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">&nbsp;</div>
+            <div class="col-md-3 NavigationLinks">Total value: £232.23</div>
+            <div class="col-md-3 NavigationLinks">Total quantity: 12</div>
+            <div class="col-md-3">&nbsp;</div>
+        </div>
+
+    </div>
+
+
+</div>
+</div>
+
+
+</div>
+
+
+</div>
+</body>

@@ -1,0 +1,115 @@
+<#@ template language="C#" debug="true" hostspecific="true" #>
+<#@ assembly name="Microsoft.VisualStudio.Shell.Interop.8.0" #>
+<#@ assembly name="EnvDTE" #>
+<#@ assembly name="EnvDTE80" #>
+<#@ assembly name="VSLangProj" #>
+<#@ assembly name="C:\Program Files (x86)\Microsoft SQL Server\120\SDK\Assemblies\Microsoft.SqlServer.TransactSql.ScriptDom.dll" #>
+<#@ assembly name="C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\Microsoft\SQLDB\DAC\120\Microsoft.SqlServer.Dac.dll" #>
+<#@ assembly name="C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\Extensions\Microsoft\SQLDB\DAC\120\Microsoft.SqlServer.Dac.Extensions.dll" #>
+<#@ assembly name="System.Data.Entity.Design" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="$(ProjectDir)bin\Debug\PrimeActs.CodeGen.dll" #>
+<#@ import namespace="Microsoft.VisualStudio.Shell.Interop" #>
+<#@ import namespace="EnvDTE" #>
+<#@ import namespace="EnvDTE80" #>
+<#@ import namespace="Microsoft.VisualStudio.TextTemplating" #>
+<#@ import namespace="Microsoft.SqlServer.Dac" #>
+<#@ import namespace="Microsoft.SqlServer.Dac.Model" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Globalization" #>
+<#@ import namespace="System.Data.Entity.Design.PluralizationServices" #>
+<#@ import namespace="PrimeActs.CodeGen" #>
+<#
+    var hostServiceProvider = (IServiceProvider)this.Host;
+    var dte = (DTE) hostServiceProvider.GetService(typeof(DTE));
+#><#+
+    public Project GetProjectByName(Solution solution, string projectName)
+    {
+        foreach (Project project in solution.Projects)
+        {
+            if (string.CompareOrdinal(project.Name, projectName) == 0)
+			{
+				if (!project.Saved)
+				{
+					project.Save();
+				}
+                return project;
+			}
+        }
+        return null;
+    }
+
+	public ProjectItem FindProjectItemByName(ProjectItems projectItems, string itemName)
+	{
+		ProjectItem projectItem = null;
+		foreach (ProjectItem item in projectItems)
+		{
+			if (string.CompareOrdinal(item.Name, itemName) == 0)
+			{
+				projectItem = item;
+				break;
+			}
+
+			if (item.ProjectItems != null)
+			{
+				projectItem = FindProjectItemByName(item.ProjectItems, itemName);
+				if (projectItem != null)
+				{
+					break;
+				}
+			}
+		}
+		return projectItem;
+	}
+
+	public ProjectItem FindProjectItemByName(Project project, string itemName)
+	{
+		return FindProjectItemByName(project.ProjectItems, itemName);
+	}
+
+    public List<TSqlObject> GetAllTables(TSqlModel model)
+    {
+        List<TSqlObject> allTables = new List<TSqlObject>();
+ 
+        var tables = model.GetObjects(DacQueryScopes.All, ModelSchema.Table);
+        if (tables != null)
+        {
+            allTables.AddRange(tables);
+        }
+        return allTables;
+    }
+
+    public void PopulateModelFromProjectItems(TSqlModel model, ProjectItems projectItems)
+    {
+        foreach (ProjectItem projectItem in projectItems)
+        {
+			if (projectItem.ProjectItems != null)
+			{
+				PopulateModelFromProjectItems(model, projectItem.ProjectItems);
+			}
+
+			if (projectItem.Name.EndsWith(".sql", StringComparison.OrdinalIgnoreCase))
+			{
+				if (!projectItem.Saved)
+				{
+					projectItem.Save();
+				}
+
+				StreamReader reader = new StreamReader(projectItem.FileNames[0]);
+				string script = reader.ReadToEnd();
+				model.AddObjects(script);
+			}
+        }
+    }
+
+    public DatabaseModel LoadDatabaseModel(ProjectItems projectItems)
+    {
+        using (TSqlModel model = new TSqlModel(SqlServerVersion.Sql110, new TSqlModelOptions { }))
+        {
+			PopulateModelFromProjectItems(model, projectItems);
+            return DatabaseModelHelper.LoadDatabaseModel(model);
+        }
+    }
+#>

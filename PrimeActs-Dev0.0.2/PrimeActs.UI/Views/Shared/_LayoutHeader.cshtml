@@ -1,0 +1,223 @@
+@using System.Web.Script.Serialization
+@using PrimeActs.Domain
+@using PrimeActs.Domain.ViewModels
+
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<script src="~/TypeScripts/Util/SelectOption.js"></script>
+<script src="~/TypeScripts/Util/MyCustomOption.js"></script>
+<script src="~/TypeScripts/Util/Permissions.js"></script>
+<script src="~/TypeScripts/Account/AppUserContext.js"></script>
+
+<header class="navbar navbar-fixed-top">
+    <div class="navbar-brand"><span style="color:orange">PrimeActs</span></div>
+    <div id="AppUserContext" style="margin-left:85px">
+        <div class="col-md-1 pull-left">
+
+            <link rel="shortcut icon" type="image/png" href="~/favicon.ico" />
+        </div>
+        <ul class="pull-right" style="list-style-type: none;
+                                      margin: 0;
+                                      padding: 0;">
+
+            <li style="display: inline; float: left;">
+                @Html.Partial("_LoginPartial")
+            </li>
+        </ul>
+
+    </div>
+</header>
+<div style="color:black">
+    &nbsp;
+    <table border="0" height="1px">
+        <tr>
+            <td>&nbsp;</td>
+
+        </tr>
+    </table>
+</div>
+
+<nav class="navbar navbar-inverse sidebar" role="navigation">
+    <div class="container-fluid">
+
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+                <span class="sr-only text-muted">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-pin-classic"></span>
+            </button>
+            @*<a class="navbar-brand" href="#" style="color:orange;">PrimeActs</a>*@
+
+            @*<a href="" data-toggle="collapse"><span style="font-size: 16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-menu-hamburger" data-target="#bs-sidebar-navbar-collapse-1"></span></a>*@
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+
+            <ul class="nav navbar-nav">
+
+                <li><a href="~/Home/Index">Home<span style="font-size: 16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Customers<span class="caret"></span><span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-user"></span></a>
+                    <ul class="dropdown-menu">
+
+                        <li>&nbsp;&nbsp;&nbsp;<a id="menuAddCustomer" href="~/TabPanel/Index/15">Details<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-edit"></span></a></li>
+
+                        <li>&nbsp;&nbsp;&nbsp;<a href="~/Invoice/RunInvoice">Create Sales Invoices<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-blackboard"></span></a></li>
+                        <li>&nbsp;&nbsp;&nbsp;<a href="~/Invoice/Index">View Sales Invoices<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-list"></span></a></li>
+
+                        @*<li>&nbsp;&nbsp;&nbsp;<a href="~/Ticket/CreateTicket">Tickets<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-tower"></span></a></li>
+                            <li>&nbsp;&nbsp;&nbsp;<a href="~/Invoice/Index">Invoices<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-blackboard"></span></a></li>*@
+                        @*<li>&nbsp;&nbsp;&nbsp;<a href="#">Statements<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-blackboard"></span></a></li>*@
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Suppliers<span class="caret"></span><span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-barcode"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>&nbsp;&nbsp;&nbsp;<a id="menuAddSupplier" href="~/TabPanel/Index/13">Details<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-edit"></span></a></li>
+                        @{
+                            ApplicationUser u;
+                            if (User.Identity.IsAuthenticated)
+                            {
+                                u = User.Identity.GetApplicationUser();
+
+                                if (u.Permissions.Any(p => p.PermissionController == PermissionControllerEnum.PurchaseInvoice.ToString() && p.PermissionAction == PermissionActionEnum.CreateTab.ToString()))
+                                {
+                                    <li>&nbsp;&nbsp;&nbsp;<a id="menuAddCreatePurchaseInvoice" href="~/TabPanel/Index/16">Create Purchase Invoice<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-edit"></span></a></li>
+                                }
+                            }
+                            else
+                            {
+                                return;
+                            }
+                        
+                            if (u.Permissions.Any(p => p.PermissionController == PermissionControllerEnum.InvoiceAdmin.ToString() && p.PermissionAction == PermissionActionEnum.IndexTab.ToString()))
+                            {
+                                <li>&nbsp;&nbsp;&nbsp;<a id="menuAddInvoiceAdmin" href="~/TabPanel/Index/17">Purchase Invoice Admin<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-check"></span></a></li>
+                            }
+                        }
+                        @*<li>&nbsp;&nbsp;&nbsp;<a href="~/Consignment/CreateConsignment">Orders<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-tower"></span></a></li>*@
+                        @*<li>&nbsp;&nbsp;&nbsp;<a href="~/Demo/consignmenthub">Consignments<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-tower"></span></a></li>*@
+                        @*<li>&nbsp;&nbsp;&nbsp;<a href="~Supplier/PurchaseInvoice">Invoices<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-blackboard"></span></a></li>*@
+                        @*<li>&nbsp;&nbsp;&nbsp;<a href="#">Remittance Advice<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-blackboard"></span></a></li>*@
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Trading<span class="caret"></span><span style="font-size: 16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-briefcase"></span></a>
+                    <ul class="dropdown-menu">
+                        @*<li>&nbsp;&nbsp;&nbsp;<a href="~/Demo/StockBoard">Stockboard<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-apple"></span></a></li>*@
+                        @*<li>&nbsp;&nbsp;&nbsp;<a href="~/Consignment/Order">Orders<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-tower"></span></a></li>*@
+                        @*<li>&nbsp;&nbsp;&nbsp;<a href="~/Consignment/CreateConsignment">Book in<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-tower"></span></a></li>*@
+                        @{
+                            if (u.Permissions.Any(p => p.PermissionController == PermissionControllerEnum.Consignment.ToString() && p.PermissionAction == PermissionActionEnum.CreateConsignmentTab.ToString()))
+                            {
+                                <li>&nbsp;&nbsp;&nbsp;<a id="menuAddConsignment" name="AddConsignment" href="~/TabPanel/Index/3">Consignment<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-plus-sign"></span></a></li>
+                            }
+                            
+                            if (u.Permissions.Any(p => p.PermissionController == PermissionControllerEnum.Consignment.ToString() && p.PermissionAction == PermissionActionEnum.CreateConsignmentTab.ToString()))
+                            {
+                                @*<li>&nbsp;&nbsp;&nbsp;<a id="menuAddConsignment" name="AddConsignment" href="~/TabPanel/Index/3">Consignment<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-envelope"></span></a></li>*@
+                                <li>&nbsp;&nbsp;&nbsp;<a id="menuAddConsignmentIndexTab" href="~/TabPanel/Index/25">View Consignments<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-list"></span></a></li>
+                            }
+                        }
+                        
+                        @*<li>&nbsp;&nbsp;&nbsp;<a href="~/TabPanel/Index">Tab Panel<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-envelope"></span></a></li>*@
+                        @*<li>&nbsp;&nbsp;&nbsp;<a href="~/TabPanel/Index/1">Division Tab<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-envelope"></span></a></li>
+                            <li>&nbsp;&nbsp;&nbsp;<a id="menuAddCompany" name="AddCompany" href="~/TabPanel/Index/1">Add Company<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-envelope"></span></a></li>
+                            <li>&nbsp;&nbsp;&nbsp;<a id="menuAddDepartment" name="AddDepartment" href="~/TabPanel/Index/2">Add Department<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-envelope"></span></a></li>
+                            <li>&nbsp;&nbsp;&nbsp;<a id="menuAddConsignment" name="AddConsignment" href="~/TabPanel/Index/3">Add Consignment<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-envelope"></span></a></li>*@
+                        @*<li>&nbsp;&nbsp;&nbsp;<a id="menuTicketIndex" href="~/TabPanel/Index/10">Tickets<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-plus-sign"></span></a></li>*@
+
+
+
+                        @{
+                            if (u.Permissions.Any(p => p.PermissionController == PermissionControllerEnum.Ticket.ToString() && p.PermissionAction == PermissionActionEnum.CreateCashTicket.ToString()))
+                            {
+                                <li>&nbsp;&nbsp;&nbsp;<a id="menuCreateTicket" name="AddTicket" href="~/TabPanel/Index/18">Cash Ticket<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-plus-sign"></span></a></li>
+                            }
+                            if (u.Permissions.Any(p => p.PermissionController == PermissionControllerEnum.Ticket.ToString() && p.PermissionAction == PermissionActionEnum.CreateCreditTicket.ToString()))
+                            {
+                                <li>&nbsp;&nbsp;&nbsp;<a id="menuCreateTicketCredit" name="AddTicket" href="~/TabPanel/Index/19">Credit Ticket<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-plus-sign"></span></a></li>
+                            }
+                            if (u.Permissions.Any(p => p.PermissionController == PermissionControllerEnum.Ticket.ToString() && p.PermissionAction == PermissionActionEnum.CreateReceipt.ToString()))
+                            {
+                                <li>&nbsp;&nbsp;&nbsp;<a id="menuCreateTicketReceipt" name="AddTicket" href="~/TabPanel/Index/20">Receipt<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-plus-sign"></span></a></li>
+                            }
+                        }
+
+                        <li>&nbsp;&nbsp;&nbsp;<a id="menuCreateTransfer" href="~/TabPanel/Index/12">Transfer<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-plus-sign"></span></a></li>
+                        <li>&nbsp;&nbsp;&nbsp;<a id="menuAddTicketIndexTab" href="~/TabPanel/Index/28">View Tickets<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-list"></span></a></li>
+                        @*<li>&nbsp;&nbsp;&nbsp;<a id="menuStockBoard" href="~/TabPanel/Index/22">Stock Board<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-edit"></span></a></li>
+                        <li>&nbsp;&nbsp;&nbsp;<a id="menuStockBoardAdmin" href="~/TabPanel/Index/21">Stock Board Admin<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-edit"></span></a></li>
+                        <li>&nbsp;&nbsp;&nbsp;<a id="menuStockBoardDisplay" href="~/StockBoard/LiveStockboard" target="_blank">Stock Board #1<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-edit"></span></a></li>*@
+                        @*<li>&nbsp;&nbsp;&nbsp;<a href="~/Ticket/PaymentReceipt">Receipts<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-euro"></span></a></li>*@
+                        @*<li>&nbsp;&nbsp;&nbsp;<a id="menuAddTransfer" href="~/TabPanel/Index/12">Transfers<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-export"></span></a></li>*@
+                        <li>&nbsp;&nbsp;&nbsp;<a id="menuStockBoard" href="~/StockBoard/DisplayStockBoard">Create Stock Board<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-plus-sign"></span></a></li>
+                        <li>&nbsp;&nbsp;&nbsp;<a id="menuStockBoardView" href="~/StockBoard/LiveStockBoard" target="_new">View Stock Board<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-new-window"></span></a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Accounts<span class="caret"></span><span style="font-size: 16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-text-background"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>&nbsp;&nbsp;&nbsp;<a id="menuBankReconciliation" href="~/Nominal/BankReconciliationSelect">Bank Reconciliation<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-text-background"></span></a></li>
+                        <li>&nbsp;&nbsp;&nbsp;<a id="menuJournals" href="~/Journal/Index">Journals<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-text-background"></span></a></li>
+                        <li>&nbsp;&nbsp;&nbsp;<a id="menuPeriodEnd" href="~/ClosingPeriod/Index">Period End<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-text-background"></span></a></li>
+                        <li>&nbsp;&nbsp;&nbsp;<a id="menuCashUpdate" href="~/Report/DailyBankingUpdate">Daily Banking Update<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-text-background"></span></a></li>
+                        <li>&nbsp;&nbsp;&nbsp;<a id="menuDailyCashAllocations" href="~/Report/DailyCashAllocations">Daily Cash Allocation<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-text-background"></span></a></li>
+
+                        @*<li>&nbsp;&nbsp;&nbsp;<a id="menuAddProduce" href="~/TabPanel/Index/1">Add Company<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-apple"></span></a></li>*@
+                        @*<li>&nbsp;&nbsp;&nbsp;<a id="menuAddProduce" href="~/Division/Create">Add Division<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-apple"></span></a></li>*@
+                        @*<li>&nbsp;&nbsp;&nbsp;<a id="menuAddProduce" href="~/TabPanel/Index/2">Add Department<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-apple"></span></a></li>*@
+
+
+                    </ul>
+                </li>
+
+                @*<li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Nominal<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-bookmark"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>&nbsp;&nbsp;&nbsp;<a href="~/Nominal/BankReconciliation">Bank Reconciliation<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-circle-arrow-up"></span></a></li>
+                        <li>&nbsp;&nbsp;&nbsp;<a href="~/Journal/Index">Journals<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-circle-arrow-up"></span></a></li>
+                        <li>&nbsp;&nbsp;&nbsp;<a href="~/Transaction/Index">Transactions<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-circle-arrow-up"></span></a></li>
+                        <li>&nbsp;&nbsp;&nbsp;<a href="~/ClosingPeriod/Index">End Of Period<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-circle-arrow-up"></span></a></li>
+                    </ul>*@
+
+                @*<li>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>&nbsp;&nbsp;&nbsp;<a href="~/Demo/StockBoard">Daily Sales<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-apple"></span></a></li>
+                            <li>&nbsp;&nbsp;&nbsp;<a href="~/Consignment/CreateConsignment">Completed Consignments<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-tower"></span></a></li>
+                            <li>&nbsp;&nbsp;&nbsp;<a href="~/Ticket/CreateTicket">Uninvoiced Sales<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-envelope"></span></a></li>
+
+                        </ul>
+                    </li>*@
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings<span class="caret"></span><span style="font-size: 16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-cog"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>&nbsp;&nbsp;&nbsp;<a id="menuAddProduce" href="~/TabPanel/Index/11">Produce<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-apple"></span></a></li>
+                        <li>&nbsp;&nbsp;&nbsp;<a id="menuAddCustomer" href="~/TabPanel/Index/29">Add Customer<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-plus-sign"></span></a></li>
+                        <li>&nbsp;&nbsp;&nbsp;<a id="menuViewCustomer" href="~/TabPanel/Index/31">View Customer<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-plus-sign"></span></a></li>
+                        <li>&nbsp;&nbsp;&nbsp;<a id="menuAddSupplier" href="~/TabPanel/Index/24">Add Supplier<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-plus-sign"></span></a></li>
+                        <li>&nbsp;&nbsp;&nbsp;<a id="menuViewSupplier" href="~/TabPanel/Index/30">View Supplier<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-plus-sign"></span></a></li>
+                        <li>&nbsp;&nbsp;&nbsp;<a id="menuKoTest" href="~/TabPanel/Index/32">Ko Test <span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-plus-sign"></span></a></li>
+                        @*<li>&nbsp;&nbsp;&nbsp;<a id="menuAddProduce" href="~/Division/Create">Add Division<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-apple"></span></a></li>*@
+                        @*<li>&nbsp;&nbsp;&nbsp;<a id="menuAddProduce" href="~/TabPanel/Index/2">Add Department<span style="font-size:16px;" class="pull-right showopacity glyphicon glyphicon-apple"></span></a></li>*@
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports<span class="caret"></span><span style="font-size: 16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>&nbsp;&nbsp;&nbsp;<a id="menuAddCompletedConsignmentsTab" href="~/TabPanel/Index/26">Profitised(Completed) <br />Consignments<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-list"></span></a></li>
+                        <li>&nbsp;&nbsp;&nbsp;<a id="menuAddCompletedConsignmentsTab" href="~/TabPanel/Index/27">Daily Cash<span style="font-size: 16px;" class="pull-right showopacity glyphicon glyphicon-list"></span></a></li>
+
+                    </ul>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+
+</nav>

@@ -1,0 +1,11 @@
+﻿table {
+    border-collapse:collapse;
+}
+table tr td {
+    border: 1px solid red;
+    padding:2px 15px 2px 15px;
+    width:50px;
+}
+#tabs ul li.drophover {
+    color:green;
+}

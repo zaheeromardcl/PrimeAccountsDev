@@ -1,0 +1,107 @@
+﻿<script src="~/Scripts/jquery-2.2.3.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.js" type="text/javascript"></script>
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/TypeScripts/Util/SelectOption.js"></script>
+<script src="~/TypeScripts/Report/DisectionReportViewModel.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.DisectionReportViewModel
+@{ var Itemdata = new JavaScriptSerializer().Serialize(Model); }
+
+@{
+    ViewBag.Title = "Disection Report";
+}
+<h2>Print Disection Report</h2>
+<div class="container" id="DisectionReport">
+    <div class="col-md-12">
+        @Html.Partial("_TabUserContext")
+        </div>
+    <div class="col-md-12">
+        <div class="panel-gridrow col">
+            
+            @*<div class="form-group col-md-4" data-bind="enable:false">
+                <label for="StartDate">Start Date:</label>
+                <input type="text" class="form-control" id="StartDate" data-bind="value: StartDate"></input>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="EndDate">End Date:</label>
+                <input type="text" class="form-control" id="EndDate" data-bind="value: EndDate"></input>
+            </div>*@
+            <div class="form-group col-md-4">
+                <label for="ProduceGroupStart">Produce Group Start:</label>
+                <input tabindex="0" class="form-control ui-autocomplete-input" id="ProduceGroupStart" autofocus="" type="text" data-bind=" ko_autocomplete: { source: getProduceGroupStart, select: selectProduceGroupStart} ,value:  ProduceGroupStartName" autocomplete="off">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="ProduceGroupEnd">Produce Group End:</label>
+                <input tabindex="0" class="form-control ui-autocomplete-input" id="ProduceGroupEnd" autofocus="" type="text" data-bind=" ko_autocomplete: { source: getProduceGroupEnd, select: selectProduceGroupEnd} ,value:  ProduceGroupEndName" autocomplete="off">
+            </div>
+            <div>
+
+                @*<div class="form-group col-md-4">
+                    <label for="Produce">Produce:</label>
+                    <input tabindex="0" class="form-control ui-autocomplete-input" id="Produce" autofocus="" type="text" data-bind=" ko_autocomplete: { source: getProduce, select: selectProduce} ,value:  ProduceName" autocomplete="off">
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="Department">Department:</label>
+                    <input tabindex="0" class="form-control ui-autocomplete-input" id="Department" autofocus="" type="text" data-bind=" ko_autocomplete: { source: getDepartment, select: selectDepartment} ,value:  DepartmentName" autocomplete="off">
+                </div>*@
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="panel-gridrow col">
+            <div class="form-group col-md-4">
+                <label for="AllDepartments">All Departments</label>
+                <input type="checkbox" data-bind="checked:SelectAllDept" id="AllDepartments" class="form-control" />
+                </div>
+            <div class="form-group col-md-4">
+                <label for="AllProduce">All Produce Groups</label>
+                <input type="checkbox" data-bind="checked:SelectAllProduce" id="AllProduce" class="form-control" />
+            </div>
+            </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-12">
+        @*<div class="col-md-4">
+            <button class="btn btn-primary" onclick="fnPrintTestPage()">Print Disection Report</button>
+        </div>*@
+        <div class="col-md-4">
+            <button class="btn btn-primary" data-bind="click: ViewFileClick">Display Last Disection Report</button>
+            </div>
+        <div class="col-md-4">
+            <button class="btn btn-primary" data-bind="click: RunViewFileClick">Run & Display Disection Report</button>
+        </div>
+        <div class="col-md-4">
+                <button type="button" class="btn btn-default " data-bind="click: RequestClick">
+                    Run & Print Disection Report
+                @*<span class="glyphicon glyphicon-edit"></span>*@
+            </button>
+        </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <textarea data-bind="text: DisectionReport" class="col-md-12" rows="30" style="font-family:monospace;"></textarea> 
+        </div>
+            
+    </div>
+<script type="text/javascript">
+    var DisectionReportModel = new DisectionReportViewModel(@Html.Raw(Itemdata));
+    
+    var disectionDivId = 'DisectionReport';
+    ko.applyBindingsWithValidation(DisectionReportModel, document.getElementById(disectionDivId));
+
+    function fnPrintTestPage() {
+        $.ajax({
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            url: '/demo/PrintTestDisection',
+            success: function (result) {
+                //alert('Print request submitted locally.');
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                // alert('Error submitting print request');
+            }
+        });
+    }
+</script>

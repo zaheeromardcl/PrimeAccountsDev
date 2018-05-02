@@ -1,0 +1,46 @@
+﻿@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.Users.PermissionEditModel
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/KJScripts/PermissionDetails.js"></script>
+@{
+    var data = new JavaScriptSerializer().Serialize(Model);
+}
+<div class="col-md-8" id="Users">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h3 class="panel-title text-center">Permission Details</h3>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-8 pull-right">
+                <a href="~/Permissions/Create" class="pull-right btn btn-new" title="New">
+                    <img src="~/Content/images/IconNew-orange.png"/>&nbsp;New Permission <!---->
+                </a>
+            </div>
+            <br/>
+            <dl class="dl-horizontal">
+                <dt>Controller</dt>
+                <dd>
+                    <span data-bind="text: Permission().PermissionController"></span></dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Action</dt>
+                <dd>
+                    <span data-bind="text: Permission().PermissionAction"></span>
+                </dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Description</dt>
+                <dd>
+                    <span data-bind="text: Permission().PermissionDescription"></span></dd>
+            </dl>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <a class="tab-content pull-right" href="~/Permissions/Index">Back to Permissions</a>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var user = new PermissionModel(@Html.Raw(data));
+    ko.applyBindings(user, document.getElementById("Users"));
+</script>

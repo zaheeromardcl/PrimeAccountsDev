@@ -1,0 +1,3 @@
+﻿namespace PrimeActs.Domain.ViewModels
+{
+}

@@ -1,0 +1,164 @@
+﻿@model PrimeActs.Domain.ViewModels.ConsignmentEditModel
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <p class="panel-title">Create Consignment - Summary</p>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-12">
+
+                    <div class="col-md-12">
+
+                        <div class="col-md-2">
+                            <p class="confirmationdetails">Consignment Reference</p>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.ConsignmentReference, new {htmlAttributes = new {@class = "form-control", @readonly = true, @disable = true}})
+                        </div>
+                        <div class="col-md-2">
+                            <p class="confirmationdetails">Attachments:</p>
+                        </div>
+
+                        <div class="col-md-4">
+                            file name should go here
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+
+                        <div class="col-md-2">
+                            <p class="confirmationdetails">Description</p>
+                        </div>
+
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.ConsignmentDescription, new {htmlAttributes = new {@class = " form-control", @readonly = true, @disable = true}})
+                        </div>
+
+
+                        <div class="col-md-2">
+                            <p class="confirmationdetails">Supplier Code</p>
+                        </div>
+
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.Supplier.SupplierCode, new {htmlAttributes = new {@class = "ui-autocomplete-input form-control", @placeholder = "Supplier Code", data_url = Url.Action("AutoComplete", "Consignment"), @readonly = true, @disable = true}})
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12">
+
+                        <div class="col-md-2">
+                            <p class="confirmationdetails">Supplier Name:</p>
+                        </div>
+
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.Supplier.SupplierCompanyName, new {htmlAttributes = new {@class = "form-control", @readonly = true, @disable = true, @placeholder = "Supplier Name"}})
+                        </div>
+
+                        <div class="col-md-2">
+                            <p class="confirmationdetails">Despatch Date:</p>
+                        </div>
+
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.ConsignmentDespatchDate, new {htmlAttributes = new {@class = "form-control", @readonly = true, @disable = true}})
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-12">
+
+                        <div class="col-md-2">
+                            <p class="confirmationdetails">Vehicle:</p>
+                        </div>
+
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.Vehicle, new {htmlAttributes = new {@class = "form-control", @readonly = true, @disable = true, @placeholder = "Vehicle"}})
+                        </div>
+
+                        <div class="col-md-2">
+                            <p class="confirmationdetails">Commision:</p>
+                        </div>
+
+                        <div class="col-md-2">
+                            @Html.EditorFor(model => model.PurchaseType, new {htmlAttributes = new {@class = "form-control", @readonly = true, @disable = true}})
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="col-md-12">
+
+                        <div class="col-md-2">
+                            <p class="confirmationdetails">Handling:</p>
+                        </div>
+
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.Handling, new {htmlAttributes = new {@class = "form-control", @readonly = true, @disable = true}})
+                        </div>
+
+
+                        <div class="col-md-2">
+                            <p class="confirmationdetails">
+                                Vehicle Details:
+                            </p>
+                        </div>
+
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.VehicleDetail, new {htmlAttributes = new {@class = "form-control", @readonly = true, @disable = true}})
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="col-md-12">
+                    <div class="panel-heading clearfix">
+                        <p class="panel-title">Consignment - Items</p>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            @* There should be a button in JavaScript added below this div block *@
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="ProduceCode" placeholder="Produce"/>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="Brand" placeholder="Brand"/>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="Department" placeholder="Department"/>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control" id="Quantity" placeholder="Pack"/>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control" id="ProduceCode" placeholder="Weight"/>
+                            </div>
+                            <div class="col-md-2">
+                                <select class="form-control" name="Size">
+                                    <option value="Select Size" selected>Small</option>
+                                    <option value="Select Size" selected>Large</option>
+                                    <option value="Select Size" selected>Medium</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control" id="Quantity" placeholder="Expected Quantity"/>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control" id="Quantity" placeholder="Quantity Received"/>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control" id="ProduceCode" placeholder="S"/>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

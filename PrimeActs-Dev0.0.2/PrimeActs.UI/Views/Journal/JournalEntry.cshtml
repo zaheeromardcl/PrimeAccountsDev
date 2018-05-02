@@ -1,0 +1,250 @@
+﻿@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.Journal.JournaViewlModel
+
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+
+<link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet" />
+
+<script src="~/TypeScripts/Journal/JournalEntry.js"></script>
+<script src="~/TypeScripts/Ticket/DailyCashAllocations.js"></script>
+@{string data = new JavaScriptSerializer().Serialize(Model);}
+
+@Html.Partial("_TabUserContext")
+<div class="col-md-8" id="JournalViewModelAK">
+    <!-- Invoice select divs -->
+    <div id="PurchaseInvoicesSelect" class="modal" role="application">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Select Purchase Invoice(s)</h4>
+                </div>
+                <div class="modal-body">Stuff!!</div>
+            </div>
+        </div>
+    </div>
+    <div id="SalesInvoicesSelect" class="modal" role="application">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Select Sales Invoice(s)</h4>
+                </div>
+                <div class="modal-body">Stuff!!</div>
+            </div>
+        </div>
+    </div>
+    <!-- End of invoice select divs -->
+    <div class="panel panel-default ">
+        <div class="panel-heading clearfix">
+            <p class="panel-title">Journal Entry</p>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#SalesInvoicesSelect">Open Sales Invoices</button>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#PurchaseInvoicesSelect">Open Purchase Invoices</button>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-12 panel-gridrow">
+                <div class="col-md-2"></div>
+                <div class="col-md-2 text-right">Journal Date:</div>
+                <div class="col-md-2"><input type="date" class="form-control-date" data-bind="FormattedDate: {date: JournalEntryDate, format: 'short' }" /></div>
+                <div class="col-md-3 text-right">Accounting Year:</div>
+                <div class="col-md-2"><input type="text" class="form-control" data-bind="value: JournalEntryYear" /></div>
+            </div>
+            <div class="col-md-12 panel-gridrow">
+
+                <div class="col-md-12">
+                    <div class="panel-default">
+                        <div class="panel-heading clearfix">
+                            <p class="panel-title">Purchase Ledger</p>
+                        </div>
+                        <div class="col-md-12 panel-gridrow">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-12 panel-gridrow">
+                            <div class="col-md-3">Supplier</div>
+                            <div class="col-md-3">Invoices</div>
+                            <div class="col-md-2">Amount</div>
+                            <div class="col-md-3">Description</div>
+                            <div class="col-md-1">
+                                <input type="button" class="btn btn-default" value="+ Pur" data-bind="click: addNewPurchaseLedgerEntry">
+                            </div>
+                        </div>
+                        <!-- Start of Purchase Ledger loop -->
+                        <div data-bind="foreach: PurchaseLedgerEntry">
+                            <div class="col-md-12 panel-gridrow">
+                                <div class="col-md-3">
+                                    <input type="text" name="SupplierDepartmentName" placeholder="Supplier" class="form-control" data-bind="hasfocus: SupplierHasFocus, ko_autocomplete: { source: getSupplierDepartments, select: selectSupplierDepartment }, value: SupplierDepartmentName, css:{ 'required-field': showGuidFieldRequired(SupplierDepartmentID), 'required-field-error': showError(SupplierDepartmentID) }, event: { focusout: function() { onSupplierDepartmentFocusOut() } }" autofocus />
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" name="Invoices" placeholder="Invoice Allocation" class="form-control" data-bind="" />
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" name="PurchaseAmount" placeholder="Amount" class="form-control text-right" data-bind="value: PurchaseAmount.formatted" />
+                                </div>
+                                <div class="col-md-3">
+                                    <textarea class="form-control" name="Description" placeholder="Description" data-bind="text: PurchaseLedgerEntryDescription"></textarea>
+                                </div>
+                                <div class="col-md-1">
+                                    <input type="button" class="btn btn-default" value="Delete" data-bind="click: $parent.deletePurchaseLedgerEntry">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of purchase ledger loop -->
+                        <div class="col-md-12 panel-gridrow" data-bind="visible: PurchaseLedgerEntry().length > 0">
+                            <div class="col-md-6 text-right">
+                                Total:
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" disabled class="form-control text-right" data-bind="value: PurchaseLedgerTotal.formatted" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 panel-gridrow">
+                        &nbsp;
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="panel-default">
+                        <div class="panel-heading clearfix">
+                            <p class="panel-title">Sales Ledger</p>
+                        </div>
+                        <div class="col-md-12 panel-gridrow">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-12 panel-gridrow">
+                            <div class="col-md-3">Customer</div>
+                            <div class="col-md-3">Invoices</div>
+                            <div class="col-md-2">Amount</div>
+                            <div class="col-md-3">Description</div>
+                            <div class="col-md-1"> <input type="button" class="btn btn-default" value="+ Sal" data-bind="click: addNewSalesLedgerEntry"> </div>
+                        </div>
+                        <!-- Start of Sales Ledger loop -->
+                        <div data-bind="foreach: SalesLedgerEntry">
+                            <div class="col-md-12 panel-gridrow">
+                                <div class="col-md-3">
+                                    <input type="text" name="CustomerDepartmentName" placeholder="Customer" class="form-control" data-bind="hasfocus: CustomerHasFocus, ko_autocomplete: { source: getCustomerDepartments, select: selectCustomerDepartment }, value: CustomerDepartmentName, css:{ 'required-field': showGuidFieldRequired(CustomerDepartmentID), 'required-field-error': showError(CustomerDepartmentID) }, event: { focusout: function() { onCustomerDepartmentFocusOut() } }" autofocus />
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" name="Invoices" placeholder="Invoice Allocation" class="form-control" data-bind="" />
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" name="SaleAmount" placeholder="Amount" class="form-control text-right" data-bind="value: SalesLedgerEntryDetail().SaleAmount.formatted" />
+                                </div>
+                                <div class="col-md-3">
+                                    <textarea class="form-control" name="Description" placeholder="Description" data-bind="text: SalesLedgerEntryDescription"></textarea>
+                                </div>
+                                <div class="col-md-1">
+                                    <input type="button" class="btn btn-default" value="Delete" data-bind="click: $parent.deleteSalesLedgerEntry">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of sales ledger loop -->
+                        <div class="col-md-12 panel-gridrow" data-bind="visible: SalesLedgerEntry().length > 0">
+                            <div class="col-md-6 text-right">
+                                Total:
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" disabled class="form-control text-right" data-bind="value: SalesLedgerTotal.formatted" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 panel-gridrow">
+                        &nbsp;
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="panel-default">
+                        <div class="panel-heading clearfix">
+                            <p class="panel-title">Nominal Ledger</p>
+                        </div>
+                        <div class="col-md-12 panel-gridrow">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-12 panel-gridrow">
+                            <div class="col-md-3">Account</div>
+                            <div class="col-md-3">Reference</div>
+                            <div class="col-md-2">Amount</div>
+                            <div class="col-md-3">Description</div>
+                            <div class="col-md-1"> <input type="button" class="btn btn-default" value="+ Nom" data-bind="click: addNewNominalLedgerEntry"> </div>
+                        </div>
+
+                        <!-- Start of Nominal Ledger loop -->
+                        <div data-bind="foreach: NominalLedgerEntry">
+                            <div class="col-md-12 panel-gridrow">
+                                <div class="col-md-3">
+                                    <input type="text" name="NominalAccountName" placeholder="Nominal Account" class="form-control" data-bind="hasfocus: NominalAccountHasFocus, ko_autocomplete: { source: getNominalAccounts, select: selectNominalAccount }, value: NominalAccountName, css:{ 'required-field': showGuidFieldRequired(NominalAccountID), 'required-field-error': showError(NominalAccountID) }, event: { focusout: function() { onNominalAccountFocusOut() } }" autofocus />
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" name="NominalLedgerEntryReference" placeholder="Reference" data-bind="value: NominalLedgerEntryReference" />
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" name="NominalLedgerEntryAmount" placeholder="Amount" class="form-control text-right" data-bind="value: NominalLedgerEntryAmount.formatted" />
+                                </div>
+                                <div class="col-md-3">
+                                    <textarea class="form-control" name="Description" data-bind="text: NominalLedgerEntryDescription, placeholder: DescriptionPlaceHolder"></textarea>
+                                </div>
+                                <div class="col-md-1">
+                                    <input type="button" class="btn btn-default" value="Delete" data-bind="click: $parent.deleteNominalLedgerEntry">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of nominal ledger loop -->
+                        <div class="col-md-12 panel-gridrow">
+                            <div class="col-md-1 text-right">
+                                Nominal Total:
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" disabled class="form-control text-right" data-bind="value: NominalLedgerTotal.formatted" />
+                            </div>
+                            <div class="col-md-1 text-right">
+                                Purchase Ledger:
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" disabled class="form-control text-right" data-bind="value: PurchaseLedgerTotalNegative.formatted" />
+                            </div>
+                            <div class="col-md-1 text-right">
+                                Sales Ledger:
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" disabled class="form-control text-right" data-bind="value: SalesLedgerTotal.formatted" />
+                            </div>
+                            <div class="col-md-1 text-right">
+                                Balance:
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" disabled class="form-control text-right" data-bind="value: NominalLedgerBalance.formatted" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="col-md-12">
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+            <input type="button" class="btn btn-default col-md-12" value="Save" data-bind="click: saveJournal, enable: EnableSave">
+
+        </div>
+    </div>
+</div>
+<div class="col-md-4"></div>
+
+<script>
+    ko.bindingHandlers.placeholder = {
+        init: function (element, valueAccessor, allBindingsAccessor) {
+            var underlyingObservable = valueAccessor();
+            ko.applyBindingsToNode(element, { attr: { placeholder: underlyingObservable } });
+        }
+    };
+    var journalEntry = new JournalEntryViewModel(@Html.Raw(data));
+    ko.applyBindings(journalEntry, document.getElementById("JournalViewModelAK"));
+
+    $('#SalesInvoicesSelect').modal({
+        backdrop: 'static', show: false
+    })
+    $('#PurchaseInvoicesSelect').modal({
+        backdrop: 'static', show: false
+    })
+    //ko.applyBindings(createPruchaseInvoiceModel, document.getElementById(panelName));
+</script>

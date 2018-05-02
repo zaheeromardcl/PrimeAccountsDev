@@ -1,0 +1,9 @@
+---- RUN THIS LINE TO PULL RIGHT COLLATION FROM DATABASE.
+----SELECT name, collation_name FROM sys.databases;
+
+---- RUN THIS LINE TO CREATE DATABASE.
+--/****Create DATABASE tables****/
+
+--CREATE DATABASE dATABASENAME
+--COLLATE SQL_Latin1_General_CP1_CI_AS
+--GO

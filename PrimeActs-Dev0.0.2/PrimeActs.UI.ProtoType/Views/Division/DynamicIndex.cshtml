@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<script src="~/js/jquery-2.2.0.js"></script>
+<div class="row"><br /></div>
+<div class="toolbar">
+    <button id="division-button" data-bind="click:add('division')">New Division</button>
+    @*<button id="company-button">New Company</button>
+    <button id="department-button">New Department</button>*@
+</div>
+<div id="content">
+    <ul id="task-list"></ul>
+
+</div>
+<script src="~/Scripts/require.js" data-main="../js/main.js"></script>

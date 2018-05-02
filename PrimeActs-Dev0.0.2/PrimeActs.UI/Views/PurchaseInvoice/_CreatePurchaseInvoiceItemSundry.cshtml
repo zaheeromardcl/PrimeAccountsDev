@@ -1,0 +1,152 @@
+﻿
+
+
+<div class="list-group-item-heading">
+    <div class="row">
+        @*<div class="col-md-1">
+                <p>&nbsp;</p>
+            </div>*@
+        @*<div class="col-md-3">
+                <p>Date</p>
+            </div>*@
+        <div class="col-md-6">
+            <p>Description</p>
+        </div>
+        <div class="col-md-2">
+            <p>Charge Type</p>
+        </div>
+        <div class="col-md-1">
+            <p>Quantity</p>
+        </div>
+        <div class="col-md-1">
+            <p>U Cost</p>
+        </div>
+        <div class="col-md-1">
+            <p>Total</p>
+        </div>
+        <div class="col-md-1">
+            <p>&nbsp;</p>
+        </div>
+    </div>
+</div>
+<div class="list-group-ticketitem topborder clearfix" data-bind="foreach: PurchaseInvoice().PurchaseInvoiceItemsSundry, setFocus: {}">
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-6">
+                <input class="form-control" type="text" data-bind="value: Description, css:{ 'required-field': $root.PurchaseInvoice().showRequired(Description), 'required-field-error': showError(Description) }, event: { focusout: function() { $root.onFocusOutSundry($index()) } }" />
+            </div>
+            <div class="col-md-2">
+                <select data-bind="options: $root.PurchaseChargeTypes, value: PurchaseInvoiceItemChargeTypeID, optionsValue : function(item) { return item.itemID}, optionsText: function(item) { return item.itemValue}, event: { focusout: function() { $root.onFocusOutSundry($index()) } }" class="form-control"></select>
+            </div>
+            <div class="col-md-1">
+                <input type="text" placeholder="Quantity" class="form-control" data-bind="value : Quantity.formatted, css:{ 'required-field': $root.PurchaseInvoice().showRequired(Quantity), 'required-field-error': showError(Quantity) }, event: { focusout: function() { $root.onFocusOutSundry($index()) } }" />
+            </div>
+            <div class="col-md-1">
+                <input type="text" placeholder="U Cost" class="form-control" data-bind="value : UnitPrice.formatted, css:{ 'required-field': $root.PurchaseInvoice().showRequired(UnitPrice), 'required-field-error': showError(UnitPrice) }, event: { focusout: function() { $root.onFocusOutSundry($index()) } }" />
+            </div>
+            <div class="col-md-1">
+                <input type="text" placeholder="Total" class="form-control" data-bind="value : TotalPrice.formatted, css:{ 'required-field': $root.PurchaseInvoice().showRequired(TotalPrice), 'required-field-error': showError(TotalPrice) }, event: { focusout: function() { $root.onFocusOutSundry($index()) } }" />
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-danger btn-block" tabindex="-1" data-bind="click: function() { $root.removeItemSundry($index()) }">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row row-padding5 clearfix">
+    <div class="col-md-1 pull-left">
+        <button class="btn btn-default btn-block" data-bind="click: function() { $root.addNewItemSundry() }">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+    </div>
+</div>
+
+<div class="row clearfix">
+    <ul id="InvoiceTotals" class="col-md-12">
+        <li>
+            <div class="col-md-11 bottomborder">
+                &nbsp;
+            </div>
+            <div class="col-md-11 bottomborder">
+                Totals
+            </div>
+
+        </li>
+
+        <li style="list-style: none">
+
+            <div class="col-md-11">
+                &nbsp;
+            </div>
+            <div class="col-md-12 panel-gridrow">
+                <div class="col-md-8">
+                    &nbsp;
+                </div>
+                <div class="col-md-2">Total Consignments:</div>
+                <div class="col-md-2" data-bind="text: PurchaseInvoice().TotalOfItems.formatted"></div>
+
+            </div>
+            <div class="col-md-12 panel-gridrow">
+                <div class="col-md-8">
+                    &nbsp;
+                </div>
+                <div class="col-md-2">VAT:</div>
+                <div class="col-md-2" data-bind="text: PurchaseInvoice().VAT.formatted"></div>
+
+            </div>
+            <div class="col-md-12 panel-gridrow">
+                &nbsp;
+            </div>
+        </li>
+
+        <li style="list-style: none">
+            <div class="col-md-11 bottomborder">
+                &nbsp;
+            </div>
+            <div class="col-md-11">
+                &nbsp;
+            </div>
+            <div class="col-md-12 panel-gridrow">
+                <div class="col-md-8">
+                    &nbsp;
+
+                </div>
+                <div class="col-md-4">Total Charges: 142.25</div>
+                <div class="col-md-1"></div>
+
+            </div>
+
+            <div class="col-md-12 panel-gridrow">
+                &nbsp;
+            </div>
+        </li>
+
+        <li style="list-style: none">
+            <div class="col-md-11 bottomborder">
+                &nbsp;
+            </div>
+            <div class="col-md-11">
+                &nbsp;
+            </div>
+            <div class="col-md-12 panel-gridrow">
+                <div class="col-md-8">
+                    &nbsp;
+
+                </div>
+                <div class="col-md-2">Invoice Total: </div>
+                <div class="col-md-2" data-bind="text: PurchaseInvoice().Total.formatted"></div>
+                <div class="col-md-1"></div>
+
+            </div>
+
+            <div class="col-md-12 panel-gridrow">
+                <div class="col-md-offset-8 pull-right">
+                    <input type=button class="btn btn-default" value="Save Invoice" data-bind="click: function(){ payInvoice();}" />
+                </div>
+            </div>
+        </li>
+
+    </ul>
+</div>

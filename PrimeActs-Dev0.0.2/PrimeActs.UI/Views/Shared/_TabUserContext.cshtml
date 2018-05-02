@@ -1,0 +1,50 @@
+﻿@*
+    To hide or show drop downs depending on context of page use the AppUserContextModel knockoutobservbles ShowCompanies, ShowDivisions, ShowDepartments
+    e.g. 
+        this.TabContext = ko.observable(new AppUserContextModel(data.UserContextModel, true));
+        this.TabContext().ShowDepartments = ko.observable(false);
+    will hide the Departments drop down
+    Any drop down showing only 1 entry will automaticaly hide.
+    By default the drop down will not show comapnies, divisions and departments where IsActive = false. To include those set IncludeInactiveOptions to true
+    e.g.
+        this.TabContext().IncludeInactiveOptions(true);
+    For a drop down tp show an entry the user must have permision for that company/division/department ste through their roles. You can enter 1 or more permissions using
+    AddRequiredPermission(permissionID: string). If multiple permissionIDs are entered any 1 of them is required for the item to show
+*@
+<div class="col-md-6 TabUserContext">
+    <div class="container">
+        <div class="row">
+            <ul class="breadcrumb">
+                <li class="dropdown company-breadcrumb" data-bind="visible: $root.TabContext().IsCompanyVisible">
+                    <a class="dropdown-toggle" id="branches" role="button" data-toggle="dropdown" href="#"><span data-bind="text: $root.TabContext().SelectedCompanyText"></span><b class="caret"></b></a>
+                    <ul data-bind="foreach: TabContext().Companies" id="branches-dropdown" class="dropdown-menu">
+                        <li>
+                            @*<a data-bind="text: display, click: function (){ $root.TabContext().SelectedCompanyId(itsValue); }" href="#" class="breadcrumb-option"></a>*@
+                            <a data-bind="text: CompanyName, click: function (){ $root.TabContext().SelectCompany(CompanyID); }" href="#" class="breadcrumb-option"></a>
+                        </li>
+                    </ul>
+                    <span class="divider">>></span>
+                </li>
+                <li class="dropdown division-breadcrumb" data-bind="visible: $root.TabContext().IsDivisionVisible">
+                    <a class="dropdown-toggle" id="branches2" role="button" data-toggle="dropdown" href="#"><span data-bind="text: $root.TabContext().SelectedDivisionText"></span><b class="caret"></b></a>
+                    <ul data-bind="foreach: TabContext().Divisions" id="branches2-dropdown" class="dropdown-menu">
+                        <li>
+                            @*<a data-bind="text: display, click: function (){ $root.TabContext().SelectedDivisionId(itsValue); }" href="#" class="breadcrumb-option"></a>*@
+                            <a data-bind="text: DivisionName, click: function (){ $root.TabContext().SelectDivision(DivisionID); }" href="#" class="breadcrumb-option"></a>
+                        </li>
+                    </ul>
+                    <span class="divider">>></span>
+                </li>
+                <li class="dropdown department-breadcrumb" data-bind="visible: $root.TabContext().IsDepartmentVisible">
+                    <a class="dropdown-toggle" id="branches3" role="button" data-toggle="dropdown" href="#"><span data-bind="text: $root.TabContext().SelectedDepartmentText"></span><b class="caret"></b></a>
+                    <ul data-bind="foreach: TabContext().Departments" id="branches3-dropdown" class="dropdown-menu">
+                        <li>
+                            @*<a data-bind="text: display, click: function (){ $root.TabContext().SelectedDepartmentId(itsValue);$root.TabContext().SelectedDepartmentText(display); }" href="#" class="breadcrumb-option"></a>*@
+                            <a data-bind="text: DepartmentName, click: function (){ $root.TabContext().SelectDepartment(DepartmentID); }" href="#" class="breadcrumb-option"></a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,300 @@
+﻿@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.SupplierEditModel
+
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet" />
+<script src="~/TypeScripts/Supplier/CreateSupplier.js"></script>
+@{
+    string data = new JavaScriptSerializer().Serialize(Model);
+}
+
+<div class="col-md-12" id="@ViewBag.SupplierPanel">
+<div class="panel panel-default">
+    <div class="panel-heading clearfix">
+        <p class="panel-title">Supplier Summary</p>
+        <p>@ViewBag.PanelName</p>
+    </div>
+    <div class="col-md-12">
+        <div class="col-md-2 col-md-offset-10">
+            &nbsp;
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row header">
+            <div class="col-sm-4">
+                <div class="well">
+                    <p>
+                        Supplier company name:
+                        <strong>
+                            <span data-bind="text: supplierModel().SupplierCompanyName"></span>
+                        </strong>
+                    </p>
+                    <p>
+                        Supplier code:
+                        <strong>
+                            <span data-bind="text: supplierModel().SupplierCode"></span>
+                        </strong>
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="well">
+                    <p>Parent SupplierID: <span data-bind="text: supplierModel().ParentSupplierID"></span></p>
+                    <p>Is Haulier: <span data-bind="text: supplierModel().IsHaulier ? 'YES' : 'NO'"></span></p>
+                    <p>Is Factor: <span data-bind="text: supplierModel().IsFactor ? 'YES' : 'NO'"></span></p>
+                    <p>Note ID: <span data-bind="text: supplierModel().NoteID"></span></p>
+                    <p>Notes: <span data-bind="text: supplierModel().Notes"></span></p>
+                </div>
+            </div><!--/col-->
+
+            <div class="col-sm-4">
+                <div class="well">
+                    <p>Updated By:<span data-bind="text: supplierModel().UpdatedBy"></span></p>
+                    @if (Model.UpdatedDate != null)
+                    {
+                        <p>Updated At:<span data-bind="FormattedDate: {date: supplierModel().UpdatedDate(), format: 'txtlong'}"></span></p>
+                    }
+                    <p>Created By:<span data-bind="text: supplierModel().CreatedBy"></span></p>
+                    @if (Model.CreatedDate != null)
+                    {
+                        <p>Created At:<span data-bind="FormattedDate: {date: supplierModel().CreatedDate(), format: 'txtlong'}"></span></p>
+                    }
+                    <p></p>
+                </div>
+            </div>
+        </div><!--/row-->
+    </div>
+</div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Supplier's Locations Details
+        </div>
+        <div class="panel-body">
+            <ul data-bind="foreach: {data: supplierModel().SupplierLocations, as: 'splctn'}">
+                <li class="row">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p> Supplier Location Name
+                                <span data-bind="text : splctn.SupplierLocationName"></span>
+                            </p>
+                        </div>
+                        <div class="col-md-3">
+                            <p> Telephone Number
+                                <span data-bind="text : splctn.TelephoneNumber"></span>
+                            </p>
+                        </div>
+                        <div class="col-md-3">
+                            <p> Fax Number
+                                <span data-bind="text : splctn.FaxNumber"></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            Address Line1
+                            <span data-bind="text : splctn.AddressLine1"></span>
+                        </div>
+                        <div class="col-md-4">
+                            Address Line2
+                            <span data-bind="text : splctn.AddressLine2"></span>
+                        </div>
+                        <div class="col-md-4">
+                            Address Line3
+                            <span data-bind="text : splctn.AddressLine3"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            County City
+                            <span data-bind="text : splctn.CountyCity"></span>
+                        </div>
+                        <div class="col-md-4">
+                            Postal Town
+                            <span data-bind="text : splctn.PostalTown"></span>
+                        </div>
+                        <div class="col-md-4">
+                            Postcode
+                            <span data-bind="text : splctn.Postcode"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 pull-right">
+                            Notes
+                            <span data-bind="text : splctn.Notes"></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Supplier's Departments Details
+        </div>
+        <div class="panel-body">
+            <ul data-bind="foreach: {data: supplierModel().SupplierDepartments, as: 'item'} ">
+                <li class="row">
+                    <div class="row">
+                        <div class="col-md-6">
+                            Supplier Department Name
+                            <span data-bind="text : item.SupplierDepartmentName"></span>
+                        </div>
+                        <div class="col-md-3">
+                            Commission
+                            <span data-bind="text : item.Commission.formatted"></span>
+                        </div>
+                        <div class="col-md-3">
+                            Handling
+                            <span data-bind="text : item.Handling.formatted"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            Factor Supplier DepartmentID
+                            <span data-bind="text: item.FactorSupplierDepartmentID"></span>
+                        </div>
+                        <div class="col-md-6">
+                            Country
+                            <span data-bind="text: item.CountryName"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            Email Address
+                            <span data-bind="text : item.EmailAddress"></span>
+                        </div>
+                        <div class="col-md-3">
+                            Credit Terms
+                            <span data-bind="text: item.CreditTerm"></span>
+                        </div>
+                        <div class="col-md-3">
+                            Credit Limit
+                            <span data-bind="text : item.CreditLimit"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 pull-left">
+                            IsTransactionTaxExempt
+                            <span data-bind="text: item.IsTransactionTaxExempt"></span>
+                        </div>
+                        <div class="col-md-3">
+                            TransactionTaxReference
+                            <span data-bind="text : item.TransactionTaxReference"></span>
+                        </div>
+                        <div class="col-md-3 pull-left">
+                            Gives Rebate
+                            <span data-bind="text: item.GivesRebate"></span>
+                        </div>
+                        <div class="col-md-3">
+                            Rebate Amount
+                            <span data-bind="text : item.RebateAmount, enable: item.GivesRebate"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            Locations
+                            <select data-bind="options: item.LbxLocationOptions
+                                , optionsValue: 'Id'
+                                , optionsText: 'label'
+                                , selectedOptions: item.SelectedLocationIds
+                                , multiselect: { includeSelectAllOption: false }"
+                                    class="form-control" multiple="multiple" id="lbx_loc_of_dep"></select>
+                            @*<span data-bind="text: item.SelectedLocationIds"></span>*@
+                        </div>
+                        <div class="col-md-4 pull-right">
+                            Notes
+                            <span data-bind="text : item.Notes"></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Supplier's Contacts Details
+        </div>
+        <div class="panel-body">
+            <ul data-bind="foreach: {data: supplierModel().SupplierContacts, as: 'spcnct'}">
+                <li class="row">
+                    <div class="row">
+                        <div class="col-md-2">
+                            ContactType
+                            <span data-bind="text : spcnct.ContactType"></span>
+                        </div>
+                        <div class="col-md-3">
+                            EmailAddress
+                            <span data-bind="text : spcnct.EmailAddress"></span>
+                        </div>
+                        <div class="col-md-1">
+                            Title
+                            <span data-bind="text : spcnct.Title"></span>
+                        </div>
+                        <div class="col-md-3">
+                            First Name
+                            <span data-bind="text : spcnct.FirstName"></span>
+                        </div>
+                        <div class="col-md-3">
+                            Last Name
+                            <span data-bind="text : spcnct.LastName"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            Telephone No
+                            <span data-bind="text : spcnct.DDITelephoneNo"></span>
+                        </div>
+                        <div class="col-md-2">
+                            Mobile No
+                            <span data-bind="text : spcnct.MobileNo"></span>
+                        </div>
+                        <div class="col-md-8">
+                            Notes
+                            <span data-bind="text : spcnct.Notes"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            Locations
+                            <select multiple="multiple" data-bind="options: spcnct.LbxLocationOptions
+                                , optionsValue: 'Id'
+                                , optionsText: 'label'
+                                , selectedOptions: spcnct.SelectedLocationIds
+                                , multiselect: { includeSelectAllOption: false }"
+                                    class="form-control" multiple="multiple" id="lbx_loc_of_dep"></select>
+                            @*<span data-bind="text: spcnct.SelectedLocationIds"></span>*@
+                        </div>
+                        <div class="col-md-4">
+                            Departments
+                            <select multiple="multiple" data-bind="options: spcnct.LbxDepartmentOptions
+                                , optionsValue: 'Id'
+                                , optionsText: 'label'
+                                , selectedOptions: spcnct.SelectedDepartmentIds
+                                , multiselect: { includeSelectAllOption: false }"
+                                    class="form-control" multiple="multiple" id="lbx_dep_of_con"></select>
+                            @*<span data-bind="text: spcnct.SelectedDepartmentIds"></span>*@
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+<script>
+    var supplierRaw_data = @Html.Raw(data);
+    var supplierPanelName = '@ViewBag.SupplierPanel';
+    console.log(supplierPanelName);
+    console.log(ko.toJSON(supplierRaw_data));
+    var showSupplierDetailsModel = new ShowSupplierDetailsModel(supplierRaw_data);
+    var _DOMelement = document.getElementById(supplierPanelName);
+    ko.cleanNode(_DOMelement);
+    ko.applyBindings(showSupplierDetailsModel, _DOMelement);
+</script>

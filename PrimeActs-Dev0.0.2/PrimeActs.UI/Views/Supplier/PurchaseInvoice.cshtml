@@ -1,0 +1,358 @@
+﻿
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.js"></script>
+
+<link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet" />
+
+<script src="~/TypeScripts/PurchaseInvoice/PurchaseInvoiceDetails.js"></script>
+<script src="~/TypeScripts/Util/AddressModel.js"></script>
+<script src="~/TypeScripts/PurchaseInvoice/CreatePurchaseInvoice.js"></script>
+
+<div id="PurchaseInvoice" class="container-fluid col-md-12">
+    <div class="col-md-8">
+
+
+        <div class="col-md-12">&nbsp;</div>
+
+        <div class="panel panel-default" id="EnterPurchaseInvoice">
+            <div class="panel-heading clearfix">
+                Create Purchase Invoice
+                <span class="glyphicon glyphicon-credit-card"></span>
+            </div>
+            <div class="panel-body" id="InvoiceSummary">
+                <div class="col-md-12">&nbsp;</div>
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        Supplier Name/Code
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" placeholder="Supplier" class="form-control" data-bind="ko_autocomplete: { source: getSupplierDepartments, select: selectSupplierDepartment }, value: PurchaseInvoice().SupplierDepartmentName, css:{ 'required-field': $root.PurchaseInvoice().showGuidFieldRequired(PurchaseInvoice().SupplierDepartmentID), 'required-field-error': PurchaseInvoice().showError(PurchaseInvoice().SupplierDepartmentID) }, event: { focusout: function() { $root.onSupplierDepartmentFocusOut() } }" autofocus />
+                    </div>
+                    <div class="col-md-2">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-4">
+                        &nbsp;
+
+                    </div>
+
+
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        Supplier Invoice Ref:
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" placeholder="Invoice Ref." class="form-control" data-bind="value: PurchaseInvoice().PurchaseInvoiceReference, css:{ 'required-field': $root.PurchaseInvoice().showRequired(PurchaseInvoice().PurchaseInvoiceNumber), 'required-field-error': PurchaseInvoice().showError(PurchaseInvoice().PurchaseInvoiceNumber) }, event: { focusout: function() { $root.onPurchaseInvoiceFocusOut() } }" />
+                    </div>
+
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        Supplier Invoice Date:
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <input type="text" id="iconFrom" class="form-control-date" data-bind="datepicker: PurchaseInvoice().PurchaseInvoiceDate, datepickerOptions: { dateFormat: 'dd/mm/yy'}, css:{ 'required-field': $root.PurchaseInvoice().showRequired(PurchaseInvoice().PurchaseInvoiceDate), 'required-field-error': PurchaseInvoice().showError(PurchaseInvoice().PurchaseInvoiceDate) }, event: { focusout: function() { $root.onPurchaseInvoiceFocusOut() } }" />
+                    </div>
+                    <div class="col-md-2">
+                        Invoice Total:
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" placeholder="Invoice Total" class="form-control" id="InvoiceTotal" data-bind="value: PurchaseInvoice().Subtotal.formatted" disabled />
+                    </div>
+
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        &nbsp;
+                    </div>
+
+                    <div class="col-md-4">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-2">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-4">
+                        <input type="button" class="btn btn-default" data-bind="click: function() { createPurchaseInvoice($data); }, hasFocus: PurchaseInvoice().FocusAddItems" value="Add items" />
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="Consignments" class="panel panel-default" hidden>
+            <div class="panel-heading clearfix">
+                <span class="panel-title">Supplier Consignments <img src="~/Content/images/IconSearch.png" /></span>
+            </div>
+
+            <div class="panel-body">
+                <table class="table-responsive col-md-12 table-striped">
+                    <thead class="tableheader">
+                        <tr><td></td><td></td><td>Consignment (1 month)</td><td></td><td></td></tr>
+                        <tr><td>Supplier</td><td>Consignment Ref.</td><td>Date</td><td>Details</td><td></td></tr>
+                    </thead>
+                    <tbody>
+
+                        <tr><td>Gerber</td><td><a href="/Consignment/Details/00760000-0000-0006-8247-753857014652">TU090990</a></td><td>01/02/2016</td><td>£4.50</td><td></td></tr>
+                        <tr><td>Gerber</td><td><a href="/Consignment/Details/00760000-0000-0006-8247-753857014652">TU090990</a></td><td>01/02/2016</td><td>£4.50</td><td></td></tr>
+                        <tr><td>Gerber</td><td><a href="/Consignment/Details/00760000-0000-0006-8247-753857014652">TU090990</a></td><td>01/02/2016</td><td>£4.50</td><td></td></tr>
+                        <tr><td>Gerber</td><td><a href="/Consignment/Details/00760000-0000-0006-8247-753857014652">TU090990</a></td><td>01/02/2016</td><td>£4.50</td><td></td></tr>
+
+                        <tr><td>Gerber</td><td><a href="/Consignment/Details/00760000-0000-0006-8247-753857014652">TU090990</a></td><td>01/02/2016</td><td>£4.50</td><td></td></tr>
+                        <tr><td>Gerber</td><td><a href="/Consignment/Details/00760000-0000-0006-8247-753857014652">TU090990</a></td><td>01/02/2016</td><td>£4.50</td><td></td></tr>
+                        <tr><td>Gerber</td><td><a href="/Consignment/Details/00760000-0000-0006-8247-753857014652">TU090990</a></td><td>01/02/2016</td><td>£4.50</td><td></td></tr>
+                        <tr><td>Gerber</td><td><a href="/Consignment/Details/00760000-0000-0006-8247-753857014652">TU090990</a></td><td>01/02/2016</td><td>£4.50</td><td></td></tr>
+
+                        <tr><td>Gerber</td><td><a href="/Consignment/Details/00760000-0000-0006-8247-753857014652">TU090990</a></td><td>01/02/2016</td><td>£4.50</td><td></td></tr>
+                        <tr><td>Gerber</td><td><a href="/Consignment/Details/00760000-0000-0006-8247-753857014652">TU090990</a></td><td>01/02/2016</td><td>£4.50</td><td></td></tr>
+                        <tr><td>Gerber</td><td><a href="/Consignment/Details/00760000-0000-0006-8247-753857014652">TU090990</a></td><td>01/02/2016</td><td>£4.50</td><td></td></tr>
+                        <tr><td>Gerber</td><td><a href="/Consignment/Details/00760000-0000-0006-8247-753857014652">TU090990</a></td><td>01/02/2016</td><td>£4.50</td><td></td></tr>
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="panel panel-default" data-bind="visible: PurchaseInvoice().HasItems()">
+            <div class="panel-heading clearfix">
+                Invoice Items
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-offset-8 pull-right row-padding5">
+                        <a href="#" class="Headerlinks" data-toggle="collapse" data-target="#Consignments">List Consignments</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <ul class="list-group">
+                        <li class="list-group-item-heading">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <p>&nbsp;</p>
+                                </div>
+                                @*<div class="col-md-3">
+                                        <p>Date</p>
+                                    </div>*@
+                                <div class="col-md-5">
+                                    <p>Description</p>
+                                </div>
+                                <div class="col-md-1">
+                                    <p>Quantity</p>
+                                </div>
+                                <div class="col-md-2">
+                                    <p>U Cost</p>
+                                </div>
+                                <div class="col-md-1">
+                                    <p>Total</p>
+                                </div>
+                                <div class="col-md-1">
+                                    <p>&nbsp;</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-ticketitem topborder" data-bind="foreach: PurchaseInvoice().PurchaseInvoiceItems, setFocus: {}">
+                            <div id="ticketItemRow" class="row">
+                                <div class="col-md-1">
+                                    <img src="~/Content/images/IconConsignment.png" />
+                                </div>
+                                @*<div class="col-md-3">
+                                        <input type="text" id="iconFrom" class="form-control-date" data-bind="value : PurchaseDate" />
+                                    </div>*@
+                                <div class="col-md-5">
+                                    <input type="text" placeholder="Consignment" class="form-control" data-bind="ko_autocompleteProduce: { source: getProduce, select: selectProduce}, value: Description, css:{ 'required-field': $root.PurchaseInvoice().showGuidFieldRequired(ConsignmentItemID), 'required-field-error': showError(ConsignmentItemID) }, hasFocus: FocusConsignment, event: { focusout: function() { $root.onConsignmentFocusOut($index()) } }" />
+                                </div>
+                                <div class="col-md-1">
+                                    <input type="text" placeholder="Quantity" class="form-control" data-bind="value : Quantity.formatted, css:{ 'required-field': $root.PurchaseInvoice().showRequired(Quantity), 'required-field-error': showError(Quantity) } , event: { focusout: function() { $root.onFocusOut($index()) } }" />
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" placeholder="U Cost" class="form-control" data-bind="value : UnitPrice.formatted, css:{ 'required-field': $root.PurchaseInvoice().showRequired(UnitPrice), 'required-field-error': showError(UnitPrice) }, event: { focusout: function() { $root.onFocusOut($index()) } }" />
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" placeholder="Total" class="form-control" data-bind="value : TotalPrice.formatted" disabled />
+                                </div>
+                                <div class="col-md-1">
+                                    <button class="btn btn-danger btn-block" tabindex="-1" data-bind="click: function() { $root.removeItem($index()) }">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="col-md-1">
+                                <button class="btn btn-default btn-block" data-bind="click: function() { $root.addNewItem() }">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <ul id="InvoiceCharges">
+                        <li>
+                            <div class="col-md-11 bottomborder">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-11 bottomborder">
+                                Charges
+
+                            </div>
+
+                        </li>
+
+                        <li style="list-style: none">
+
+                            <div class="col-md-11">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-12 panel-gridrow">
+
+
+                                <div class="col-md-5 col-md-offset-1">
+                                    <input type="text" class="form-control" placeholder="Description" />
+                                </div>
+                                <div class="col-md-2">
+                                    <select class="form-control"><option selected>Charge Type</option><option>Transport</option><option>Sundry</option><option>Shipping</option></select>
+                                </div>
+                                <div class="col-md-1">
+                                    <input type="text" class="form-control" placeholder="Total" />
+                                </div>
+                                <button class="btn btn-danger col-md-1">+ </button>
+                            </div>
+
+                            <div class="col-md-12 panel-gridrow">
+                                &nbsp;
+                            </div>
+                        </li>
+
+                        <li style="list-style: none">
+                            <div class="col-md-11 bottomborder">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-11">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-12 panel-gridrow">
+
+                                <div class="col-md-5 col-md-offset-1">
+                                    <input type="text" class="form-control" placeholder="Description" />
+                                </div>
+                                <div class="col-md-2">
+                                    <select class="form-control"><option selected>Charge Type</option><option>Transport</option><option>Sundry</option><option>Shipping</option></select>
+                                </div>
+                                <div class="col-md-1">
+                                    <input type="text" class="form-control" placeholder="Total" />
+                                </div>
+                                <button class="btn btn-danger col-md-1">+ </button>
+                            </div>
+
+                            <div class="col-md-12 panel-gridrow">
+                                &nbsp;
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+                <ul id="InvoiceTotals">
+                    <li>
+                        <div class="col-md-11 bottomborder">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-11 bottomborder">
+                            Totals
+                        </div>
+
+                    </li>
+
+                    <li style="list-style: none">
+
+                        <div class="col-md-11">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-12 panel-gridrow">
+                            <div class="col-md-8">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-2">Total Consignments:</div>
+                            <div class="col-md-2" data-bind="text: PurchaseInvoice().TotalOfItems.formatted"></div>
+
+                        </div>
+                        <div class="col-md-12 panel-gridrow">
+                            <div class="col-md-8">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-2">VAT:</div>
+                            <div class="col-md-2" data-bind="text: PurchaseInvoice().VAT.formatted"></div>
+
+                        </div>
+                        <div class="col-md-12 panel-gridrow">
+                            &nbsp;
+                        </div>
+                    </li>
+
+                    <li style="list-style: none">
+                        <div class="col-md-11 bottomborder">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-11">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-12 panel-gridrow">
+                            <div class="col-md-8">
+                                &nbsp;
+
+                            </div>
+                            <div class="col-md-4">Total Charges: 142.25</div>
+                            <div class="col-md-1"></div>
+
+                        </div>
+
+                        <div class="col-md-12 panel-gridrow">
+                            &nbsp;
+                        </div>
+                    </li>
+
+                    <li style="list-style: none">
+                        <div class="col-md-11 bottomborder">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-11">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-12 panel-gridrow">
+                            <div class="col-md-8">
+                                &nbsp;
+
+                            </div>
+                            <div class="col-md-2">Invoice Total: </div>
+                            <div class="col-md-2" data-bind="text: PurchaseInvoice().Subtotal.formatted"></div>
+                            <div class="col-md-1"></div>
+
+                        </div>
+
+                        <div class="col-md-12 panel-gridrow">
+                            <div class="col-md-offset-8 pull-right">
+                                <input type=button class="btn btn-default" value="Pay Invoice" data-bind="click: function(){ payInvoice();}" />
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    //var panelName = '@(ViewBag.PanelName)';
+    var panelName = "PurchaseInvoice";
+    var transferModel = new CreatePurchaseInvoiceViewModel();
+    //transferModel.pageLoadState();
+    ko.applyBindings(transferModel, document.getElementById(panelName));
+</script>
+

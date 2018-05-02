@@ -1,0 +1,2 @@
+﻿CREATE USER [PrimeActsDEV] FOR LOGIN [PrimeActsDEV];
+

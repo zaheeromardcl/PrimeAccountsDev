@@ -1,0 +1,7 @@
+﻿CREATE LOGIN [PANDI\arunakoya]
+    FROM WINDOWS WITH DEFAULT_DATABASE = [PrimeActsDev14062016], DEFAULT_LANGUAGE = [us_english];
+
+
+GO
+ALTER LOGIN [PANDI\arunakoya] DISABLE;
+

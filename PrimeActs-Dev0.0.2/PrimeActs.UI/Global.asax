@@ -1,0 +1,1 @@
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="PrimeActs.UI.MvcApplication" Language="C#" %>

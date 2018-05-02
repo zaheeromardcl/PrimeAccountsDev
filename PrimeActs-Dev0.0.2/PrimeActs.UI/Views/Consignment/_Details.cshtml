@@ -1,0 +1,386 @@
+﻿
+
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/Scripts/ConsignmentModel.js"></script>
+<script src="~/Scripts/jquery-2.1.4.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.js" type="text/javascript"></script>
+<script src="~/TypeScripts/Consignment/ConsignmentItemViewModel.js"></script>
+@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.Consignment.ConsignmentDetailsViewModel
+@{ var Itemdata = new JavaScriptSerializer().Serialize(Model); }
+<div class="container-fluid">
+    <div class="col-md-12 confirmationdetails" id="@ViewBag.PanelId">
+        <div class="panel panel-default confirmationdetails">
+            <div class="panel-heading clearfix confirmationdetails">
+                Consignment Details
+                <p class="panel-title" data-bind="text: Consignment.ConsignmentReference()"></p>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        <p class="confirmationdetails">Reference</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="confirmationdetails" data-bind="text: Consignment.ConsignmentReference()" readonly="true"></p>
+                    </div>
+                    <div class="col-md-2">
+                        <p class="confirmationdetails">Description</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bind="text: Consignment.ConsignmentDescription" readonly="true"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    @*<div class="col-md-6">*@
+                        <div class="col-md-2" >
+                            <span class="confirmationdetails" data-bind="css: {'grayColor': Consignment.SupplierReference().length < 1, 'navyColor': Consignment.SupplierReference().length > 0}">Supplier Reference:</span>
+                        </div>
+                        <div class="col-md-4">
+                            <span data-bind="text: Consignment.SupplierReference" readonly="true" disabled="true"></span>
+                        </div>
+                    @*</div>
+                    <div class="col-md-6">*@
+                        <div class="col-md-2">
+                            <p class="confirmationdetails">Supplier Dept</p>
+                        </div>
+                        <div class="col-md-4">
+                            <span data-bind="text: Consignment.SupplierCompanyName() +' - ' +  Consignment.SupplierDepartmentName()" readonly="true" disabled="true"></span>
+                        </div>
+                    @*</div>*@
+                </div>
+                <div class="col-md-12">
+                    @*<div class="col-md-6">*@
+                        <div class="col-md-2">
+                            <p class="confirmationdetails">Contract Date</p>
+                        </div>
+                        <div class="col-md-4">
+                            <span data-bind="FormattedDate: {date: Consignment.ContractDate(), format: 'txtshort'}"></span>
+                        </div>
+                    @*</div>
+                    <div class="col-md-6">*@
+                        <div class="col-md-2">
+                            <span data-bind="css: {'grayColor': Consignment.PortName().length < 1, 'navyColor': Consignment.PortName().length > 0}" class="confirmationdetails"> Port:</span>
+                        </div>
+                        <div class="col-md-4">
+                            <span data-bind="text: Consignment.PortName" readonly="true" disabled="true"></span>
+                        </div>
+                    @*</div>*@
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        <span data-bind="css: {'grayColor': Consignment.DespatchName().length < 1, 'navyColor': Consignment.DespatchName().length > 0}" class="confirmationdetails">Despatch Name:</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bind="text: Consignment.DespatchName" readonly="true" disabled="true"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <p class="confirmationdetails">Handling:</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bind="text: Consignment.Handling" readonly="true" disabled="true"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        <p class="confirmationdetails">Despatch Date:</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bind="FormattedDate: {date: Consignment.DespatchDate(), format: 'txtshort'}"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <p class="confirmationdetails">Commision:</p>
+                    </div>
+                    <div class="col-md-2">
+                        <span data-bind="text: Consignment.Commission" readonly="true" disabled="true"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        <p class="confirmationdetails">Created By:</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bind="text: Consignment.CreatedByName" readonly="true" disabled="true"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <p class="confirmationdetails">Created Date:</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bind="FormattedDate: {date: Consignment.CreatedDate(), format: 'txtshort'}" readonly="true" disabled="true"></span>
+                    </div>
+                </div>
+                <div class="col-md-12" >
+                    <div class="col-md-2">
+                        <span class="confirmationdetails" data-bind="css: {'grayColor': Consignment.UpdatedByName().length < 1, 'navyColor': Consignment.UpdatedByName().length > 0}">Updated By:</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bind="text: Consignment.UpdatedByName" readonly="true" disabled="true"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span class="confirmationdetails" data-bind="css: {'grayColor': Consignment.UpdatedByName().length < 1, 'navyColor': Consignment.UpdatedByName().length > 0}">Updated Date:</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bind="FormattedDate: {date: Consignment.UpdatedDate(), format: 'txtshort'}" readonly="true" disabled="true"></span>
+                    </div>
+                </div>
+                <div class="col-md-12" hidden="hidden">
+                    <div class="col-md-2">
+                        <p class="confirmationdetails">Vehicle:</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bind="text: Consignment.Vehicle" readonly="true" disabled="true"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <p class="confirmationdetails">Vehicle Details:</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bind="text: Consignment.VehicleDetail" readonly="true" disabled="true"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div hidden="hidden" class="col-md-2">
+                        <p class="confirmationdetails">Contract Date:</p>
+                    </div>
+                    <div hidden="hidden" class="col-md-4">
+                        <span data-bind="text: Consignment.ContractDate" readonly="true" disabled="true"></span>
+                    </div>
+                    @*<div class="col-md-2">
+                            <p class="confirmationdetails">Received Date:</p>
+                        </div>
+                        <div class="col-md-4">
+                            <span data-bind="FormattedDate: {date: Consignment.ReceivedDate(), format: 'txtlong'}" />
+                        </div>*@
+                </div>
+                <div class="col-md-12" >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-2">
+                        <span class="confirmationdetails" data-bind="css: {'grayColor': Consignment.NoteText().length < 1, 'navyColor': Consignment.NoteText().length > 0}">Notes:</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bind="text: Consignment.NoteText  "></span>
+                    </div>
+                </div>
+                <div class="col-md-12" >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-2">
+                        <span class="confirmationdetails" data-bind="css: {'grayColor': Consignment.FileEditModels.length < 1, 'navyColor': Consignment.FileEditModels.length > 0}">Files:</span>
+                    </div>
+                    <ul class=" col-md-4" data-bind="foreach: { data: Consignment.FileEditModels, as: 'row' }">
+                        <li>
+                            <div>
+                                <span data-bind="text: FileName()"></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-12">
+                    <div class="panel-default" id="ConsignmentItem">
+                        <div class="panel-heading clearfix">
+                            <p class="panel-title">Items</p>
+
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-offset-7"><a class="tab-content pull-right confirmationdetails" href="~/Consignment/Index">Back to Consignments</a></div>
+                            </div>
+                            <table class="table table-striped ">
+                                <thead>
+                                    <tr class="tableheader text-left">
+                                        <th>
+                                            <div> Produce </div>
+                                            <div> Brand / Produce / Size / Weight / Unit / Type </div>
+                                        </th>
+                                        @*<th>
+                                                <div> Department </div>
+                                            </th>*@
+                                        @*<th>
+                                                <div> Brand </div>
+                                            </th>
+                                            <th>
+                                                <div> Pack </div>
+                                                <div> Type </div>
+                                            </th>
+                                            <th>
+                                                <div> Pack</div>
+                                                <div> Weight</div>
+                                            </th>*@
+                                        <th>
+                                            <div> Est </div>
+                                            <div> Purch Cost </div>
+                                        </th>
+                                        <th>
+                                            <div> Exp</div>
+                                            <div> Qty</div>
+                                        </th>
+                                        <th>
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-9">
+                                                <div class="col-md-3">Arrival</div>
+                                                <div class="col-md-6">Qty / Date</div>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-9">
+                                                <div class="col-md-3">Return</div>
+                                                <div class="col-md-6">Qty / U.Price</div>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            Country
+                                        </th>
+                                        @*<th>
+                                                <div> Country </div>
+                                                <div> Of Origin </div>
+                                            </th>
+                                            <th>
+                                                Notes
+                                            </th>*@
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="foreach: { data: ConsignmentItemEditModels, as: 'row' }">
+                                    <tr>
+                                        <td data-title="Code" style="vertical-align: top; white-space: nowrap ">
+                                            @*<b class="confirmationdetails" data-bind="text: row.Brand"></b>
+                                                <p data-bind="text: row.Produce"></p>
+                                                <b data-bind="text:row.PackSize"></b>
+                                                <b data-bind="text: row.PackWeight"></b>
+                                                <b data-bind="text:row.WtUnit"></b>
+                                                <b data-bind="text: row.PackType"></b>*@
+                                            <span class="confirmationdetails" data-bind="text: row.Brand"></span>
+                                            <span data-bind="text: row.Produce"></span>
+                                            <span data-bind="text:row.PackSize"></span>
+                                            <span data-bind="text: row.PackWeight"></span>
+                                            <span data-bind="text:row.WtUnit"></span>
+                                            <span data-bind="text: row.PackType"></span>
+                                        </td>
+                                        @*<td data-title="Code">
+                                                <p data-bind="text: row.DepartmentName"></p>
+                                            </td>*@
+                                        @*<td data-title="Code">
+                                                <p data-bind="text: row.PackType"></p>
+                                            </td>
+                                            <td data-title="Code">
+                                                <p data-bind="text: row.Brand"></p>
+                                            </td>
+                                            <td data-title="Code"><p data-bind="text: row.PackWeight"></p></td>
+                                            <td data-title="Code">
+                                                <p data-bind="text:row.WtUnit"></p>
+                                            </td>*@
+                                        @*<td data-title="Code"><p data-bind="text: row.PackWtUnit.WtUnit"></p></td>*@
+                                        <td data-title="Code" style="vertical-align:top">
+                                            @*<p data-bind="text: row.PackPall"></p>*@
+                                            <p data-bind="text: row.EstimatedPurchaseCostPerPack"></p>
+                                        </td>
+                                        <td data-title="Code" style="vertical-align:top">
+                                            <p data-bind="text: row.QuantityExpected"></p>
+                                        </td>
+                                        @*<td data-title="Code">
+                                                <p data-bind="text: row.ReceivedQuantity"></p>
+                                            <td data-title="Code">
+                                                <p data-bind="text: row.EstimatedPurchaseCostPerPack"></p>
+                                            </td>*@
+                                        <td style="vertical-align: top">
+                                            @*<ul data-bind="foreach:{data:row.ConsignmentItemArrivals(), as: 'arrivalrow' }">*@
+                                            <ul data-bind="foreach:{data:row.ConsignmentItemArrivals, as: 'arrivalrow' }">
+                                                <li>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            @*<p class="labelSt">Rec Qty</p>*@
+                                                            <p data-bind="text: arrivalrow.Quantity"></p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            @*<p class="labelSt">Rec Qty</p>*@
+                                                            <p data-bind="text: arrivalrow.ConsignmentArrivalDateString"></p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td style="vertical-align:top">
+                                            <ul data-bind="foreach:{data:row.ReturnsCollection().ConsignmentItemPriceReturnModels, as: 'returnrow' }">
+                                                <li>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <p data-bind="text: returnrow.ReturnQuantity"></p>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <p data-bind="text: returnrow.ReturnUnitPrice.formatted"></p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td data-title="Code" style="vertical-align: top">
+                                            @*<p data-bind="text: row.CountryName"></p>*@
+                                            <p data-bind="text: row.CountryCode"></p>
+                                        </td>
+                                        
+                                        @*<td data-title="Code">
+                                                <p data-bind="text: row.NoteText  "></p>
+                                            </td>*@
+                                    </tr>
+                                </tbody>
+                                <tfoot class="divider">
+                                </tfoot>
+                            </table>
+                            <div class="row">
+                                <div class="col-md-4 col-md-offset-4 col-sm-5 col-sm-offset-2 recap">
+                                    @*<table class="table table-clear">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="left"><strong>Subtotal</strong></td>
+                                                    <td class="right"><span data-bind="text: Subtotal" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="left"><strong>VAT (10%)</strong></td>
+                                                    <td class="right"><span data-bind="text: VAT"></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="left"><strong>Total</strong></td>
+                                                    <td class="right">
+                                                        <span data-bind="text: Total"><strong></strong></span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>*@
+                                    @*ghjkghk*@
+                                    @*<button class="btn btn-info" data-bind="event: { click: Save }"><i class="fa fa-print"></i> Save</button>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button @{ var crbtnID = "createbtn" + ViewBag.PanelId.ToString(); } id="@crbtnID" class="btn btn-default col-md-2 pull-right" data-bind="click: function () { openCreateConsignmentTab(subscriberReplaceTab);}, hasFocus: FocusCreate"> Create Consignment</button>
+    </div>
+</div>
+<script type="text/javascript">
+    var ConsignmentModel = new ConsignmentModel(@Html.Raw(Itemdata), subscriberTab, appViewModel.selectedSection._latestValue.name);
+    var consignmentSummaryId = '@ViewBag.PanelId';
+
+    ko.validation.init({
+        registerExtenders: true,
+        messagesOnModified: false,
+        insertMessages: true
+    });
+    ko.applyBindingsWithValidation(ConsignmentModel, document.getElementById(consignmentSummaryId));
+    $( document ).ready(function() {
+        setTimeout(function() {
+            $("#createbtn"+consignmentSummaryId).focus();
+        }, 0);
+    });
+
+    var titleForTab = '@ViewBag.PanelName';
+    var section_iterator = -1;
+    $.each(appViewModel.sections(), function(i,item){ // find existing object so that we can create an object with the same Section Details
+        if (item.name === consignmentSummaryId) {
+            section_iterator = i;
+            item.tabTitle(titleForTab);
+            return false;
+        }
+    });
+</script>

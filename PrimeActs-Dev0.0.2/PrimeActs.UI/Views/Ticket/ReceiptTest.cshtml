@@ -1,0 +1,133 @@
+﻿@using System.Web.Script.Serialization;
+@model PrimeActs.Domain.ViewModels.TicketPrintViewModel
+
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.js"></script>
+<link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet" />
+<script src="~/KJScripts/ReceiptSummaryModel.js">
+</script>
+<script>
+    var myWindow;
+    function resizeWin() {
+        window.resizeTo(353, 703);
+        window.focus();
+        //window.print();
+    }
+</script>
+
+
+@{string data = new JavaScriptSerializer().Serialize(Model);}
+
+
+<style>
+    @@media screen {
+   h1 {
+      color: #000;
+      background: none;
+   }
+
+   nav, aside {
+      display: none;
+   }
+
+   body, article {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+   }
+
+   @@media print{
+        body, article {
+            width: 10%;
+            height: 10%;
+        }
+   }
+
+}
+</style>
+<body onload="resizeWin();" id="content">
+    <div id="ReceiptSummary" style="width: 270px;">
+        @*Header*@
+        <div class="row">
+            <div class="col-sm-12" style="text-align:center;">
+                <img data-bind="attr: { src: Company().Logo }" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12" style="text-align:center">
+                <p>Company:&nbsp;<span data-bind="text: Company().CompanyName"></span></p>
+                <p>AddressLine1: &nbsp;<span data-bind="text: Company().AddressLine1"></span></p>
+                <p>AddressLine2:&nbsp; <span data-bind="text: Company().AddressLine2"></span></p>
+                <p>AddressLine3: &nbsp;<span data-bind="text: Company().AddressLine3"></span></p>
+                <p>PostCode: &nbsp;<span data-bind="text: Company().Postcode"></span></p>
+                <p>CompanyNo: &nbsp;<span data-bind="text: Company().CompanyNo"></span></p>
+                <p>VATNo:&nbsp; <span data-bind="text: Company().VATNo"></span></p>
+                <p>TicketDate: &nbsp;<span data-bind="text: Ticket().TicketDate"></span></p>
+                <p>CustomerCompanyName: &nbsp;<span data-bind="text: Ticket().CustomerCompanyName"></span></p>
+                <p>SalesPersonName:&nbsp; <span data-bind="text: Ticket().SalesPersonName"></span></p>
+            </div>
+        </div>
+        @*TicketItem Body     class="well"*@
+        <div class="row">
+                <div data-bind="foreach: { data: Ticket().TicketItems, as: 'row' }">
+                    <div class="row">
+                        <div class="col-sm-8" style="text-align:left">
+                            <span data-bind="text: row.TicketItemDescription"></span>
+                        </div>
+                        <div class="col-sm-2" style="text-align:right">
+                            <span data-bind="text: row.TicketItemQuantity"></span>
+                        </div>
+                        <div class="col-sm-2" style="text-align:right">
+                            <span data-bind="text: $parent.Ticket().CurrencySymbol"></span>
+                            <span data-bind="text: row.TicketItemTotalPrice"></span>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        @*Footer*@
+        <div class="row" style="padding-top: 10px;">
+            <div class="col-sm-8" style="text-align:left">
+                Subtotal:
+            </div>
+            <div class="col-sm-4" style="text-align:right">
+                <span data-bind="text: Ticket().TicketSubTotal"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8" style="text-align:left">
+                VATTotal:
+            </div>
+            <div class="col-sm-4" style="text-align:right">
+                <span data-bind="text: Ticket().TicketVATTotal"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8" style="text-align:left">
+                Porterage:
+            </div>
+            <div class="col-sm-4" style="text-align:right">
+                <span data-bind="text: Ticket().TicketTotalPorterage"></span>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 10px;">
+            <div class="col-sm-8" style="text-align:left">
+                Total:
+            </div>
+            <div class="col-sm-4" style="text-align:right">
+                <span data-bind="text: Ticket().TicketTotalPrice"></span>
+            </div>
+        </div>
+        <button class="btn btn-default" data-bind="click: function() { printReceipt(Ticket().TicketID()) }">PRINT RECEIPT</button>
+    </div>
+</body>
+
+<script type="text/javascript">
+    var vm = new TicketPrintViewModel(@Html.Raw(data));
+    ko.applyBindings(vm, document.getElementById("ReceiptSummary"));
+</script>
+
+
+
+
+
+

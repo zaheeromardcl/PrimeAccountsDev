@@ -1,0 +1,143 @@
+﻿@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.Company.CompanyEditModel
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/KJScripts/Company/CompanyEdit.js"></script>
+@{
+    var data = new JavaScriptSerializer().Serialize(Model);
+}
+<style type="text/css">
+    label {
+        display: block;
+    }
+
+    .validationMessage {
+        color: Red;
+    }
+
+    .customMessage {
+        color: Orange;
+    }
+
+    .required-field {
+        border: 2px solid red !important;
+        color: red;
+    }
+</style>
+
+<div class="col-md-8" id="Company">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h3 class="panel-title text-center">Update Company</h3>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-8 pull-right">
+                <a href="~/Company/Create" class="pull-right btn btn-new" title="New">
+                    <img src="~/Content/images/IconNew-orange.png" />&nbsp;New Company <!---->
+                </a>
+            </div>
+            <div class="row"></div>
+            <div class="row">
+                <ul data-bind="foreach: Company().servererrors">
+                    <li class="field-validation-error" data-bind="text: $data"></li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    Company Name
+                </div>
+                @*css:{'required-field':Company().showerror(Company().Name)}*@
+                <div class="col-sm-7">
+                    <span class="col-sm-6"><input type="text" class="form-control" Companyname data-bind="value: Company().CompanyName,  valueUpdate: 'afterkeydown'" /></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    VATNo
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6"><input type="text" class="form-control" data-bind="value: Company().VATNo" /></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    CompanyNo
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6"><input type="text" class="form-control" data-bind="value: Company().CompanyNo" /></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    Telephone
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6"><input type="text" class="form-control" data-bind="value: Company().Telephone" /></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    FaxNo
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6"><input type="text" class="form-control" data-bind="value: Company().FaxNo" /></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    EmailAddress
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6"><input type="text" class="form-control" data-bind="value: Company().EmailAddress" /></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    Website
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6"><input type="text" class="form-control" data-bind="value: Company().Website" /></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3">
+                    InvoiceInfo
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6"><input type="text" class="form-control" data-bind="value: Company().InvoiceInfo" /></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    Parent Company
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6">
+                        <select height="5" data-bind="options: CompanyList(), value: Company().RelatedCompanyId, optionsText: 'optionText', optionsValue: 'optionValue'" class="form-control">  </select>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6"> <input type="submit" class="btn btn-default pull-right" value="Update" data-bind="click: function (){create($data)}" /></span>
+                </div>
+            </div>
+            <div class="row"><br /></div>
+            <div class="row"><br /></div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <a class="tab-content pull-right" href="~/Company/Index">Back to Companys</a>
+    </div>
+</div>
+<script type="text/javascript">
+    var Company = new CompanyModel(@Html.Raw(data));
+    ko.validation.init({
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: true
+
+    });
+    ko.applyBindings(Company, document.getElementById("Company"));
+</script>

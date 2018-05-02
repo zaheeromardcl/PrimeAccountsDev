@@ -1,0 +1,2 @@
+﻿CREATE USER [PANDI\svc_MSSQLDataSync] FOR LOGIN [PANDI\svc_MSSQLDataSync];
+

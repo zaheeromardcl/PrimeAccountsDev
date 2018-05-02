@@ -1,0 +1,46 @@
+﻿@media only screen and (max-width: 800px) {
+    /* Force table to not be like tables anymore */
+    #no-more-tables table,
+    #no-more-tables thead,
+    #no-more-tables tbody,
+    #no-more-tables th,
+    #no-more-tables td,
+    #no-more-tables tr { display: block; }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    #no-more-tables thead tr {
+        left: -9999px;
+        position: absolute;
+        top: -9999px;
+    }
+
+    #no-more-tables tr { border: 1px solid #ccc; }
+
+    #no-more-tables td {
+        /* Behave  like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee;
+        padding-left: 50%;
+        position: relative;
+        text-align: left;
+        white-space: normal;
+    }
+
+    #no-more-tables td:before {
+        font-weight: bold;
+        left: 6px;
+        padding-right: 10px;
+        /* Now like a table header */
+        position: absolute;
+        text-align: left;
+        /* Top/left values mimic padding */
+        top: 6px;
+        white-space: nowrap;
+        width: 45%;
+    }
+
+    /*
+	Label the data
+	*/
+    #no-more-tables td:before { content: attr(data-title); }
+}

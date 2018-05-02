@@ -1,0 +1,319 @@
+﻿<script src="~/KJScripts/Helper.js"></script>
+<script src="~/KJScripts/PagingTS.js"></script>
+<script src="~/TypeScripts/Ticket/DailyCashAllocations.js"></script>
+
+@model PrimeActs.Domain.ViewModels.DailyCashTicketAllocationsModel
+@using System.Web.Script.Serialization
+@{string data = new JavaScriptSerializer().Serialize(Model);}
+
+
+<div class="container-fluid" id="DailyCashAllocations">
+
+    @*LEFT HAND SIDE*@
+    <div class="col-md-7 ">
+        <div class="col-md12">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="panel-title">
+                        <th style="width: 16%">
+                            <span data-bind="click: SortTicketReferenceClick">Ticket Reference</span>
+                            <span data-bind="if: true"><span class=" glyphicon glyphicon-sort-by-attributes"></span></span>
+                        </th>
+                        <th style="width: 16%">
+                            <span data-bind="click: SortTicketDateClick">Ticket Date</span>
+                            <span data-bind="if: true"><span class=" glyphicon glyphicon-sort-by-attributes"></span></span>
+                        </th>
+                        <th style="width: 16%">
+                            <span data-bind="click: SortAmountPaidClick">Amount Paid</span>
+                            <span data-bind="if: true"><span class=" glyphicon glyphicon-sort-by-attributes"></span></span>
+                        </th>
+                        <th style="width: 16%">
+                            <span data-bind="click: SortBalanceOwedClick">Balance Owed</span>
+                            <span data-bind="if: true"><span class=" glyphicon glyphicon-sort-by-attributes"></span></span>
+                        </th>
+                        <th style="width: 16%">
+                            <span data-bind="click: SortTotalPriceClick">Total Price</span> 
+                            <span data-bind="if: true"><span class=" glyphicon glyphicon-sort-by-attributes"></span></span>
+                        </th>
+                        <th style="width: 16%">
+                            <span data-bind="click: SortSalesPersonClick">Sales Person</span> 
+                            <span data-bind="if: true"><span class=" glyphicon glyphicon-sort-by-attributes"></span></span>
+                        </th>
+                        <th style="width: 4%"></th>
+                    </tr>
+                    <tr>
+                        <th style="width: 16%">
+                            @*<div class="input-group-btn"><button type="button" class="btn btn-default" aria-label="Bold"><span class="glyphicon glyphicon-bold"></span></button></div>*@
+                            <input type="text" class="form-control bg-primary input-sm" data-bind="" id="SearchDescription" placeholder="Search Reference" />
+                        </th>
+                        <th style="width: 16%"></th>
+                        <th style="width: 16%"><input type="text" class="form-control bg-primary input-sm" data-bind="" id="SearchRecAmount" placeholder="Search" /></th>
+                        <th style="width: 16%"></th>
+                        <th style="width: 16%"></th>
+                        <th style="width: 16%"><input type="text" class="form-control bg-primary input-sm" data-bind="" id="SearchRecAmount" placeholder="Search"/></th>
+                        <th style="width: 4%"></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="col-md12 pre-scrollable">
+            <table class="table table-bordered">
+                @*<tbody data-bind="foreach:{data:ReconciliationItems(), as: 'row'}">*@
+                <tbody data-bind="foreach:{data:TicketFilter(), as: 'row'}">
+                    @*<tr data-bind="css:{'danger':row.IsSelected, active:row.IsReconciled, 'text-muted':row.IsReconciled}, click: $parent.myScope.bind($data, $index(), $root)">*@
+                    <tr data-bind="css:{'danger':row.IsSelected, 'grayColor': row.BalanceOwed === 0, active:row.IsReconciled, 'text-muted':row.IsReconciled}">
+
+                        <td data-bind="text:row.TicketReference , click: $parent.myScope.bind($data, $index(), $root)" style="width: 17%"></td>
+                        <td style="width: 16%">
+                            <p data-bind="FormattedDate: {date: row.CreatedDate(), format: 'txtonlytime'}, click: $parent.myScope.bind($data, $index(), $root)"></p>
+                        </td>
+                        <td style="width: 16%">
+                            <p data-bind="text:row.AmountPaid, click: $parent.myScope.bind($data, $index(), $root)"></p>
+                        </td>
+                        <td style="width: 16%">
+                            <p data-bind="text:row.BalanceOwed, click: $parent.myScope.bind($data, $index(), $root)"></p>
+                        </td>
+                        <td style="width: 16%">
+                            <p data-bind="text:row.TicketTotal, click: $parent.myScope.bind($data, $index(), $root)"></p>
+                        </td>
+                        <td style="width: 16%">
+                            <p data-bind="text:row.SalesPersonName, click: $parent.myScope.bind($data, $index(), $root)"></p>
+                        </td>
+
+                        <td style="width: 4%">
+                            @*<span data-bind="if: !row.IsReconciled"><button class="btn btn-primary btn-sm" aria-label="Left Align" data-bind="click: $parent.FilterByItemAmount.bind($data), visible:!row.IsReconciled"><span class=" glyphicon glyphicon-filter"></span></button></span>*@
+                            <span data-bind="if: !row.IsReconciled()"><button class="btn btn-primary btn-sm" aria-label="Left Align" data-bind="click: $parent.FilterByItemAmount.bind($data)"><span class=" glyphicon glyphicon-filter"></span></button></span>
+                            <span data-bind="if: row.IsReconciled">
+                                @*<button type="button" class="btn btn-default" aria-label="Left Align"></button>*@
+                                <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align" data-bind="click: $parent.unMatch.bind($data, $index(), $root)"> <span class=" glyphicon glyphicon-share-alt"></span></button>
+                                @*<input data-bind="checked: row.UnReconcileCheck" type="checkbox" aria-label="...">*@
+                            </span>
+                        </td>
+                        @*<td></td>*@
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        @*<th data-bind="text: ReconciliationItemAmountTotal" id="ReconciliationItemAmountTotal"></th>*@
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    @*                             CENTRE                            *@
+    <div class="form-group col-md-1 text-center">
+        <div class="well">
+            <button type="button" class="btn btn-primary " data-bind="click: ClearFilters">clear<span class=" glyphicon glyphicon-filter"></span></button>
+        </div>
+
+        <div class="well">
+
+            <button type="button" class="btn btn-default" data-bind="click: DoMatch, css:{ disabled:MatchEnabled()}">match</button>
+            <div data-bind="text: MatchItemAmountTotal ,style: { color: MatchItemAmountTotal() < 0 ? 'red' : 'navy' }" id="MatchItemAmountTotalMatch"></div>
+            <div data-bind="text: SalesLedgerItemTotal, style: { color: SalesLedgerItemTotal() < 0 ? 'red' : 'navy' }" id="SalesLedgerItemTotalMatch"></div>
+            @*<button type="button" class="btn btn-default" data-bind="click: DoMatch">match</button>*@
+
+            @*<div data-bind="text: 'Total1' ,style: { color: ReconciliationItemAmountTotal() < 0 ? 'red' : 'navy' }" id="ReconciliationItemAmountTotalMatch"></div>
+            <div data-bind="text: 'Total2' , style: { color: StatementItemAmountTotal() < 0 ? 'red' : 'navy' }" id="StatementItemAmountTotalMatch"></div>
+            <div class="bg-success" data-bind="text:TestComputed, css:{'bg-success': TestComputed() == 0, 'bg-primary': TestComputed() != 0}"></div>*@
+
+        </div>
+        <div class="well">
+            <button type="button" class="btn btn-primary " data-bind="">Return<span class=" glyphicon glyphicon-log-out"></span></button>
+        </div>
+
+
+    </div>
+    <div class="col-md-4 pre-scrollable">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="panel-title">
+                    <th style="width: 30%" data-bind="click: SortSaleAmountClick">
+                        Cash Amount
+                        <span class=" glyphicon glyphicon-sort-by-attributes"></span>
+                    </th>
+                    <th style="width: 30%" data-bind="click: SortCreatedDateClick">
+                        Created Date
+                        <span class=" glyphicon glyphicon-sort-by-attributes"></span>
+                    </th>
+                    <th style="width: 30%" data-bind="click: SortEntrySalesPersonClick">
+                        Sales Person Name
+                        <span class=" glyphicon glyphicon-sort-by-attributes"></span>
+                    </th>
+                    <th style="width: 10%"></th>
+                </tr>
+            <tr>
+                <th> <input type="text" class="form-control bg-primary input-sm" data-bind="value: SearchSaleAmount" id="SearchSaleAmount" placeholder="Search Amount" /></th>
+                <th></th>
+                <th><input type="text" class="form-control bg-primary input-sm" data-bind="" id="SearchStatementType" placeholder="Search person"/></th>
+                <th></th>
+            </tr>
+            </thead>
+            @*<tbody data-bind="foreach:{data:StatementImportItems(), as: 'row'}">*@
+            <tbody data-bind="foreach:{data:SalesLedgerEntryFilter, as: 'row'}">
+                @*<tr data-bind="css:{'danger':row.IsSelected, active:row.IsReconciled, 'text-muted':row.IsReconciled}, click: $parent.statementSelect.bind($data, $index(), $root)">*@
+                <tr data-bind="css:{'danger':row.IsSelected, active:row.IsReconciled, 'text-muted':row.IsReconciled}">
+                    <td>
+                        <p data-bind="text:row.SaleAmount, click: $parent.salesLedgerSelect.bind($data, $index(), $root)"></p>
+                    </td>
+                    <td>
+                        <p data-bind="FormattedDate: {date: row.CreatedDate(), format: 'txtonlytime'}, click: $parent.salesLedgerSelect.bind($data, $index(), $root)"></p>
+                    </td>
+                    <td>
+                        <p data-bind="text:row.SalesPersonName, click: $parent.statementSelect.bind($data, $index(), $root)"></p>
+                    </td>
+                    <td>
+                        <span data-bind="if: !row.IsReconciled"><button class="btn btn-primary btn-sm" aria-label="Left Align" data-bind="click: $parent.FilterByStatementAmount.bind($data), visible:!row.IsReconciled"><span class=" glyphicon glyphicon-filter"></span></button></span>
+                        <span data-bind="if: row.IsReconciled">
+                            @*<button type="button" class="btn btn-default" aria-label="Left Align"></button>*@
+                            <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align" data-bind="click: $parent.unMatchByStatement.bind($data, $index(), $root)"> <span class=" glyphicon glyphicon-share-alt"></span></button>
+                            @*<input data-bind="checked: row.UnReconcileCheck" type="checkbox" aria-label="...">*@
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    @*<th data-bind="text: StatementItemAmountTotal , style: { color: StatementItemAmountTotal() < 0 ? 'red' : 'navy' }" id="StatementItemAmountTotal"></th>*@
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+
+
+
+
+
+
+
+    @*<div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+
+                <div class="row">
+                    <div class=" col-md-2">
+                        @Html.BuildKnockoutSortableLinkNewStyle("Department", "Index", "/Ticket", "SalesPersonDepartmentName")
+                    </div>
+                    <div class=" col-md-2">
+                        @Html.BuildKnockoutSortableLinkNewStyle("Ticket Reference", "Index", "/Ticket", "TicketReference")
+                    </div>
+                    <div class=" col-md-2">
+                        @Html.BuildKnockoutSortableLinkNewStyle("Paid Amount", "Index", "/Ticket", "SumOfPaidAmount")
+                    </div>
+                    <div class="col-md-2 pull-left">
+                        @Html.BuildKnockoutSortableLinkNewStyle("Created", "Index", "/Ticket", "CreatedDate", "date")
+                    </div>
+                    <div class="col-md-2 pull-left">
+                        @Html.BuildKnockoutSortableLinkNewStyle("Sales Person", "Index", "/Ticket", "SalesPersonName")
+                    </div>
+                    <div class=" col-md-2">
+                        @Html.BuildKnockoutSortableLinkNewStyle("Total", "Index", "/Ticket", "TicketTotalPrice")
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="panel-body">
+                <div class="search-results" data-bind="foreach: Paging().entities">
+                    <div class="container line">
+                        <div class="row row-padding5">
+                            <div class="col-md-2">
+                                <span data-bind="text: SalesPersonDepartmentName"></span>
+                            </div>
+                            <div class="col-md-2">
+                                <span data-bind="text: TicketReference"></span>
+                            </div>
+                            <div class="col-md-2">
+                                <span data-bind="text: PaidAmount"></span>
+                            </div>
+                            <div class="col-md-2">
+                                <span data-bind="FormattedDate: {date: CreatedDate, format: 'txtshort'}"></span>
+                            </div>
+                            <div class="col-md-2">
+                                <span data-bind="text: SalesPersonName"></span>
+                            </div>
+                            <div class="col-md-2">
+                                <span data-bind="text: TicketTotalPrice"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                <span>Sales Ledger Entries</span>
+                            </div>
+                            <div class="col-md-10" data-bind="foreach: SalesLedgerEntries">
+                                <div class="col-md-3">
+                                    <span data-bind="text: SalesLedgerEntryID"></span>
+                                </div>
+                                <div class="col-md-3">
+                                    <span data-bind="text: SaleAmount"></span>
+                                </div>
+                                <div class="col-md-3">
+                                    <span data-bind="text: Allocated"></span>
+                                </div>
+                                <div class="col-md-3">
+                                    <span data-bind="FormattedDate: {date: CreatedDate, format: 'txtlongnosec'}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="panel-body">
+                <div class="search-results" data-bind="foreach: SalesLedgerEntries">
+                    <div class="container line">
+                        <div class="row row-padding5">
+                            <div class="col-md-4">
+                                <span data-bind="text: SalesLedgerEntryID"></span>
+                            </div>
+                            <div class="col-md-2">
+                                <span data-bind="text: SaleAmount"></span>
+                            </div>
+                            <div class="col-md-2">
+                                <span data-bind="FormattedDate: {date: CreatedDate(), format: 'txtlongnosec'}"></span>
+                            </div>
+                            <div class="col-md-2">
+                                <span data-bind="text: SalesPersonName"></span>
+                            </div>
+                            <div class="col-md-2">
+                                <span data-bind="text: CustomerDepartment"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+</div>
+
+
+<script type="text/javascript">
+    var panelName = 'DailyCashAllocations';
+    var dailyModel = new DailyCashTicketAllocationsPagingModel(@Html.Raw(data), undefined);
+
+    ko.validation.init({
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: true,
+        parseInputAttributes: true,
+        messageTemplate: null
+    }, true);
+
+    ko.applyBindings(dailyModel, document.getElementById(panelName));
+</script>

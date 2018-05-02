@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\Extensions\Microsoft\SQLDB\DAC\120\sqlpackage.exe" /a:Import /sf:C:\BACPACs\PrimeActsDEV.bacpac /tsn:mpi66vpdki.database.windows.net /tdn:PrimeActsDev /tu:arunasql@mpi66vpdki /tp:piLIVE22@@

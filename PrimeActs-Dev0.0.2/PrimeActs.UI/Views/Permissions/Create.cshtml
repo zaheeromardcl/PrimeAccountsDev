@@ -1,0 +1,78 @@
+﻿@using System.Web.Script.Serialization
+@model PrimeActs.UI.Models.RegisterViewModel
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/KJScripts/PermissionCreate.js"></script>
+@{
+    var data = new JavaScriptSerializer().Serialize(Model);
+}
+<style type="text/css">
+    label { display: block; }
+
+    .validationMessage { color: Red; }
+
+    .customMessage { color: Orange; }
+
+    .required-field {
+        border: 2px solid red !important;
+        color: red;
+    }
+</style>
+
+<div class="col-md-8" id="Permission">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h3 class="panel-title text-center">Create Permission</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row"></div>
+            <div class="row">
+                <ul data-bind="foreach: Permission().servererrors">
+                    <li class="field-validation-error" data-bind="text: $data"></li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    Permission Controller
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6"><input type="text" class="form-control" permissionname data-bind="value: Permission().PermissionController, css:{'required-field':Permission().showerror(Permission().PermissionController)}, valueUpdate: 'afterkeydown'" /></span>
+                </div>
+                <div class="col-sm-3">
+                    Permission Action
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6"><input type="text" class="form-control" permissionname data-bind="value: Permission().PermissionAction, css:{'required-field':Permission().showerror(Permission().PermissionAction)}, valueUpdate: 'afterkeydown'" /></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    Description
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6"><input type="text" class="form-control" data-bind="value: Permission().PermissionDescription, css:{'required-field':Permission().showerror(Permission().PermissionDescription)}" /></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6">
+                        <input type="submit" class="btn btn-default  pull-right" value="Create" data-bind="click: function (){create($data)}" />
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <a class="tab-content pull-right" href="~/Permissions/Index">Back to Permissions</a>
+    </div>
+</div>
+<script type="text/javascript">
+    var Permission = new PermissionModel(@Html.Raw(data));
+    ko.validation.init({
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: true
+
+    });
+    ko.applyBindings(Permission, document.getElementById("Permission"));
+</script>

@@ -1,0 +1,52 @@
+﻿<script src="~/KJScripts/Helper.js"></script>
+<script src="~/KJScripts/PagingTS.js"></script>
+<script src="~/TypeScripts/Ticket/_Ticket.js"></script>
+<link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet" />
+@model PrimeActs.Domain.ViewModels.DailyCashTicketPagingModel
+@using System.Web.Script.Serialization
+@{string data = new JavaScriptSerializer().Serialize(Model);}
+
+<div class="container-fluid" id="@ViewBag.PanelName">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Daily Cash</div>
+        <div class="panel-body">
+
+            <div class="row">
+
+                <div class="col-md-2">
+                    <input type="radio" name="@(ViewBag.PanelName + "paidType")" value="Paid" data-bind="checked: paidType">Paid<br>
+                </div>
+                <div class="col-md-2">
+                    <input type="radio" name="@(ViewBag.PanelName + "paidType")" value="Unpaid" data-bind="checked: paidType">Unpaid<br>
+                </div>
+
+            </div>
+
+            <div data-bind="visible: paidType() == 'Paid', with: PaidPaging">
+                @Html.Partial("_DailyCashPanel")
+            </div>
+
+            <div data-bind="visible: paidType() == 'Unpaid', with: UnpaidPaging">
+                @Html.Partial("_DailyCashPanel")
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    var panelName = '@(ViewBag.PanelName)';
+    var dailyModel = new DailyCashTicketPagingModel(@Html.Raw(data), subscriberTab);
+
+    ko.validation.init({
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: true,
+        parseInputAttributes: true,
+        messageTemplate: null
+    }, true);
+
+    ko.applyBindings(dailyModel, document.getElementById(panelName));
+</script>

@@ -1,0 +1,156 @@
+﻿<script>
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        ev.target.appendChild(document.getElementById(data));
+    }
+</script>
+    <div id="col1" class="col-md-3">
+
+        <div>
+    
+            <p>&nbsp;</p>
+    
+            <table class="table table-striped table-hover">
+                <thead>Collection Point A</thead>
+                <tbody class="table-striped">
+                    <tr>
+                        <td>Ticket #</td>
+                        <td>Customer</td>
+                        <td>Delivery Priority</td>
+                        <td>Estimated Time</td>
+
+
+
+                    </tr>
+                    <tr>
+                        <td style="color:black; font-weight:bold">12345</td>
+                        <td style="color:black; font-weight:bold">AD Brown</td>
+                        <td style="color:red; font-weight:bold">1</td>
+                        <td style="color:green;  font-weight:bold">11.35</td>
+
+
+
+                    </tr>
+                    <tr>
+                        <td style="color:black; font-weight:bold">12532</td>
+                        <td style="color:black; font-weight:bold">AB Produce</td>
+                        <td style="color:orange; font-weight:bold">2</td>
+                        <td style="color:green;  font-weight:bold">11.45</td>
+
+
+
+                    </tr>
+                    <tr>
+                        <td style="color:black; font-weight:bold">12532</td>
+                        <td style="color:black; font-weight:bold">Micky Young</td>
+                        <td style="color:orange; font-weight:bold">2</td>
+                        <td style="color:green;  font-weight:bold">11.45</td>
+
+
+                    </tr>
+
+                    
+                </tbody>
+
+            </table> 
+        </div>
+       
+
+    </div>
+    <div id="col2" class="col-md-3">
+        <div>
+   
+            <p>&nbsp;</p>
+
+            <table class="table table-striped table-hover">
+                <thead>Collection Point B</thead>
+                <tbody class="table-striped">
+                    <tr>
+                        <td>Ticket #</td>
+                        <td>Customer</td>
+                        <td>Delivery Priority</td>
+                        <td>Estimated Time</td>
+
+
+
+                    </tr>
+                    <tr>
+                        <td style="color:black; font-weight:bold">12345</td>
+                        <td style="color:black; font-weight:bold">AD Brown</td>
+                        <td style="color:red; font-weight:bold">1</td>
+                        <td style="color:green;  font-weight:bold">11.35</td>
+
+
+
+                    </tr>
+                    <tr>
+                        <td style="color:black; font-weight:bold">12532</td>
+                        <td style="color:black; font-weight:bold">AB Produce</td>
+                        <td style="color:orange; font-weight:bold">2</td>
+                        <td style="color:green;  font-weight:bold">11.45</td>
+
+
+
+                    </tr>
+                    <tr>
+                        <td style="color:black; font-weight:bold">12532</td>
+                        <td style="color:black; font-weight:bold">Micky Young</td>
+                        <td style="color:orange; font-weight:bold">2</td>
+                        <td style="color:green;  font-weight:bold">11.45</td>
+
+
+                    </tr>
+
+                </tbody>
+
+            </table> 
+        </div>
+    </div>
+
+    <div id="col3" class="col-md-3">
+        <div><p>&nbsp;</p>
+            <table class="table table-striped table-hover">
+                <thead>Collection Point C</thead>
+                <tbody class="table-striped">
+                    <tr>
+                        <td>Ticket #</td>
+                        <td>Customer</td>
+                        <td>Delivery Priority</td>
+                        <td>Estimated Time</td>
+                    </tr>
+                    <tr ondrop="drop(event)" ondragover="allowDrop(event)" >
+                        <td draggable="false" ondragstart="drag(event)" id="drag1">
+                            Oranges
+                            <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+                                <p draggable="false" ondragstart="drag(event)" id="drag1"></p>
+                            </div>
+                        </td>
+                        <td>AB Produce</td>
+                        <td>2</td>
+                        <td>11.25</td>
+                    </tr>
+                    <tr ondrop="drop(event)" ondragover="allowDrop(event)" >
+                        <td draggable="false" ondragstart="drag(event)" id="drag2">
+                            Apples
+                            <div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)">
+
+                                <p draggable="false" ondragstart="drag(event)" id="drag2"></p>
+                            </div>
+                        </td>
+                        <td>AB Produce</td>
+                        <td>2</td>
+                        <td>11.35</td>
+                    </tr>
+                </tbody>
+            </table> 
+        </div>
+    </div>

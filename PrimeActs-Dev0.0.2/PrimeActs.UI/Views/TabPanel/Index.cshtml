@@ -1,0 +1,499 @@
+@using System.Web.Script.Serialization
+
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/KJScripts/Paging.js"></script>
+@*<script src="~/Scripts/amplify.js"></script>*@
+<script src="~/KJScripts/Company/CompanyCreateTab.js"></script>
+<script src="~/TypeScripts/LookupTables/LookupTables.js"></script>
+
+<script src="~/Scripts/dropzone.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.js"></script>
+
+<link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
+
+@*@{
+        ViewBag.Title = "Index";
+    }*@
+
+<div class="container-fluid">
+    <div class="col-md-8">
+        <div id="PanelHeader">
+            <div class="tabbable col-md-12">
+                <ul class="nav nav-tabs" data-bind="foreach: sections">
+                    @*<li data-toggle="tab" data-bind="css: { active: isSelected }, attr: {'href':'#'+holdingDiv}">*@
+                    @*<li class="active" data-toggle="tab" data-bind="style: { color: isSelected()  ? 'blue' : 'orange' }, attr: {'href':'#'+holdingDiv}">*@
+                    <li class="active" data-toggle="tab" data-bind=" css: { 'activeTab': isSelected(), 'inactiveTab': !isSelected() }, attr: {'href':'#'+holdingDiv}">
+                        <span>
+                            <a href="#" data-bind="css: { 'activeTabContent': isSelected(), 'inactiveTabContent': !isSelected() },click: $parent.selectedSection">
+                                <input type="hidden" data-bind="text: tabTitle">
+                                <span>&nbsp;</span>
+                                <span data-bind="text: alphaTabTitle"></span>
+                            </a>
+                            <a href="#" data-bind="css: { 'activeTabContent': isSelected(), 'inactiveTabContent': !isSelected() },click: $root.removeParentTab">
+                                @*<span class="glyphicon glyphicon-remove-sign">&nbsp;</span>*@
+                                <span class="glyphicon glyphicon-remove-sign">&nbsp;</span>
+                            </a>
+                        </span>
+                    </li>
+                </ul>
+                <div class="tab-content" data-bind="foreach: sections ">
+                    <div class="tab-pane fade in active" data-bind="css: { active: isSelected }">
+                        <div data-bind="attr: {'id': holdingDiv}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-4">
+
+        <div class="col-md-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <p class="panel-title">Search</p>
+                </div>
+                <div class="panel-body">
+                    <input type="search" placeholder="Reference" /><img src="~/Content/images/IconSearchOrange.png" />
+
+                    <div class="row"><img src="~/Content/images/IconConsignment.png" />29837987&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Content/images/IconConsignment.png" />29837987</div>
+                    <div class="row"><img src="~/Content/images/IconConsignment.png" />29837987&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Content/images/IconConsignment.png" />29837987</div>
+                    <div class="row"><img src="~/Content/images/IconConsignment.png" />29837987&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Content/images/IconConsignment.png" />29837987</div>
+                    <div class="row"><img src="~/Content/images/IconConsignment.png" />29837987&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Content/images/IconConsignment.png" />29837987</div>
+                    <div class="row"><img src="~/Content/images/IconConsignment.png" />29837987&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Content/images/IconConsignment.png" />29837987</div>
+                    <div class="row"><img src="~/Content/images/IconConsignment.png" />29837987&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Content/images/IconConsignment.png" />29837987</div>
+                </div>
+
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <p class="panel-title">Your Recent Items</p>
+                </div>
+
+                <div class="panel-body">
+                    <input readonly />
+                    <div class="row"><img src="~/Content/images/IconConsignment.png" />29837987&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Content/images/IconConsignment.png" />29837987</div>
+                    <div class="row"><img src="~/Content/images/IconConsignment.png" />29837987&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Content/images/IconConsignment.png" />29837987</div>
+                    <div class="row"><img src="~/Content/images/IconConsignment.png" />29837987&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Content/images/IconConsignment.png" />29837987</div>
+                    <div class="row"><img src="~/Content/images/IconConsignment.png" />29837987&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Content/images/IconConsignment.png" />29837987</div>
+                    <div class="row"><img src="~/Content/images/IconConsignment.png" />29837987&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Content/images/IconConsignment.png" />29837987</div>
+                    <div class="row"><img src="~/Content/images/IconConsignment.png" />29837987&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="~/Content/images/IconConsignment.png" />29837987</div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <p class="panel-title">Top Sellers</p>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row"><img src="~/Content/images/IconFormProduce.png" />Apples&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                    <div class="row"><img src="~/Content/images/IconFormProduce.png" />Tomatoes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                    <div class="row"><img src="~/Content/images/IconFormProduce.png" />Pears&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                    <div class="row"><img src="~/Content/images/IconFormProduce.png" />Grapes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                    <div class="row"><img src="~/Content/images/IconFormProduce.png" />Oranges&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                    <div class="row"><img src="~/Content/images/IconFormProduce.png" />Lettuce&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+    var Section = function (tabTitle, name, contentType, holdingDiv, selected, controllerState, uriParam) {
+
+        if (tabTitle == undefined || tabTitle == "")
+        {
+            this.tabTitle = ko.observable(name);
+        }
+        else {
+            //
+            this.tabTitle = ko.observable(tabTitle);
+
+        }
+        this.name = name;
+        this.contentType = contentType; // Order / Consignment etc
+        this.holdingDiv = holdingDiv;
+        var self = this;
+        this.alphaTabTitle = ko.computed( function() {
+            var title = "" + self.tabTitle();
+            if (title.indexOf("details") === 0) {
+                return self.tabTitle().replace("details", '');
+            }
+            else {
+                return self.tabTitle().replace(/[0-9]/g, '');
+
+            }
+        });
+        // isSelected = very important method to make Tab Panels work
+        // hooked up jquery focus  into this, as workaround for setting focus when moving between panels, todo, position to exact field of last focused.
+        this.isSelected = ko.computed(function () {
+            if(selected() != null){
+                var focus_on_div = "#"+ selected().holdingDiv;
+                if(selected().contentType ==="CreateTicket") {$(focus_on_div).find("input[name='CustomerDepartmentID']").focus() }
+                if(selected().contentType ==="TransferTicket") {$(focus_on_div).find("input[name='SalesPersonUserID']").focus()  }
+                if(selected().contentType ==="Consignment") {$(focus_on_div).find("input[name='SupplierDepartmentName']").focus() }
+                if(selected().contentType ==="TicketDetails") {$(focus_on_div).find("[name='CreateBtn']").focus()  }
+                if(selected().contentType ==="CreatePurchaseInvoice") {
+
+                    $(focus_on_div).find("[name='SupplierDepartmentName']").focus()  }
+            }
+            return this === selected();
+        }, this);
+        this.controllerState = controllerState; // Create/Edit etc
+        this.uriParam = uriParam;
+        //this.AlphaTabTitle = ko.computed(function (){
+        //    if(tabTitle != null){
+        //        //return tabTitle.replace(/[0-9]/g, '');
+        //        return tabTitle + "test";
+        //    }
+        //})
+    }
+
+    //function AppViewModel() {
+    var ViewModel = function AppViewModel() {
+        var self = this;
+
+        self.resultData = ko.observable(); // No initial value
+
+        self.testcopy = ko.observable();
+        self.serialized = ko.observable();
+        self.serializedContext = ko.observable();
+        self.copiedmodel = ko.observable();
+        self.contextmodel = ko.observable();
+
+        self.testdatafor = ko.observable();
+        self.lastViewManaged = ko.observable(0);
+        self.selectedSection = ko.observable();
+        self.sections = ko.observableArray([]);
+
+        //inialize to the first section
+        self.selectedSection(self.sections()[0]);
+        self.RestoreStateTabPanels = ko.observableArray([]);
+
+        // Triggered by Sidebar
+        subscriberTab.subscribe(function(options) {
+            console.log(options);
+            self.addGeneric(options); // Pass in the Object to create, i.e Company ; Department ; Consignment etc
+        }, self, 'save');
+
+        subscriberReplaceTab.subscribe(function(options) { // replacement will have {object}{id} example - Company4
+            self.addReplaceGeneric(options); // Pass in the options { PanelName: [Company|Department|Consignment etc], UriParam: '' }
+        }, self, 'save');
+
+        // ## REMOVE TAB ##
+        self.removeParentTab = function (section) {
+            self.sections.remove(section);
+            var current_index = self.sections().length-1;
+            self.selectedSection(self.sections()[current_index]);
+
+            var len = section.name.length;
+            var get_state_panel_id = section.name.match(/\d+/g).join([]);
+
+            self.removeDBStateItem(get_state_panel_id);
+        }
+
+
+        self.removeDBStateItem = function(id){
+
+            $.ajax({
+                type: "DELETE",
+                url: "/api/TabPanel?id="+id,
+                dataType: 'application/json',
+                //data: { id: id }, bug when data?
+                success: function (data) {
+                    console.log("success");
+
+                },
+                error: function (xhr) {
+                    console.log("failure");
+                    console.log(xhr);
+                },
+                messages: {
+                    noResults: "",
+                    results: function () {}
+                }
+            });
+        }
+
+        // helper to incremement managed views
+        self.incrementViewManager = function ()
+        {
+            var current_index = self.sections().length;
+            var inc_last_view_managed = self.lastViewManaged();
+            inc_last_view_managed = ++inc_last_view_managed;
+            self.lastViewManaged(inc_last_view_managed); // track for when add or delete tabs, can't simply use index as tabs will be opened and closed
+        }
+
+
+        // helper to add panel for type requested ## NORMAL CASE - AFTER FIRST PAGE ##
+        self.insertTabSectionForObject = function (options) {
+            var current_index = self.sections().length; // will be one less when we add, which is what is wanted
+            var the_last_view_managed = self.lastViewManaged();
+            var div_inject_id = "viewTab" + the_last_view_managed;
+            var uri_controller = "";
+            var controller_state = "Create";
+            var uriParam = options.UriParam || "";
+            var panelName = options.PanelName || options;
+            var tabTitle =  options.TabTitle || options.PanelName;
+            //debugger; /////////////////
+            uri_controller = self.getControllerUri(panelName); // The Controller we want to work with
+
+            if (uriParam.length > 0) {
+                uri_controller += "/" + uriParam;
+            }
+
+            // add our New Section to observable array
+            self.sections.push(new Section(tabTitle, panelName + the_last_view_managed, panelName, div_inject_id, self.selectedSection, controller_state, uriParam));
+            console.log('tabTitle =', tabTitle, 'panelName & last_view_managed =', panelName + the_last_view_managed); //
+            console.log('div_inject_id =', div_inject_id, 'selectedSection =', self.selectedSection()); /////////////////
+            console.log('controller_state =', controller_state, 'uriParam =', uriParam); ////////////////////////////////
+            // C# Controller
+            self.executeControllerAction(div_inject_id, uri_controller);
+            self.selectedSection(self.sections()[current_index]); // Set Tab to Current
+        }
+
+
+        // ## Replace a Tab Panel Contents with a new Object of Same Type
+        // options {
+        //      PanelName: 'Ticket', // panel to replace
+        //      NewPanelName: 'TicketDetails',
+        //      UriParam: '{ticketId}' // optional uri parameters should be formatted to append to uri
+        self.replaceTabSectionForObject = function (options) {
+
+            var cur_section_name = options.PanelName;
+            var alpha_name = cur_section_name.replace(/[0-9]/g, ''); //set alphaname for page once
+            var get_state_panel_id = cur_section_name.match(/\d+/g).join([]); // get the ID
+            //debugger;
+            self.removeDBStateItem(get_state_panel_id); // remove existing State
+
+            var section_iterator = -1;
+            $.each(self.sections(), function(i,item){ // find existing object so that we can create an object with the same Section Details
+                if (item.name === cur_section_name) {
+                    section_iterator = i;
+                    return false;
+                }
+            });
+
+            var current_index = section_iterator; // id of section found, using name passed to replace
+            var uri_controller = "";
+            var controller_state = "Create";
+
+            var uri_controller = "";
+            var newSectionName = cur_section_name;
+            if (options.hasOwnProperty("NewPanelName")) {
+                alpha_name = options.NewPanelName;
+                newSectionName = alpha_name + get_state_panel_id;
+            }
+
+            switch (alpha_name) // controller action, string at the moment, but in future may include some kind of state object
+            {
+                case "Department": uri_controller = "/Department/CreateTabbed/" + get_state_panel_id; break;
+                case "Consignment": uri_controller = "/Consignment/CreateConsignmentTab/" + get_state_panel_id; break;
+                case "ConsignmentIndexTab": uri_controller = "/Consignment/ConsignmentIndexTab/" + get_state_panel_id; break;
+                case "CompletedConsignmentsTab": uri_controller = "/Consignment/CompletedConsignmentsTab/" + get_state_panel_id; break;
+                    //case "ConsignmentNew": uri_controller = "/Consignment/CreateConsignmentTabWithSupplier/" + get_state_panel_id; break;
+                case "Company": uri_controller = "/Company/CreateTab/" + get_state_panel_id; break;
+                case "Ticket": uri_controller = "/Ticket/Index/" + get_state_panel_id; break;
+                    //case "CreateTicket": uri_controller = "/Ticket/Create/" + get_state_panel_id; break;
+                case "CreateCashTicket": uri_controller = "/Ticket/CreateCashTicket/" + get_state_panel_id; break;
+                case "CreateCreditTicket": uri_controller = "/Ticket/CreateCreditTicket/" + get_state_panel_id; break;
+                case "TicketIndexTab": uri_controller = "/Ticket/TicketIndexTab/" + get_state_panel_id; break;
+                case "CreateReceipt": uri_controller = "/Ticket/CreateReceipt/" + get_state_panel_id; break;
+                case "TicketDetails": uri_controller = "/Ticket/DetailsTab/" + get_state_panel_id; break;
+                case "TicketEdit": uri_controller = "/Ticket/EditTab/" + get_state_panel_id; break;
+                case "PurchaseInvoiceDetails": uri_controller = "/PurchaseInvoice/DetailsTab/" + get_state_panel_id; break;
+                case "ReceiptDetails": uri_controller = "/Ticket/ReceiptDetails/" + get_state_panel_id; break;
+                case "TransferTicket": uri_controller = "/Ticket/CreateTransfer/" + get_state_panel_id; break;
+                case "TransferDetails": uri_controller = "/Ticket/TransferDetails/" + get_state_panel_id; break;
+                case "ConsignmentDetails": uri_controller = "/Consignment/DetailsTab/" + get_state_panel_id; break;
+                case "ConsignmentEdit": uri_controller = "/Consignment/EditTab/" + get_state_panel_id; break;
+                case "InvoiceAdmin": uri_controller = "/InvoiceAdmin/IndexTab/" + get_state_panel_id; break;
+                case "InvoiceAdminLogin": uri_controller = "/InvoiceAdmin/Login/" + get_state_panel_id; break;
+                case "StockBoard": uri_controller = "/StockBoard/Index/" + get_state_panel_id; break;
+                case "StockBoardAdmin": uri_controller = "/StockBoardAdmin/Index/" + get_state_panel_id; break;
+                case "DailyCash": uri_controller = "/Report/DailyCash/" + get_state_panel_id; break;
+                case "Supplier": uri_controller = "/Supplier/IndexTab/" + get_state_panel_id; break;
+                case "AddSupplier": uri_controller = "/Supplier/CreateSupplier/" + get_state_panel_id; break;
+                case "ViewSupplier": uri_controller = "/Supplier/SupplierIndexTab/" + get_state_panel_id; break;
+                case "SupplierEdit": uri_controller = "/Supplier/SupplierEdit/" + get_state_panel_id; break; 
+                case "SupplierDetails": uri_controller = "/Supplier/SupplierDetails/" + get_state_panel_id; break;
+                case "Customer": uri_controller = "/Customer/IndexTab/" + get_state_panel_id; break;
+                case "AddCustomer": uri_controller = "/Customer/CreateCustomer/" + get_state_panel_id; break;
+                case "ViewCustomer": uri_controller = "/Customer/CustomerIndexTab/" + get_state_panel_id; break;
+                case "CustomerEdit": uri_controller = "/Customer/CustomerEdit/" + get_state_panel_id; break; 
+                case "CustomerDetails": uri_controller = "/Customer/CustomerDetails/" + get_state_panel_id; break;
+                //case "CustomerDetails": uri_controller = "/Customer/DetailsTab/" + get_state_panel_id; break;
+                case "KoTest": uri_controller = "/Supplier/KoTest/" + get_state_panel_id; break;
+            }
+
+            var uriParam = "";
+            if (options.hasOwnProperty('UriParam')) {
+                uriParam = options.UriParam;
+                uri_controller += "/" + uriParam;
+            }
+
+            // add our New Section to observable array
+            var current_section_obj = self.sections()[section_iterator];
+            if (current_section_obj.name !== newSectionName) {
+                current_section_obj.name = newSectionName;
+            }
+            if (current_section_obj.uriParam !== uriParam) {
+                current_section_obj.uriParam = uriParam;
+            }
+            var new_section_obj = new Section("", current_section_obj.name, current_section_obj.contentType, current_section_obj.holdingDiv,self.selectedSection, current_section_obj.controller_state, current_section_obj.uriParam);
+            // C# Controller
+            $.ajax({
+                url: uri_controller,
+                cache: false,
+                type: "get",
+                dataType: "html",
+                success: function (result) {
+                    self.sections.replace(current_section_obj, new_section_obj); // required so knockout will track new object
+                    $("#" +new_section_obj.holdingDiv).html(result);
+                    self.selectedSection(self.sections()[section_iterator]);
+                    var focus_on_div = "#"+ self.selectedSection().holdingDiv;
+                    if(self.selectedSection().contentType ==="CreateTicket") {$(focus_on_div).find("input[name='CustomerDepartmentID']").focus() }
+                    if(self.selectedSection().contentType ==="Consignment") {$(focus_on_div).find("input[name='SupplierDepartmentName']").focus()  }
+                    if(self.selectedSection().contentType ==="TransferTicket") {$(focus_on_div).find("input[name='SalesPersonUserID']").focus()  }
+                    if(self.selectedSection().contentType ==="TicketDetails") {$(focus_on_div).find("[name='CreateBtn']").focus()  }
+                    if(self.selectedSection().contentType ==="CreatePurchaseInvoice") {$(focus_on_div).find("[name='SupplierDepartmentName']").focus()  }
+                },
+                error: function (xhr) {
+
+                }
+            });
+        }
+
+        self.executeControllerAction = function(div_inject_id, uri_controller) {
+            var current_index = self.sections().length;
+            $.ajax({
+                url: uri_controller,
+                cache: false,
+                type: "get",
+                dataType: "html",
+                success: function (result) {
+                    $("#" + div_inject_id).html(result);
+                    //self.selectedSection(self.sections()[current_index]);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    //debugger;
+                }
+            });
+        }
+
+        // orchestrate tabbed panel addition of a defined type // string name at the moment i.e. Order, Company etc
+        self.addGeneric = function(options) {
+            self.incrementViewManager();
+            //debugger; ///////////////////////////////
+            self.insertTabSectionForObject(options);
+        }
+
+        // orchestrate tabbed panel addition of a defined type // string name at the moment i.e. Order, Company etc
+        self.addReplaceGeneric = function(options) {
+            //self.incrementViewManager(); //
+
+            self.replaceTabSectionForObject(options);
+        }
+
+        // ## FIRST TIME ONLY - FIRST TAB OPENED ##
+        self.setTabPanelDataOnInit = function (data) { // Utility Method Called on init, data contains the serialised Tab sections
+            //As this is called before the Add from the Menu, exisiting tabs should always show first
+
+            var parsed_json = JSON.parse(data);
+            $.each(parsed_json, function (index, value) { // ITERATE through Sections ##
+                self.lastViewManaged(value.id);
+                var current_index = self.sections().length; // will be one less when we add, which is what is wanted
+                var the_last_view_managed = self.lastViewManaged();
+                var div_inject_id = value.holdingDiv;
+                var uri_controller = "";
+                var pi_object = value.contentType;
+                var controller_state = value.controllerState;
+                var uriParam = value.UriParam;
+                var tabTitle = value.TabTitle;
+
+                uri_controller = self.getControllerUri(pi_object);
+
+                if (uriParam != null) {
+                    uri_controller += "/" + uriParam;
+                }
+
+                // add our New Section to observable array
+                self.sections.push(new Section(tabTitle, pi_object + the_last_view_managed, pi_object, div_inject_id, self.selectedSection, controller_state, uriParam));
+                console.log('tabTitle =', tabTitle, 'pi_object & last_view_managed =', pi_object + the_last_view_managed); //
+                console.log('div_inject_id =', div_inject_id, 'selectedSection =', self.selectedSection()); /////////////////
+                console.log('controller_state =', controller_state, 'uriParam =', uriParam); ////////////////////////////////
+                self.selectedSection(self.sections()[current_index]);
+                // C# Controller
+                self.executeControllerAction(div_inject_id, uri_controller);
+            });
+        }
+
+        self.getControllerUri = function(pi_object) {
+            var uri_controller = "";
+            var the_last_view_managed = self.lastViewManaged();
+            //debugger; ////////////////////////
+            switch (pi_object) // controller action, string at the moment, but in future may include some kind of state object
+            {
+                case "Department": uri_controller = "/Department/CreateTabbed/" + the_last_view_managed; break;
+                case "Consignment": uri_controller = "/Consignment/CreateConsignmentTab/" + the_last_view_managed; break;
+                case "ConsignmentIndexTab": uri_controller = "/Consignment/ConsignmentIndexTab/" + the_last_view_managed; break;
+                case "CompletedConsignmentsTab": uri_controller = "/Consignment/CompletedConsignmentsTab/" + the_last_view_managed; break;
+                    //case "ConsignmentNew": uri_controller = "/Consignment/CreateConsignmentTabWithSupplier/" + the_last_view_managed; break;
+                case "Company": uri_controller = "/Company/CreateTab/" + the_last_view_managed; break;
+                case "Ticket": uri_controller = "/Ticket/Index/" + the_last_view_managed; break;
+                case "Produce": uri_controller = "/Produce/IndexTab/" + the_last_view_managed; break;
+                    //case "CreateTicket": uri_controller = "/Ticket/Create/" + the_last_view_managed; break;
+                case "CreateCashTicket": uri_controller = "/Ticket/CreateCashTicket/" + the_last_view_managed; break;
+                case "CreateCreditTicket": uri_controller = "/Ticket/CreateCreditTicket/" + the_last_view_managed; break;
+                case "TicketIndexTab": uri_controller = "/Ticket/TicketIndexTab/" + the_last_view_managed; break; //+
+                case "CreateReceipt": uri_controller = "/Ticket/CreateReceipt/" + the_last_view_managed; break;
+                case "CreatePurchaseInvoice": uri_controller = "/PurchaseInvoice/CreateTab/" + the_last_view_managed; break;
+                case "TicketDetails": uri_controller = "/Ticket/DetailsTab/" + the_last_view_managed; break;
+                case "TicketEdit": uri_controller = "/Ticket/EditTab/" + the_last_view_managed; break; ////////////////
+                case "ReceiptDetails": uri_controller = "/Ticket/ReceiptDetails/" + the_last_view_managed; break;
+                case "TransferTicket": uri_controller = "/Ticket/CreateTransfer/" + the_last_view_managed; break;
+                case "TransferDetails": uri_controller = "/Ticket/TransferDetails/" + the_last_view_managed; break;
+                case "ProduceDetails": uri_controller = "/Produce/DetailsTab/" + the_last_view_managed; break;
+                case "ConsignmentDetails": uri_controller = "/Consignment/DetailsTab/" + the_last_view_managed; break;
+                case "ConsignmentEdit": uri_controller = "/Consignment/EditTab/" + the_last_view_managed; break;
+                case "PurchaseInvoiceDetails": uri_controller = "/PurchaseInvoice/DetailsTab/" + the_last_view_managed; break;
+                case "InvoiceAdmin": uri_controller = "/InvoiceAdmin/IndexTab/" + the_last_view_managed; break;
+                case "InvoiceAdminLogin": uri_controller = "/InvoiceAdmin/Login/" + the_last_view_managed; break;
+                case "StockBoard": uri_controller = "/StockBoard/Index/" + the_last_view_managed; break;
+                case "StockBoardAdmin": uri_controller = "/StockBoardAdmin/Index/" + the_last_view_managed; break;
+                case "DailyCash": uri_controller = "/Report/DailyCash/" + the_last_view_managed; break;
+                case "AddSupplier": uri_controller = "/Supplier/CreateSupplier/" + the_last_view_managed; break; //+
+                case "ViewSupplier": uri_controller = "/Supplier/SupplierIndexTab/" + the_last_view_managed; break; //+
+                case "SupplierDetails": uri_controller = "/Supplier/SupplierDetails/" + the_last_view_managed; break; //+
+                case "SupplierEdit": uri_controller = "/Supplier/SupplierEdit/" + the_last_view_managed; break; ////////////////
+                case "AddCustomer": uri_controller = "/Customer/CreateCustomer/" + the_last_view_managed; break; //+
+                case "ViewCustomer": uri_controller = "/Customer/CreateCustomer/" + the_last_view_managed; break; //+
+                case "KoTest": uri_controller = "/Supplier/KoTest/" + the_last_view_managed; break; //////////////////////////////////
+            }
+
+            return uri_controller;
+        }
+    }
+
+    var first_get_panel = '@(ViewBag.CreateFromPost)'; // After first GET, Panels are added via Knockout Notify from the Menu
+    var subscriberTab = ko.observable(); // This variable is the "Magic" that allows the Sidebar Menu to trigger Knockout for adding Panel Items
+    var subscriberReplaceTab = ko.observable();
+    var lookupTables = new LookupTables();
+    var appViewModel = new ViewModel();
+    var controller_tab_data = @Html.Raw(Json.Encode(ViewBag.TabPanelState));// getting from Controller
+
+    appViewModel.setTabPanelDataOnInit(controller_tab_data);
+    ko.applyBindings(appViewModel, document.getElementById("PanelHeader"));
+
+    if (first_get_panel != undefined && first_get_panel != "") {
+        subscriberTab.notifySubscribers(first_get_panel, "save"); // if first get panel is set on Page Load, we know to trigger
+    }
+
+</script>

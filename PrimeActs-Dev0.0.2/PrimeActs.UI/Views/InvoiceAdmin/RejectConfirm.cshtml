@@ -1,0 +1,152 @@
+﻿<div class="col-md-8 " id="InvoiceSummary">
+    <div class="panel panel-default ">
+        <div class="panel-heading clearfix confirmationdetails">
+            Invoice Status - Invoice Rejected.
+        </div>
+        <div class="panel-body textNavy">
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="~/Content/images/PrimeActsLogoFinal.png"><div class="label-warning">Invoice Rejected</div>
+                </div>
+                <div class="col-md-6 text-right">
+                    <p>
+                        Invoice Number: <span data-bind="text: SalesInvoiceReference">&nbsp;</span><br />
+                        Invoice Date: <span data-bind="text: SalesInvoiceDate">&nbsp;</span><br />
+                        VAT Reg: <span data-bind="text: CompanyVATRegistrationNumber"> &nbsp;</span><br />
+                        Company Number: <span data-bind="text: CompanyNumber"> &nbsp;</span><br />
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h4><span data-bind="text: CustomerDepartmentName" readonly=" true"></span></h4>
+                    Address: <br />
+                    <span data-bind="text: CustomerDepartmentAddress1">&nbsp;</span><br />
+                    <span data-bind="text: CustomerDepartmentAddress2">&nbsp;</span><br />
+                    <span data-bind="text: CustomerDepartmentAddress3">&nbsp;</span><br />
+                    <span data-bind="text: CustomerDepartmentPostalTown">&nbsp;</span><br />
+                    <span data-bind="text: CustomerDepartmentPostcode">&nbsp;</span><br />
+                </div>
+                <div class="col-md-3 text-left"></div>
+                <div class="col-md-3 text-left">
+                    <h4><span data-bind="text: CompanyDivisionName" readonly=" true"></span></h4>
+                    Address: <br />
+                    <span data-bind="text: DivisionAddress1">&nbsp;</span><br />
+                    <span data-bind="text: DivisionAddress2">&nbsp;</span><br />
+                    <span data-bind="text: DivisionAddress3">&nbsp;</span><br />
+                    <span data-bind="text: DivisionPostalTown">&nbsp;</span><br />
+                    <span data-bind="text: DivisionPostCode">&nbsp;</span><br />
+                </div>
+                <div>
+                    <input type="button" class="btn btn-default" onclick="location.href = 'ApproveConfirm'" value="Approve" />
+                    <input type="button" class="btn btn-default" onclick="location.href = 'RejectConfirm'" value="Reject" />
+
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" id="InvoiceItem">
+            <div class="panel-heading clearfix">
+                <p></p>
+                <a class="tab-content pull-right confirmationdetails" href="~/Invoice/Index">Back to Invoices</a>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div id="no-more-tables">
+                        <table class="table table-striped table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Currency</th>
+                                    <th>Description</th>
+                                    <th>Item Line Total</th>
+                                    <th>VAT</th>
+                                    <th>Exchange</th>
+                                    <th>Brand</th>
+                                    <th>Ticket No</th>
+                                    <th>Item Qty</th>
+                                    <th>Item Total Price</th>
+                                </tr>
+                            </thead>
+                            <tbody data-bind="foreach: { data: InvoiceTicketItems, as: 'row' }">
+                                <!-- ko foreach: { data: row.InvoiceItemModels, as: 'ticket' } -->
+                                <tr>
+                                    <td data-title="Currency">
+                                        &nbsp;<span data-bind="text:ticket.Currency"></span>
+                                    </td>
+                                    <td data-title="Description">
+                                        &nbsp;<span class="confirmationdetails" data-bind="text: ticket.SalesInvoiceItemDescription"></span>
+                                    </td>
+                                    <td data-title="Item Line Total">
+                                        &nbsp;<span data-bind="text: ticket.SalesInvoiceItemLineTotal"></span>
+                                    </td>
+                                    <td data-title="VAT">
+                                        &nbsp;<span data-bind="text: ticket.SalesInvoiceItemVAT"></span>
+                                    </td>
+                                    <td data-title="Exchange">
+                                        &nbsp;<span data-bind="text: ticket.ExchangeRate"></span>
+                                    </td>
+                                    <td data-title="Brand">
+                                        &nbsp;<span data-bind="text: ticket.Brand"></span>
+                                    </td>
+                                    <td data-title="TicketNumber">
+                                        &nbsp;<span data-bind="text: ticket.TicketNumber"></span>
+                                    </td>
+                                    <td data-title="Item Qty">
+                                        &nbsp;<span data-bind="text: ticket.TicketItemQty"></span>
+                                    </td>
+                                    <td data-title="Item Total Price">
+                                        &nbsp;<span data-bind="text: ticket.TicketItemTotalPrice"></span>
+                                    </td>
+                                </tr>
+                                <!-- /ko -->
+                                <tr>
+                                    <td colspan="8" class="text-right">
+                                        <strong style="padding-right">Porterage Value</strong>
+                                    </td>
+                                    <td>
+                                        &nbsp;<span data-bind="text: row.PorterageValue"></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-8 col-sm-5 col-sm-offset-2 recap">
+                        <table class="table table-clear">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <strong>Subtotal</strong>
+                                    </td>
+                                    <td>
+                                        <span data-bind="text: Subtotal()" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>VAT (20%)</strong>
+                                    </td>
+                                    <td>
+                                        <span data-bind="text: VAT()"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Total</strong>
+                                    </td>
+                                    <td>
+                                        <span data-bind="text: Total()"><strong></strong></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-4">
+
+
+</div>

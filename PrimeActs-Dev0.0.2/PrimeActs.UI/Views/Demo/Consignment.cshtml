@@ -1,0 +1,316 @@
+﻿<!--adding a comment section-->
+<div class="container-fluid">
+    <div class="col-md-12">
+        @Html.Partial("_TabUserContext")
+
+        <div class="col-md-8">
+            <div class="panel panel-default ">
+                <div class="panel-heading clearfix">
+                    <p class="panel-title">Create Consignment</p>
+                </div>
+                @*<div class="panel-bodybordered col-md-12">*@
+                <div class="panel-body">
+                    <div class="col-md-12 panel-gridrow">
+                        <div class="col-md-6 col-md-offset-0">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-1 col-md-offset-2">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-3">
+                            &nbsp;
+                        </div>
+                    </div>
+                    <div class="col-md-12 panel-gridrow">
+                        <div class="col-md-6 col-md-offset-0">
+                        </div>
+                        <div class="col-md-1 col-md-offset-2">
+                        </div>
+                        <div class="col-md-3">
+                        </div>
+                    </div>
+                    <div class="col-md-12 panel-gridrow">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-4 pull-left">
+                            Reference
+                            <span type="text" id="ConsignmentReference">WE1223 </span>
+                        </div>
+                      
+                        <div class="col-md-1"> </div>
+                        <div class="col-md-3">Supplier Reference</div>
+                        <div class="col-md-1"> </div>
+                    </div> @*Put back here *@
+                    <div class="col-md-12 panel-gridrow">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-5 pull-left">
+                            <input type="text" class="form-control" id="ConsignmentDescription" value="Description" />
+                        </div>
+                        <div class="col-md-5">
+                         
+                         
+                         
+                            <input type="text" class="form-control" id="SupplierReference" placeholder="Supplier Reference"/>
+                        </div>
+                        <div class="col-md-1"></div>
+                        </div>
+                 
+                    <div class="col-md-12 panel-gridrow">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-5">
+                            Supplier Name<br />
+                         
+                            <input type="text" name="SupplierDepartmentName" class="form-control " autofocus />
+                        </div>
+                        <div class="col-md-2"> </div>
+                        <div class="col-md-5">
+                            Despatch Date<br /><input class="form-control" type="date" />
+
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+                    
+
+                        <div class="col-md-12">
+                            <div class="col-md-1">
+                            </div>
+                            <div class="col-md-3 pull-left">
+                                Purchase Type
+                          
+                                <select class="form-control">
+                                    <option>
+                                        CO - commission only
+                                    </option>
+                                    <option>
+                                        CP - commission purchase
+                                    </option>
+                                    <option>
+                                        PO- purchase only
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-1  pull-left">
+                                Commision
+                                <input type="text" class="form-control" id="Commission" readonly disabled="disabled" value="1.00 " />
+                            </div>
+                            <div class="col-md-1  pull-left">
+                                Handling
+                                <input type="text" class="form-control" id="Handling" readonly disabled="disabled" value="8.00" />
+                            </div>
+                            <div class="col-md-2"> </div>
+                            <div class="col-md-3">
+                                Attachments
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <input type="button" class="btn btn-default col-md-4" value="+  Files" />
+                            </div>
+                            <div class="col-md-1"></div>
+                        </div>
+                     
+                    <div class="col-md-12">
+                        <div class="col-md-1  pull-left">
+                         
+                        </div>
+                        <div class="col-md-1  pull-left">
+                           
+                        </div>
+                        <div class="col-md-2"> </div>
+                        <div class="col-md-3">
+                          
+                        </div>
+                        <div class="col-md-4">
+                            
+                        </div>
+                        <div class="col-md-1  pull-left">
+                        </div>
+                           
+                        
+                        
+                       
+                        <div class="col-md-12">
+                            <div class="col-md-1">
+                       
+                            </div>
+                         
+                            <div class="col-md-3">
+                            
+                                  
+                               
+                            </div>
+
+                            <div class="col-md-4"></div>
+
+                                <div class="col-md-3">
+                                    <input type="button" class="btn btn-new" value="Create Consignment" />
+                                </div>
+                            <div class="col-md-1">
+                            </div>
+
+                        <div class="col-md-12 panel-gridrow">
+                            <div class="col-md-6 col-md-offset-0">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-1 col-md-offset-2">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-3">
+                                &nbsp;
+                            </div>
+                        </div>
+                        <div class="col-md-12 panel-gridrow">
+                            <div class="col-md-6 col-md-offset-0">
+                            </div>
+                            <div class="col-md-1 col-md-offset-2">
+                            </div>
+                            <div class="col-md-3">
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            @*<div class="col-md-12">*@
+                            <div class="panel-default">
+                                <div class="panel-heading clearfix">
+                                    <p class="panel-title">Consignment Details</p>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-12">
+                                        <div class="col-md-1">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p class="labelSt">Department</p>
+                                           
+                                            <input type="text" placeholder="Department" class="form-control" value="Paul Fruit" />
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-5">
+                                            <p class="labelSt">Produce</p>
+                                          
+                                            <input type="text" class="form-control" tabindex=0 value="APGS - Granny smith Apples" autofocus />
+                                        </div>
+                                        
+                                        <div class="col-md-1">
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="col-md-12">
+                                        <div class="col-md-1">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <p class="labelSt">Qty Exp</p><input type="text" class="form-control" id="QuantityExpected" />
+                                        </div>
+                                
+                                        <div class="col-md-2"><p class="labelSt">Qty Rec</p><input type="text" class="form-control" id="QtyRecieved" /></div>
+
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-2">
+                                            <label class="labelSt">Received</label>
+                                          
+                                            <input type="date" class="form-control" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="labelSt">State/Quality</label>
+
+                                            <textarea class="form-control">Notes</textarea>
+                                        </div>
+                                    
+                                        <div class="col-md-1"></div>
+                                    </div>
+                               
+
+                                    <div class="col-md-12">
+                                        <div class="col-md-1">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <p class="labelSt">Brand</p>
+
+                                            <input type="text" class="form-control" id="Brand" placeholder="Brand" />
+
+                                        </div>
+                                        <div class="col-md-2">
+                                            <p class="labelSt">Origin</p>
+                                            <select class="form-control">
+                                                <option>UK</option>
+                                                <option>France</option>
+                                                <option>Spain</option>
+
+                                                <option>UK</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-1">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <p class="labelSt">Class</p>
+
+                                            <input type="text" class="form-control" id="packtype" placeholder="class" />
+
+
+                                        </div>
+                                        <div class="col-md-1">
+                                            <p class="labelSt">P Type</p>
+                                            <input type="text" class="form-control" id="packtype" placeholder="p. type " />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <p class="labelSt">P Size</p>
+                                            <input type="text" class="form-control" id="Pack type" placeholder="pack size" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <p class="labelSt">Weight</p>
+                                            <input type="text" class="form-control" id="Pack type" placeholder="weight" />
+                                            <input type="radio" checked/>KG
+                                            <input type="radio" />LB
+                                        </div>
+                                        <div class="col-md-1">
+                                            <p class="labelSt">Porterage</p>
+                                            <select class="form-control" id="Porterage">
+                                                <option selected>0</option>
+                                                <option>1</option>
+                                                <option>P</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-1">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12"></div>
+                                      
+                                    <div class="col-md-12"></div>
+                                    <div class="col-md-12"></div>
+
+                                        <div class="col-md-12">
+                                            <div class="col-md-1">
+                                            </div>
+                                            <div class="col-md-1">
+                                               
+
+                                 
+
+                                            </div>
+                                            <div class="col-md-2">
+
+                                            </div>
+                                            <div class="col-md-1">
+
+                                            </div>
+                                    
+                                            <div class="col-md-2 pull-right"></div>
+                                          
+                                            <div class="col-md-1"></div>
+                                          
+                                                
+                                            <div class="col-md-2 pull-right"><input type="button" class="btn btn-default" value="Save Details"></div>
+
+                                            <div class="col-md-1"></div>
+
+                                        </div>
+                                       <div class="col-md-12"></div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        @* ## DC Prototyping Consignment Items ##*@
+    </div>
+</div>
+
+</div>
+</div>

@@ -1,0 +1,24 @@
+﻿@model PrimeActs.UI.Models.IndexViewModel
+@{
+    ViewBag.Title = "Manage";
+    Layout = "~/Views/Shared/PrimeActslayout.cshtml";
+}
+
+
+<div class="col-md-8" id="registration">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <span class="panel-title">Reset Password</span>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="col-md-5">
+                        @Html.ActionLink("Change your password", "ChangeResetPassword")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

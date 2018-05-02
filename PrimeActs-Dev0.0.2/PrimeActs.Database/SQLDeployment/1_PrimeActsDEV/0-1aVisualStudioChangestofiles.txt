@@ -1,0 +1,31 @@
+Steps to publish from Visual Studio.
+
+1. To create DACPAC file you need to publish scripts from Visual studio to Local database i.e. spilon04.
+Right Click on the PrimeActs.Database project and choose Publish.
+Choose the connection as spilon04 as PrimeACts DEV SQL login.
+Ensure the destination name is PrimeActsDev.
+This publish process will update the schema on PrimeActsDev.
+You have now updated the PrimeActsDEV database on the Spilon04.
+
+2. This database now needs to be imported to the Azure database.
+To do this, you need to create a BACPAC File.
+open 6_ExportBacpacfromlocaDatabase.bat 
+Edit to ensure that the source database is PrimeActsDev.
+Save the file. 
+Open in explorer and double click to run.
+
+3. The bacpac has now been created.
+Now you need to ensure that there is a new database on Azure to import the bacpac into.
+To do this run the create database script in step 7 - this will ensure the correct collation is used.
+
+4. Import the bacpac into newly created Azure database.
+Again edit the file to point to the new database, and the bacpac name.
+Save file and open in file explorer and double click to run.
+This will take up to half an hour to run.
+
+Deployment of PrimeActsDev database on spilon04 to Azure completed.
+
+
+
+
+

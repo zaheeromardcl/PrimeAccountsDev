@@ -1,0 +1,121 @@
+﻿@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.Consignment.ConsignmentEditModel
+@{ var data = new JavaScriptSerializer().Serialize(Model); }
+<div class="container-fluid">
+    <div class="col-md-12" id="ConsignmentSummary">
+        <div class="col-md-12">
+            <div class="col-md-2">
+                <p class="confirmationdetails">Consignment Reference</p>
+            </div>
+            <div class="col-md-4">
+                <input data-bind="value: ConsignmentReference" class="form-control" readonly="true" />
+            </div>
+            <div class="col-md-2">
+                <p class="confirmationdetails">Description</p>
+            </div>
+            <div class="col-md-4">
+                <input data-bind="value: ConsignmentDescription" class="form-control" readonly="true" />
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-2">
+                <p class="confirmationdetails">Supplier Reference:</p>
+            </div>
+            <div class="col-md-4">
+                <input data-bind="value: SupplierReference" class="form-control" readonly="true" disabled="true" />
+            </div>
+            <div class="col-md-2">
+                <p class="confirmationdetails">Supplier Code/Name</p>
+            </div>
+            <div class="col-md-4">
+                <input data-bind="value: SupplierCompanyName" class="form-control" readonly="true" disabled="true" />
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-2">
+                <p class="confirmationdetails">Country Name</p>
+            </div>
+            <div class="col-md-4">
+                <input data-bind="value: CountryName" class="form-control" readonly="true" />
+            </div>
+            <div class="col-md-2">
+                <p class="confirmationdetails"> Port:</p>
+            </div>
+            <div class="col-md-4">
+                <input data-bind="value: PortName" class="form-control" readonly="true" disabled="true" />
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-2">
+                    <p class="confirmationdetails">Despatch Name:</p>
+                </div>
+                <div class="col-md-4">
+                    <input data-bind="value: DespatchName" class="form-control" readonly="true" disabled="true" />
+                </div>
+                <div class="col-md-2">
+                    <p class="confirmationdetails">Despatch Date:</p>
+                </div>
+                <div class="col-md-4">
+                    <input data-bind="value: DespatchDate" class="form-control" readonly="true" disabled="true" />
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-2">
+                    <p class="confirmationdetails">Handling:</p>
+                </div>
+                <div class="col-md-4">
+                    <input data-bind="value: Handling" class="form-control" readonly="true" disabled="true" />
+                </div>
+                <div class="col-md-2">
+                    <p class="confirmationdetails">Commision:</p>
+                </div>
+                <div class="col-md-2">
+                    <input data-bind="value: Commission" class="form-control" readonly="true" disabled="true" />
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-2">
+                    <p class="confirmationdetails">Vehicle:</p>
+                </div>
+                <div class="col-md-4">
+                    <input data-bind="value: Vehicle" class="form-control" readonly="true" disabled="true" />
+                </div>
+                <div class="col-md-2">
+                    <p class="confirmationdetails">Vehicle Details:</p>
+                </div>
+                <div class="col-md-4">
+                    <input data-bind="value: VehicleDetail" class="form-control" readonly="true" disabled="true" />
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-2">
+                    <p class="confirmationdetails">Contract Date:</p>
+                </div>
+                <div class="col-md-4">
+                    <input data-bind="value: ContractDate" class="form-control" readonly="true" disabled="true" />
+                </div>
+                <div class="col-md-2">
+                    <p class="confirmationdetails">Recieved Date:</p>
+                </div>
+                <div class="col-md-4">
+                    <input data-bind="value: ReceivedDate" class="form-control" readonly="true" disabled="true" />
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-2">
+                    <p class="confirmationdetails">Purchase Type:</p>
+                </div>
+                <div class="col-md-4">
+                    <input data-bind="value: PurchaseTypeName" class="form-control" readonly="true" disabled="true" />
+                </div>
+                <div class="col-md-2">
+                    <p class="confirmationdetails">Attachement:</p>
+                </div>
+                <div class="col-md-4">Link to Attachment</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var consignmentSummaryModel = new ConsignmentSummary(@Html.Raw(data));
+    ko.applyBindings(consignmentSummaryModel, document.getElementById("ConsignmentSummary"));
+</script>

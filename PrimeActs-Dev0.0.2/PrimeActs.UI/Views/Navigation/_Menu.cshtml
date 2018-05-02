@@ -1,0 +1,190 @@
+﻿@model PrimeActs.UI.Models.MenuModel
+<br/>
+<div class="col-md-12 col-md-push-1">
+    <ul>
+        <li>
+            <a id="salesHome" href="/Home/SalesHome">Sales Ledger</a>&nbsp;&nbsp;&nbsp;
+            <a id="purchasesHome" href="/Home/PurchaseHome">Purchase Ledger</a>&nbsp;&nbsp;&nbsp;
+            <a id="nominalHome" href="/Home/NominalHome">Nominal Ledger</a>&nbsp;&nbsp;&nbsp;
+            <a id="tradingHome" href="/Home/TradingHome">Trading Systems</a>&nbsp;&nbsp;&nbsp;
+            <a id="settingsHome" href="/Home/SettingsHome">
+                <img src="~/Content/images/IconNavsettings.png"/> Settings
+            </a>
+        </li>
+    </ul>
+</div><br/>
+
+<li>
+    <!-- <a href="/Home/Sales" class="dropdown-toggle" data-toggle="dropdown" role="button">Sales<!--<span class="caret"></span>--></a>
+    <!-- <ul class="dropdown-menu" role="menu">
+
+        <li>
+            @if (Model.Permissions.Contains("ViewMenuJournalEntry"))
+            {
+                @Html.ActionLink("Journal Entry", "CreateConsignment", "AdminConsignment")
+                ;
+            }</li>
+        <li>
+            @if (Model.Permissions.Contains("ViewMenuAccountEnquiry"))
+            {
+                @Html.ActionLink("Account Enquiry", "CreateConsignment", "AdminConsignment")
+                ;
+            }</li>
+        <li>
+            @if (Model.Permissions.Contains("ViewMenuCheques"))
+            {
+                @Html.ActionLink("Cheques", "CreateConsignment", "AdminConsignment")
+                ;
+            }</li>
+        <li>
+            @if (Model.Permissions.Contains("ViewMenuInvoices"))
+            {
+                @Html.ActionLink("Invoices", "CreateConsignment", "AdminConsignment")
+                ;
+            }</li>
+        <li>
+            @if (Model.Permissions.Contains("ViewMenuStatements"))
+            {
+                @Html.ActionLink("Statements", "CreateConsignment", "AdminConsignment")
+                ;
+            }</li>
+        <li>
+            @if (Model.Permissions.Contains("ViewMenuTickets"))
+            {
+                @Html.ActionLink("Tickets", "CreateConsignment", "AdminConsignment")
+                ;
+            }</li>
+        <li>
+            @if (Model.Permissions.Contains("ViewMenuTodaysSales"))
+            {
+                @Html.ActionLink("Todays Sales", "CreateConsignment", "AdminConsignment")
+                ;
+            }</li>
+
+    </ul>-->
+</li>
+<li>
+    <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Purchases<!--<span class="caret"></span></a>-->
+    <!-- <ul class="dropdown-menu" role="menu">
+        <li>
+            @if (Model.Permissions.Contains("ViewMenuFixDifferences"))
+            {
+                @Html.ActionLink("Fix Differences", "CreateConsignment", "AdminConsignment")
+                ;
+            }</li>
+        <li>
+            @if (Model.Permissions.Contains("ViewMenuSundryInvoice"))
+            {
+                @Html.ActionLink("Sundry Invoice", "CreateConsignment", "AdminConsignment")
+                ;
+            }</li>
+        <li>
+            @if (Model.Permissions.Contains("ViewMenuPaymentDue"))
+            {
+                @Html.ActionLink("Payment Due", "CreateConsignment", "AdminConsignment")
+                ;
+            }</li>
+        <li>
+            @if (Model.Permissions.Contains("ViewMenuPrePayments"))
+            {
+                @Html.ActionLink("PrePayments", "CreateConsignment", "AdminConsignment")
+                ;
+            }</li>
+        <li>
+            @if (Model.Permissions.Contains("ViewMenuRebateList"))
+            {
+                @Html.ActionLink("Rebate List", "CreateConsignment", "AdminConsignment")
+                ;
+            }</li>
+    </ul>-->
+</li>
+<li>
+    <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Trading<!--<span class="caret"></span></a>-->
+    <!-- <ul class="dropdown-menu" role="menu">
+        <li>
+            @if (Model.Permissions.Contains("ViewMenuConsignments"))
+            {
+                @Html.ActionLink("Consignments", "CreateConsignment", "AdminConsignment")
+                ;
+            }</li>
+
+    </ul>-->
+</li>
+<li>
+    <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Reports<!--<span class="caret"></span></a>-->
+    <!-- <ul class="dropdown-menu" role="menu">
+        <li>
+            @if (Model.Permissions.Contains("ViewMenuReport1"))
+            {
+                @Html.ActionLink("Report1", "CreateConsignment", "AdminConsignment")
+                ;
+            }</li>
+        <li>
+            @if (Model.Permissions.Contains("ViewMenuReport2"))
+            {
+                @Html.ActionLink("Report2", "CreateConsignment", "AdminConsignment")
+                ;
+            }</li>
+        <li>
+            @if (Model.Permissions.Contains("ViewMenuReport3"))
+            {
+                @Html.ActionLink("Report3", "CreateConsignment", "AdminConsignment")
+                ;
+            }</li>
+        <li>
+            @if (Model.Permissions.Contains("ViewMenuReport4"))
+            {
+                @Html.ActionLink("Report4", "CreateConsignment", "AdminConsignment")
+                ;
+            }</li>
+        <li>
+            @if (Model.Permissions.Contains("ViewMenuReport5"))
+            {
+                @Html.ActionLink("Report5", "CreateConsignment", "AdminConsignment")
+                ;
+            }</li>
+    </ul>
+    -->
+</li>
+
+<li>
+    <!-- <a href="/Home/Index" class="dropdown-toggle" data-toggle="dropdown" role="button">
+        Settings
+    </a>-->
+    <!--<span class="caret"></span>-->
+
+    <!-- <ul class="dropdown-menu" role="menu">
+
+        <li>
+            @if (Model.Permissions.Contains("ViewMenuManageUsers"))
+            {
+                @Html.ActionLink("Manage Users", "Index", "UsersAdmin")
+                ;
+            }</li>
+        <li>
+            @if (Model.Permissions.Contains("ViewMenuManageRoles"))
+            {
+                @Html.ActionLink("Manage Roles", "Index", "RolesAdmin")
+                ;
+            }</li>
+        <li>
+            @if (Model.Permissions.Contains("ViewMenuManagePermissions"))
+            {
+                @Html.ActionLink("Manage Permissions", "Index", "Permissions")
+                ;
+            }</li>
+        <li>
+            @if (Model.Permissions.Contains("ViewMenuSystemSettings"))
+            {
+                @Html.ActionLink("System Settings", "Index", "UsersAdmin")
+                ;
+            }</li>
+        <li>
+            @if (Model.Permissions.Contains("ViewMenuCompanySetup"))
+            {
+                @Html.ActionLink("Company Setup", "Index", "RolesAdmin")
+                ;
+            }</li>
+
+    </ul>-->
+</li>

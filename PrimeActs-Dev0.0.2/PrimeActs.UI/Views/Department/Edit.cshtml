@@ -1,0 +1,89 @@
+﻿@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.Department.DepartmentEditModel
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/KJScripts/Department/DepartmentEdit.js"></script>
+@{
+    var data = new JavaScriptSerializer().Serialize(Model);
+}
+<style type="text/css">
+    label {
+        display: block;
+    }
+
+    .validationMessage {
+        color: Red;
+    }
+
+    .customMessage {
+        color: Orange;
+    }
+
+    .required-field {
+        border: 2px solid red !important;
+        color: red;
+    }
+</style>
+
+<div class="col-md-8" id="Department">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h3 class="panel-title text-center">Update Department</h3>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-8 pull-right">
+                <a href="~/Department/Create" class="pull-right btn btn-new" title="New">
+                    <img src="~/Content/images/IconNew-orange.png" />&nbsp;New Department <!---->
+                </a>
+            </div>
+            <div class="row">
+                <br />
+            </div>
+            <div class="row"></div>
+            <div class="row">
+                <ul data-bind="foreach: Department().servererrors">
+                    <li class="field-validation-error" data-bind="text: $data"></li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    Department Name
+                </div>
+                @*css:{'required-field':Department().showerror(Department().Name)}*@
+                <div class="col-sm-7">
+                    <span class="col-sm-6"><input type="text" class="form-control" data-bind="value: Department().DepartmentName,  valueUpdate: 'afterkeydown'" /></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    Division
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6">
+                        <select height="5" data-bind="options: DivisionList(), selectedOptions: Department().RelatedDivisionId, optionsText: 'optionText', optionsValue: 'optionValue'" class="form-control">  </select>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6"> <input type="submit" class="btn btn-default pull-right" value="Update" data-bind="click: function (){create($data)}" /></span>
+                </div>
+            </div>
+            <div class="row"><br /></div>
+            <div class="row"><br /></div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <a class="tab-content pull-right" href="~/Department/Index">Back to Departments</a>
+    </div>
+</div>
+<script type="text/javascript">
+    var Department = new DepartmentModel(@Html.Raw(data));
+    ko.validation.init({
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: true
+
+    });
+    ko.applyBindings(Department, document.getElementById("Department"));
+</script>

@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[tblCompany] (
+    [CompanyID]           UNIQUEIDENTIFIER NOT NULL,
+    [ParentCompanyID]     UNIQUEIDENTIFIER NULL,
+    [CompanyName]         NVARCHAR (50)    NOT NULL,
+    [UpdatedBy]           NVARCHAR (25)    NULL,
+    [UpdatedDate]         DATETIME         NULL,
+    [CreatedBy]           NVARCHAR (25)    NULL,
+    [CreatedDate]         DATETIME         NULL,
+    [AddressID]           UNIQUEIDENTIFIER NULL,
+    [RegisteredAddressID] UNIQUEIDENTIFIER NULL,
+    [TransactionTaxNo]               NVARCHAR (20)    NULL,
+    [CompanyNo]           NVARCHAR (20)    NULL,
+    [Logo]                VARBINARY (MAX)  NULL,
+    [Telephone]           NVARCHAR (20)    NULL,
+    [FaxNo]               NVARCHAR (20)    NULL,
+    [EmailAddress]        NVARCHAR (150)   NULL,
+    [Website]             NVARCHAR (50)    NULL,
+    [InvoiceInfo]         TEXT             NULL,
+    [IsActive]            BIT              CONSTRAINT [DF__tblCompan__IsAct__286302EC] DEFAULT ((1)) NOT NULL,
+    CONSTRAINT [PK_tblCompany_1] PRIMARY KEY CLUSTERED ([CompanyID] ASC),
+    CONSTRAINT [FK_tblCompany_tblAddress_AddressID] FOREIGN KEY ([AddressID]) REFERENCES [dbo].[tblAddress] ([AddressID]),
+    CONSTRAINT [FK_tblCompany_tblAddress_RegisteredAddressID] FOREIGN KEY ([RegisteredAddressID]) REFERENCES [dbo].[tblAddress] ([AddressID]),
+    CONSTRAINT [FK_tblCompany_tblCompany] FOREIGN KEY ([ParentCompanyID]) REFERENCES [dbo].[tblCompany] ([CompanyID])
+);
+

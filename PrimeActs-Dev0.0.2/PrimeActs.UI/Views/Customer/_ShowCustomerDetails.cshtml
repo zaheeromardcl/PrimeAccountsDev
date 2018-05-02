@@ -1,0 +1,310 @@
+﻿@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.CustomerEditModel
+
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet" />
+<script src="~/TypeScripts/Customer/CreateCustomer.js"></script>
+@{
+    string data = new JavaScriptSerializer().Serialize(Model);
+}
+
+<div class="col-md-12" id="@ViewBag.CustomerPanel">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <p class="panel-title">Customer Summary</p>
+            <p>@ViewBag.PanelName</p>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-2 col-md-offset-10">
+                &nbsp;
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row header">
+                <div class="col-sm-4">
+                    <div class="well">
+                        <p>
+                            Customer company name:
+                            <strong>
+                                <span data-bind="text: customerModel().CustomerCompanyName"></span>
+                            </strong>
+                        </p>
+                        <p>
+                            Customer code:
+                            <strong>
+                                <span data-bind="text: customerModel().CustomerCode"></span>
+                            </strong>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="well">
+                        <p>Parent CustomerID: <span data-bind="text: customerModel().ParentCustomerID"></span></p>
+                        <p>Parent CustomerName: <span data-bind="text: customerModel().ParentCustomerName"></span></p>
+                        <p>Company Name: <span data-bind="text: customerModel().CompanyName"></span></p>
+                        <p>Is Haulier: <span data-bind="text: customerModel().IsTransfer ? 'YES' : 'NO'"></span></p>
+                        <p>Is Factor: <span data-bind="text: customerModel().Statements ? 'YES' : 'NO'"></span></p>
+                        <p>Credit LimitCash: <span data-bind="text: customerModel().CreditLimitCash"></span></p>
+                        <p>Credit LimitInvoice: <span data-bind="text: customerModel().CreditLimitInvoice"></span></p>
+                        <p>Notes: <span data-bind="text: customerModel().Notes"></span></p>
+                    </div>
+                </div><!--/col-->
+
+                <div class="col-sm-4">
+                    <div class="well">
+                        <p>Updated By:<span data-bind="text: customerModel().UpdatedBy"></span></p>
+                        @if (Model.UpdatedDate != null)
+                        {
+                            <p>Updated At:<span data-bind="FormattedDate: {date: customerModel().UpdatedDate(), format: 'txtlong'}"></span></p>
+                        }
+                        <p>Created By:<span data-bind="text: customerModel().CreatedBy"></span></p>
+                        @if (Model.CreatedDate != null)
+                        {
+                            <p>Created At:<span data-bind="FormattedDate: {date: customerModel().CreatedDate(), format: 'txtlong'}"></span></p>
+                        }
+                        <p></p>
+                    </div>
+                </div>
+            </div><!--/row-->
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Customer's Locations Details
+        </div>
+        <div class="panel-body">
+            <ul data-bind="foreach: {data: customerModel().CustomerLocations, as: 'item'}">
+                <li class="row">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>
+                                Customer Location Name
+                                <span data-bind="text : item.CustomerLocationName"></span>
+                            </p>
+                        </div>
+                        <div class="col-md-3">
+                            <p>
+                                Telephone Number
+                                <span data-bind="text : item.TelephoneNumber"></span>
+                            </p>
+                        </div>
+                        <div class="col-md-3">
+                            <p>
+                                Fax Number
+                                <span data-bind="text : item.FaxNumber"></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            Address Line1
+                            <span data-bind="text : item.AddressLine1"></span>
+                        </div>
+                        <div class="col-md-4">
+                            Address Line2
+                            <span data-bind="text : item.AddressLine2"></span>
+                        </div>
+                        <div class="col-md-4">
+                            Address Line3
+                            <span data-bind="text : item.AddressLine3"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            County City
+                            <span data-bind="text : item.CountyCity"></span>
+                        </div>
+                        <div class="col-md-4">
+                            Postal Town
+                            <span data-bind="text : item.PostalTown"></span>
+                        </div>
+                        <div class="col-md-4">
+                            Postcode
+                            <span data-bind="text : item.Postcode"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 pull-right">
+                            Notes
+                            <span data-bind="text : item.Notes"></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Customer's Departments Details
+        </div>
+        <div class="panel-body">
+            <ul data-bind="foreach: {data: customerModel().CustomerDepartments, as: 'item'} ">
+                <li class="row">
+                    <div class="row">
+                        <div class="col-md-6">
+                            Customer Department Name
+                            <span data-bind="text : item.CustomerDepartmentName"></span>
+                        </div>
+                        <div class="col-md-3">
+                            Commission
+                            <span data-bind="text : item.Commission.formatted"></span>
+                        </div>
+                        <div class="col-md-3">
+                            Handling
+                            <span data-bind="text : item.Handling.formatted"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            Transaction TaxReference
+                            <span data-bind="text: item.TransactionTaxReference"></span>
+                        </div>
+                        <div class="col-md-6">
+                            FactorRef
+                            <span data-bind="text: item.FactorRef"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            Email Address
+                            <span data-bind="text : item.RebateType"></span>
+                        </div>
+                        <div class="col-md-3">
+                            Email Address
+                            <span data-bind="text : item.RebateRate"></span>
+                        </div>
+                        <div class="col-md-3">
+                            Credit Terms
+                            <span data-bind="text: item.CreditTerm"></span>
+                        </div>
+                        <div class="col-md-3">
+                            Credit Limit
+                            <span data-bind="text : item.CreditLimit"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 pull-left">
+                            IsTransactionTaxExempt
+                            <span data-bind="text: item.IsTransactionTaxExempt"></span>
+                        </div>
+                        <div class="col-md-3">
+                            TransactionTaxReference
+                            <span data-bind="text : item.CustomerTypeDescription"></span>
+                        </div>
+                        <div class="col-md-3 pull-left">
+                            Gives Rebate
+                            <span data-bind="text: item.SalesPersonUserName"></span>
+                        </div>
+                        <div class="col-md-3">
+                            Rebate Amount
+                            <span data-bind="text : item.RebateCustomerDepartmentName"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            Locations
+                            <select data-bind="options: item.LbxLocationOptions
+                                , optionsValue: 'Id'
+                                , optionsText: 'label'
+                                , selectedOptions: item.SelectedLocationIds
+                                , multiselect: { includeSelectAllOption: false }"
+                                    class="form-control" multiple="multiple" id="lbx_loc_of_dep"></select>
+                            @*<span data-bind="text: item.SelectedLocationIds"></span>*@
+                        </div>
+                        <div class="col-md-4 pull-right">
+                            Notes
+                            <span data-bind="text : item.Notes"></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Supplier's Contacts Details
+        </div>
+        <div class="panel-body">
+            <ul data-bind="foreach: {data: supplierModel().SupplierContacts, as: 'spcnct'}">
+                <li class="row">
+                    <div class="row">
+                        <div class="col-md-2">
+                            ContactType
+                            <span data-bind="text : spcnct.ContactType"></span>
+                        </div>
+                        <div class="col-md-3">
+                            EmailAddress
+                            <span data-bind="text : spcnct.EmailAddress"></span>
+                        </div>
+                        <div class="col-md-1">
+                            Title
+                            <span data-bind="text : spcnct.Title"></span>
+                        </div>
+                        <div class="col-md-3">
+                            First Name
+                            <span data-bind="text : spcnct.FirstName"></span>
+                        </div>
+                        <div class="col-md-3">
+                            Last Name
+                            <span data-bind="text : spcnct.LastName"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            Telephone No
+                            <span data-bind="text : spcnct.DDITelephoneNo"></span>
+                        </div>
+                        <div class="col-md-2">
+                            Mobile No
+                            <span data-bind="text : spcnct.MobileNo"></span>
+                        </div>
+                        <div class="col-md-8">
+                            Notes
+                            <span data-bind="text : spcnct.Notes"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            Locations
+                            <select multiple="multiple" data-bind="options: spcnct.LbxLocationOptions
+                                , optionsValue: 'Id'
+                                , optionsText: 'label'
+                                , selectedOptions: spcnct.SelectedLocationIds
+                                , multiselect: { includeSelectAllOption: false }"
+                                    class="form-control" multiple="multiple" id="lbx_loc_of_dep"></select>
+                            @*<span data-bind="text: spcnct.SelectedLocationIds"></span>*@
+                        </div>
+                        <div class="col-md-4">
+                            Departments
+                            <select multiple="multiple" data-bind="options: spcnct.LbxDepartmentOptions
+                                , optionsValue: 'Id'
+                                , optionsText: 'label'
+                                , selectedOptions: spcnct.SelectedDepartmentIds
+                                , multiselect: { includeSelectAllOption: false }"
+                                    class="form-control" multiple="multiple" id="lbx_dep_of_con"></select>
+                            @*<span data-bind="text: spcnct.SelectedDepartmentIds"></span>*@
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+<script>
+    var customerRaw_data = @Html.Raw(data);
+    var customerPanelName = '@ViewBag.CustomerPanel';
+    console.log(customerPanelName);
+    console.log(ko.toJSON(customerRaw_data));
+    var showCustomerDetailsModel = new ShowCustomerDetailsModel(customerRaw_data);
+    var _DOMelement = document.getElementById(customerPanelName);
+    ko.cleanNode(_DOMelement);
+    ko.applyBindings(showCustomerDetailsModel, _DOMelement);
+</script>

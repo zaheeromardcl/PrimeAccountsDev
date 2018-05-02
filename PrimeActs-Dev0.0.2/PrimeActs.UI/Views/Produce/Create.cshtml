@@ -1,0 +1,60 @@
+﻿@model PrimeActs.Domain.ViewModels.ProduceViewModel
+
+<div class="col-md-8">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h3 class="panel-title">Create Produce</h3>
+        </div>
+        <div class="panel-body">
+            @using (Html.BeginForm("Create", "Produce", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                <div class="form-group">
+                    <div class="col-md-push-2 col-md-4">
+                        <p>Please enter produce details</p>
+                        @Html.EditorFor(model => model.ProduceName, new {htmlAttributes = new {@class = "form-control", @placeholder = "Produce name"}})
+                        @Html.ValidationMessageFor(model => model.ProduceName, "", new {@class = "text-danger"})
+                        @Html.EditorFor(model => model.ProduceCode, new {htmlAttributes = new {@class = "form-control", @placeholder = "Produce code"}})
+                        @Html.ValidationMessageFor(model => model.ProduceCode, "", new {@class = "text-danger"})
+                        @*@Html.CheckBoxFor(m => m.IsActive) @Html.LabelFor(model => model.IsActive, new { @class = "" })*@
+
+
+                        @Html.DropDownListFor(m => m.SelectedMasterGroup, new SelectList(Model.MasterGroupList, "id", "Name", Model.SelectedMasterGroup), "Please select Master Group", new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.SelectedMasterGroup, "", new {@class = "text-danger"})
+                        @Html.DropDownListFor(m => m.SelectedProduceGroup, new SelectList(Model.ProduceGroupList, "id", "Name", Model.SelectedProduceGroup), "Please select Produce Group", new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.SelectedProduceGroup, "", new {@class = "text-danger"})
+                        @Html.DropDownListFor(m => m.SelectedVAT, new SelectList(Model.VATCodeList, "id", "Name", Model.SelectedVAT), "Please select VAT Code", new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.SelectedVAT, "", new {@class = "text-danger"})
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-md-push-2 col-md-4">
+                        <input type="submit" value="Create" class="btn btn-default"/>
+                    </div>
+                </div>
+            }
+            <a href="/Produce/Index" class="NavigationLinks pull-right">Back to list</a>
+        </div>
+
+    </div>
+</div>
+<div class="col-md-4">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h3 class="panel-title">Quick Search</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal row-border" action="#">
+                <div class="form-group">
+                <div class="col-md-8">
+                    <input name="regular" class="form-control" type="text">
+                </div>
+                <div class="col-md-4">
+                    <input name="regular" class="btn btn-default" type="submit">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

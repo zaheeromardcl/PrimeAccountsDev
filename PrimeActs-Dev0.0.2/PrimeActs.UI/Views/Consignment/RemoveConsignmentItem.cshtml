@@ -1,0 +1,60 @@
+﻿<script src="~/Scripts/ConsignmentItemModel.js"></script>
+
+@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.ConsignmentItemViewModel
+@{ var Itemdata = new JavaScriptSerializer().Serialize(Model); }
+
+
+<div class="col-md-2">
+    <p class="confirmationdetails">Consignment Item Reference</p>
+</div>
+<div class="col-md-12">
+    <div class="panel-heading clearfix">
+        <p class="panel-title">Consignment - Item</p>
+    </div>
+    <div class="panel-body">
+        @Html.Action("RemoveConsignmentItem", "Consignment", new {id = Model.ConsignmentItemEditModel})
+        <div class="col-md-12">
+            <div class="col-md-3">
+                <input type="text" class="form-control" data-bind="value: ConsignmentItem().Brand" id="Brand" placeholder="Brand"/>
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" data-bind="value: ConsignmentItem().Pack" id="Pack" placeholder="Pack"/>
+            </div>
+            <div class="col-md-3">
+                <select data-bind="options: PackSizes, value: ConsignmentItem().PackSize, optionsText: 'optionText', optionsValue: 'optionValue'" class="form-control"></select>
+            </div>
+            <div class="col-md-3">
+                <select data-bind="options: Porterages, value: ConsignmentItem().PorterageID, optionsText: 'optionText', optionsValue: 'optionValue'" class="form-control"></select>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-3">
+                <input type="text" class="form-control" data-bind="value: ConsignmentItem().PackWeight" id="PackWeight" placeholder="Weight"/>
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" data-bind="value: ConsignmentItem().PackPall" id="PackPall" placeholder="P/Pallet"/>
+            </div>
+            <div class="col-md-3">
+                <select data-bind="options: PackWtUnits, value: ConsignmentItem().PackWtUnitID, optionsText: 'optionText', optionsValue: 'optionValue'" class="form-control"></select>
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" data-bind="value: ConsignmentItem().ExpectedQuantity" id="ExpectedQuantity" placeholder="Exp Qty"/>
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" data-bind="value: ConsignmentItem().ReceivedQuantity" id="ReceivedQuantity" placeholder="Recd Qty"/>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <button class="btn btn-default" data-bind="click:   window.location.href = '/Consignment/ConsignmentItem/' + Model.ConsignmentID ">Return to Consignment Summary</button>
+
+        </div>
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var consignmentItemModel = new ConsignmentItemModel(@Html.Raw(Itemdata));
+    ko.applyBindings(consignmentItemModel, document.getElementById("ConsignmentItem"));
+</script>

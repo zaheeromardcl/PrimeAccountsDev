@@ -1,0 +1,397 @@
+﻿<script src="~/KJScripts/Helper.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet" />
+<script src="~/TypeScripts/Customer/CreateCustomer.js"></script>
+
+<div id="@ViewBag.PanelName" class="container-fluid col-md-12">
+    <div class="panel panel-default" id="AddNewCustomer">
+        <div class="panel-heading">
+            Create Customer
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-5">
+                    Customer Company Name
+                    <input type="text" data-bind="value: customerModel().CustomerCompanyName,
+                        css:{ 'required-field': customerModel().showRequired(customerModel().CustomerCompanyName),
+                        'required-field-error': customerModel().showError(customerModel().CustomerCompanyName) }"
+                           class="form-control" />
+                </div>
+                <div class="col-md-2">
+                    Customer Code
+                    <input type="text" data-bind="value: customerModel().CustomerCode,
+                        css:{ 'required-field': customerModel().showRequired(customerModel().CustomerCode),
+                        'required-field-error': customerModel().showError(customerModel().CustomerCode) }"
+                           class="form-control" />
+                </div>
+                <div class="col-md-2 pull-left">
+                    <p> Statements </p>
+                    <input type="checkbox" data-bind="checked: customerModel().Statements" />
+                </div>
+                <div class="col-md-3">
+                    Select Company
+                    <select data-bind="options: customerModel().CompanyOptions,
+                        optionsText: 'label', optionsValue: 'Id',
+                        value: customerModel().CompanyID"
+                            class="form-control"></select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    Parent Customer
+                    <input type="text" id="ParentCustomer" data-bind="ko_autocomplete: { source: customerModel().AC_get_ParentCustomer,
+                        select: customerModel().AC_select_ParentCustomer },
+                        value: customerModel().ParentCustomerName"
+                           class="form-control ui-autocomplete-input required-field" placeholder="ParentCustomer">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    Notes
+                    <textarea rows="5" cols="800" data-bind="value : customerModel().Notes"
+                              class="form-control" placeholder="Notes" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                </div>
+                <div class="col-md-4">
+                    <input type="button" data-bind="click: function() { saveCustomerItems(); },
+                        enable: true,
+                        value: 'Save Changes'"
+                           class="btn btn-default pull-right" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------------------------------------->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Create Customer's Locationts
+        </div>
+        <div class="panel-body">
+            <ul class="list-group" data-bind="foreach: {data: customerModel().CustomerLocations, as: 'item'} ">
+                <li class="row">
+                    <div class="row">
+                        <div class="col-md-6">
+                            Customer Location Name
+                            <input type="text" data-bind="value : item.CustomerLocationName,
+                            css:{ 'required-field': $root.customerModel().showRequired(item.CustomerLocationName),
+                            'required-field-error': $root.customerModel().showError(item.CustomerLocationName) }"
+                                   class="form-control" placeholder="CustomerLocationName" />
+                        </div>
+                        <div class="col-md-3">
+                            Telephone Number
+                            <input type="text" data-bind="value : item.TelephoneNumber" class="form-control" placeholder="TelephoneNumber" />
+                        </div>
+                        <div class="col-md-3">
+                            Fax Number
+                            <input type="text" data-bind="value : item.FaxNumber" class="form-control" placeholder="FaxNumber" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            Address Line1
+                            <input type="text" data-bind="value : item.AddressLine1,
+                            css:{ 'required-field': $root.customerModel().showRequired(item.AddressLine1),
+                            'required-field-error': $root.customerModel().showError(item.AddressLine1) }"
+                                   class="form-control" placeholder="AddressLine1" />
+                        </div>
+                        <div class="col-md-4">
+                            Address Line2
+                            <input type="text" data-bind="value : item.AddressLine2" class="form-control" placeholder="AddressLine2" />
+                        </div>
+                        <div class="col-md-4">
+                            Address Line3
+                            <input type="text" data-bind="value : item.AddressLine3" class="form-control" placeholder="AddressLine3" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            County City
+                            <input type="text" data-bind="value : item.CountyCity,
+                                css:{ 'required-field': $root.customerModel().showRequired(item.CountyCity),
+                                'required-field-error': $root.customerModel().showError(item.CountyCity) }"
+                                   class="form-control" placeholder="CountyCity" />
+                        </div>
+                        <div class="col-md-4">
+                            Postal Town
+                            <input type="text" data-bind="value : item.PostalTown,
+                                css:{ 'required-field': $root.customerModel().showRequired(item.PostalTown),
+                                'required-field-error': $root.customerModel().showError(item.PostalTown) }"
+                                   class="form-control" placeholder="PostalTown" />
+                        </div>
+                        <div class="col-md-4">
+                            Postcode
+                            <input type="text" data-bind="value : item.Postcode,
+                                css:{ 'required-field': $root.customerModel().showRequired(item.Postcode),
+                                'required-field-error': $root.customerModel().showError(item.Postcode) }"
+                                   class="form-control" placeholder="Postcode" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            Notes
+                            <textarea rows="5" cols="800" data-bind="value : item.Notes"
+                                      class="form-control" placeholder="Notes" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <button class="btn btn-danger btn-block" tabindex="-1" data-bind="click: function() { $root.customerModel().rmvLocation($index()) }">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="row">
+                <div class="col-md-1 pull-right">
+                    <button class="btn btn-default btn-block" data-bind="click: function() { $root.customerModel().newLocation() }">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------------------------------------->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Create Customer's Departments
+        </div>
+        <div class="panel-body">
+            <ul data-bind="foreach: {data: customerModel().CustomerDepartments, as: 'item'} ">
+                <li class="row">
+                    <div class="row">
+                        <div class="col-md-6">
+                            Customer Department Name
+                            <input type="text"
+                                   data-bind="value : item.CustomerDepartmentName,
+                                    css:{ 'required-field': $root.customerModel().showRequired(item.CustomerDepartmentName),
+                                    'required-field-error': $root.customerModel().showError(item.CustomerDepartmentName) }"
+                                   class="form-control" placeholder="CustomerDepartmentName" />
+                        </div>
+                        <div class="col-md-3">
+                            Commission
+                            <input type="text" data-bind="value : item.Commission.formatted" class="form-control" placeholder="Comission" />
+                        </div>
+                        <div class="col-md-3">
+                            Handling
+                            <input type="text" data-bind="value : item.Handling.formatted" class="form-control" placeholder="Handling" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            Factor Ref
+                            <input type="text" data-bind="value: item.FactorRef" class="form-control" placeholder="FactorRef" />
+                        </div>
+                        <div class="col-md-6">
+                            Customer Type
+                            <input type="text" id="CustomerType" data-bind="ko_autocomplete: { source: item.AC_get_CustomerType,
+                                select: item.AC_select_CustomerType }, value: item.CustomerTypeDescription"
+                                   class="form-control ui-autocomplete-input required-field" placeholder="CustomerType">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            Sales Person User Name
+                            <select data-bind="options: item.SalesPersonUserOptions,
+                                optionsText: 'label', optionsValue: 'Id', value: item.SalesPersonUserID"
+                                    class="form-control"></select>
+                        </div>
+                        <div class="col-md-6">
+                            Rebate Customer Department
+                            <select data-bind="options: item.RebateCustomerDepartmentOptions,
+                                optionsText: 'label', optionsValue: 'Id', value: item.RebateCustomerDepartmentID"
+                                    class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            Email Address
+                            <input type="text" data-bind="value : item.EmailAddress" class="form-control" placeholder="EmailAddress" />
+                        </div>
+                        <div class="col-md-3">
+                            Credit Terms
+                            <select data-bind="options: item.CreditTermOptions,
+                                optionsText: 'display', optionsValue: 'itsValue', value: item.CreditTerm"
+                                    class="form-control"></select>
+                        </div>
+                        <div class="col-md-3">
+                            Credit Limit
+                            <input type="text" data-bind="value : item.CreditLimit.formatted" class="form-control" placeholder="CreditLimit" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            Transaction Tax Reference
+                            <input type="text" data-bind="value : item.TransactionTaxReference" class="form-control" placeholder="TransactionTaxReference" />
+                        </div>
+                        <div class="col-md-4">
+                            Rebate Type
+                            <label data-bind="foreach: item.RebateTypeOptions">
+                                <input type="radio" data-bind="checkedValue: { rbText: $data, rbIndx: $index() },
+                                checked: $parent.RebateTypeRBobj" />
+                                <span data-bind="text: $data"></span>
+                            </label>
+                        </div>
+                        <!-- <span data-bind="text: JSON.stringify(RebateTypeRBobj())"></span> -->
+                        <div class="col-md-4">
+                            Rebate Rate
+                            <input type="text" data-bind="value : item.RebateRate.formatted" class="form-control" placeholder="RebateRate" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            Invoice Email Address
+                            <input type="text" data-bind="value : item.InvoiceEmailAddress" class="form-control" placeholder="InvoiceEmailAddress" />
+                        </div>
+                        <div class="col-md-5">
+                            Send Invoice To
+                            <select data-bind="options: item.InvoiceCustomerLocationOptions
+                                ,optionsValue: 'Id'
+                                ,optionsText: 'label'
+                                ,value: item.InvoiceCustomerLocationID"
+                                    class="form-control"></select>
+                        </div>
+                        <div class="col-md-2">
+                            Invoice Frequency
+                            <input type="text" data-bind="value : item.InvoiceFrequency.formatted" class="form-control" placeholder="InvoiceFrequency" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            Select Location
+                            <select multiple="multiple" data-bind="options: item.LbxLocationOptions
+                                , optionsValue: 'Id'
+                                , optionsText: 'label'
+                                , selectedOptions: item.SelectedLocationIds
+                                , multiselect: { includeSelectAllOption: false }"
+                                    class="form-control" multiple="multiple" id="lbx_loc_of_dep"></select>
+                        </div>
+                        <div class="col-md-8">
+                            Notes
+                            <textarea rows="5" cols="800" data-bind="value : item.Notes"
+                                      class="form-control" placeholder="Notes" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1 pull-left">
+                            <button class="btn btn-danger btn-block" tabindex="-1" data-bind="click: function() { $root.customerModel().rmvDepartment($index()) }">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="col-md-1 pull-right">
+                <button class="btn btn-default btn-block" data-bind="click: function() { $root.customerModel().newDepartment() }">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!------------------------------------->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Create Customer's Contacts
+        </div>
+        <div class="panel-body">
+            <ul data-bind="foreach: {data: customerModel().CustomerContacts, as: 'spcnct'}">
+                <li class="row">
+                    <div class="row">
+                        <div class="col-md-2">
+                            ContactType
+                            <input type="text" data-bind="value : spcnct.ContactType,
+                                       css:{ 'required-field': $root.customerModel().showRequired(spcnct.ContactType),
+                                       'required-field-error': $root.customerModel().showError(spcnct.ContactType) }"
+                                   class="form-control" placeholder="ContactType" />
+                        </div>
+                        <div class="col-md-3">
+                            EmailAddress
+                            <input type="text" data-bind="value : spcnct.EmailAddress" class="form-control" placeholder="EmailAddress" />
+                        </div>
+                        <div class="col-md-1">
+                            Title
+                            <input type="text" data-bind="value : spcnct.Title" class="form-control" placeholder="Title" />
+                        </div>
+                        <div class="col-md-3">
+                            First Name
+                            <input type="text" data-bind="value : spcnct.FirstName,
+                                       css:{ 'required-field': $root.customerModel().showRequired(spcnct.FirstName),
+                                       'required-field-error': $root.customerModel().showError(spcnct.FirstName) }"
+                                   class="form-control" placeholder="FirstName" />
+                        </div>
+                        <div class="col-md-3">
+                            Last Name
+                            <input type="text" data-bind="value : spcnct.LastName,
+                                       css:{ 'required-field': $root.customerModel().showRequired(spcnct.LastName),
+                                       'required-field-error': $root.customerModel().showError(spcnct.LastName) }"
+                                   class="form-control" placeholder="LastName" />
+                        </div>
+                    </div>
+                    <div class="row">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            Telephone No
+                            <input type="text" data-bind="value : spcnct.DDITelephoneNo" class="form-control" placeholder="DDITelephoneNo" />
+                        </div>
+                        <div class="col-md-2">
+                            Mobile No
+                            <input type="text" data-bind="value : spcnct.MobileNo" class="form-control" placeholder="MobileNo" />
+                        </div>
+                        <div class="col-md-8">
+                            Notes
+                            <textarea rows="5" cols="800" data-bind="value : spcnct.Notes"
+                                      class="form-control" placeholder="Notes" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            Select Location
+                            <select multiple="multiple" data-bind="options: spcnct.LbxLocationOptions
+                                , optionsValue: 'Id'
+                                , optionsText: 'label'
+                                , selectedOptions: spcnct.SelectedLocationIds
+                                , multiselect: { includeSelectAllOption: false }"
+                                    class="form-control" multiple="multiple" id="lbx_loc_of_dep"></select>
+                        </div>
+                        <div class="col-md-4">
+                            Select Department
+                            <select multiple="multiple" data-bind="options: spcnct.LbxDepartmentOptions
+                                , optionsValue: 'Id'
+                                , optionsText: 'label'
+                                , selectedOptions: spcnct.SelectedDepartmentIds
+                                , multiselect: { includeSelectAllOption: false }"
+                                    class="form-control" multiple="multiple" id="lbx_dep_of_con"></select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <button class="btn btn-danger btn-block" tabindex="-1" data-bind="click: function() { $root.customerModel().rmvContact($index()) }">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="row">
+                <div class="col-md-1 pull-right">
+                    <button class="btn btn-default btn-block" data-bind="click: function() { $root.customerModel().newContact() }">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var panelName = "@ViewBag.PanelName";
+    var createCustomerModel = new CreateCustomerModel();
+    var _DOMelement = document.getElementById(panelName);
+    //debugger; //////////////////////////////
+    //console.log('createCustomerModel', createCustomerModel);
+    //console.log('_DOMelement', _DOMelement);
+    ko.applyBindings(createCustomerModel, _DOMelement);
+</script>

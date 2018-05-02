@@ -1,0 +1,144 @@
+@using System.Web.Script.Serialization;
+@model PrimeActs.Domain.ViewModels.SupplierEditModel
+
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/TypeScripts/Supplier/SupplierViewModel.js"></script>
+<script src="~/TypeScripts/Supplier/SupplierDetailsViewModel.js"></script>
+<script src="~/TypeScripts/Supplier/CreateSupplier.js"></script>
+@{
+    string data = new JavaScriptSerializer().Serialize(Model);
+}
+
+<div class="col-md-12" id="@ViewBag.SupplierPanel">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <p class="panel-title">Supplier Summary</p>
+            <p>@ViewBag.PanelName</p>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-2 col-md-offset-10">
+                &nbsp;
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row header">
+                <div class="col-sm-4">
+                    <div class="well">
+                        <p>Supplier company name:
+                            <strong>
+                                <span data-bind="text: SupplierModel().SupplierCompanyName"></span>
+                            </strong>
+                        </p>
+                        <p>Supplier code:
+                            <strong>
+                                <span data-bind="text: SupplierModel().SupplierCode"></span>
+                            </strong>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="well">
+                        <p>Parent SupplierID: <span data-bind="text: SupplierModel().ParentSupplierID"></span></p>
+                        <p>Is Haulier: <span data-bind="text: SupplierModel().IsHaulier ? 'YES' : 'NO'"></span></p>
+                        <p>Is Factor: <span data-bind="text: SupplierModel().IsFactor ? 'YES' : 'NO'"></span></p>
+                        <p>Note ID: <span data-bind="text: SupplierModel().NoteID"></span></p>
+                        <p>Notes: <span data-bind="text: SupplierModel().Notes"></span></p>
+                    </div>
+                </div><!--/col-->
+
+                <div class="col-sm-4">
+                    <div class="well">
+                        <p>Updated By:<span data-bind="text: SupplierModel().UpdatedBy"></span></p>                       
+                        @if (Model.UpdatedDate != null)
+                        {
+                            <p>Updated At:<span data-bind="FormattedDate: {date: SupplierModel().UpdatedDate(), format: 'txtlong'}"></span></p>
+                        }
+                        <p>Created By:<span data-bind="text: SupplierModel().CreatedBy"></span></p>
+                        @if (Model.CreatedDate != null)
+                        {
+                            <p>Created At:<span data-bind="FormattedDate: {date: SupplierModel().CreatedDate(), format: 'txtlong'}"></span></p>
+                        }
+                        <p></p>
+                    </div>
+                </div>
+            </div><!--/row-->
+        </div>
+    </div>
+    <!-- *** -->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Supplier's Locations details
+        </div>
+        <div class="panel-body">
+            <ul data-bind="foreach: {data: SupplierModel().SupplierLocations, as: 'splctn'}">
+                <li class="row">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>
+                                Supplier Location Name
+                                <span data-bind="text : splctn.SupplierLocationName"></span>
+                            </p>
+                        </div>
+                        <div class="col-md-3">
+                            Telephone Number
+                            <input type="text" data-bind="value : splctn.TelephoneNumber" class="form-control" placeholder="TelephoneNumber" />
+                        </div>
+                        <div class="col-md-3">
+                            Fax Number
+                            <input type="text" data-bind="value : splctn.FaxNumber" class="form-control" placeholder="FaxNumber" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            Address Line1
+                            <input type="text" data-bind="value : splctn.AddressLine1"
+                                   class=" form-control" placeholder="AddressLine1" />
+                        </div>
+                        <div class="col-md-4">
+                            Address Line2
+                            <input type="text" data-bind="value : splctn.AddressLine2" class="form-control" placeholder="AddressLine2" />
+                        </div>
+                        <div class="col-md-4">
+                            Address Line3
+                            <input type="text" data-bind="value : splctn.AddressLine3" class="form-control" placeholder="AddressLine3" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            County City
+                            <input type="text" data-bind="value : splctn.CountyCity"
+                                   class="form-control" placeholder="CountyCity" />
+                        </div>
+                        <div class="col-md-4">
+                            Postal Town
+                            <input type="text" data-bind="value : splctn.PostalTown"
+                                   class="form-control" placeholder="PostalTown" />
+                        </div>
+                        <div class="col-md-4">
+                            Postcode
+                            <input type="text" data-bind="value : splctn.Postcode"
+                                   class="form-control" placeholder="Postcode" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 pull-right">
+                            Notes
+                            <textarea rows="5" cols="800" data-bind="value : splctn.Notes"
+                                      class="form-control" placeholder="Notes" />
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var supplierPanelName = '@(ViewBag.SupplierPanel)';
+    var supplierDetailsModel = new SupplierDetailsViewModel(@Html.Raw(data), supplierPanelName);
+    supplierDetailsModel.pageLoadState();
+    ko.applyBindings(supplierDetailsModel, document.getElementById(supplierPanelName));
+    //$( document ).ready(function() {
+    //});
+</script>

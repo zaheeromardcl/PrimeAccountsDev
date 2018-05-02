@@ -1,0 +1,223 @@
+
+<script src="~/Scripts/ConsignmentItemModel.js"></script>
+
+@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.Consignment.ConsignmentItemViewModel
+@{ var Itemdata = new JavaScriptSerializer().Serialize(Model); }
+
+
+<div class="container-fluid">
+    <div class="col-md-8" id="Consignment">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <p class="panel-title">Consignment</p>
+                </div>
+                <div class="panel-body">
+                    @*@Html.Action("ConsignmentSummary", "Consignment", new { id = Model.ConsignmentEditModel.ConsignmentID })*@
+                    <div>
+                        <div class="col-md-12">
+                            <div class="panel-heading clearfix">
+                                <p class="panel-title">Summary</p>
+                            </div>
+                            <div class="panel-body">
+                                <div class="col-md-12">
+                                    <div class="col-md-2">
+                                        <p class="confirmationdetails">Reference</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span data-bind="text: Consignment.ConsignmentReference()"></span>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p class="confirmationdetails">Supplier </p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span data-bind="text: Consignment.SupplierCompanyName()" readonly="true"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-2">
+                                        <p class="confirmationdetails">Created Date:</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span data-bind="dateString: Consignment.CreatedDate(), datePattern: 'DD/MM/YYYY HH:mm' " readonly=" true" disabled="true" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p class="confirmationdetails">Supplier Department</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span data-bind="text: Consignment.SupplierCompanyName() + ' - ' + Consignment.SupplierDepartmentName()" readonly="true" disabled="true" />
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                    </div>
+                                </div>
+                            </div>
+                            @*<table class="table table-striped table-responsive">
+                                            <thead>
+                                                <tr>
+                                                    <th>##</th>
+
+                                                    <th class="col-xs-1"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody data-bind="foreach: { data: ConsignmentItemEditModels, as: 'row' }">
+
+                                                <tr data-bind='click: $parent.setEditItem'>
+                                                    <td><span data-bind="text: ConsignmentItemId" class="tall"></span></td>
+
+
+                                                    <td class="right">
+                                                        <button type="button" class="btn btn-danger btn-xs btn-round" data-bind="event: { click: $parent.delete }"><span class="glyphicon glyphicon-remove"></span></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot class="divider">
+
+                                                <tr>
+                                    <td colspan="9" align="right">
+                                        <button class="btn btn-success" data-bind="click: create"><i class="fa fa-usd"></i> Add Item</button>
+                                    </td>
+                                </tr>
+                                            </tfoot>
+                                        </table>*@
+                            <div class="col-md-12">
+                                <div class="panel-heading clearfix">
+                                    <p class="panel-title">Items</p>
+                                </div>
+                                <div class="col-md-12">
+                                </div>
+                                <div class="panel-body">
+                                    <ul class=" col-md-12" data-bind="foreach: { data: ConsignmentItems, as: 'row' }">
+                                        <li data-bind="click: $parent.setEditItem">
+                                            <span hidden="hidden" data-bind="text: Id" class="tall">
+                                            </span>
+                                            <div class="col-md-12" data-bind="css: { 'even': ($index() % 2==0) }">
+                                                <div class=" col-md-12">
+                                                    <div class="col-md-4">
+                                                        <p class="labelSt">Produce</p>
+                                                        <input type="text" class="form-control" data-bind="textInput: row.Produce,  ko_autocomplete: { source: getProduce, select: SelectProduce},css:{'required-field':row.showerror(row.Produce)}, onEnter: $parent.stopEdit" id="Produce" autofocus />
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <p class="labelSt">Department</p>
+                                                        <input type="text" placeholder="Department" class="form-control" data-bind="value: row.Department,  css:{'required-field':row.showerror(row.Department)}, ko_autocomplete: { source: getDepartments, select : SelectDepartment }" id="Department" />
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <p class="labelSt">Mark</p>
+                                                        <input type="text" class="form-control" data-bind="value: row.Brand,  css:{'required-field':row.showerror(row.Brand)}" id="Brand" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="col-md-2">
+                                                        <p class="labelSt">Country Of Origin</p>
+                                                        <input type="text" class="form-control" data-bind="textInput: row.CountryName, ko_autocomplete: { source: getCountry, select: SelectCountry}, onEnter: $parent.stopEdit" id="Country" />
+                                                    </div>
+                                                    <div class="col-md-2" data-bind="visible: IsCountry">
+                                                        <p class="labelSt">PackWeight</p>
+                                                        <input class="form-control" data-bind="value: row.PackWeight" id="PackWeight" />
+                                                    </div>
+                                                    <div class="col-md-2" data-bind="visible: IsCountry">
+                                                        <p class="labelSt">Unit</p>
+                                                        <select data-bind="options: $parent.PackWtUnit, value: row.PackWtUnitID, optionsText: 'optionText', optionsValue: 'optionValue', css:{'required-field':row.showerror(row.PackWtUnitID)}" class=" form-control" style="font-size: smaller"></select>
+                                                    </div>
+                                                    <div class="col-md-2" hidden="hidden">
+                                                        <p class="labelSt">Pack</p>
+                                                        <input type="hidden" class="form-control" data-bind="value: row.Pack" id="Pack" />
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <p class="labelSt">Pack Size</p>
+                                                        <input type="text" class="form-control" data-bind="value: row.PackSize,  css:{'required-field':row.showerror(row.PackSize)}" id="PackSize" />
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <p class="labelSt">PackType</p>
+                                                        <input type="text" class="form-control" data-bind=" value: row.PackType" id="PackType" />
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <p class="labelSt">Est. Purchase Cost</p>
+                                                        <input type="text" class="form-control" data-bind="value: row.EstimatedPurchaseCostPerPack" id="EstimatedPurchaseCost" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="col-md-2" hidden="hidden">
+                                                        <p class="labelSt">PackPall</p>
+                                                        <input type="hidden" class="form-control" data-bind="value: row.PackPall" id="PackPall" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="col-md-2">
+                                                        <p class="labelSt">Porterage</p>
+                                                        <select data-bind="options: $parent.Porterage, value: row.PorterageID, optionsText: 'optionText', optionsValue: 'optionValue',  css:{'required-field': row.showerror(row.PorterageID)}" class="form-control" style="font-size: smaller"></select>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <p class="labelSt">Rec Qty</p>
+                                                        <input type="text" class="form-control" data-bind="value: row.ReceivedQuantity,  css:{'required-field':row.showerror(row.ReceivedQuantity)}" id="ReceivedQuantity" />
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <p class="labelSt">Exp Qty</p>
+                                                        <input type="text" class="form-control" data-bind="value: row.ExpectedQuantity,  css:{'required-field':row.showerror(row.ExpectedQuantity)}" id="ExpectedQuantity" />
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p class="labelSt">NoteText</p>
+                                                        <textarea type="text" class="form-control" data-bind="hasfocus: row.pedit, value: row.NoteText, onEnter: $parent.pstopEdit" id="Note"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <button class="btn btn-danger" tabindex="-1" data-bind="click: $index() < 1 ? null : $parent.removeConsItem">
+                                                        Remove Row
+                                                    </button>
+                                                    <hr class="navbar-inverse" />
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="col-md-12">
+                                        <div class="col-md-5"></div>
+                                        <div class="col-md-4"></div>
+                                        <div class="col-md-1">
+                                            <button class="btn btn-default" data-bind="click: addConsItem(ConsignmentItem)" type="submit">Add Row</button>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-1">
+                                            <button class="btn btn-default" data-bind="click: $root.create">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> @* End of Consignment Item detail *@
+            </div>
+        </div>
+    </div>
+    </div>
+    <script type="text/javascript">
+
+
+        //var $newDiv = $("<div/>") // creates a div element
+        //    .attr("id", "someID") // adds the id
+        //    .addClass("someClass") // add a class
+        //    .html('<div class="col-md-12" id="id1">hello</div>');
+
+        //$(":submit").click(function () {
+
+        //    $("#sparkLineContainer").append($newDiv);
+
+        //});
+
+        var ConsignmentItemModel = new ConsignmentItemModel(@Html.Raw(Itemdata));
+        var something = ConsignmentItemModel;
+
+        ko.validation.init({
+            registerExtenders: true,
+
+            messagesOnModified: true,
+
+            insertMessages: true
+
+        });
+
+        ko.applyBindings(ConsignmentItemModel, document.getElementById("Consignment"));
+
+
+    </script>

@@ -1,0 +1,51 @@
+<#@ import namespace="System.Collections.Generic" #><#+
+	void GenerateAutoGenEntity(TableModel table, List<TableModel> allTables)
+	{
+#>
+#region
+
+using PrimeActs.Infrastructure.BaseEntities;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+
+#endregion
+
+namespace PrimeActs.Domain
+{
+	public partial class <#= table.ClassName #> : <#= table.IsAuditable ? "AuditEntity, " : "" #>IObjectState
+	{
+		public <#= table.ClassName #>()
+		{
+			<#+
+            foreach (var reference in table.References.Where(x => x.ReferenceType == ReferenceType.OneToMany || x.ReferenceType == ReferenceType.ManyToMany))
+            {
+                var referencedTable = allTables.Where(x => x.Name == reference.TableName).First();
+			#>
+<#= referencedTable.PropertyName #> = new List<<#= referencedTable.ClassName #>>();
+			<#+}#>}
+
+		<#+
+			foreach (var column in table.Columns)
+			{
+		#>
+public <#= column.CSharpType #> <#= column.PropertyName #> { get; set; }
+		<#+
+			}
+
+			foreach (var reference in table.References.Where(x => x.ReferenceType == ReferenceType.OneToMany || x.ReferenceType == ReferenceType.ManyToMany))
+			{
+				var referencedTable = allTables.Where(x => x.Name == reference.TableName).First();
+		#>
+public virtual ICollection<<#= referencedTable.ClassName #>> <#= referencedTable.PropertyName #> { get; set; }
+		<#+
+        }
+		#>
+
+        [NotMapped]
+        public ObjectState ObjectState { get; set; }
+	}
+}
+<#+
+}
+#>

@@ -1,0 +1,92 @@
+﻿@using System.Web.Script.Serialization
+
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet" />
+<script src="~/TypeScripts/Supplier/CreateSupplier.js"></script>
+@{
+    string data = new JavaScriptSerializer().Serialize(new { TestString = "My KO Test" });
+}
+<div id="@ViewBag.PanelName" class="container-fluid col-md-12">
+    <div class="panel panel-default" id="KoTest">
+        <div class="panel-heading">
+            Knockout Test
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                @*<div class="col-md-5">
+            Supplier Company Name
+            <input type="text" data-bind="value: SupplierModel().SupplierCompanyName,
+                          css:{ 'required-field': SupplierModel().showRequired(SupplierModel().SupplierCompanyName),
+                          'required-field-error': SupplierModel().showError(SupplierModel().SupplierCompanyName) }"
+                   class="form-control" />
+        </div>
+
+        <div class="col-md-2">
+            Supplier Code
+            <input type="text" data-bind="value: SupplierModel().SupplierCode,
+                       css:{ 'required-field': SupplierModel().showRequired(SupplierModel().SupplierCode),
+                       'required-field-error': SupplierModel().showError(SupplierModel().SupplierCode) }"
+                   class="form-control" />
+        </div>
+
+        <div class="col-md-1 pull-left">
+            <p> Is Factor </p>
+            <input type="checkbox" data-bind="checked: SupplierModel().IsFactor" />
+        </div>
+
+        <div class="col-md-1 pull-left">
+            <p> Is Haulier </p>
+            <input type="checkbox" data-bind="checked: SupplierModel().IsHaulier" />
+        </div>
+        <div class="col-md-3">
+            Select Company
+            <select data-bind="options: SupplierModel().CompanyOptions,
+                    optionsText: 'label', optionsValue: 'Id',
+                    value: SupplierModel().CompanyID"
+                    class="form-control"></select>
+        </div>
+    </div>*@
+
+            @*<div class="row">
+        <div class="col-md-4">
+            Parent Supplier
+            <input type="text" id="ParentSupplier"
+                   data-bind="ko_autocomplete: { source: SupplierModel().AC_get_ParentSupplier,
+                    select: SupplierModel().AC_select_ParentSupplier },
+                    value: SupplierModel().ParentSupplierName"
+                   class="form-control ui-autocomplete-input required-field" placeholder="ParentSupplier">
+        </div>
+        <div class="col-md-8">
+            Notes
+            <textarea rows="5" cols="800" data-bind="value : SupplierModel().Notes,
+                    css:{ 'required-field': SupplierModel().showRequired(SupplierModel().Notes),
+                    'required-field-error': SupplierModel().showError(SupplierModel().Notes) }"
+                      class="form-control" placeholder="Notes" />
+        </div>
+    </div>*@
+            <div class="row">
+                <div class="col-md-3 pull-right">
+                    <input type="button" data-bind="click: function() { saveSupplierItems(); },
+                            enable: _KoModel().SupplierModel().IsSupplierSaveBtnEnabled,
+                            value: 'Save Changes'"
+                           class="btn btn-default" />
+                    <input type="text" data-bind="value : $root.SupplierModel().showRequired(splctn.AddressLine1)"
+                           class=" form-control" placeholder="AddressLine1" />
+                    <input type="text" data-bind="value : $root.SupplierModel().showError(splctn.AddressLine1) "
+                           class=" form-control" placeholder="AddressLine1" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    var koRaw_data = @Html.Raw(data);
+    var koPanelName = '@ViewBag.PanelName';
+    var _koTest = new _KoTest(koRaw_data);
+    var _DOMelement = document.getElementById(koPanelName);
+    //ko.cleanNode(_DOMelement);
+    ko.applyBindings(_koTest, _DOMelement);
+</script>

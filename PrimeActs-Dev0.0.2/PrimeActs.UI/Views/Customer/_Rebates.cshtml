@@ -1,0 +1,26 @@
+﻿<div class="row">
+    <div class="col-md-6">
+        Rebate Account
+    </div>
+    <div class="col-md-6">
+        <select data-bind="options: RebatesModel().CustomerDepartmentList, value: RebatesModel().RebateCustomerDepartmentID, optionsCaption: 'Please select...', optionsText: 'optionText', optionsValue: 'optionValue'" class="form-control"></select>
+    </div>
+    <div class="col-md-6">
+        Rebate Type
+    </div>
+    <div class="col-md-6">
+        <div class="col-md-6">
+            <label><input type="radio" value="1" name="optradio" data-bind="checked: RebatesModel().RebateType"> % </label>
+        </div>
+        <div class="col-md-6">
+            <label><input type="radio" value="0" name="optradio" data-bind="checked: RebatesModel().RebateType"> pip </label>
+        </div>
+    </div>
+    <div class="col-md-6">
+        Rebate Rate
+    </div>
+    <div class="col-md-2">
+        <input type="text" class="form-control" data-bind="value: RebatesModel().RebateRate">
+    </div>
+
+</div>

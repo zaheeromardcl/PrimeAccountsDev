@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[tblApplicationUser] (
+    [ApplicationUserId]    UNIQUEIDENTIFIER NOT NULL,
+    [Firstname]            NVARCHAR (MAX)   NULL,
+    [Lastname]             NVARCHAR (MAX)   NULL,
+    [Nickname]             NVARCHAR (MAX)   NULL,
+    [Userstatus]           BIT              NOT NULL,
+    [LastLoggedOn]         DATETIME         NULL,
+    [Email]                NVARCHAR (256)   NULL,
+    [EmailConfirmed]       BIT              NOT NULL,
+    [PasswordHash]         NVARCHAR (MAX)   NULL,
+	[AdminPasswordHash]         NVARCHAR (MAX)   NULL,
+    [SecurityStamp]        NVARCHAR (MAX)   NULL,
+    [PhoneNumber]          NVARCHAR (MAX)   NULL,
+    [PhoneNumberConfirmed] BIT              NOT NULL,
+    [TwoFactorEnabled]     BIT              NOT NULL,
+    [LockoutEndDateUtc]    DATETIME         NULL,
+    [LockoutEnabled]       BIT              NOT NULL,
+    [AccessFailedCount]    INT              NOT NULL,
+    [UserName]             NVARCHAR (256)   NOT NULL,
+    [DepartmentId]         UNIQUEIDENTIFIER NULL,
+    [CompanyId]            UNIQUEIDENTIFIER NULL,
+    [DivisionId]           UNIQUEIDENTIFIER NULL,
+    CONSTRAINT [PK_tblApplicationUser] PRIMARY KEY CLUSTERED ([ApplicationUserId] ASC)
+);
+

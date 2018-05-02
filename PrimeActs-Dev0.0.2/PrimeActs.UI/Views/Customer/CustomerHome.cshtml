@@ -1,0 +1,429 @@
+﻿
+@model PrimeActs.Domain.ViewModels.CustomerViewModel
+
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.js"></script>
+<link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet" />
+<script src="~/TypeScripts/Customer/CustomerHome.js">
+
+</script>
+
+<!--To be removed once implemented tabs.-->
+<script type="text/javascript">
+<!--
+    function toggle_visibility(id) {
+       var e = document.getElementById(id);
+       if (e.style.display == 'none')
+          e.style.display = 'block';
+       else
+           e.style.display = 'none';
+      //  e.style.display = 'initial'
+    }
+//-->
+</script>
+
+@using System.Web.Script.Serialization;
+
+@{string data = new JavaScriptSerializer().Serialize(Model);}
+
+
+<div id="Customer" class="container-fluid col-md-12">
+    @*<pre data-bind="text: ko.toJSON($data, null, 2)"></pre>*@
+    
+    <div class="col-md-8">
+        <div class="col-md-12">&nbsp;</div>
+
+
+       
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    Customer
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-12">&nbsp;</div>
+
+                    <div class="col-md-2">
+                        Search by Customer
+                    </div>
+                    <div class="col-md-5">
+                        <input type="text" placeholder="Customer" class="form-control" id="CustomerDepartmentID" data-bind="ko_autocomplete: { source: $root.getCustomers, select: $root.selectCustomer }, value:CustomerDetails().CustomerDepartmentID" autofocus />
+                    </div>
+
+
+                </div>
+
+                <div class="panel-heading">
+                    Customer Summary
+                </div>
+                <div class="panel-body" >
+                 
+                    <div class="col-md-12">
+                        &nbsp;
+                        <div class="col-md-1">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-3 alert-danger">
+                            Balance <span class="alert-danger">£1500.02</span>
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"></div>
+                    </div>
+                 
+                    <div class="col-md-12">
+                        &nbsp;
+                        <div class="col-md-1">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-3">
+                            Cash Limit £1000.00
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"></div>
+                    </div>
+                    <div class="col-md-12">
+                        &nbsp;
+                        <div class="col-md-1">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-3">
+                            Credit Limit £15000.00
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"></div>
+                    </div>
+                    <div class="col-md-12">
+                        &nbsp;
+                        <div class="col-md-1">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-3">
+                            Credit Rating: Med
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"></div>
+                    </div>
+                    <div class="col-md-12">
+                        &nbsp;
+                        <div class="col-md-1">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-3">
+                            Statements
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"></div>
+                    </div>
+                    <div class="col-md-12">
+                        &nbsp;
+                        <div class="col-md-1">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-3">
+                            Allow transfers?
+                            
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"></div>
+                    </div>
+                    <div class="col-md-12">
+                        &nbsp;
+                        <div class="col-md-1">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-3">                           Associated Rebate Account: Gerber Rebate
+
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"></div>
+                    </div>
+           
+
+                    <div class="col-md-12">
+                        
+                        @*<div class="col-md-2"><a href="#" class="Headerlinks" onclick="toggle_visibility('Contacts');"><span class="glyphicon glyphicon-arrow-down"></span> Contacts</a></div>
+                        <div class="col-md-2"><a href="#" class="Headerlinks" onclick="toggle_visibility('Locations')" ;><span class="glyphicon glyphicon-arrow-down"></span> Dept/Loc</a></div>
+                        <div class="col-md-2"><a href="#" class="Headerlinks" onclick="toggle_visibility('Statements')" ;><span class="glyphicon glyphicon-arrow-down"></span> Generate Statement</a></div>*@
+                        <div class="col-md-2"><a href="#" class="Headerlinks" onclick="toggle_visibility('Tickets')" ;><span class="glyphicon glyphicon-arrow-down"></span> Tickets</a></div>
+                        <div class="col-md-2"><a href="#" class="Headerlinks" onclick="toggle_visibility('Invoices')";><span class="glyphicon glyphicon-arrow-down"></span> Invoices</a></div>
+                        @*<div class="col-md-2"><a href="#" class="Headerlinks" onclick="toggle_visibility('BankAccounts')";><span class="glyphicon glyphicon-arrow-down"></span> Banking</a></div>*@
+                        
+                        <div id ="BankingTest">
+                        
+                 <!--           <span data-bind="text: CustomerViewModel().CustomerDepartmentID"></span>-->
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default" id="Invoices" style="display:none">
+                <div class="panel-heading clearfix">
+                    Customer Invoices
+                </div>
+                <div class="panel-body">
+                    @*<div class="col-md-12">
+                        <div class="col-md-3">Enter invoice number</div>
+                        <div class="col-md-4"><input type="text" placeholder="invoice ref" class="form-control" /></div>
+                        <div class="col-md-3"><button class="btn btn-default">Search</button></div>
+
+                    </div>*@
+                    <table class="table-responsive col-md-12 table-striped">
+                      <thead class="tableheader">
+                          <tr><td></td><td></td><td>Invoices (7 days)</td><td></td><td></td></tr>
+                          <tr><td>Invoice Reference</td><td>Invoice Date.</td><td>Date</td><td></td><td></td></tr>
+                      </thead>
+                        <tbody data-bind="foreach: {data:  CustomerDetails().SalesInvoices }">
+                            <tr><td><span data-bind="text: SalesInvoiceReference"></span></td><td><span data-bind="text:SalesInvoiceDate"></span></td><td></td><td></td></tr>
+                                                  </tbody>
+
+                  </table>
+                </div>
+
+            </div>
+            <div class="panel panel-default" id="Statements" style="display:none">
+            <div class="panel-heading">
+                Statements
+            </div>
+            <div class="panel-body">
+                <div id="StatementsDetails">
+                    <div class="col-md-12">
+                
+                        <div class="col-md-1">
+                         
+                        </div>
+                        <div class="col-md-1">
+                        
+                        </div>
+                        <div class="col-md-4">Statement Date from:<input type="date" id="iconFrom"  class="form-control-date" /></div>
+                        <div class="col-md-4">Statement Date to:<input type="date" id="iconFrom" class="form-control-date" /></div>
+                    </div>
+                    <div class="col-md-12">
+
+                        <div class="col-md-1">
+                            <a>Last 30 days</a>
+                        </div>
+                        <div class="col-md-1">
+
+                        </div>
+                        <div class="col-md-8"><button class="btn btn-default">Generate</button></div>
+                      
+                    </div>
+                </div>
+            </div>
+
+        </div>
+            <div class="panel panel-default" id="Tickets" style="display:none">
+                <div class="panel-heading clearfix">
+                    Tickets (1 week)
+                </div>
+            <div class="panel-body">
+                <table class="table-responsive col-md-12 table-striped">
+                    <thead class="tableheader">
+                        <tr><td></td><td></td><td>Tickets (1 week)</td><td></td><td></td></tr>
+                        <tr><td>Ticket Ref.</td><td>Date</td><td>Details</td><td></td></tr>
+                    </thead>
+                    <tbody data-bind="foreach: {data:  CustomerDetails().Tickets }">
+                        <tr><td><span data-bind="text: TicketReference"></span></td><td><span data-bind="text:TicketDate"></span></td><td></td><td></td></tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+         
+        
+            <div class="panel-body">
+            @*<table class="table table-striped table-responsive" id="BankAccounts">
+                <thead>
+                    <tr>
+                        <th>##</th>
+                        <th class="col-xs-2">BankAccount ID</th>
+
+                        <div class="col-md-1">
+                            Account 1
+                        </div>
+                        <div class="col-md-3">
+                            ID:<span id="BankAccountID" data-bind="value:  CustomerDetails().BankAccounts[0].BankAccountID"></span>
+                            Account Number:<span data-bind="text: CustomerDetails().BankAccounts[0].AccountNumber"></span>
+                            Sort Code :<span data-bind="text: CustomerDetails().BankAccounts[0].SortCode1"></span>-<span data-bind="text: CustomerDetails().BankAccounts[0].SortCode2"></span>-<span data-bind="text: CustomerDetails().BankAccounts[0].SortCode3"></span>
+                            Account Name: <span id="AccountName" data-bind="text: CustomerDetails().BankAccounts[0].AccountName"></span>
+                        </div>
+                        <div class="col-md-4">Account No: 1232532</div>
+                        <div class="col-md-4"></div>
+                    </div>
+                    <div class="col-md-12">
+                        </div>*@
+
+
+
+                                @*<ul class="list-group" id="BankAccounts" data-bind="foreach: { data: CustomerDetails().BankAccounts }">
+        
+                <li class="list-group-item-heading">
+                    <div class="row">
+                        <div class="col-md-4"><p>BankAccountID</p></div>
+                    </div>
+                </li>
+                <li class="list-group-item-text topborder">
+                    <div class="row">
+
+                        <div class="col-md-1">
+
+                            <span placeholder="BankAccountID" id="BankAccountID" data-bind="text: BankAccountID"></span>
+                        </div>
+
+                    </div>
+                </li>
+
+            </ul>*@
+        </div>
+            <div class="panel panel-default" id="Locations" style="display:none">
+                <div class="panel-heading clearfix">
+                    Locations
+                </div>
+            <div class="panel-body">
+                <div id="CustomerLocations">
+                    <table class="table-responsive col-md-12 table-striped">
+                        @*<thead class="tableheader">
+                            <tr><td></td><td></td><td>Invoices (1 week)</td><td></td><td></td></tr>
+                            <tr><td>Invoice Reference</td><td>Invoice Date.</td><td>Date</td><td></td><td></td></tr>
+                        </thead>*@
+                        @*<tbody data-bind="foreach: {data:  CustomerDetails().CustomerLo }">
+                            <tr><td><span data-bind="text: SalesInvoiceReference"></span></td><td><span data-bind="text:SalesInvoiceDate"></span></td><td></td><td></td></tr>
+                        </tbody>*@
+
+                    </table>
+                </div>
+            </div>
+
+        </div>
+            <div class="panel panel-default" id="Contacts" style="display:none">
+                <div class="panel-heading clearfix">
+                    Contacts
+                </div>
+            <div class="panel-body">
+                <div id="CustomerLocations">
+                    <div class="col-md-12">
+                        &nbsp;
+                        <div class="col-md-1">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-3">
+                            Location/Department Name
+                        </div>
+                        <div class="col-md-4"><input type="text" class="form-control" /></div>
+                        <div class="col-md-4"></div>
+                    </div>
+                    <div class="col-md-12">
+                        &nbsp;
+                        <div class="col-md-1">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-3">
+                            Address 1
+                        </div>
+                        <div class="col-md-4">Gerber</div>
+                        <div class="col-md-4">GERB</div>
+                    </div>
+                    <div class="col-md-12">
+                        &nbsp;
+                        <div class="col-md-1">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-3">
+                            Address 2
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">Location Name</div>
+                    </div>
+                    <div class="col-md-12">
+                        &nbsp;
+                        <div class="col-md-1">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-3">
+                            Address3
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">Location Telephone</div>
+                    </div>
+                    <div class="col-md-12">
+                        &nbsp;
+                        <div class="col-md-1">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-3">
+                            Address 4
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">Address 1</div>
+                    </div>
+                    <div class="col-md-12">
+                        &nbsp;
+                        <div class="col-md-1">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-3">
+                            Post code
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">Address 2</div>
+                    </div>
+                    <div class="col-md-12">
+                        &nbsp;
+                        <div class="col-md-1">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-3">
+                            Contact Details
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">Address 3</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        </div>       
+    <div class="col-md-4"></div>
+
+    <div id="Invoices">
+        <button class="btn btn-new">+ sundry invoice</button>
+        New sundry invoice
+    </div>
+    <div>&nbsp;
+    </div>
+    <div id="Statements">
+        <div class="col-md-2"><a href="#" class="btn btn-new" onclick="toggle_visibility('Statements')" ;>Generate Statement +/-</a></div>
+        
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    <div id="Tickets">
+        <button class="btn btn-new">+ Ticket</button>
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    <div id="Deptartment_Location">
+        <button class="btn btn-new">+ Dept/Loc</button>
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    <div id="Banking">
+        <button class="btn btn-new">+ Bank Account</button>
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    <div id="Contacts">
+        <button class="btn btn-new">+ Contact</button>
+    </div>
+   
+</div>
+<script type="text/javascript">
+
+    var CustomerDetails = new CustomerMainModel(@Html.Raw(data));
+    ko.applyBindings(CustomerDetails, document.getElementById("Customer"));
+
+</script>

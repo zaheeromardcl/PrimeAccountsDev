@@ -1,0 +1,90 @@
+﻿@using System.Web.Script.Serialization
+@model PrimeActs.UI.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/KJScripts/UserCreate.js"></script>
+@{
+    var data = new JavaScriptSerializer().Serialize(Model);
+}
+<style type="text/css">
+    label { display: block; }
+
+    .validationMessage { color: Red; }
+
+    .customMessage { color: Orange; }
+
+    .required-field {
+        border: 2px solid red !important;
+        color: red;
+    }
+</style>
+<div class="col-md-6 col-md-offset-2">
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+</div>
+<br/>
+<br/>
+<br/>
+<div class="col-md-3 col-xs-12">
+    <div class="containerLogin center-block table-bordered ">
+        <div class="row">
+            <div class="col-md-12">
+                <ul data-bind="foreach: User().servererrors">
+                    <li class="field-validation-error" data-bind="text: $data"></li>
+                </ul>
+            </div>
+
+
+            <p></p>
+            <h3 class="center-block text-center registerTxt">Register</h3>
+            <br/>
+
+
+            <div class="col-md-offset-1 form-group">
+                <input type="text" class="form-control" placeholder="Username" data-bind="value: User().Username, css:{'required-field':User().showerror(User().Username)}, valueUpdate: 'afterkeydown'"/>
+            </div>
+            <div class="col-md-offset-1 form-group">
+                <input type="password" class="form-control" placeholder="Password" data-bind="value: User().Password, css:{'required-field':User().showerror(User().Password)}, valueUpdate: 'afterkeydown'"/>
+            </div>
+            <div class="col-md-offset-1 form-group">
+                <input type="password" class="form-control" placeholder="ConfirmPassword" data-bind="value: User().ConfirmPassword, css:{'required-field':User().showerror(User().ConfirmPassword)}, valueUpdate: 'afterkeydown'"/>
+            </div>
+            <div class="col-md-offset-1 form-group">
+                <input type="text" class="form-control" placeholder="Firstname" data-bind="value: User().Firstname, css:{'required-field':User().showerror(User().Firstname)}, valueUpdate: 'afterkeydown'"/>
+            </div>
+            <div class="col-md-offset-1 form-group">
+                <input type="text" class="form-control" placeholder="Lastname" data-bind="value: User().Lastname, css:{'required-field':User().showerror(User().Lastname)}, valueUpdate: 'afterkeydown'"/>
+            </div>
+            <div class="col-md-offset-1 form-group">
+                <input type="text" class="form-control" placeholder="Nickname" data-bind="value: User().Nickname, css:{'required-field':User().showerror(User().Nickname)}, valueUpdate: 'afterkeydown'"/>
+            </div>
+            <div class="col-md-offset-1 form-group">
+                <input type="text" class="form-control" placeholder="Email" data-bind="value: User().Email, css:{'required-field':User().showerror(User().Email)}, valueUpdate: 'afterkeydown'"/>
+            </div>
+            <div class="col-md-offset-1 form-group">
+                <br/>
+                <div class="  pull-center-xs">
+                    <input type="submit" class="btn btn-default  pull-center-xs " value="Register" data-bind="click: function (){create($data)}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var user = new UserModel(@Html.Raw(data));
+    ko.validation.init({
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: true
+
+    });
+    ko.applyBindings(user, document.getElementById("User"));
+</script>

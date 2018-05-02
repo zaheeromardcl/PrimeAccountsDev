@@ -1,0 +1,65 @@
+﻿@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.Division.DivisionEditModel
+
+
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/KJScripts/Division/DivisionCreate.js"></script>
+
+@{
+    var data = new JavaScriptSerializer().Serialize(Model);
+}
+
+<div class="col-md-8" id="Division">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h3 class="panel-title text-center">Create Division</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row"></div>
+            <div class="row">
+                <ul data-bind="foreach: Division().servererrors">
+                    <li class="field-validation-error" data-bind="text: $data"></li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    Name
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6"><input type="text" class="form-control" data-bind="value: Division().DivisionName, css:{'required-field':Division().showerror(Division().DivisionName)}, valueUpdate: 'afterkeydown'" /></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    Company
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6">
+                        <select height="5" data-bind="options: CompanyList(), selectedOptions: Division().RelatedCompanyId, optionsText: 'optionText', optionsValue: 'optionValue'" class="form-control">  </select>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6">
+                        <input type="submit" class="btn btn-default  pull-right" value="Create" data-bind="click: function (){create($data)}" />
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <a class="tab-content pull-right" href="~/Division/Index">Back to Divisions</a>
+    </div>
+</div>
+<script type="text/javascript">
+    var Division = new DivisionModel(@Html.Raw(data));
+    ko.validation.init({
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: true
+
+    });
+    ko.applyBindings(Division, document.getElementById("Division"));
+</script>

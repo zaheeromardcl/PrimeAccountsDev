@@ -1,0 +1,82 @@
+﻿@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.StockBoard.StockBoardPaging
+
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/KJScripts/Paging.js"></script>
+<script src="~/TypeScripts/StockBoard/StockBoardPaging.js"></script>
+<link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet" />
+@{ var data = new JavaScriptSerializer().Serialize(Model); }
+
+<div class="container-fluid">
+    <div class="col-md-12" id="@ViewBag.StockBoard">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="panel-title">StockBoards <img src="~/Content/images/IconSearch.png" /></span>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-12">
+                    <form data-bind="submit:function () { Search() }">
+                        <div class="col-md-9  control-group">
+                            <input type="text" class="form-control" placeholder="Name or Code" data-bind="submit: function () { Search() }, validationOptions: { insertMessages: false }, value: StockBoardSearch().StockBoardName, valueUpdate: 'afterkeydown', css:{'required-field': IsSearchValid}" />
+                        </div>
+                        <div class="pull-right col-md-3 control-group">
+                            <input type="button" class="btn btn-default" data-bind="click: function () { Search() }" value="Search" />
+                            <input type="button" class="btn btn-default" data-bind="click: function () { Reset() }" value="Reset" />
+                        </div>
+                    </form>
+                </div>
+                <div class="clearfix"></div>
+                <div class="well well-sm">
+                    @Html.BuildKnockoutNextPreviousLinks("Index", "/StockBoard")
+                </div>
+                <div class="clearfix"></div>
+                <div class="row-padding5">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">StockBoard Name</div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-3"></div>
+                </div>
+                <!--Commenting the mockup-->
+                <div class="search-results" data-bind="foreach: Paging().Entities">
+                    <div class="row-padding5">
+                        <div class="col-md-1 pull-middle">
+                            <a data-bind="click: function () { $parent.OpenStockBoardDetails(StockBoardID) }, attr: { 'href': '#' }">
+                                <img src="~/Content/images/IconProduce.png" />
+                            </a>
+                        </div>
+                        <div class="col-md-4 pull-left pull-middle">
+                            <span data-bind="text: StockBoardName"></span>
+                        </div>
+                        <div class="col-md-4 pull-left pull-middle">
+                            <span > &nbsp;</span>
+                        </div>
+                        <div class="col-md-3 pull-middle">
+                            <a data-bind="click: function () { $parent.OpenStockBoardDetails(StockBoardID) }, attr: { 'href': '#' }">
+                                <img alt="Produce Details" src="~/Content/images/view-details-512.png" />
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="clearfix"></div>
+                <div class="well well-sm">
+                    @Html.BuildKnockoutNextPreviousLinks("Index", "/StockBoard")
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>
+<script type="text/javascript">
+    var stockBoardPanelName = '@(ViewBag.StockBoard)';
+    var stockBoardModel = new StockBoardPaging(@Html.Raw(data), subscriberTab);
+
+    ko.validation.init({
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: true,
+        parseInputAttributes: true,
+        messageTemplate: null
+    }, true);
+        
+    ko.applyBindings(stockBoardModel, document.getElementById(stockBoardPanelName));
+</script>

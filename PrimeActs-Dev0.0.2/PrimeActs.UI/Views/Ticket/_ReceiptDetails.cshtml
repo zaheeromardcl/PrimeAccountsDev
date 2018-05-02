@@ -1,0 +1,82 @@
+﻿@using Newtonsoft.Json;
+@model PrimeActs.Domain.ViewModels.ReceiptTicketViewModel
+
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/TypeScripts/Ticket/ReceiptTicketDetailsViewModel.js"></script>
+@{ string data = JsonConvert.SerializeObject(Model); }
+<div class="col-md-12" id="@ViewBag.ReceiptPanel">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <p class="panel-title">Receipt Summary</p>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-2 col-md-offset-10">
+                &nbsp;
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row header">
+                <div class="col-sm-4">
+                    <div class="well">
+                        <p>
+                            Ticket Reference:<strong>
+                                <span data-bind="text: TicketModel().TicketReference"></span>
+                            </strong>
+                        </p>
+                        <p>
+                            Currency :<strong>
+                                <span data-bind="text: TicketModel().CurrencyName"></span>
+                            </strong>
+                        </p>
+                        
+                        <p>Receipt Date: <span data-bind="FormattedDate: {date: TicketModel().TicketDate(), format: 'txtshort'}"></span></p>
+                        <p>
+                            Amount Received:<strong>
+                                        <span data-bind="text: TicketModel().AmountReceived.formatted"></span>
+                            </strong>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="well">
+                        <p>
+                            Customer:<strong>
+                                <span data-bind="text: TicketModel().CustomerCompanyName"></span>
+                            </strong>
+                        </p>
+                        <p>
+                            Sold by: <span data-bind="text: TicketModel().SalesPersonName"></span>
+                        </p>
+
+                        <p>
+                            Notes: <span data-bind="text: TicketModel().Notes"></span>
+                        </p>
+                    </div>
+                </div><!--/col-->
+
+                <div class="col-sm-4">
+                    <div class="well">
+                        <p>Updated By:<span data-bind="text: TicketModel().CreatedBy"></span></p>
+                        <p>Updated:<span data-bind="FormattedDate: {date: TicketModel().CreatedDate(), format: 'txtshort'}"></span></p>
+                        <p>Created By:<span data-bind="text: TicketModel().CreatedBy"></span></p>
+                        <p>Created:<span data-bind="FormattedDate: {date: TicketModel().CreatedDate(), format: 'txtshort'}"></span></p>
+                        <p></p>
+                    </div>
+                </div>
+            </div><!--/row-->
+        </div>
+    </div>
+    <div class="panel-body">
+        <button class="btn btn-default col-md-offset-10" data-bind="click: function() { openCreateTicket(subscriberReplaceTab); }">
+            Create New Ticket
+        </button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var ticketPanelName = '@(ViewBag.ReceiptPanel)';
+    var receiptTicketDetailsModel = new ReceiptTicketDetailsTabViewModel(@Html.Raw(data), ticketPanelName);
+    receiptTicketDetailsModel.pageLoadState();
+    ko.applyBindings(receiptTicketDetailsModel, document.getElementById(ticketPanelName));
+</script>

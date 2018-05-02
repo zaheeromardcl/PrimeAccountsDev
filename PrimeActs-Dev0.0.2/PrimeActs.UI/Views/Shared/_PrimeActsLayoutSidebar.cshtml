@@ -1,0 +1,138 @@
+﻿﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge;" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PrimeActs</title>
+    <link rel="shortcut icon" type="image/png" href="~/favicon.ico" />   
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/knockout")
+    <script src="~/Scripts/bootbox.js"></script>
+
+    @Styles.Render("~/Content/css/PrimeActsStyles")
+    @Styles.Render("~/Content/css/PagedList")
+    @Styles.Render("~/Content/css/app")
+    @Styles.Render("~/Content/css/jquerycss")   
+</head>
+
+
+<body class="backgroundLogoWhite">
+    @Html.Partial("_LayoutHeader")
+
+    <div class="main">
+
+        @RenderBody()
+
+    </div>
+
+    <div>
+       
+    </div>
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+
+        $('.collapse').on('shown.bs.collapse', function (e) {
+            $('.collapse').not(this).removeClass('in');
+        });
+
+        $('[data-toggle=collapse]').click(function (e) {
+            $('[data-toggle=collapse]').parent('li').removeClass('active');
+            $(this).parent('li').toggleClass('active');
+        });
+
+        $('[data-toggle=subselect]').click(function (e) {
+            $('[data-toggle=subselect]').parent('li').removeClass('subactive');
+            $(this).parent('li').toggleClass('subactive');
+        });
+
+        // Post Actions for Menu Actions
+        $(function () {
+            $("#menuAddCompany").on("click", function (e) {
+                TabMenuItemHandler(e);
+            });
+        });
+        $(function () {
+            $("#menuAddConsignment").on("click", function (e) {
+                TabMenuItemHandler(e);
+            });
+        });
+        $(function () {
+            $("#menuAddDepartment").on("click", function (e) {
+                TabMenuItemHandler(e);
+            });
+        });
+        $(function () {
+            $("#menuAddConsignmentIndexTab").on("click", function (e) {
+                TabMenuItemHandler(e);
+            });
+        });
+        $(function () {
+            $("#menuAddTicketIndexTab").on("click", function (e) {
+                TabMenuItemHandler(e);
+            });
+        });
+
+        $(function () {
+            $("#menuAddTicketCash").on("click", function (e) {
+                TabMenuItemHandler(e);
+            });
+        });
+        $(function () {
+            $("#menuCreateTicketCredit").on("click", function (e) {
+                TabMenuItemHandler(e);
+            });
+        });
+        $(function () {
+            $("#menuCreateTicket").on("click", function (e) {
+                TabMenuItemHandler(e);
+            });
+        });
+        $(function () {
+            $("#menuViewSupplier").on("click", function (e) {
+                TabMenuItemHandler(e);
+            });
+        });
+        $(function () {
+            $("#menuKoTest").on("click", function (e) {
+                TabMenuItemHandler(e);
+            });
+        });
+        $(function () {
+            $("#menuAddCreatePurchaseInvoice").on("click", function (e) {
+                TabMenuItemHandler(e);
+            });
+        });
+        $(function () {
+            $("#menuAddInvoiceAdmin").on("click", function (e) {
+                TabMenuItemHandler(e);
+            });
+        });
+        $(function () {
+            $("#menuAddCompletedConsignmentsTab").on("click", function (e) {
+                TabMenuItemHandler(e);
+            });
+        });
+        
+        function TabMenuItemHandler(e) {
+            if (PanelPageIsloaded() == true) {
+                var target_to_add = e.target.id.slice(7); // everythng after menuAdd in the target string
+                e.preventDefault(); // cancel the link itself
+                subscriberTab.notifySubscribers(target_to_add, "save"); // Notify the Active Page instead
+            } // if not an intercepted Action then the Menu Option will perform action as normal
+        }
+
+        function PanelPageIsloaded() {
+            var cur_href = $(location).attr('href');
+            var is_tabs_loaded = cur_href.indexOf("/TabPanel/");
+            return (is_tabs_loaded === -1) ? false : true;
+        }
+    });
+    </script>
+</body>
+</html>
+

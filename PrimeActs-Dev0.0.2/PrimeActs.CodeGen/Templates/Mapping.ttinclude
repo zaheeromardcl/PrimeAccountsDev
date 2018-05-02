@@ -1,0 +1,80 @@
+<#@ import namespace="System.Collections.Generic" #><#+
+	void GenerateMapping(TableModel table, List<TableModel> allTables)
+	{
+#>
+#region
+
+using PrimeActs.Domain;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
+
+#endregion
+
+namespace PrimeActs.Data.Mapping
+{
+	public partial class <#= table.ClassName #>Map : EntityTypeConfiguration<<#= table.ClassName #>>
+	{
+		public <#= table.ClassName #>Map()
+		{
+			// Primary Key
+			this.HasKey(t => t.<#= table.PrimaryKeyName #>);
+
+			// Table & Column Mappings
+			this.ToTable("<#= table.Name #>");
+			<#+
+            foreach (var column in table.Columns)
+            {#>
+this.Property(t => t.<#= column.PropertyName #>)
+				<#+
+				if (!column.Nullable)
+				{#>
+.IsRequired()
+				<#+}
+				if (column.Length > 0)
+				{#>
+.HasMaxLength(<#= column.Length #>)
+				<#+}#>
+.HasColumnName("<#= column.Name #>");
+			<#+}#>
+
+			// Relationships
+			<#+
+			foreach (var reference in table.References.Where(x => x.ReferenceType == ReferenceType.OneToOne))
+			{
+				var referencedTable = allTables.Where(x => x.Name == reference.TableName).First();#>
+				TODO: <#= table.Name #> <-> <#= referencedTable.Name #>
+			<#+ }
+			foreach (var reference in table.References.Where(x => x.ReferenceType == ReferenceType.ManyToOne))
+			{
+				var referencedTable = allTables.Where(x => x.Name == reference.TableName).First();
+				var referencedColumn = referencedTable.Columns.Where(x => x.Name == reference.ColumnName).First();
+				var sourceColumn = table.Columns.Where(x => x.Name == reference.ColumnName).First();
+				if (sourceColumn.Nullable)
+				{#>
+					this.HasOptional(t => t.<#= referencedTable.ClassName #>)
+				<#+ }
+				else
+				{#>
+					this.HasOptional(t => t.<#= referencedTable.ClassName #>)
+				<#+ } #>
+						.WithMany(t => t.<#= table.PropertyName #>)
+						.HasForeignKey(t => <#= sourceColumn.PropertyName #>);
+			<#+ }
+			foreach (var reference in table.References.Where(x => x.ReferenceType == ReferenceType.ManyToMany && !string.IsNullOrEmpty(x.LinkTableName)))
+			{
+				var referencedTable = allTables.Where(x => x.Name == reference.TableName).First();
+				var referencedColumn = referencedTable.Columns.Where(x => x.Name == reference.ColumnName).First();
+				var sourceColumn = table.Columns.Where(x => x.Name == reference.LeftColumnName).First();
+			#>
+this.HasMany(t => t.<#= referencedTable.PropertyName #>)
+				.WithMany(t => t.<#= table.PropertyName #>)
+				.Map(t => t.ToTable("<#= reference.LinkTableName #>")
+					.MapLeftKey("<#= reference.LeftColumnName #>")
+					.MapRightKey("<#= reference.RightColumnName #>"));
+			<#+ } #>
+}
+	}
+}
+<#+
+}
+#>

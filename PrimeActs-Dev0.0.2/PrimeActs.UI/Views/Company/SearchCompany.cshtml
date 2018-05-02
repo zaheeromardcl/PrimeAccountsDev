@@ -1,0 +1,62 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<PrimeActs.Domain.ViewModels.TicketEditModel>
+@{
+    ViewBag.Title = "Ticket";
+
+    if (ViewBag.activeToggle == null)
+    {
+        ViewBag.activeToggle = "1";
+    }
+    else if (ViewBag.activeToggle == "1")
+    {
+        ViewBag.activeToggle = "2";
+    }
+    else
+    {
+        ViewBag.activeToggle = null;
+    }
+}
+<div id="searchResult">
+    <table class="table table-condensed table-bordered table-striped table-hover">
+        <thead>
+        <tr class="tableheader text-center">
+            <th>
+                @Html.ActionLink("Ticket", "Index", new {page = 1, pageSize = Model.PageSize, searchString = ViewBag.SearchString, sortColumn = "TicketName"}, new {@class = "NavigationLinks"})
+            </th>
+            <th>
+                @Html.ActionLink("Parent Ticket", "Index", new {page = 1, pageSize = Model.PageSize, searchString = ViewBag.SearchString, sortColumn = "ParentTicket"}, new {@class = "NavigationLinks"})
+            </th>
+            <th>
+                @Html.ActionLink("IsActive", "Index", "Ticket", new {IsActive = ViewBag.activeToggle}, new {@class = "NavigationLinks"})
+            </th>
+
+            <th>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td data-title="Code">
+                    @Html.DisplayFor(modelItem => item.TicketDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketReference)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td class="pull-right">
+                    @Html.ActionLink("Edit", "Edit", new {id = item.TicketID}, new {@class = "NavigationLinks"}) |
+                    @Html.ActionLink("Details", "Details", new {id = item.TicketID}, new {@class = "NavigationLinks"})
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <div id="myPager">
+        Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount Tickets
+        @Html.PagedListPager(Model, page => Url.Action("SearchResult", new {page, pageSize = Model.PageSize, searchString = ViewBag.SearchString}))
+    </div>
+</div>

@@ -1,0 +1,72 @@
+﻿@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.Users.RoleEditModel
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/KJScripts/Roles/RoleCreate.js"></script>
+@{
+    var data = new JavaScriptSerializer().Serialize(Model);
+}
+<style type="text/css">
+    label { display: block; }
+
+    .validationMessage { color: Red; }
+
+    .customMessage { color: Orange; }
+
+    .required-field {
+        border: 2px solid red !important;
+        color: red;
+    }
+</style>
+
+<div class="col-md-8" id="Role">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h3 class="panel-title text-center">Create Role</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row"></div>
+            <div class="row">
+                <ul data-bind="foreach: Role().servererrors">
+                    <li class="field-validation-error" data-bind="text: $data"></li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    Name
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6"><input type="text" class="form-control" data-bind="value: Role().Name, css:{'required-field':Role().showerror(Role().Name)}, valueUpdate: 'afterkeydown'" /></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    Description
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6"><input type="text" class="form-control" data-bind="value: Role().Description, css:{'required-field':Role().showerror(Role().Description)}" /></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6">
+                        <input type="submit" class="btn btn-default  pull-right" value="Create" data-bind="click: function (){create($data)}" />
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <a class="tab-content pull-right" href="~/RolesAdmin/Index">Back to Roles</a>
+    </div>
+</div>
+<script type="text/javascript">
+    var Role = new RoleModel(@Html.Raw(data));
+    ko.validation.init({
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: true
+
+    });
+    ko.applyBindings(Role, document.getElementById("Role"));
+</script>

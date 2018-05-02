@@ -1,0 +1,406 @@
+﻿@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.SupplierEditModel
+
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet" />
+<script src="~/TypeScripts/Supplier/CreateSupplier.js"></script>
+@{
+    string data = new JavaScriptSerializer().Serialize(Model);
+}
+
+<div id="@ViewBag.PanelName" class="container-fluid col-md-12">
+    <div class="panel panel-default" id="UpdateSupplier">
+        <div class="panel-heading">
+            Update Supplier
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-5">
+                    Supplier Company Name
+                    <input type="text" data-bind="value: supplierModel().SupplierCompanyName,
+                              css:{ 'required-field': supplierModel().showRequired(supplierModel().SupplierCompanyName),
+                              'required-field-error': supplierModel().showError(supplierModel().SupplierCompanyName) }"
+                           class="form-control" />
+                </div>
+                <div class="col-md-2">
+                    Supplier Code
+                    <input type="text" data-bind="value: supplierModel().SupplierCode,
+                           css:{ 'required-field': supplierModel().showRequired(supplierModel().SupplierCode),
+                           'required-field-error': supplierModel().showError(supplierModel().SupplierCode) }"
+                           class="form-control" />
+                </div>
+                <div class="col-md-1 pull-left">
+                    <p> Is Factor </p>
+                    <input type="checkbox" data-bind="checked: supplierModel().IsFactor" />
+                </div>
+                <div class="col-md-1 pull-left">
+                    <p> Is Haulier </p>
+                    <input type="checkbox" data-bind="checked: supplierModel().IsHaulier" />
+                </div>
+                <div class="col-md-3">
+                    Select Company
+                    <select data-bind="options: supplierModel().CompanyOptions,
+                        optionsText: 'label', optionsValue: 'Id',
+                        value: supplierModel().CompanyID"
+                            class="form-control"></select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    Parent Supplier
+                    <input type="text" id="ParentSupplier"
+                           data-bind="ko_autocomplete: { source: supplierModel().AC_get_ParentSupplier,
+                        select: supplierModel().AC_select_ParentSupplier },
+                        value: supplierModel().ParentSupplierName"
+                           class="form-control ui-autocomplete-input required-field" placeholder="ParentSupplier">
+                </div>
+                <div class="col-md-8">
+                    Notes
+                    <textarea rows="5" cols="800" data-bind="value : supplierModel().Notes"
+                              class="form-control" placeholder="Notes" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 pull-left">
+                    <input type="button" data-bind="click: function() { saveSupplierItems(); },
+                        enable: supplierModel().IsSupplierSaveBtnEnabled,
+                        value: 'Save Changes'"
+                           class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Update Supplier's Locations
+        </div>
+        <div class="panel-body">
+            <ul data-bind="foreach: {data: supplierModel().SupplierLocations, as: 'splctn'}">
+                <li class="row">
+                    <div class="row">
+                        <div class="col-md-6">
+                            Supplier Location Name
+                            <input type="text" data-bind="value : splctn.SupplierLocationName"
+                                   class="form-control" placeholder="SupplierLocationName" />
+                            @*<input type="text" data-bind="value : splctn.SupplierLocationName,
+                                   css:{ 'required-field': $root.supplierModel().showRequired(splctn.SupplierLocationName),
+                                   'required-field-error': $root.supplierModel().showError(splctn.SupplierLocationName) }"
+                                   class="form-control" placeholder="SupplierLocationName" />*@
+                        </div>
+                        <div class="col-md-3">
+                            Telephone Number
+                            <input type="text" data-bind="value : splctn.TelephoneNumber" class="form-control" placeholder="TelephoneNumber" />
+                        </div>
+                        <div class="col-md-3">
+                            Fax Number
+                            <input type="text" data-bind="value : splctn.FaxNumber" class="form-control" placeholder="FaxNumber" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            Address Line1
+                            <input type="text" data-bind="value : splctn.AddressLine1"
+                                class=" form-control" placeholder="AddressLine1" />
+                            @*<input type="text" data-bind="value : splctn.AddressLine1,
+                                css:{ 'required-field-error': $root.supplierModel().showError(splctn.AddressLine1) }"
+                                   class=" form-control" placeholder="AddressLine1" />
+                            <input type="text" data-bind="value : splctn.AddressLine1,
+                                css:{ 'required-field': $root.supplierModel().showRequired(splctn.AddressLine1) }"
+                                   class=" form-control" placeholder="AddressLine1" />*@
+                            @*<input type="text" data-bind="value : $root.supplierModel().showRequired(splctn.AddressLine1)"
+                                   class=" form-control" placeholder="AddressLine1" />
+                            <input type="text" data-bind="value : $root.supplierModel().showError(splctn.AddressLine1) "
+                                   class=" form-control" placeholder="AddressLine1" />*@
+                        </div>
+                        <div class="col-md-4">
+                            Address Line2
+                            <input type="text" data-bind="value : splctn.AddressLine2" class="form-control" placeholder="AddressLine2" />
+                        </div>
+                        <div class="col-md-4">
+                            Address Line3
+                            <input type="text" data-bind="value : splctn.AddressLine3" class="form-control" placeholder="AddressLine3" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            County City
+                            <input type="text" data-bind="value : splctn.CountyCity"
+                                   class="form-control" placeholder="CountyCity" />
+                            @*<input type="text" data-bind="value : splctn.CountyCity,
+                                   css:{ 'required-field': $root.supplierModel().showRequired(splctn.CountyCity),
+                                   'required-field-error': $root.supplierModel().showError(splctn.CountyCity) }"
+                                   class="form-control" placeholder="CountyCity" />*@
+                        </div>
+                        <div class="col-md-4">
+                            Postal Town
+                            <input type="text" data-bind="value : splctn.PostalTown"
+                                   class="form-control" placeholder="PostalTown" />
+                            @*<input type="text" data-bind="value : splctn.PostalTown,
+                                   css:{ 'required-field': $root.supplierModel().showRequired(splctn.PostalTown),
+                                   'required-field-error': $root.supplierModel().showError(splctn.PostalTown) }"
+                                   class="form-control" placeholder="PostalTown" />*@
+                        </div>
+                        <div class="col-md-4">
+                            Postcode
+                            <input type="text" data-bind="value : splctn.Postcode"
+                                   class="form-control" placeholder="Postcode" />
+                            @*<input type="text" data-bind="value : splctn.Postcode,
+                                   css:{ 'required-field': $root.supplierModel().showRequired(splctn.Postcode),
+                                   'required-field-error': $root.supplierModel().showError(splctn.Postcode) }"
+                                   class="form-control" placeholder="Postcode" />*@
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 pull-right">
+                            Notes
+                            <textarea rows="5" cols="800" data-bind="value : splctn.Notes"
+                                      class="form-control" placeholder="Notes" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1 pull-left">
+                            <button class="btn btn-danger btn-block" tabindex="-1" data-bind="click: function() { $root.supplierModel().rmvLocation($index()) }">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="row">
+                <div class="col-md-1 pull-right">
+                    <button class="btn btn-default btn-block" data-bind="click: function() { $root.supplierModel().newLocation() }">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Update Supplier's Departments
+        </div>
+        <div class="panel-body">
+            <ul data-bind="foreach: {data: supplierModel().SupplierDepartments, as: 'item'} ">
+                <li class="row">
+                    <div class="row">
+                        <div class="col-md-6">
+                            Supplier Department Name
+                            <input type="text" placeholder="SupplierDepartmentName"
+                                   data-bind="value : item.SupplierDepartmentName"
+                                   class="form-control" />
+                            @*<input type="text" placeholder="SupplierDepartmentName"
+                                   data-bind="value : item.SupplierDepartmentName,
+                                    css:{ 'required-field': $root.supplierModel().showRequired(item.SupplierDepartmentName),
+                                    'required-field-error': $root.supplierModel().showError(item.SupplierDepartmentName) }"
+                                   class="form-control" />*@
+                        </div>
+                        <div class="col-md-3">
+                            Commission
+                            <input type="text" placeholder="Comission" data-bind="value : item.Commission.formatted" class="form-control" />
+                        </div>
+                        <div class="col-md-3">
+                            Handling
+                            <input type="text" placeholder="Handling" data-bind="value : item.Handling.formatted" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            Factor Supplier DepartmentID
+                            <input type="text" placeholder="FactorSupplierDepartmentID"
+                                   data-bind="value: item.FactorSupplierDepartmentID,
+                                    disable: $root.supplierModel().IsFactor"
+                                   class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            Country
+                            <input type="text" id="Country" placeholder="Country"
+                                   data-bind="ko_autocomplete: { source: item.getCountry_ofSupplierDept,
+                                    select: item.selectCountry_ofSupplierDept},
+                                    value: item.CountryName"
+                                   class="form-control ui-autocomplete-input required-field">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            Email Address
+                            <input type="text" placeholder="EmailAddress" data-bind="value : item.EmailAddress" class="form-control" />
+                        </div>
+                        <div class="col-md-3">
+                            Credit Terms
+                            <select data-bind="options: item.CreditTermOptions
+                                    , optionsText: 'display'
+                                    , optionsValue: 'itsValue'
+                                    , value: item.CreditTerm"
+                                    class="form-control" id="credit_term"></select>
+                        </div>
+                        <div class="col-md-3">
+                            Credit Limit
+                            <input type="text" placeholder="CreditLimit" data-bind="value : item.CreditLimit" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 pull-left">
+                            <p>IsTransactionTaxExempt</p>
+                            <input type="checkbox" data-bind="checked: item.IsTransactionTaxExempt" />
+                        </div>
+                        <div class="col-md-3">
+                            TransactionTaxReference
+                            <input type="text" placeholder="TransactionTaxReference"
+                                   data-bind="value : item.TransactionTaxReference, enable: item.IsTransactionTaxExempt"
+                                   class="form-control" />
+                        </div>
+                        <div class="col-md-3 pull-left">
+                            <p>Gives Rebate</p>
+                            <input type="checkbox" data-bind="checked: item.GivesRebate" />
+                        </div>
+                        <div class="col-md-3">
+                            Rebate Amount
+                            <input type="text" placeholder="RebateAmount"
+                                   data-bind="value : item.RebateAmount, enable: item.GivesRebate"
+                                   class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            Select Location
+                            <select data-bind="options: item.LbxLocationOptions
+                                , optionsValue: 'Id'
+                                , optionsText: 'label'
+                                , selectedOptions: item.SelectedLocationIds
+                                , multiselect: { includeSelectAllOption: false }"
+                                    class="form-control" multiple="multiple" id="lbx_loc_of_dep"></select>
+                        </div>
+                        <!-- item.SelectedLocationIds -->
+                        <div class="col-md-4">
+                            <pre id="koDebugData" data-bind="text: ko.toJSON(item.SelectedLocationIds, null, 4)"></pre>
+                        </div>
+                        <!-- item.SelectedLocationIds -->
+                        <div class="col-md-4 pull-right">
+                            Notes
+                            <textarea rows="5" cols="800" placeholder="Notes" data-bind="value : item.Notes" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1 pull-left">
+                            <button class="btn btn-danger btn-block" tabindex="-1" data-bind="click: function() { $root.supplierModel().rmvDepartment($index()) }">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="col-md-1 pull-right">
+                <button class="btn btn-default btn-block" data-bind="click: function() { $root.supplierModel().newDepartment() }">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Update Supplier's Contacts
+        </div>
+        <div class="panel-body">
+            <ul data-bind="foreach: {data: supplierModel().SupplierContacts, as: 'spcnct'}">
+                <li class="row">
+                    <div class="row">
+                        <div class="col-md-2">
+                            ContactType
+                            <input type="text" data-bind="value : spcnct.ContactType"
+                                   class="form-control" placeholder="ContactType" />
+                            @*<input type="text" data-bind="value : spcnct.ContactType,
+                                   css:{ 'required-field': $root.supplierModel().showRequired(spcnct.ContactType),
+                                   'required-field-error': $root.supplierModel().showError(spcnct.ContactType) }"
+                                   class="form-control" placeholder="ContactType" />*@
+                        </div>
+                        <div class="col-md-3">
+                            EmailAddress
+                            <input type="text" data-bind="value : spcnct.EmailAddress" class="form-control" placeholder="EmailAddress" />
+                        </div>
+                        <div class="col-md-1">
+                            Title
+                            <input type="text" data-bind="value : spcnct.Title" class="form-control" placeholder="Title" />
+                        </div>
+                        <div class="col-md-3">
+                            First Name
+                            <input type="text" data-bind="value : spcnct.FirstName"
+                                   class="form-control" placeholder="FirstName" />
+                            @*<input type="text" data-bind="value : spcnct.FirstName,
+                                   css:{ 'required-field': $root.supplierModel().showRequired(spcnct.FirstName),
+                                   'required-field-error': $root.supplierModel().showError(spcnct.FirstName) }"
+                                   class="form-control" placeholder="FirstName" />*@
+                        </div>
+                        <div class="col-md-3">
+                            Last Name
+                            <input type="text" data-bind="value : spcnct.LastName"
+                                   class="form-control" placeholder="LastName" />
+                            @*<input type="text" data-bind="value : spcnct.LastName,
+                                   css:{ 'required-field': $root.supplierModel().showRequired(spcnct.LastName),
+                                   'required-field-error': $root.supplierModel().showError(spcnct.LastName) }"
+                                   class="form-control" placeholder="LastName" />*@
+                        </div>
+                    </div>
+                    <div class="row">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            Telephone No
+                            <input type="text" data-bind="value : spcnct.DDITelephoneNo" class="form-control" placeholder="DDITelephoneNo" />
+                        </div>
+                        <div class="col-md-2">
+                            Mobile No
+                            <input type="text" data-bind="value : spcnct.MobileNo" class="form-control" placeholder="MobileNo" />
+                        </div>
+                        <div class="col-md-8">
+                            Notes
+                            <textarea rows="5" cols="800" data-bind="value : spcnct.Notes"
+                                      class="form-control" placeholder="Notes" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            Select Location
+                            <select multiple="multiple" data-bind="options: spcnct.LbxLocationOptions
+                                , optionsValue: 'Id'
+                                , optionsText: 'label'
+                                , selectedOptions: spcnct.SelectedLocationIds
+                                , multiselect: { includeSelectAllOption: false }"
+                                    class="form-control" multiple="multiple" id="lbx_loc_of_dep"></select>
+                        </div>
+                        <div class="col-md-4">
+                            Select Department
+                            <select multiple="multiple" data-bind="options: spcnct.LbxDepartmentOptions
+                                , optionsValue: 'Id'
+                                , optionsText: 'label'
+                                , selectedOptions: spcnct.SelectedDepartmentIds
+                                , multiselect: { includeSelectAllOption: false }"
+                                    class="form-control" multiple="multiple" id="lbx_dep_of_con"></select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <button class="btn btn-danger btn-block" tabindex="-1" data-bind="click: function() { $root.supplierModel().rmvContact($index()) }">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="row">
+                <div class="col-md-1 pull-right">
+                    <button class="btn btn-default btn-block" data-bind="click: function() { $root.supplierModel().newContact() }">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var supplierRaw_data = @Html.Raw(data);
+    var supplierPanelName = '@ViewBag.PanelName';
+    var updateSupplierModel = new UpdateSupplierModel(supplierRaw_data);
+    var _DOMelement = document.getElementById(supplierPanelName);
+    ko.applyBindings(updateSupplierModel, _DOMelement);
+</script>

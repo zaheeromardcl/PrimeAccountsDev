@@ -1,0 +1,225 @@
+﻿@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.Consignment.ConsignmentViewModel
+
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/KJScripts/Paging.js"></script>
+<script src="~/Scripts/ConsignmentModel.js"></script>
+
+
+<link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet"/>
+
+@{ var data = new JavaScriptSerializer().Serialize(Model); }
+<div class="container-fluid">
+    <div class="col-md-8" id="Consignment">
+        <div class="panel panel-default ">
+            <div class="panel-heading clearfix">
+                <p class="panel-title">Create Consignment</p>
+            </div>
+            <div class="panel-bodybordered col-md-12">
+                <div class="col-md-12 panel-gridrow">
+                    <div class="col-md-6 col-md-offset-0">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-1 col-md-offset-2">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-3">
+                        &nbsp;
+                    </div>
+                </div>
+                <div class="col-md-12 panel-gridrow">
+                    <div class="col-md-6 col-md-offset-0">
+                    </div>
+                    <div class="col-md-1 col-md-offset-2">
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                </div>
+                <div class="col-md-12 panel-gridrow">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4 pull-left">
+                        Reference
+                        <span type="text" data-bind="text: Consignment.ConsignmentReference" id="ConsignmentReference" />
+                    </div>
+                    <div class="col-md-2"> </div>
+                    <div class="col-md-4">
+                        Description
+                        <input type="text" class="form-control" data-bind=" value: Consignment.ConsignmentDescription,  css:{'required-field': Consignment.showerror(Consignment.ConsignmentDescription)}" id="ConsignmentDescription" />
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4 col-md-offset-0">
+                        <label for="txtUploadFile" class="btn btn-default col-md-4">
+                            Attach Files
+                            <input type="file" id="txtUploadFile" data-bind="fileupload: fileInput" multiple="multiple">
+                        </label>
+                    </div>
+                    <div class="col-md-2  pull-left">
+                    </div>
+
+                    <div class=" col-md-3">
+                        <ul data-bind="foreach: { data: Consignment.ConsignmentFileEditModels, as: 'row' }">
+                            <li>
+                                @*FileName at position <span data-bind="text: $index "> </span>:*@
+                                <span data-bind="text: row.FileName, attr: {id: 'myText' + $index }"> </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-1"> </div>
+                    <div class="col-md-1"> </div>
+                </div>
+                <div class="col-md-12">&nbsp;</div>
+                <div class="col-md-12">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        Supplier Name
+                        <input type="text" class="form-control" data-bind="hasfocus: Consignment.tedit, textInput: Consignment.SupplierDepartmentName, ko_autocomplete: { source: getSupplier, select: selectSupplier },  css:{'required-field': Consignment.showerror(Consignment.SupplierDepartmentName)}, onEnter: $parent.stopEdit" id="SupplierDepartmentName" autofocus />
+                    </div>
+                    <div class="col-md-2"> </div>
+
+                    <div class="col-md-4">
+                        Supplier Reference
+                        <input type="text" class="form-control" data-bind="value: Consignment.SupplierReference,  css:{'required-field': Consignment.showerror(Consignment.SupplierReference)}" id="SupplierReference" />
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="col-md-1">
+
+                    </div>
+                    <div class="col-md-2  pull-left">
+                        Commision
+                        <input type="text" class="form-control" data-bind="value: Consignment.Commission" id="Commission" readonly="true" disabled="disabled" />
+                    </div>
+                    <div class="col-md-2  pull-left">
+                        Handling
+                        <input type="text" class="form-control" data-bind="value: Consignment.Handling" id="Handling" readonly="true" disabled="disabled" />
+                    </div>
+                    <div class="col-md-2"> </div>
+                    <div class="col-md-4 pull-left">
+                        PurchaseType
+                        <select data-bind="options: purchaseTypeList, value: Consignment.SelectPurchaseType, optionsText: 'optionText', optionsValue: 'optionValue'" class="form-control"></select>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-1">
+
+                    </div>
+                    <div class="col-md-4">
+                        Despatch Date
+                        <input type="text" id="iconFrom" class="form-control-date" data-bind="datepicker: Consignment.DespatchDate, datepickerOptions: {  defaultDate: new Date(),  dateFormat: 'dd/mm/yy' }, css:{'required-field': Consignment.showerror(Consignment.DespatchDate)}" value="02/16/12" />
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-3">
+                        Received Date<input class="form-control-date" id="iconTo" data-bind="datepicker: Consignment.ReceivedDate, datepickerOptions: { defaultDate: new Date() ,  dateFormat: 'dd/mm/yy'}, css:{'required-field': Consignment.showerror(Consignment.ReceivedDate)}" />
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4  pull-left">
+                        <input type="hidden" class="form-control" data-bind="value: Consignment.Vehicle" id="Vehicle" />
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <textarea style="display: none;" hidden="hidden" rows="3" cols="10" class="form-control" data-bind="value: Consignment.VehicleDetail" id="VehicleDetail"></textarea>
+                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"></div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-4">
+                        @*Despatch Location
+                            <div data-bind="if: Consignment.DisplayDespatchLocation">
+                                <input type="text" id="name-search" data-bind="ko_autocomplete: { source: getDespatches, select: selectDespatch }" class="form-control" />
+                            </div>      value: Consignment.ConsignmentReference(),*@
+                        Port
+                        <input type="text" id="name-search" data-bind=" ko_autocomplete: { source: getPorts, select: selectPort }" class="form-control" />
+                    </div>
+
+                    <div class="col-md-2"></div>
+                    <div class="col-md-4">
+                        <textarea placeholder="Add Notes" data-bind=" value: Consignment.NoteText" rows='2' cols='10' class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-1">
+
+                    </div>
+                    <div data-bind="if: Consignment.DisplayPort" class="col-md-4">
+                    </div>
+                    <div class="col-md-2">
+
+                    </div>
+                    <div class="col-md-4 hidden">
+
+                        <input type="text" class="hidden" data-bind="datepicker: Consignment.ContractDate, datepickerOptions: { minDate: new Date() }" />
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-5"></div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-2">
+                        <button class="btn btn-default" data-bind="click: $root.create(), syncValidityWith: isValid">Create</button>
+                        <button class="btn btn-default" data-bind="click: $root.cancel">Cancel</button>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+                <div class="col-md-12 panel-gridrow">
+                    <div class="col-md-6 col-md-offset-0">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-1 col-md-offset-2">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-3">
+                        &nbsp;
+                    </div>
+                </div>
+                <div class="col-md-12 panel-gridrow">
+                    <div class="col-md-6 col-md-offset-0">
+                    </div>
+                    <div class="col-md-1 col-md-offset-2">
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    
+    var consignmentModel = new ConsignmentModel(@Html.Raw(data));
+    //consignmentModel.errors = ko.validation.group(consignmentModel, {
+    //    deep: true
+    //});
+
+    ko.validation.init({
+        registerExtenders: true,
+
+        messagesOnModified: true,
+
+        insertMessages: true
+
+    });
+
+    ko.applyBindings(consignmentModel, document.getElementById("Consignment"));
+
+</script>

@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge;" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/knockout")
+    @Styles.Render("~/Content/css/PrimeActsStyles")
+    @Styles.Render("~/Content/css/PagedList")
+    @Styles.Render("~/Content/css/app")
+    @Styles.Render("~/Content/css/jquerycss")
+
+    <script type="text/javascript">
+        baseUrl = @Html.Raw(HttpUtility.JavaScriptStringEncode(Url.Content("~/"), true));
+    </script>
+
+
+    @*<script src="script.js"></script>*@
+    <title>Prime Accounts</title>
+    <link rel="icon" type="image/png" href="~/favicon.ico"/>
+
+</head>
+<body class="backgroundLogo">
+
+<div class="container-fluid">
+    @RenderBody()
+
+</div>
+    <div></div>
+
+
+</body>
+</html>

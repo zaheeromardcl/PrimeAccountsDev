@@ -1,0 +1,153 @@
+﻿@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.Users.RoleEditModel
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/KJScripts/Roles/RoleEdit.js"></script>
+@{
+    var data = new JavaScriptSerializer().Serialize(Model);
+}
+<style type="text/css">
+    label {
+        display: block;
+    }
+
+    .validationMessage {
+        color: Red;
+    }
+
+    .customMessage {
+        color: Orange;
+    }
+
+    .required-field {
+        border: 2px solid red !important;
+        color: red;
+    }
+</style>
+
+<div class="col-md-8" id="Role">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h3 class="panel-title text-center">Update Role</h3>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-8 pull-right">
+                <a href="~/RolesAdmin/Create" class="pull-right btn btn-new" title="New">
+                    <img src="~/Content/images/IconNew-orange.png" />&nbsp;New Role <!---->
+                </a>
+            </div>
+            <div class="row">
+                <br />
+            </div>
+            <div class="row"></div>
+            <div class="row">
+                <ul data-bind="foreach: Role().servererrors">
+                    <li class="field-validation-error" data-bind="text: $data"></li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    Role Name
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6"><input type="text" class="form-control" rolename data-bind="value: Role().Name, css:{'required-field':Role().showerror(Role().Name)}, valueUpdate: 'afterkeydown'" /></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    Description
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6"><input type="text" class="form-control" data-bind="value: Role().Description, css:{'required-field':Role().showerror(Role().Description)}" /></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6"> <input type="submit" class="btn btn-default pull-right" value="Update" data-bind="click: function (){create($data)}" /></span>
+                </div>
+            </div>
+            <div class="row">
+                <br />
+            </div>
+            <div class="row"></div>
+            <div class="row">
+                <ul data-bind="foreach: servererrors">
+                    <li class="field-validation-error" data-bind="text: $data"></li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    Permissions
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6">
+                        <select data-bind="options: PermissionList, optionsText: 'optionText', optionsValue: 'optionValue',value: selectedRole" class="form-control"></select>
+                        <input type="submit" class="btn btn-default pull-right" value="Add" data-bind="click: addPermission" />
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <br />
+            </div>
+            <div class="row"></div>
+            <div class="col-md-12" id="">
+                <div id="no-more-tables">
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th>Controller</th>
+                                <th>Action</th>
+                                <th>Description</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: Role().SelectedPermissionList">
+                            <tr>
+                                <td>
+                                    <img src="/Content/images/permissions.png" />
+                                </td>
+                                <td data-title="PermissionController">
+                                    <span data-bind="text: PermissionController"></span>
+                                </td>
+                                <td data-title="PermissionAction">
+                                    <span data-bind="text: PermissionAction"></span>
+                                </td>
+                                <td data-title="PermissionDescription">
+                                    <span data-bind="text: PermissionDescription"></span>
+                                </td>
+
+                                <td>
+                                    <!--spacer-->&nbsp;<a data-bind="attr: { 'href': '@Url.Action("Details", "Permissions")' + '/' + PermissionID() }">
+    <img alt="Ticket Details" src="~/Content/images/view-details-512.png" />
+</a>&nbsp;
+                                    <a data-bind="attr: { 'href': '@Url.Action("Edit", "Permissions")' + '/' + PermissionID() }">
+                                        <img alt="Edit Ticket" src="~/Content/images/IconEditOrange.png" />
+                                    </a>
+                                    <a data-bind="click: function() { $root.removePermission($index()) }">
+                                        <img alt="Delete Ticket" src="~/Content/images/IconDelete-orange.png" />
+                                    </a>
+                                    @*<img alt="Print Ticket" src="~/Content/images/IconPrint-orange.png"/>
+                                        <input type="checkbox"/>*@
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <a class="tab-content pull-right" href="~/RolesAdmin/Index">Back to Roles</a>
+    </div>
+</div>
+<script type="text/javascript">
+    var Role = new RoleModel(@Html.Raw(data));
+    ko.validation.init({
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: true
+
+    });
+    ko.applyBindings(Role, document.getElementById("Role"));
+</script>

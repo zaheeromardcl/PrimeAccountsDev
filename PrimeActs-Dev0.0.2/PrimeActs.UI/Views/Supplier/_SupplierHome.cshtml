@@ -1,0 +1,409 @@
+﻿
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.js"></script>
+<link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet" />
+<script src="~/TypeScripts/Supplier/SupplierHome.js"></script>
+<script src="~/TypeScripts/Consignment/ConsignmentPartial.js"></script>
+<script src="~/TypeScripts/PurchaseInvoice/PurchaseInvoicePartial.js"></script>
+<script src="~/TypeScripts/Util/AddressModel.js"></script>
+<script type="text/javascript">
+    var SupplierModel = new SupplierMainModel();
+</script>
+
+<div id="@ViewBag.PanelName" class="container-fluid col-md-12">
+      <div class="col-md-12">
+        <div class="col-md-12">&nbsp;</div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                Supplier
+                <span class="glyphicon glyphicon-barcode"></span>
+            </div>
+            <div class="panel-body">
+
+                <div class="col-md-3">
+                    Search by Supplier <span data-bind="css: 'redTextColor', visible: !validationModel.isValid()">*</span>
+                </div>
+                <div class="col-md-9">
+                    <input type="text" placeholder="Supplier" class="form-control" id="SupplierID" data-bind="ko_autocomplete: { source: $root.getSupplierDepartments, select: $root.selectSupplierDepartment, change: onSupplierChange}, css:{'orangeBorder': !validationModel.isValid()}" autofocus />
+                </div>
+
+            </div>
+
+            <div class="panel-heading clearfix">
+                Supplier Summary
+            </div>
+            <div class="panel-body">
+
+                <div class="col-md-12">
+                    &nbsp;
+                    <div class="col-md-1">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-3 alert-danger">
+                        Balance <span class="alert-danger">£1500.02</span>
+                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"></div>
+                </div>
+
+
+                <div class="col-md-12" id="SupplierLinks">
+
+                    <div class="col-md-2">
+                        <a href="#" class="Headerlinks" data-bind="click: ToggleContactsVisible">Contacts +/-</a>
+                    </div>                                                
+                    <div class="col-md-2">                                
+                        <a href="#" class="Headerlinks" data-bind="click: ToggleLocationsVisible">Dept/Loc +/-</a>
+                    </div>                                                
+                    <div class="col-md-2">                                
+                        <a href="#" class="Headerlinks" data-bind="click: ToggleRemittanceVisible">Remittance +/-</a>
+                    </div>                                                
+                    <div class="col-md-2">                                
+                        <a href="#" class="Headerlinks" data-bind="click: ToggleConsignmentsVisible">Consignments +/-</a>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="#" class="Headerlinks" data-bind="click: ToggleInvoicesVisible">Invoices +/-</a>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="#" class="Headerlinks" data-bind="click: ToggleBankingVisible">Banking +/-</a>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="panel panel-default" id="Invoices" data-bind="visible: IsInvoicesVisible">
+            <div class="panel-heading clearfix">
+                Purchase Invoices (last 1 month)
+            </div>
+            
+            <div class="panel-body">
+                @Html.Action("IndexTab", "PurchaseInvoice")
+            </div>
+        </div>
+
+
+        <div class="panel panel-default" id="RemittanceAdvice" data-bind="visible: IsRemittanceVisible">
+            <div class="panel-heading clearfix">
+                Remittance Advice
+            </div>
+            <div class="panel-body">
+                <div id="SupplierLocations">
+                    <div class="col-md-12">
+                        &nbsp;
+                        <div class="col-md-1">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-3">
+                            Location/Department Name
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" />
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
+                    <div class="col-md-12">
+                        &nbsp;
+                        <div class="col-md-1">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-3">
+                            Address 1
+                        </div>
+                        <div class="col-md-4">Gerber</div>
+                        <div class="col-md-4">GERB</div>
+                    </div>
+                    <div class="col-md-12">
+                        &nbsp;
+                        <div class="col-md-1">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-3">
+                            Address 2
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">Location Name</div>
+                    </div>
+                    <div class="col-md-12">
+                        &nbsp;
+                        <div class="col-md-1">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-3">
+                            Address3
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">Location Telephone</div>
+                    </div>
+                    <div class="col-md-12">
+                        &nbsp;
+                        <div class="col-md-1">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-3">
+                            Address 4
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">Address 1</div>
+                    </div>
+                    <div class="col-md-12">
+                        &nbsp;
+                        <div class="col-md-1">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-3">
+                            Post code
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">Address 2</div>
+                    </div>
+                    <div class="col-md-12">
+                        &nbsp;
+                        <div class="col-md-1">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-3">
+                            Contact Details
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">Address 3</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="panel panel-default" id="Consignments" data-bind="visible: IsConsignmentsVisible">
+            <div class="panel-heading clearfix">
+                Consignments (last 1 month)
+            </div>
+            <div class="panel-body">
+                @Html.Action("IndexTab", "Consignment")
+            </div>
+
+        </div>
+        <div class="panel panel-default" id="Banking" data-bind="visible: IsBankingVisible">
+            <div class="panel-heading clearfix">
+                Bank accounts
+            </div>
+            <div class="panel-body">
+                <div class="clearfix"></div>
+                <div class="row">
+                    <ul class="list-group" data-bind="foreach: SupplierDepartmentViewModel().BankAccounts()">
+                        <li class="row list-group-item-padding">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    Bank account name:
+                                </div>
+                                <div class="col-md-4">
+                                    <span data-bind="text: AccountName"></span>
+                                </div>
+                                <div class="col-md-4"></div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    Sort code:
+                                </div>
+                                <div class="col-md-4">
+                                    <span data-bind="text: Sortcode"></span>
+                                </div>
+                                <div class="col-md-4"></div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    Account number:
+                                </div>
+                                <div class="col-md-4">
+                                    <span data-bind="text: AccountNumber"></span>
+                                </div>
+                                <div class="col-md-4"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="panel panel-default" id="Locations" data-bind="visible: IsLocationsVisible">
+            <div class="panel-heading clearfix">
+                Supplier Locations
+            </div>
+            <div class="panel-body">
+                <div id="SupplierLocations" data-bind="with: SupplierDepartmentViewModel">
+                    <div class="col-md-12">
+                        <div class="col-md-4">
+                            Supplier Department Name:
+                        </div>
+                        <div class="col-md-4">
+                            <span data-bind="text: SupplierDepartmentName"></span>
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-4">
+                            Commision:
+                        </div>
+                        <div class="col-md-4">
+                            <span data-bind="text: Commission"></span>
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-4">
+                            Handling:
+                        </div>
+                        <div class="col-md-4">
+                            <span data-bind="text: Handling"></span>
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <ul class="list-group" data-bind="foreach: Locations">
+                            <li class="row list-group-item-padding">
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        Location Name:
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span data-bind="text: SupplierLocationName"></span>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        Telephone:
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span data-bind="text: Telephone"></span>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        FaxNumber:
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span data-bind="text: FaxNumber"></span>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        Address:
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span data-bind="text: Address().AddressLines"></span>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        PostalTown:
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span data-bind="text: Address().PostalTown"></span>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        CountyCity:
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span data-bind="text: Address().CountyCity"></span>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        PostCode:
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span data-bind="text: Address().Postcode"></span>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="panel panel-default" id="Contacts" data-bind="visible: IsContactsVisible">
+            <div class="panel-heading clearfix">
+                Contacts
+            </div>
+            <div class="panel-body">
+                <div class="clearfix"></div>
+                <div id="SupplierContacts" class="row">
+                    <ul class="list-group" data-bind="foreach: SupplierDepartmentViewModel().Contacts()">
+                        <li class="row list-group-item-padding">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    Title:
+                                </div>
+                                <div class="col-md-4">
+                                    <span data-bind="text: Contact().Title"></span>
+                                </div>
+                                <div class="col-md-4"></div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    First name:
+                                </div>
+                                <div class="col-md-4">
+                                    <span data-bind="text: Contact().FirstName"></span>
+                                </div>
+                                <div class="col-md-4"></div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    Last name:
+                                </div>
+                                <div class="col-md-4">
+                                    <span data-bind="text: Contact().LastName"></span>
+                                </div>
+                                <div class="col-md-4"></div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    Email address:
+                                </div>
+                                <div class="col-md-4">
+                                    <span data-bind="text: Contact().EmailAddress"></span>
+                                </div>
+                                <div class="col-md-4"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var identifier = '@ViewBag.PanelName';
+
+        ko.validation.init({
+            registerExtenders: true,
+            messagesOnModified: true,
+            insertMessages: true,
+            parseInputAttributes: true,
+            messageTemplate: null
+        }, true);
+
+        ko.applyBindings(SupplierModel, document.getElementById(identifier));
+    });
+</script>

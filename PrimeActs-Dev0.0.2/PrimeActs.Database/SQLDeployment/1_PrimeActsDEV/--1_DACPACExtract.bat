@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\Extensions\Microsoft\SQLDB\DAC\120\sqlpackage.exe" /Action:Extract /SourceConnectionString:"Data Source=SPILON04;Initial Catalog=PrimeActsSTAGING;Persist Security Info=True;User ID=PrimeActsDev;Password='piLIVE22@@';MultipleActiveResultSets=True" /Targetfile:"c:\DACPACs\PrimeActsSTAGINGTEMPLATE.dacpac"

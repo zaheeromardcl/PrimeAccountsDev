@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\Extensions\Microsoft\SQLDB\DAC\120\sqlpackage.exe" /Action:Export /ssn:spilon04 /sdn:PrimeActsDev /tf:"c:\Bacpacs\PrimeActsDev.bacpac"

@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Bootply snippet - Horizontal navbar submenu</title>
+    <meta name="generator" content="Bootply"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Snippet for 2 navbars on top. The submenu for the top navbar is horizontal."/>
+    <link href="Content/css/PrimeActsStyles.css" rel="stylesheet"/>
+    <link href="Content/css/app.css" rel="stylesheet"/>
+
+    <!--AK2:  CSS code from Bootply.com editor -->
+    <!--AK1:  CSS code from Bootply.com editor -->
+    <!-- CSS code from Bootply.com editor -->
+    <!--dfgadgadfgAKASDFASDFS-->
+
+    <style type="text/css">
+        .navbar {
+            border-radius: 0;
+            margin-bottom: -1px;
+        }
+
+        #submenu {
+            background-color: #968d8d;
+            margin-bottom: 0px;
+        }
+
+        #submenu1 {
+            background-color: #43A6DF;
+            margin-bottom: 0px;
+        }
+
+        .navbar-default {
+            background-color: #43A6DF;
+            border-color: #43A6DF;
+        }
+
+        #13b5ea
+        .collapsing { display: none; }
+    </style>
+</head>
+
+<!-- HTML code from Bootply.com editor -->
+
+<body >
+<div class="row">
+
+
+    <nav class="navbar navbar-default" role="navigation" id="topmenu">
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a href="#" data-toggle="collapse" data-target="#one">
+                    <strong>ONE</strong>
+                </a>
+            </li>
+            <li class="dropdown">
+                <a href="#" data-toggle="collapse" data-target="#two">TWO</a>
+            </li>
+            <li class="dropdown">
+                <a href="#" data-toggle="collapse" data-target="#three">THREE</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<div class="row">
+    <nav class="navbar navbar-default" role="navigation" id="submenu">
+        <ul class="nav navbar-nav collapse" id="one">
+            <li>
+                <a href="#" data-toggle="collapse" data-target="#one-1">One sub 1</a>
+            </li>
+            <li>
+                <a href="#" data-toggle="collapse" data-target="#two-1">One sub 2</a>
+            </li>
+            <li>
+                <a href="#" id="">One sub 3</a>
+            </li>
+            <li>
+                <a href="#" id="">One sub 4</a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav collapse" id="two">
+            <li>
+                <a href="#" id="">Two sub 1</a>
+            </li>
+            <li>
+                <a href="#" id="">Two sub 2</a>
+            </li>
+            <li>
+                <a href="#" id="">Two sub 3</a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav collapse" id="three">
+            <li>
+                <a href="#" id="">Three sub 1</a>
+            </li>
+            <li>
+                <a href="#" id="">Three sub 2</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div class="row">
+    <nav class="navbar navbar-default" role="navigation" id="submenu1">
+        <ul class="nav navbar-nav collapse" id="one-1">
+            <li>
+                <a href="#" id="">One sub 1-1</a>
+            </li>
+            <li>
+                <a href="#" id="">One sub 2-1</a>
+            </li>
+            <li>
+                <a href="#" id="">One sub 3-1</a>
+            </li>
+            <li>
+                <a href="#" id="">One sub 4-1</a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav collapse" id="two-1">
+            <li>
+                <a href="#" id="">Two sub 1</a>
+            </li>
+            <li>
+                <a href="#" id="">Two sub 2</a>
+            </li>
+            <li>
+                <a href="#" id="">Two sub 3</a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav collapse" id="three-1">
+            <li>
+                <a href="#" id="">Three sub 1</a>
+            </li>
+            <li>
+                <a href="#" id="">Three sub 2</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+
+<script src="Scripts/jquery-2.1.4.js"></script>
+<script src="Scripts/bootstrap.js"></script>
+
+
+<!-- JavaScript jQuery code from Bootply.com editor -->
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+
+        $('.collapse').on('shown.bs.collapse', function(e) {
+            //$('.collapse').not(this).removeClass('in');
+
+            $("#one").addclass('in');
+        });
+
+        $('[data-toggle=collapse]').click(function(e) {
+            $('[data-toggle=collapse]').parent('li').removeClass('active');
+            $(this).parent('li').toggleClass('active');
+        });
+
+    });
+
+</script>
+
+</body>
+</html>

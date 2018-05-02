@@ -1,0 +1,31 @@
+﻿@model PrimeActs.Domain.ViewModels.SalesInvoiceViewModel
+
+<div class="col-md-8">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h3 class="panel-title">Create Invoice</h3>
+        </div>
+        <div class="panel-body">
+            @using (Html.BeginForm("Create", "Invoice", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+            {
+                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                <div class="form-group">
+                    <div class="col-md-push-2 col-md-4">
+                        <p>Please enter department details</p>
+                        @Html.EditorFor(model => model.DepartmentName, new {htmlAttributes = new {@class = "form-control", @placeholder = "Department name"}})
+                        @Html.ValidationMessageFor(model => model.DepartmentName, "", new {@class = "text-danger"})
+                        @*@Html.CheckBoxFor(m => m.IsActive, new { @class = "" }) Active*@
+                        @Html.DropDownListFor(m => m.SelectedDivision, new SelectList(Model.DivisionList, "id", "Name", Model.SelectedDivision), "Please select Division", new {@class = "form-control"})
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-push-2 col-md-4">
+                        <input type="submit" value="Create" class="btn btn-new"/>
+                    </div>
+
+                </div>
+                <a href="/Department/Index" class="NavigationLinks pull-right">Back to list</a>
+            }
+        </div>
+    </div>
+</div>

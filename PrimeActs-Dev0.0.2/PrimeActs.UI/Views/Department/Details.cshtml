@@ -1,0 +1,43 @@
+﻿@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.Department.DepartmentEditModel
+<script src="~/KJScripts/Helper.js"></script>
+
+<script src="~/KJScripts/Department/DepartmentDetails.js"></script>
+@{
+    var data = new JavaScriptSerializer().Serialize(Model);
+}
+<div class="col-md-8" id="Department">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h3 class="panel-title text-center">Department Details</h3>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-8 pull-right">
+                <a href="~/Department/Create" class="pull-right btn btn-new" title="New">
+                    <img src="~/Content/images/IconNew-orange.png" />&nbsp;New Department <!---->
+                </a>
+            </div><br />
+            <dl class="dl-horizontal">
+                <dt>Name</dt>
+                <dd>
+                    <span data-bind="text: Department().DepartmentName"></span>
+                </dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Division</dt>
+                <dd>
+                    <span data-bind="text: Department().RelatedDivisionName"></span>
+                </dd>
+            </dl>
+            <div class="row"></div>
+        </div>
+        <div class="col-md-12">
+            <div class="row"></div>
+            <a class="tab-content pull-right" href="~/Department/Index">Back to Departments</a>
+        </div>
+    </div>
+</div>
+    <script type="text/javascript">
+        var user = new DepartmentModel(@Html.Raw(data));
+        ko.applyBindings(user, document.getElementById("Department"));
+    </script>

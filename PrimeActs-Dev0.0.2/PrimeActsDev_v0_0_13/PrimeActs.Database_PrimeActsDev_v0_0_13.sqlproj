@@ -1,0 +1,356 @@
+<<<<<<< HEAD
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>PrimeActs.Database_PrimeActsDev_v0_0_13</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{4a505a25-b957-4d93-bd77-f2d6451bea32}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>PrimeActsDev_v0_0_13</RootNamespace>
+    <AssemblyName>PrimeActsDev_v0_0_13</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>Latin1_General_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Views\" />
+    <Folder Include="dbo\Stored Procedures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\tblStationery.sql" />
+    <Build Include="dbo\Tables\tblStockBoard.sql" />
+    <Build Include="dbo\Tables\tblStockBoardProduceGroup.sql" />
+    <Build Include="dbo\Tables\tblSupplier.sql" />
+    <Build Include="dbo\Tables\tblSupplierBankAccount.sql" />
+    <Build Include="dbo\Tables\tblSupplierContact.sql" />
+    <Build Include="dbo\Tables\tblSupplierContactDepartment.sql" />
+    <Build Include="dbo\Tables\tblAddress.sql" />
+    <Build Include="dbo\Tables\tblSupplierContactLocation.sql" />
+    <Build Include="dbo\Tables\tblApplicationUser.sql" />
+    <Build Include="dbo\Tables\tblAudit.sql" />
+    <Build Include="dbo\Tables\tblSupplierDepartment.sql" />
+    <Build Include="dbo\Tables\tblBankAccount.sql" />
+    <Build Include="dbo\Tables\tblSupplierDepartmentLocation.sql" />
+    <Build Include="dbo\Tables\tblBankStatement.sql" />
+    <Build Include="dbo\Tables\tblSupplierDepartmentPurchaseType.sql" />
+    <Build Include="dbo\Tables\tblSupplierLocation.sql" />
+    <Build Include="dbo\Tables\tblBankStatementItem.sql" />
+    <Build Include="dbo\Tables\tblTempBankNominalLedgerEntry.sql" />
+    <Build Include="dbo\Tables\tblBankStatementItemNominalLedgerEntry.sql" />
+    <Build Include="dbo\Tables\tblTempBankStatementItemNominalLedgerEntry.sql" />
+    <Build Include="dbo\Tables\tblBatchNumberLog.sql" />
+    <Build Include="dbo\Tables\tblTicket.sql" />
+    <Build Include="dbo\Tables\tblCompany.sql" />
+    <Build Include="dbo\Tables\tblTicketItem.sql" />
+    <Build Include="dbo\Tables\tblConsignment.sql" />
+    <Build Include="dbo\Tables\tblTicketRange.sql" />
+    <Build Include="dbo\Tables\tblConsignmentFile.sql" />
+    <Build Include="dbo\Tables\tblUser.sql" />
+    <Build Include="dbo\Tables\tblConsignmentItem.sql" />
+    <Build Include="dbo\Tables\tblUserRole.sql" />
+    <Build Include="dbo\Tables\tblConsignmentItemArrival.sql" />
+    <Build Include="dbo\Tables\tblUserTabPanel.sql" />
+    <Build Include="dbo\Tables\tblConsignmentItemPriceReturn.sql" />
+    <Build Include="dbo\Tables\tblVersion.sql" />
+    <Build Include="dbo\Tables\tblContact.sql" />
+    <Build Include="dbo\Tables\tlkpBankTransactionType.sql" />
+    <Build Include="dbo\Tables\tblCustomer.sql" />
+    <Build Include="dbo\Tables\tlkpCountry.sql" />
+    <Build Include="dbo\Tables\tblCustomerBankAccount.sql" />
+    <Build Include="dbo\Tables\tlkpCreditRating.sql" />
+    <Build Include="dbo\Tables\tblCustomerContact.sql" />
+    <Build Include="dbo\Tables\tlkpCurrency.sql" />
+    <Build Include="dbo\Tables\tblCustomerContactDepartment.sql" />
+    <Build Include="dbo\Tables\tlkpCustomerType.sql" />
+    <Build Include="dbo\Tables\tblCustomerContactLocation.sql" />
+    <Build Include="dbo\Tables\tlkpDespatchLocation.sql" />
+    <Build Include="dbo\Tables\tblCustomerCurrency.sql" />
+    <Build Include="dbo\Tables\tlkpLedgerEntryType.sql" />
+    <Build Include="dbo\Tables\tblCustomerDepartment.sql" />
+    <Build Include="dbo\Tables\tlkpLicense.sql" />
+    <Build Include="dbo\Tables\tblCustomerDepartmentLocation.sql" />
+    <Build Include="dbo\Tables\tlkpLicenseOption.sql" />
+    <Build Include="dbo\Tables\tblCustomerLocation.sql" />
+    <Build Include="dbo\Tables\tlkpLicenseURL.sql" />
+    <Build Include="dbo\Tables\tblDepartment.sql" />
+    <Build Include="dbo\Tables\tlkpPackWtUnit.sql" />
+    <Build Include="dbo\Tables\tblDepartmentPrinter.sql" />
+    <Build Include="dbo\Tables\tlkpPaymentType.sql" />
+    <Build Include="dbo\Tables\tblDepartmentPrintTask.sql" />
+    <Build Include="dbo\Tables\tlkpPort.sql" />
+    <Build Include="dbo\Tables\tblDepartmentStockLocation.sql" />
+    <Build Include="dbo\Tables\tlkpPorterage.sql" />
+    <Build Include="dbo\Tables\tblDivision.sql" />
+    <Build Include="dbo\Tables\tlkpPurchaseChargeType.sql" />
+    <Build Include="dbo\Tables\tblElmahError.sql" />
+    <Build Include="dbo\Tables\tlkpPurchaseType.sql" />
+    <Build Include="dbo\Tables\tblFile.sql" />
+    <Build Include="dbo\Tables\tlkpStockLocation.sql" />
+    <Build Include="dbo\Tables\tblIntrastat.sql" />
+    <Build Include="dbo\Tables\tlkpTransactionTaxCode.sql" />
+    <Build Include="dbo\Tables\tblIntrastatItem.sql" />
+    <Build Include="dbo\Tables\tlkpTransactionTaxLocation.sql" />
+    <Build Include="dbo\Tables\tblMasterGroup.sql" />
+    <Build Include="dbo\Tables\tlkpTransactionTaxRate.sql" />
+    <Build Include="dbo\Tables\tblMenu.sql" />
+    <Build Include="dbo\Tables\tlkpTransferType.sql" />
+    <Build Include="dbo\Tables\tblNominalAccount.sql" />
+    <Build Include="dbo\Tables\tlkpWarehouseLocation.sql" />
+    <Build Include="dbo\Tables\tblNominalLedgerEntry.sql" />
+    <Build Include="dbo\Tables\tblNote.sql" />
+    <Build Include="dbo\Tables\tblPermission.sql" />
+    <Build Include="dbo\Tables\tblPrinter.sql" />
+    <Build Include="dbo\Tables\tblPrinterStationery.sql" />
+    <Build Include="dbo\Tables\tblPrintTask.sql" />
+    <Build Include="dbo\Tables\tblProduce.sql" />
+    <Build Include="dbo\Tables\tblProduceGroup.sql" />
+    <Build Include="dbo\Tables\tblProduceGroupDepartment.sql" />
+    <Build Include="dbo\Tables\tblProduceIntrastat.sql" />
+    <Build Include="dbo\Tables\tblProduceTransactionTaxCode.sql" />
+    <Build Include="dbo\Tables\tblPurchaseInvoice.sql" />
+    <Build Include="dbo\Tables\tblPurchaseInvoiceFile.sql" />
+    <Build Include="dbo\Tables\tblPurchaseInvoiceItem.sql" />
+    <Build Include="dbo\Tables\tblPurchaseLedgerEntry.sql" />
+    <Build Include="dbo\Tables\tblPurchaseLedgerInvoiceAllocation.sql" />
+    <Build Include="dbo\Tables\tblRole.sql" />
+    <Build Include="dbo\Tables\tblRolePermission.sql" />
+    <Build Include="dbo\Tables\tblSalesInvoice.sql" />
+    <Build Include="dbo\Tables\tblSalesInvoiceItem.sql" />
+    <Build Include="dbo\Tables\tblSalesLedgerEntry.sql" />
+    <Build Include="dbo\Tables\tblSalesLedgerInvoiceAllocation.sql" />
+    <Build Include="dbo\Tables\tblSetupGlobal.sql" />
+    <Build Include="dbo\Tables\tblSetupLocal.sql" />
+    <Build Include="dbo\Views\vwProduceQuantityByDepartment.sql" />
+    <Build Include="dbo\Views\vwProduceRecentConsignments.sql" />
+    <Build Include="dbo\Views\vwProduceRecentTickets.sql" />
+    <Build Include="dbo\Stored Procedures\SearchAllTables.sql" />
+    <Build Include="dbo\Stored Procedures\testProduce.sql" />
+  </ItemGroup>
+=======
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>PrimeActs.Database_PrimeActsDev_v0_0_13</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{4a505a25-b957-4d93-bd77-f2d6451bea32}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>PrimeActsDev_v0_0_13</RootNamespace>
+    <AssemblyName>PrimeActsDev_v0_0_13</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>Latin1_General_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Views\" />
+    <Folder Include="dbo\Stored Procedures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\tblStationery.sql" />
+    <Build Include="dbo\Tables\tblStockBoard.sql" />
+    <Build Include="dbo\Tables\tblStockBoardProduceGroup.sql" />
+    <Build Include="dbo\Tables\tblSupplier.sql" />
+    <Build Include="dbo\Tables\tblSupplierBankAccount.sql" />
+    <Build Include="dbo\Tables\tblSupplierContact.sql" />
+    <Build Include="dbo\Tables\tblSupplierContactDepartment.sql" />
+    <Build Include="dbo\Tables\tblAddress.sql" />
+    <Build Include="dbo\Tables\tblSupplierContactLocation.sql" />
+    <Build Include="dbo\Tables\tblApplicationUser.sql" />
+    <Build Include="dbo\Tables\tblAudit.sql" />
+    <Build Include="dbo\Tables\tblSupplierDepartment.sql" />
+    <Build Include="dbo\Tables\tblBankAccount.sql" />
+    <Build Include="dbo\Tables\tblSupplierDepartmentLocation.sql" />
+    <Build Include="dbo\Tables\tblBankStatement.sql" />
+    <Build Include="dbo\Tables\tblSupplierDepartmentPurchaseType.sql" />
+    <Build Include="dbo\Tables\tblSupplierLocation.sql" />
+    <Build Include="dbo\Tables\tblBankStatementItem.sql" />
+    <Build Include="dbo\Tables\tblTempBankNominalLedgerEntry.sql" />
+    <Build Include="dbo\Tables\tblBankStatementItemNominalLedgerEntry.sql" />
+    <Build Include="dbo\Tables\tblTempBankStatementItemNominalLedgerEntry.sql" />
+    <Build Include="dbo\Tables\tblBatchNumberLog.sql" />
+    <Build Include="dbo\Tables\tblTicket.sql" />
+    <Build Include="dbo\Tables\tblCompany.sql" />
+    <Build Include="dbo\Tables\tblTicketItem.sql" />
+    <Build Include="dbo\Tables\tblConsignment.sql" />
+    <Build Include="dbo\Tables\tblTicketRange.sql" />
+    <Build Include="dbo\Tables\tblConsignmentFile.sql" />
+    <Build Include="dbo\Tables\tblUser.sql" />
+    <Build Include="dbo\Tables\tblConsignmentItem.sql" />
+    <Build Include="dbo\Tables\tblUserRole.sql" />
+    <Build Include="dbo\Tables\tblConsignmentItemArrival.sql" />
+    <Build Include="dbo\Tables\tblUserTabPanel.sql" />
+    <Build Include="dbo\Tables\tblConsignmentItemPriceReturn.sql" />
+    <Build Include="dbo\Tables\tblVersion.sql" />
+    <Build Include="dbo\Tables\tblContact.sql" />
+    <Build Include="dbo\Tables\tlkpBankTransactionType.sql" />
+    <Build Include="dbo\Tables\tblCustomer.sql" />
+    <Build Include="dbo\Tables\tlkpCountry.sql" />
+    <Build Include="dbo\Tables\tblCustomerBankAccount.sql" />
+    <Build Include="dbo\Tables\tlkpCreditRating.sql" />
+    <Build Include="dbo\Tables\tblCustomerContact.sql" />
+    <Build Include="dbo\Tables\tlkpCurrency.sql" />
+    <Build Include="dbo\Tables\tblCustomerContactDepartment.sql" />
+    <Build Include="dbo\Tables\tlkpCustomerType.sql" />
+    <Build Include="dbo\Tables\tblCustomerContactLocation.sql" />
+    <Build Include="dbo\Tables\tlkpDespatchLocation.sql" />
+    <Build Include="dbo\Tables\tblCustomerCurrency.sql" />
+    <Build Include="dbo\Tables\tlkpLedgerEntryType.sql" />
+    <Build Include="dbo\Tables\tblCustomerDepartment.sql" />
+    <Build Include="dbo\Tables\tlkpLicense.sql" />
+    <Build Include="dbo\Tables\tblCustomerDepartmentLocation.sql" />
+    <Build Include="dbo\Tables\tlkpLicenseOption.sql" />
+    <Build Include="dbo\Tables\tblCustomerLocation.sql" />
+    <Build Include="dbo\Tables\tlkpLicenseURL.sql" />
+    <Build Include="dbo\Tables\tblDepartment.sql" />
+    <Build Include="dbo\Tables\tlkpPackWtUnit.sql" />
+    <Build Include="dbo\Tables\tblDepartmentPrinter.sql" />
+    <Build Include="dbo\Tables\tlkpPaymentType.sql" />
+    <Build Include="dbo\Tables\tblDepartmentPrintTask.sql" />
+    <Build Include="dbo\Tables\tlkpPort.sql" />
+    <Build Include="dbo\Tables\tblDepartmentStockLocation.sql" />
+    <Build Include="dbo\Tables\tlkpPorterage.sql" />
+    <Build Include="dbo\Tables\tblDivision.sql" />
+    <Build Include="dbo\Tables\tlkpPurchaseChargeType.sql" />
+    <Build Include="dbo\Tables\tblElmahError.sql" />
+    <Build Include="dbo\Tables\tlkpPurchaseType.sql" />
+    <Build Include="dbo\Tables\tblFile.sql" />
+    <Build Include="dbo\Tables\tlkpStockLocation.sql" />
+    <Build Include="dbo\Tables\tblIntrastat.sql" />
+    <Build Include="dbo\Tables\tlkpTransactionTaxCode.sql" />
+    <Build Include="dbo\Tables\tblIntrastatItem.sql" />
+    <Build Include="dbo\Tables\tlkpTransactionTaxLocation.sql" />
+    <Build Include="dbo\Tables\tblMasterGroup.sql" />
+    <Build Include="dbo\Tables\tlkpTransactionTaxRate.sql" />
+    <Build Include="dbo\Tables\tblMenu.sql" />
+    <Build Include="dbo\Tables\tlkpTransferType.sql" />
+    <Build Include="dbo\Tables\tblNominalAccount.sql" />
+    <Build Include="dbo\Tables\tlkpWarehouseLocation.sql" />
+    <Build Include="dbo\Tables\tblNominalLedgerEntry.sql" />
+    <Build Include="dbo\Tables\tblNote.sql" />
+    <Build Include="dbo\Tables\tblPermission.sql" />
+    <Build Include="dbo\Tables\tblPrinter.sql" />
+    <Build Include="dbo\Tables\tblPrinterStationery.sql" />
+    <Build Include="dbo\Tables\tblPrintTask.sql" />
+    <Build Include="dbo\Tables\tblProduce.sql" />
+    <Build Include="dbo\Tables\tblProduceGroup.sql" />
+    <Build Include="dbo\Tables\tblProduceGroupDepartment.sql" />
+    <Build Include="dbo\Tables\tblProduceIntrastat.sql" />
+    <Build Include="dbo\Tables\tblProduceTransactionTaxCode.sql" />
+    <Build Include="dbo\Tables\tblPurchaseInvoice.sql" />
+    <Build Include="dbo\Tables\tblPurchaseInvoiceFile.sql" />
+    <Build Include="dbo\Tables\tblPurchaseInvoiceItem.sql" />
+    <Build Include="dbo\Tables\tblPurchaseLedgerEntry.sql" />
+    <Build Include="dbo\Tables\tblPurchaseLedgerInvoiceAllocation.sql" />
+    <Build Include="dbo\Tables\tblRole.sql" />
+    <Build Include="dbo\Tables\tblRolePermission.sql" />
+    <Build Include="dbo\Tables\tblSalesInvoice.sql" />
+    <Build Include="dbo\Tables\tblSalesInvoiceItem.sql" />
+    <Build Include="dbo\Tables\tblSalesLedgerEntry.sql" />
+    <Build Include="dbo\Tables\tblSalesLedgerInvoiceAllocation.sql" />
+    <Build Include="dbo\Tables\tblSetupGlobal.sql" />
+    <Build Include="dbo\Tables\tblSetupLocal.sql" />
+    <Build Include="dbo\Views\vwProduceQuantityByDepartment.sql" />
+    <Build Include="dbo\Views\vwProduceRecentConsignments.sql" />
+    <Build Include="dbo\Views\vwProduceRecentTickets.sql" />
+    <Build Include="dbo\Stored Procedures\SearchAllTables.sql" />
+    <Build Include="dbo\Stored Procedures\testProduce.sql" />
+  </ItemGroup>
+>>>>>>> 77f919d1351ae84bebcf6a9db529e9dcfbd09019
+</Project>

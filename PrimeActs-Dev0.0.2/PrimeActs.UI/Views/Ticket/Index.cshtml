@@ -1,0 +1,139 @@
+﻿@using Newtonsoft.Json;
+@model PrimeActs.Domain.ViewModels.TicketPagingModel
+
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/KJScripts/Paging.js"></script>
+<script src="~/TypeScripts/Ticket/TicketIndexPagingModel.js"></script>
+<link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet"/>
+@{ string data = JsonConvert.SerializeObject(Model); }
+@*<script>
+    $(function() {
+        $("#iconFrom").datepicker({ minDate: -365, maxDate: "+1M +10D" });
+        $("#iconTo").datepicker({ minDate: -365, maxDate: "+1M +10D" });
+    });
+</script>*@
+
+<div class="col-md-12" id="@ViewBag.PanelName">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <span class="panel-title">Tickets <img src="~/Content/images/IconSearch.png" /></span>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-12">
+                <div class="col-md-2 control-group">
+                    <input type="text" class="form-control" placeholder="Reference" data-bind="value: TicketSearch().TicketReference" />
+                </div>
+                <div class="col-md-4  control-group">
+                    <input type="text" class="form-control" placeholder="Code" data-bind="ko_autocomplete: { source: getCustomer, select: selectCustomer, change: onCustomerChange }, value: TicketSearch().CustomerName" />
+                </div>
+                <div class="col-md-3  control-group">
+                    @*<input type="text" id="iconFrom" class="form-control-date" placeholder="From" data-bind="value: TicketSearch().FromDate"/>*@
+                    <select class="form-control" data-bind="options: RecordsInDaysList, value: TicketSearch().RecordsInDays, optionsText: 'optionText', optionsValue: 'optionValue'" class="form-control"></select>
+                </div>
+                <div class="pull-right col-md-1 control-group">
+                    <input type="button" class="btn btn-default" data-bind="click: function () { search() }" value="Search" />
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row well well-sm">
+                <div class="col-md-3 pull-left">
+                    @Html.BuildKnockoutNextPreviousLinks("Index", "/Ticket")
+                </div>
+                <div class="col-md-6 pull-center-md">
+                    @Html.BuildKnockoutSortableLink("Reference", "Index", "/Ticket", "TicketReference")
+                    @Html.BuildKnockoutSortableLink("Create Date", "Index", "/Ticket", "CreatedDate")
+                    @Html.BuildKnockoutSortableLink("Customer", "Index", "/Ticket", "Customer")
+                </div>
+                <div class="col-md-3 pull-right">
+                    <a href="#" class="col-md-push-1 btn btn-new" title="New" data-bind="click: function() { openCreateTicket() }">
+                        <img src="~/Content/images/IconNew-orange.png" />&nbsp;New Ticket
+                    </a>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-md-12">
+                <div class="col-md-2 pull-left">
+                    Reference
+                </div>
+                <div class="col-md-1 ">
+                    By
+                </div>
+                <div class="col-md-2">
+                    Sold To
+                </div>
+                <div class="col-md-1">
+                    Sold By
+                </div>
+                <div class="col-md-1">
+                    Cash
+                </div>
+                <div class="col-md-1">
+                    Currency
+                </div>
+                <div class="col-md-1">
+                    TotalValue
+                </div>
+                <div class="col-md-3 pull-right">
+                    <!--spacer-->&nbsp;
+                </div>
+            </div>
+            <div class="search-results" data-bind="foreach: Paging().Entities">
+                <div class="col-md-12">
+                    <div class="col-md-2 pull-left">
+                        <a href="#" data-bind="click: function() { $parent.openTicketDetails(TicketID); }">
+                            <img alt="Ticket Details" src="~/Content/images/ticket.png" /><span class="NavigationLinks" data-bind="text:  TicketReference"></span>
+                        </a>&nbsp;
+                    </div>
+                    <div class="col-md-1">
+                        <span data-bind="text: CreatedBy"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <!--    <span data-bind="text:  CustomerCompanyName"></span>-->
+                    </div>
+                    <div class="col-md-1">
+                        <span data-bind="text:  SalesPersonName"></span>
+                    </div>
+                    <div class="col-md-1">
+                        <!--   <span data-bind="style: { opacity: IsCashSale() = 1 ? '0' : '1'}"><img src="~/Content/images/Iconcash-navy.png"/></span>-->
+                    </div>
+                    <div class="col-md-1">
+                        &pound;
+                    </div>
+                    <div class="col-md-1">
+                        1.23
+                    </div>
+                    <div class="col-md-3 pull-right">
+                        &nbsp;
+                        <a href="#" data-bind="click: function() { $parent.openTicketDetails(TicketID); }">
+                            <img alt="Ticket Details" src="~/Content/images/view-details-512.png" />
+                        </a>
+                        &nbsp;
+                        <a data-bind="attr: { 'href': '@Url.Action("Edit", "Ticket")' + '/' + TicketID }" diabled>
+                            <img alt="Edit Ticket" src="~/Content/images/IconEditOrange.png" />
+                        </a>
+                        <a data-bind="attr: { 'href': '@Url.Action("Delete", "Ticket")' + '/' + TicketID }" diabled>
+                            <img alt="Delete Ticket" src="~/Content/images/IconDelete-orange.png" />
+                        </a>
+                        <img alt="Print Ticket" src="~/Content/images/IconPrint-orange.png" />
+                        <input type="checkbox" />
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="well well-sm">
+                    <div class="pull-right">
+                    </div>
+                    @Html.BuildKnockoutNextPreviousLinks("Index", "/Ticket")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var panelName = '@(ViewBag.PanelName)';
+    var model = new TicketIndexPagingModel(@Html.Raw(data), panelName, subscriberTab);
+    model.pageLoadState();
+    ko.applyBindings(model, document.getElementById(panelName));
+</script>

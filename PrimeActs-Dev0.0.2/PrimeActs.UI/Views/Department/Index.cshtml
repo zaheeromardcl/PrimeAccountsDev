@@ -1,0 +1,113 @@
+﻿@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.Department.DepartmentPagingModel
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/KJScripts/Paging.js"></script>
+<script src="~/KJScripts/Department/Department.js"></script>
+<link href="~/Content/css/TableLess.css" rel="stylesheet" />
+@{
+    var data = new JavaScriptSerializer().Serialize(Model);
+}
+<div class="col-md-8" id="Department">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h3 class="panel-title text-center">
+                Departments<img src="~/Content/images/IconSearch.png" />
+            </h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="col-md-12">
+                <div class="col-md-3 control-group">
+                    <input type="text" class="form-control" placeholder="Any" data-bind="value: DepartmentSearch().DepartmentName" />
+
+                </div>
+                <div class="col-md-3 control-group">
+                    <input type="button" class="btn btn-default" data-bind="click: function () {Search(DepartmentSearch)}" value="Search" />
+                    <input type="button" class="btn btn-default" data-bind="click: function () {ClearSearch(DepartmentSearch)}" value="Clear" />
+                </div>
+                <div class="pull-right col-md-3 control-group">
+                </div>
+
+            </div>
+
+
+            <div class="col-md-12 well well-sm">
+                <div class="col-md-3 pull-left">
+                    @Html.BuildKnockoutNextPreviousLinks("Index", "/Department")
+                </div>
+                <div class="col-md-6 col-offset-6">
+                    @Html.BuildKnockoutSortableLink("Name", "Index", "/Department", "Name")
+                    @*@Html.BuildKnockoutSortableLink("Description", "Index", "/Department", "Description")*@
+                </div>
+                <div class="col-md-3 pull-right">
+                    <a href="~/Department/Create" class="pull-right btn btn-new" title="New">
+                        <img src="~/Content/images/IconNew-orange.png" />&nbsp;New Department <!---->
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-12" id="">
+                <div id="no-more-tables">
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th>Name</th>
+                                @*<th>Description</th>*@
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: Paging().Entities">
+                            <tr>
+                                <td>
+                                    <img src="~/Content/images/IconDepartment.png" />
+                                </td>
+                                <td data-title="DepartmentName">
+                                    <span data-bind="text: DepartmentName"></span>
+                                </td>
+                                @*<td data-title="Firstname">
+                                        <span data-bind="text: Description"></span>
+                                    </td>*@
+
+                                <td>
+                                    <!--spacer-->&nbsp;<a data-bind="attr: { 'href': '@Url.Action("Details", "Department")' + '/' + DepartmentId }">
+                                        <img alt="Ticket Details" src="~/Content/images/view-details-512.png" />
+                                    </a>&nbsp;
+                                    <a data-bind="attr: { 'href': '@Url.Action("Edit", "Department")' + '/' + DepartmentId }">
+                                        <img alt="Edit Ticket" src="~/Content/images/IconEditOrange.png" />
+                                    </a>
+                                    <a data-bind="attr: { 'href': '@Url.Action("Delete", "Department")' + '/' + DepartmentId }">
+                                        <img alt="Delete Ticket" src="~/Content/images/IconDelete-orange.png" />
+                                    </a>
+                                    @*<img alt="Print Ticket" src="~/Content/images/IconPrint-orange.png"/>
+                                        <input type="checkbox"/>*@
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row"></div>
+                <div class="row"></div>
+                <div class="col-md-12">
+                    <div class="col-md-3 pull-left">
+                        @Html.BuildKnockoutNextPreviousLinks("Index", "/Department")
+                    </div>
+                    <div class="col-md-6 pull-center-md">
+                        @*@Html.BuildKnockoutSortableLink("Permissionname", "Index", "/Permissions", "Permissionname")
+                            @Html.BuildKnockoutSortableLink("Create Date", "Index", "/Permissions", "CreatedDate")
+                            @Html.BuildKnockoutSortableLink("Email Address", "Index", "/Permissions", "Email")*@
+                    </div>
+                    <div class="col-md-3 pull-right">
+                        <!--<a href="~/Permissions/Create" class="pull-right btn btn-new" title="New">
+                            <img src="~/Content/images/IconNew-orange.png"/>&nbsp;New Permission
+                        </a>-->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var Department = new DepartmentModel(@Html.Raw(data));
+    ko.applyBindings(Department, document.getElementById("Department"));
+</script>

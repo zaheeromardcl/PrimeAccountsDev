@@ -1,0 +1,43 @@
+﻿@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.Division.DivisionEditModel
+<script src="~/KJScripts/Helper.js"></script>
+
+<script src="~/KJScripts/Division/DivisionDetails.js"></script>
+@{
+    var data = new JavaScriptSerializer().Serialize(Model);
+}
+<div class="col-md-8" id="Division">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h3 class="panel-title text-center">Division Details</h3>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-8 pull-right">
+                <a href="~/Division/Create" class="pull-right btn btn-new" title="New">
+                    <img src="~/Content/images/IconNew-orange.png" />&nbsp;New Division <!---->
+                </a>
+            </div><br />
+            <dl class="dl-horizontal">
+                <dt>Name</dt>
+                <dd>
+                    <span data-bind="text: Division().DivisionName"></span>
+                </dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Company</dt>
+                <dd>
+                    <span data-bind="text: Division().RelatedCompanyName"></span>
+                </dd>
+            </dl>
+            <div class="row"></div>
+        </div>
+        <div class="col-md-12">
+            <div class="row"></div>
+            <a class="tab-content pull-right" href="~/Division/Index">Back to Divisions</a>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var user = new DivisionModel(@Html.Raw(data));
+        ko.applyBindings(user, document.getElementById("Division"));
+    </script>

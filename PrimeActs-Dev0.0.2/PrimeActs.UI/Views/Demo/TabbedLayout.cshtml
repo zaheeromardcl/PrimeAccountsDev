@@ -1,0 +1,412 @@
+﻿@{
+    
+    Layout = "~/Views/Shared/_LayoutDemo2.cshtml";
+}
+ 
+         <div class="col-md-12">
+        <div class="col-md-8">
+
+       
+            <div class="col-md-12">
+
+
+                &nbsp;
+
+
+            </div>
+            <div class="col-md-12">
+                &nbsp;
+
+
+
+
+
+            </div>
+            <div class="col-md-12">
+
+                <select class="label-warning">
+                    <option selected>+ New</option>
+                    <option>New Ticket</option>
+                    <option>New Consignment</option>
+                    <option>New Transfer</option>
+                    <option>New Order</option>
+                    <option>New Invoice</option>
+
+                </select>
+
+            </div>
+            <div class="col-md-12">&nbsp;</div>
+                <div class="col-md-12">
+
+                    <ul class="nav nav-pills">
+                     
+                        <li><a class=" label-warning" href="#">Ticket 12356</a></li>
+                        <li><a class=" label-warning" href="#">Consignment 1234</a></li>
+                        <li><a class=" label-warning" href="#">Ticket 12356</a></li>
+                        <li><a class=" label-warning" href="#">Consignment 1234</a></li>
+                        <li><a class=" label-warning" href="#">Order 1234</a></li>
+
+                     
+
+
+                    </ul>
+               
+
+
+                    <select class="label-warning">
+                        <option selected>PI Group </option>
+
+                    </select>
+
+                    <select class="label-warning">
+                        <option selected>PI Fruits </option>
+                        <option>Natura</option>
+                    </select>
+
+                    <select class="label-warning">
+                        <option selected>PI Fruits </option>
+                        <option>Side Salads </option>
+                    </select>
+
+                    <select class="label-warning">
+                        <option selected>Scott Veg</option>
+                        <option>Veg</option>
+                    </select>
+
+
+
+
+
+
+
+                </div>
+
+                <div class="col-md-12" id="Ticket">
+                    @*<pre data-bind="text: ko.toJSON($data, null, 2)"></pre>*@
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <p class="panel-title">New Ticket</p>
+                        </div>
+
+                        <div class="panel-bodybordered col-md-12">
+                            <div class="col-md-12 panel-gridrow">
+                                <div class="col-md-6 col-md-offset-0">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-1 col-md-offset-2">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-3">
+                                    &nbsp;
+                                </div>
+                            </div>
+                            <div class="col-md-12 panel-gridrow">
+                                <div class="col-md-6 col-md-offset-0">
+
+                                </div>
+                                <div class="col-md-1 col-md-offset-2">
+
+                                </div>
+                                <div class="col-md-3">
+
+                                </div>
+                            </div>
+                            <div class="col-md-12 panel-gridrow">
+                                <div class="col-md-6 col-md-offset-0">
+
+                                    <div class="col-md-2">Cash: <input name="cashsale" type="radio" value="1" data-style="btn-group-sm" data-bind="checked: TicketEditModel().IsCashSale, checkedValue: true" /></div>
+                                    <div class="col-md-2">Credit: <input name="cashsale" type="radio" value="0" data-style="btn-group-sm" data-bind="checked: TicketEditModel().IsCashSale, checkedValue: false" checked autofocus /></div>
+
+                                </div>
+                                <div class="col-md-1 col-md-offset-2">
+
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" data-bind="value: TicketEditModel().TicketReference" id="TicketReference" />
+
+                                </div>
+                            </div>
+                            <div class="col-md-12 panel-gridrow">
+                                <div class="col-md-4"><label>Currency</label><input type="text" tabindex="0" placeholder="Currency" class="form-control" data-bind="ko_autocomplete: { source: $root.getCurrency, select : $root.selectCurrency }" id="CurrencyID" /></div>
+
+                            </div>
+                            <div class="col-md-12 panel-gridrow">
+                                <div class="col-md-5 col-md-offset-0">
+                                    <input type="text" placeholder="Customer" class="form-control" id="CustomerID" data-bind="ko_autocomplete: { source: getCustomers, select: selectCustomer }" />
+                                </div>
+                                <div class="col-md-3">
+                                    &nbsp;
+                                </div>
+
+
+                                <div class="col-md-3 col-md-offset-1">
+                                    <input type="text" maxlength="50" class="form-control disabled" data-bind="text: TicketModel.TicketEditModel.TicketDate, value: moment().format('DD/MM/YYYY, h:mm')" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-12 panel-gridrow">
+
+                                <div class="col-md-4 col-md-offset-0">
+                                    <input type="text" placeholder="Sales Person" class="form-control" id="SalesPersonUserID" data-bind="ko_autocomplete: { source: getSalesPerson, select: selectSalesPerson }" />
+                                </div>
+                                <div class="col-md-4">&nbsp;</div>
+                                <div class="col-md-3 col-md-offset-1">
+                                    <p class="NavigationLinks pull-left"></p><input type="text" class="form-control" data-bind="value: TicketEditModel().PONumber" placeholder="PO Number" id="PONumber" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 panel-gridrow">
+                                <div class="col-md-5">
+
+                                    @*, click: save*@
+                                    @*valueUpdate:'afterkeydown',*@
+                                    <textarea placeholder="Add Notes" data-bind=" value: TicketEditModel().Notes" rows='2' cols='10' class="form-control"></textarea>
+
+                                    @*<select data-bind="value: TicketModel.CustomerID, options: $root.getCustomers, optionsText: 'optionText'" class=" form-control" id="customerDropDown"></select>*@
+                                    @*Customer(Sold to):<select data-bind="value: TicketModel.CustomerCompanyName, options: $root.getCustomers" class="form-control"/>*@
+                                </div>
+                                <div class="col-md-3 pull-right">
+                                    @*Sales Person(Sold by):<select data-bind="value: selectedSalesPerson, options: SalesPersonList, optionsText: 'optionText'" class=" form-control" id="SalesPersonDropDown"></select>*@
+
+                                </div>
+                                <div class="col-md-3 col-md-offset-1"></div>
+                            </div>
+
+                            <div class="col-md-12">
+                                @*, click: save*@
+                                @*valueUpdate:'afterkeydown',*@
+                                <div class=" col-md-3   col-md-offset-10 right">
+                                    <button class="btn btn-default" data-bind="click: function(TicketModel){$root.fnpostTicketForm(TicketModel)}"> Create Ticket</button>
+
+                                    @*<button class="btn btn-new" data-bind="click: cancel"> cancel</button>*@
+
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-12">&nbsp;</div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading clearfix">
+                                <p class="panel-title-consignments">Items</p>
+                            </div>
+                            <div class="panel-body" id="TicketItems">
+
+                                <div class="col-md-12">
+
+                                    <div class="col-md-1"><p>Item #</p></div>
+                                    <div class="col-md-5"><p>Dept.</p></div>
+                                    <div class="col-md-3"><p>Description</p></div>
+                                    <div class="col-md-1"><p>Quantity</p></div>
+                                    <div class="col-md-1"><p>U Cost</p></div>
+                                    <div class="col-md-1"><p>Porterage</p></div>
+
+                                </div>
+                                @*<a href='#' data-bind='click: $root.fnpostTicketItemsForm '>Add child</a>*@
+
+                                <ul id="TicketItems" data-bind="foreach: TicketItems">
+
+
+                                    <li style="list-style:none">
+                                        <div class="col-md-11 bottomborder">
+                                            &nbsp;
+                                        </div>
+                                        <div class="col-md-11">
+                                            &nbsp;
+                                        </div>
+                                        <div class="col-md-12 panel-gridrow">
+
+                                            <div class="col-md-1"><span data-bind="text: Id" id="Id" /></div>
+                                            <div class="col-md-2"><input type="text" tabindex="0" placeholder="Department" class="form-control" data-bind="ko_autocomplete: { source: $root.getDepartment, select : $root.selectDepartment }" id="DepartmentID" /></div>
+
+                                            <div class="col-md-5"><input type="text" placeholder="Produce" class="form-control" data-bind="ko_autocomplete: { source: $root.getProduce, select : $root.selectProduce }" id="ConsignmentItemID" /></div>
+
+
+                                            <div class="col-md-1"><input type="text" placeholder="Quantity" class="form-control" data-bind="value: TicketItemQuantity" id="Quantity" /></div>
+                                            <div class="col-md-1"><input type="text" placeholder="U Cost" class="form-control" data-bind="value : TicketItemUnitPrice, event: { focusout: function(){$root.fnNewFunction(Id),$root.fnpostTicketItem(TicketModel,Id)} }" id="UnitTotal" /></div>
+                                            <div class="col-md-1"><input type="text" placeholder="Total" disabled class="form-control" data-bind="value : TicketItemTotalPrice" id="ItemTotal" /></div>
+
+                                        </div>
+                                        <div class="col-md-12 panel-gridrow">
+
+                                            <div class="col-md-3"><span data-bind="text: TicketItemBrand" readonly="readonly" class="form-control" id="Brand" /> </div>
+                                            <div class="col-md-2"><span readonly="readonly" class="form-control" placeholder="PackType" data-bind="text: TicketItemWeight" id="Size" /></div>
+                                            <div class="col-md-2"><span readonly="readonly" class="form-control" placeholder="PackSize" data-bind="text: TicketItemSize" id="Weight" /></div>
+                                            <div class="col-md-2"><span readonly="readonly" class="form-control" placeholder="Porterage" data-bind="text: TicketItemPorterage" id="PorterageAmount" /></div>
+                                            <button class="btn btn-danger col-md-1" data-bind="click: function(){$root.fnAddNewRow(Id)}">+ </button>
+                                            <button class="btn btn-danger col-md-1" data-bind="click: function(){$root.fnRemoveRow(Id)}">X</button>
+                                            <div class="col-md-1">
+                                                @*<button class="btn btn-danger" data-bind="click: function(TicketModel){$root.fnAddNewRow(TicketModel)}" type="submit">Add</button>*@
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 panel-gridrow">
+                                            &nbsp;
+                                        </div>
+                                    </li>
+                                </ul>
+
+
+
+                            </div>
+                            <div class="panel-body">
+                                &nbsp;
+                            </div>
+                            <div class="panel-body">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-12 bottomborder">
+                                &nbsp;
+                            </div>
+
+
+
+                            <div class="panel-body">
+                                &nbsp;
+                            </div>
+
+                            <div class="panel-body" id="TicketTotal">
+
+                                <div class="col-md-3 col-md-offset-9">Subtotal: <span data-bind="text: SubTotal"></span></div>
+                                <div class="col-md-3 col-md-offset-9">VAT: <span data-bind="text: TicketEditModel().TicketVATTotal"></span></div>
+                                <div class="col-md-3 col-md-offset-9 TicketTotalText">Total: <span data-bind="text: TicketEditModel().TicketTotalPrice"></span></div>
+                            </div>
+
+
+                            <div class="panel-body">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-12 bottomborder">
+
+                            </div>
+
+                            <div class="panel-body">
+                                &nbsp;
+                            </div>
+                            <button class="btn btn-default col-md-offset-10" type="submit" data-bind="click: function(TicketModel){fnpostTicketItemsForm(TicketModel)}">
+                                Save Ticket
+                            </button>
+                            <div class="panel-body">
+                                &nbsp;
+                            </div>
+                        </div>
+                        <div class="col-md-12">&nbsp;</div>
+
+                        @*<button class="btn btn-new" data-bind="click: cancel"> cancel</button>*@
+
+
+
+
+
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+        <div class="col-md-4">
+            <div class="col-md-12">
+                &nbsp;
+            </div>
+            <div class="col-md-12">
+                &nbsp;
+            </div>
+
+            <div class="col-md-12">
+                &nbsp;
+            </div>
+
+            <div class="col-md-12">
+                &nbsp;
+            </div>
+            <div class="col-md-12">
+                &nbsp;
+            </div>
+            <div class="col-md-12">
+                <h4>Activities</h4>
+            
+            </div>
+
+            <div class="col-md-12">
+                &nbsp;
+            </div>
+            <div class="col-md-12">
+                &nbsp;
+            </div>
+     
+
+            <div class="col-md-12 table-bordered">
+                <img src="~/Content/images/IconBanking.png" />Create
+
+            </div>
+            <div class="col-md-12">
+                &nbsp;
+            </div>
+            <div class="col-md-12 table-bordered">
+                <img src="~/Content/images/IconBanking.png" />Archive
+
+            </div>
+            <div class="col-md-12">
+                &nbsp;
+            </div>
+            <div class="col-md-12 table-bordered">
+                <img src="~/Content/images/IconEditOrange.png" />Edit
+
+            </div>
+            <div class="col-md-12">
+                &nbsp;<hr class="navbar-inverse" />
+            </div>
+
+            <div class="col-md-12">
+               
+                <img src="~/Content/images/IconArrow.png" />Recent
+
+            </div>
+            <div class="col-md-12">
+
+
+                <hr class="navbar-inverse" />
+            </div>
+            <div class="col-md-12">
+                <img src="~/Content/images/IconBanking.png" />Transfer 1
+            </div>
+            <div class="col-md-12">
+                &nbsp;
+            </div>
+            <div class="col-md-12">
+                <img src="~/Content/images/IconEditOrange.png" />Order 2
+
+            </div>
+            <div class="col-md-12">
+                &nbsp;
+            </div>
+
+            <div class="col-md-12">
+                <img src="~/Content/images/IconConsignment.png" />Consignment 2
+
+            </div>
+            <div class="col-md-12">
+                &nbsp;
+            </div>
+            <div class="col-md-12">
+                <img src="~/Content/images/ticket.png" />Ticket 4
+            </div>
+            <div class="col-md-12">
+                &nbsp;
+            </div>
+
+
+        </div>
+
+       
+
+
+
+    </div>

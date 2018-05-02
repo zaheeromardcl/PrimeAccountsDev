@@ -1,0 +1,2595 @@
+USE [PrimeActsDEV]
+GO
+/****** Object:  User [ARUNASQL]    Script Date: 14/09/2015 10:28:01 ******/
+CREATE USER [ARUNASQL] WITHOUT LOGIN WITH DEFAULT_SCHEMA=[dbo]
+GO
+/****** Object:  User [DataImport]    Script Date: 14/09/2015 10:28:01 ******/
+CREATE USER [DataImport] WITHOUT LOGIN WITH DEFAULT_SCHEMA=[dbo]
+GO
+/****** Object:  User [PANDI\patrickodriscoll]    Script Date: 14/09/2015 10:28:01 ******/
+CREATE USER [PANDI\patrickodriscoll] FOR LOGIN [PANDI\patrickodriscoll] WITH DEFAULT_SCHEMA=[dbo]
+GO
+/****** Object:  User [PANDI\PaulEdwards]    Script Date: 14/09/2015 10:28:01 ******/
+CREATE USER [PANDI\PaulEdwards] FOR LOGIN [PANDI\PaulEdwards] WITH DEFAULT_SCHEMA=[dbo]
+GO
+/****** Object:  User [PANDI\santoshkumar]    Script Date: 14/09/2015 10:28:01 ******/
+CREATE USER [PANDI\santoshkumar] FOR LOGIN [PANDI\santoshkumar] WITH DEFAULT_SCHEMA=[dbo]
+GO
+/****** Object:  User [PANDI\svc_MSSQLDataSync]    Script Date: 14/09/2015 10:28:01 ******/
+CREATE USER [PANDI\svc_MSSQLDataSync] FOR LOGIN [PANDI\svc_MSSQLDataSync] WITH DEFAULT_SCHEMA=[dbo]
+GO
+/****** Object:  User [PandISync]    Script Date: 14/09/2015 10:28:01 ******/
+CREATE USER [PandISync] WITHOUT LOGIN WITH DEFAULT_SCHEMA=[dbo]
+GO
+/****** Object:  User [SANTOSHSQL]    Script Date: 14/09/2015 10:28:01 ******/
+CREATE USER [SANTOSHSQL] FOR LOGIN [SANTOSHSQL] WITH DEFAULT_SCHEMA=[dbo]
+GO
+ALTER ROLE [db_owner] ADD MEMBER [ARUNASQL]
+GO
+ALTER ROLE [db_owner] ADD MEMBER [DataImport]
+GO
+ALTER ROLE [db_owner] ADD MEMBER [PANDI\patrickodriscoll]
+GO
+ALTER ROLE [db_owner] ADD MEMBER [PANDI\santoshkumar]
+GO
+ALTER ROLE [db_owner] ADD MEMBER [PandISync]
+GO
+ALTER ROLE [db_owner] ADD MEMBER [SANTOSHSQL]
+GO
+/****** Object:  Table [dbo].[AspNetPermissions]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetPermissions](
+	[PermissionId] [uniqueidentifier] NOT NULL,
+	[PermissionName] [nvarchar](50) NULL,
+	[PermissionDescription] [nvarchar](50) NULL,
+ CONSTRAINT [PK_dbo.Permissions] PRIMARY KEY CLUSTERED 
+(
+	[PermissionId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[AspNetRolePermission]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetRolePermission](
+	[RoleId] [nvarchar](128) NOT NULL,
+	[PermissionId] [uniqueidentifier] NOT NULL,
+ CONSTRAINT [PK_dbo.AspNetRolePermission] PRIMARY KEY CLUSTERED 
+(
+	[RoleId] ASC,
+	[PermissionId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[AspNetRoles]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetRoles](
+	[Id] [nvarchar](128) NOT NULL,
+	[Name] [nvarchar](256) NOT NULL,
+	[Description] [nvarchar](max) NULL,
+	[Discriminator] [nvarchar](128) NOT NULL,
+ CONSTRAINT [PK_dbo.AspNetRoles] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[AspNetUserClaims]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUserClaims](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[UserId] [nvarchar](128) NOT NULL,
+	[ClaimType] [nvarchar](max) NULL,
+	[ClaimValue] [nvarchar](max) NULL,
+ CONSTRAINT [PK_AspNetUserClaims] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[AspNetUserLogins]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUserLogins](
+	[LoginProvider] [nvarchar](128) NOT NULL,
+	[ProviderKey] [nvarchar](128) NOT NULL,
+	[UserId] [nvarchar](128) NOT NULL,
+ CONSTRAINT [PK_AspNetUserLogins] PRIMARY KEY CLUSTERED 
+(
+	[ProviderKey] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[AspNetUserRoles]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUserRoles](
+	[UserId] [nvarchar](128) NOT NULL,
+	[RoleId] [nvarchar](128) NOT NULL,
+ CONSTRAINT [PK_AspNetUserRoles] PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC,
+	[RoleId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[AspNetUsers]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[AspNetUsers](
+	[Id] [nvarchar](128) NOT NULL,
+	[Firstname] [nvarchar](max) NULL,
+	[Lastname] [nvarchar](max) NULL,
+	[Nickname] [nvarchar](max) NULL,
+	[Userstatus] [bit] NOT NULL,
+	[LastLoggedOn] [datetime] NULL,
+	[Email] [nvarchar](256) NULL,
+	[EmailConfirmed] [bit] NOT NULL,
+	[PasswordHash] [nvarchar](max) NULL,
+	[SecurityStamp] [nvarchar](max) NULL,
+	[PhoneNumber] [nvarchar](max) NULL,
+	[PhoneNumberConfirmed] [bit] NOT NULL,
+	[TwoFactorEnabled] [bit] NOT NULL,
+	[LockoutEndDateUtc] [datetime] NULL,
+	[LockoutEnabled] [bit] NOT NULL,
+	[AccessFailedCount] [int] NOT NULL,
+	[UserName] [nvarchar](256) NOT NULL,
+	[DepartmentId] [uniqueidentifier] NULL,
+	[CompanyId] [uniqueidentifier] NULL,
+	[DivisionId] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_AspNetUsers] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblAddress]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblAddress](
+	[AddressID] [uniqueidentifier] NOT NULL,
+	[AddressLine1] [nvarchar](50) NOT NULL,
+	[AddressLine2] [nvarchar](50) NULL,
+	[AddressLine3] [nvarchar](50) NULL,
+	[PostalTown] [nvarchar](50) NULL,
+	[CountyCity] [nchar](10) NOT NULL,
+	[Postcode] [nvarchar](50) NULL,
+ CONSTRAINT [PK_tblAddress] PRIMARY KEY CLUSTERED 
+(
+	[AddressID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblAudit]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblAudit](
+	[AuditID] [uniqueidentifier] NOT NULL,
+	[AuditUserID] [int] NOT NULL,
+	[ActionTaken] [nvarchar](50) NOT NULL,
+	[ActionDate] [smalldatetime] NOT NULL,
+	[NoteID] [uniqueidentifier] NULL,
+	[AuditDate] [smalldatetime] NOT NULL,
+ CONSTRAINT [PK_tblAudit_1] PRIMARY KEY CLUSTERED 
+(
+	[AuditID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblAuditItem]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblAuditItem](
+	[AuditItemID] [uniqueidentifier] NOT NULL,
+	[ColumnName] [text] NOT NULL,
+	[TableName] [text] NOT NULL,
+	[NewValue] [text] NOT NULL,
+	[OldValue] [text] NOT NULL,
+	[AuditID] [uniqueidentifier] NOT NULL,
+ CONSTRAINT [PK_tblAuditItem] PRIMARY KEY CLUSTERED 
+(
+	[AuditItemID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblBankAccount]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[tblBankAccount](
+	[BankAccountID] [uniqueidentifier] NOT NULL,
+	[AccountName] [nvarchar](50) NULL,
+	[SortCode1] [tinyint] NULL,
+	[SortCode2] [tinyint] NULL,
+	[SortCode3] [tinyint] NULL,
+	[AccountNumber] [int] NULL,
+	[IBAN] [varchar](40) NULL,
+	[SWIFT] [varchar](15) NULL,
+ CONSTRAINT [PK_tblBankAccount] PRIMARY KEY CLUSTERED 
+(
+	[BankAccountID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[tblBankReconciliation]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblBankReconciliation](
+	[BankReconciliationID] [uniqueidentifier] NOT NULL,
+	[BankReconcilitationDate] [smalldatetime] NOT NULL,
+	[NominalLedgerEntryID] [uniqueidentifier] NOT NULL,
+	[TransactionID] [int] NOT NULL,
+	[TransactionAmount] [float] NOT NULL,
+	[UserID] [nvarchar](128) NOT NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblBankReconciliation_1] PRIMARY KEY CLUSTERED 
+(
+	[BankReconciliationID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblBatchNumber]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblBatchNumber](
+	[BatchNumberID] [uniqueidentifier] NOT NULL,
+	[ServerPrefix] [nvarchar](2) NOT NULL,
+	[BatchNumber] [int] IDENTITY(1000,1) NOT NULL,
+	[TransactionDateTime] [smalldatetime] NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblBatchNumber] PRIMARY KEY CLUSTERED 
+(
+	[BatchNumberID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblCompany]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[tblCompany](
+	[CompanyID] [uniqueidentifier] NOT NULL,
+	[ParentCompanyID] [uniqueidentifier] NULL,
+	[CompanyName] [nvarchar](50) NOT NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[AddressID] [uniqueidentifier] NULL,
+	[RegisteredAddressID] [uniqueidentifier] NULL,
+	[VATNo] [nvarchar](20) NULL,
+	[CompanyNo] [nvarchar](20) NULL,
+	[Logo] [varbinary](max) NULL,
+	[Telephone] [nvarchar](20) NULL,
+	[FaxNo] [nvarchar](20) NULL,
+	[EmailAddress] [nvarchar](150) NULL,
+	[Website] [nvarchar](50) NULL,
+	[InvoiceInfo] [text] NULL,
+	[IsActive] [bit] NULL CONSTRAINT [DF__tblCompan__IsAct__286302EC]  DEFAULT ((1)),
+ CONSTRAINT [PK_tblCompany_1] PRIMARY KEY CLUSTERED 
+(
+	[CompanyID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[tblCompanyNominalAccount]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblCompanyNominalAccount](
+	[CompanyNominalAccountID] [uniqueidentifier] NOT NULL,
+	[CompanyID] [uniqueidentifier] NOT NULL,
+	[NominalAccountID] [uniqueidentifier] NOT NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblCompanyNominalAccount] PRIMARY KEY CLUSTERED 
+(
+	[CompanyNominalAccountID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblCompanySupplier]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblCompanySupplier](
+	[CompanySupplierID] [uniqueidentifier] NOT NULL,
+	[CompanyID] [uniqueidentifier] NOT NULL,
+	[SupplierID] [uniqueidentifier] NOT NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblCompanySupplier] PRIMARY KEY CLUSTERED 
+(
+	[CompanySupplierID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblConsignment]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[tblConsignment](
+	[ConsignmentID] [uniqueidentifier] NOT NULL,
+	[ConsignmentDescription] [nvarchar](100) NOT NULL,
+	[ConsignmentDespatchDate] [smalldatetime] NOT NULL,
+	[DepartmentID] [uniqueidentifier] NOT NULL,
+	[ConsignmentReference] [nvarchar](10) NOT NULL,
+	[ConsignmentFile] [varbinary](max) NULL,
+	[PortID] [uniqueidentifier] NULL,
+	[PurchaseTypeID] [uniqueidentifier] NOT NULL,
+	[Handling] [money] NOT NULL,
+	[Commission] [money] NOT NULL,
+	[ShowVehicleOnInvoice] [bit] NOT NULL CONSTRAINT [DF_tblConsignment_ShowVehicleOnInvoice]  DEFAULT ((0)),
+	[Vehicle] [nvarchar](20) NOT NULL,
+	[VehicleDetail] [nvarchar](1000) NOT NULL,
+	[SupplierID] [uniqueidentifier] NOT NULL,
+	[SupplierReference] [nvarchar](10) NULL,
+	[IsActive] [bit] NULL CONSTRAINT [DF__tblConsig__IsAct__10566F31]  DEFAULT ((1)),
+	[FK1] [uniqueidentifier] NULL,
+	[FK2] [uniqueidentifier] NULL,
+	[Bit1] [bit] NULL,
+	[Bit2] [bit] NULL,
+	[String1] [nvarchar](1000) NULL,
+	[String2] [nvarchar](1000) NULL,
+	[Numeric1] [numeric](18, 4) NULL,
+	[Numeric2] [numeric](18, 4) NULL,
+	[Int1] [int] NULL,
+	[Int2] [int] NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[DespatchID] [uniqueidentifier] NULL,
+	[DespatchDate] [smalldatetime] NULL,
+	[Comments] [nvarchar](50) NULL,
+	[ReceivedDate] [datetime] NULL,
+	[OriginCountryID] [uniqueidentifier] NULL,
+	[ContractDate] [datetime] NULL,
+ CONSTRAINT [PK_tblConsignment_1] PRIMARY KEY CLUSTERED 
+(
+	[ConsignmentID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[tblConsignmentItem]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblConsignmentItem](
+	[ConsignmentItemID] [uniqueidentifier] NOT NULL,
+	[ConsignmentID] [uniqueidentifier] NULL,
+	[DepartmentID] [uniqueidentifier] NULL,
+	[BestBeforeDate] [date] NULL,
+	[ProduceID] [uniqueidentifier] NOT NULL,
+	[Brand] [nvarchar](50) NULL,
+	[Rotation] [nvarchar](10) NULL,
+	[PackType] [nvarchar](10) NOT NULL,
+	[PackWtUnitID] [uniqueidentifier] NOT NULL,
+	[PackWeight] [decimal](8, 2) NOT NULL,
+	[PackSize] [nvarchar](10) NOT NULL,
+	[PackPall] [int] NULL,
+	[ExpectedQuantity] [decimal](12, 4) NOT NULL,
+	[ReceivedQuantity] [decimal](12, 4) NOT NULL CONSTRAINT [DF_tblConsignmentItem_ReceivedQuantity]  DEFAULT ((0)),
+	[EstimatedProfit] [money] NULL,
+	[EstimatedChargeCost] [money] NULL,
+	[RetReduce] [numeric](3, 2) NULL,
+	[EstimatedPurchaseCost] [money] NULL,
+	[Status] [tinyint] NOT NULL CONSTRAINT [DF_tblConsignmentItem_Status]  DEFAULT ((2)),
+	[PorterageID] [uniqueidentifier] NOT NULL,
+	[IsActive] [bit] NULL CONSTRAINT [DF__tblConsig__IsAct__114A936A]  DEFAULT ((1)),
+	[NoteID] [uniqueidentifier] NULL,
+	[FK1] [uniqueidentifier] NULL,
+	[FK2] [uniqueidentifier] NULL,
+	[Bit1] [bit] NULL,
+	[Bit2] [bit] NULL,
+	[String1] [nvarchar](1000) NULL,
+	[String2] [nvarchar](1000) NULL,
+	[Numeric1] [numeric](18, 4) NULL,
+	[Numeric2] [numeric](18, 4) NULL,
+	[Int1] [int] NULL,
+	[Int2] [int] NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+ CONSTRAINT [PK_tblConsignmentItem_1] PRIMARY KEY CLUSTERED 
+(
+	[ConsignmentItemID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblConsignmentItemArrival]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblConsignmentItemArrival](
+	[ConsignmentItemArrivalID] [uniqueidentifier] NOT NULL,
+	[NoteID] [uniqueidentifier] NULL,
+	[ConsignmentItemID] [uniqueidentifier] NULL,
+	[ConsignmentArrivalDate] [smalldatetime] NOT NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblConsignmentItemArrival_1] PRIMARY KEY CLUSTERED 
+(
+	[ConsignmentItemArrivalID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblContact]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblContact](
+	[ContactID] [uniqueidentifier] NOT NULL,
+	[FirstName] [nvarchar](50) NOT NULL,
+	[LastName] [nvarchar](50) NOT NULL,
+	[Title] [nvarchar](50) NULL,
+	[ContactType] [nvarchar](50) NOT NULL,
+	[ContactReference] [nvarchar](50) NOT NULL,
+	[NoteID] [uniqueidentifier] NULL,
+	[EmailAddress] [nvarchar](100) NULL,
+	[DDITelephoneNo] [nvarchar](30) NULL,
+	[MobileNo] [nvarchar](20) NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblContact_1] PRIMARY KEY CLUSTERED 
+(
+	[ContactID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblCustomer]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblCustomer](
+	[CustomerID] [uniqueidentifier] NOT NULL,
+	[ParentCustomerID] [uniqueidentifier] NULL,
+	[CustomerCompanyName] [nvarchar](50) NOT NULL,
+	[CustomerCode] [nvarchar](10) NOT NULL,
+	[CreditLimitCash] [money] NULL,
+	[CreditLimitInvoice] [money] NULL,
+	[CreditRating] [uniqueidentifier] NULL,
+	[VATRegNo] [nvarchar](20) NULL,
+	[Statements] [bit] NULL,
+	[NoteID] [uniqueidentifier] NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[CompanyID] [uniqueidentifier] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblCustomer] PRIMARY KEY CLUSTERED 
+(
+	[CustomerID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblCustomerBankAccount]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblCustomerBankAccount](
+	[CustomerBankAccountID] [uniqueidentifier] NOT NULL,
+	[BankAccountID] [uniqueidentifier] NOT NULL,
+	[CustomerID] [uniqueidentifier] NOT NULL,
+	[CustomerDepartmentID] [uniqueidentifier] NULL,
+	[CustomerLocationID] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_tblCustomerBankAccount] PRIMARY KEY CLUSTERED 
+(
+	[CustomerBankAccountID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblCustomerContact]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblCustomerContact](
+	[CustomerContactID] [uniqueidentifier] NOT NULL,
+	[ContactLocationID] [uniqueidentifier] NOT NULL,
+	[CustomerDepartmentID] [uniqueidentifier] NULL,
+	[ContactID] [uniqueidentifier] NOT NULL,
+	[SortOrder] [uniqueidentifier] NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblCustomerContact_1] PRIMARY KEY CLUSTERED 
+(
+	[CustomerContactID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblCustomerCurrency]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblCustomerCurrency](
+	[CustomerCurrencyID] [uniqueidentifier] NOT NULL,
+	[CustomerID] [uniqueidentifier] NOT NULL,
+	[CurrencyID] [uniqueidentifier] NOT NULL,
+	[SortOrder] [int] NULL,
+ CONSTRAINT [PK_tblCustomerCurrency] PRIMARY KEY CLUSTERED 
+(
+	[CustomerCurrencyID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblCustomerDepartment]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblCustomerDepartment](
+	[CustomerDepartmentID] [uniqueidentifier] NOT NULL,
+	[CustomerID] [uniqueidentifier] NOT NULL,
+	[CustomerDepartmentName] [nvarchar](50) NOT NULL,
+	[EmailAddress] [nvarchar](100) NULL,
+	[CreditTerms] [int] NULL,
+	[CreditLimit] [money] NULL,
+	[Commission] [numeric](6, 2) NULL,
+	[Handling] [numeric](6, 2) NULL,
+	[FactorRef] [nvarchar](20) NULL,
+	[EDIType] [tinyint] NULL,
+	[EDINumber] [nvarchar](13) NULL,
+	[EDIIdent] [nvarchar](20) NULL,
+	[InvoiceFrequency] [tinyint] NOT NULL,
+	[NoteID] [uniqueidentifier] NULL,
+	[SalesPersonID] [uniqueidentifier] NULL,
+	[CustomerTypeID] [uniqueidentifier] NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblCustomerDepartment_1] PRIMARY KEY CLUSTERED 
+(
+	[CustomerDepartmentID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblCustomerDepartmentLocation]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblCustomerDepartmentLocation](
+	[CustomerDepartmentLocationID] [uniqueidentifier] NOT NULL,
+	[CustomerDepartmentID] [uniqueidentifier] NOT NULL,
+	[CustomerLocationID] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_tblCustomerDepartmentLocation] PRIMARY KEY CLUSTERED 
+(
+	[CustomerDepartmentLocationID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblCustomerLocation]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[tblCustomerLocation](
+	[CustomerLocationID] [uniqueidentifier] NOT NULL,
+	[CustomerID] [uniqueidentifier] NOT NULL,
+	[CustomerLocationName] [varchar](50) NOT NULL,
+	[AddressID] [uniqueidentifier] NOT NULL,
+	[TelephoneNumber] [nvarchar](30) NULL,
+	[FaxNumber] [nvarchar](30) NULL,
+	[NoteID] [uniqueidentifier] NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblCustomerLocation] PRIMARY KEY CLUSTERED 
+(
+	[CustomerLocationID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[tblDepartment]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblDepartment](
+	[DepartmentID] [uniqueidentifier] NOT NULL,
+	[DivisionID] [uniqueidentifier] NULL,
+	[DepartmentName] [nvarchar](50) NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[AddressID] [uniqueidentifier] NULL,
+	[IsActive] [bit] NULL CONSTRAINT [DF__tblDepart__IsAct__403A8C7D]  DEFAULT ((1)),
+ CONSTRAINT [PK_tblDepartment_1] PRIMARY KEY CLUSTERED 
+(
+	[DepartmentID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblDivision]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblDivision](
+	[DivisionID] [uniqueidentifier] NOT NULL,
+	[CompanyID] [uniqueidentifier] NOT NULL,
+	[DivisionName] [nvarchar](50) NOT NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[AddressID] [uniqueidentifier] NULL,
+	[IsActive] [bit] NULL CONSTRAINT [DF__tblDivisi__IsAct__4316F928]  DEFAULT ((1)),
+ CONSTRAINT [PK_tblDivision_1] PRIMARY KEY CLUSTERED 
+(
+	[DivisionID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblErrorLog]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblErrorLog](
+	[ErrorID] [uniqueidentifier] NOT NULL,
+	[ErrorDescription] [nvarchar](50) NOT NULL,
+	[ErrorCategory] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_tblErrorLog_1] PRIMARY KEY CLUSTERED 
+(
+	[ErrorID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblGroup]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblGroup](
+	[GroupID] [uniqueidentifier] NOT NULL,
+	[GroupName] [nvarchar](50) NOT NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblGroup_1] PRIMARY KEY CLUSTERED 
+(
+	[GroupID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblIntrastat]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblIntrastat](
+	[IntrastatID] [uniqueidentifier] NOT NULL,
+	[IntrastatDate] [smalldatetime] NOT NULL,
+	[IntrastatDescription] [nvarchar](50) NOT NULL,
+	[IntrastatValue] [float] NOT NULL,
+	[IntrastatCompanyID] [int] NOT NULL,
+	[IntrastatVATNumber] [nvarchar](50) NOT NULL,
+	[IntrastatBranchNumber] [nvarchar](50) NOT NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblInterstat] PRIMARY KEY CLUSTERED 
+(
+	[IntrastatID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblIntrastatItem]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblIntrastatItem](
+	[IntrastatItemID] [uniqueidentifier] NOT NULL,
+	[IntrastatCommodity] [nvarchar](50) NOT NULL,
+	[IntrastatValue] [float] NOT NULL,
+	[IntrastatTerms] [nvarchar](50) NOT NULL,
+	[IntrastatNature] [int] NOT NULL,
+	[IntrastatNetMassAmount] [float] NOT NULL,
+	[IntrastatCountry] [nvarchar](50) NOT NULL,
+	[IntrastatID] [uniqueidentifier] NOT NULL,
+	[InrastatConsignmentOriginCountry] [nvarchar](50) NOT NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblIntrastatItem_1] PRIMARY KEY CLUSTERED 
+(
+	[IntrastatItemID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblMasterGroup]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblMasterGroup](
+	[MasterGroupID] [uniqueidentifier] NOT NULL,
+	[DivisionID] [uniqueidentifier] NOT NULL,
+	[IsActive] [bit] NOT NULL,
+	[MasterGroupCode] [nvarchar](10) NOT NULL,
+	[MasterGroupName] [nvarchar](50) NOT NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+ CONSTRAINT [PK_tblMasterGroup_1] PRIMARY KEY CLUSTERED 
+(
+	[MasterGroupID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblMenu]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblMenu](
+	[MenuID] [uniqueidentifier] NOT NULL,
+	[ParentID] [uniqueidentifier] NOT NULL,
+	[MenuDescription] [nvarchar](50) NOT NULL,
+	[MenuLinkTo] [nvarchar](50) NOT NULL,
+	[IsCurrent] [bit] NOT NULL,
+	[AuditNew] [bit] NOT NULL,
+	[AuditEdit] [bit] NOT NULL,
+	[AuditPrint] [bit] NOT NULL,
+	[AuditDelete] [bit] NOT NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblMenu] PRIMARY KEY CLUSTERED 
+(
+	[MenuID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblNominalAccount]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblNominalAccount](
+	[NominalAccountID] [uniqueidentifier] NOT NULL,
+	[NominalAccountName] [nvarchar](50) NOT NULL,
+	[NominalCode] [nvarchar](50) NOT NULL,
+	[IsPandL] [bit] NOT NULL,
+	[IsBroughtForward] [bit] NOT NULL,
+	[IsCurrent] [bit] NOT NULL,
+	[BankAccountID] [uniqueidentifier] NULL,
+	[IsPettyCashAccount] [bit] NOT NULL,
+	[IsSystem] [bit] NOT NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblNominalAccount] PRIMARY KEY CLUSTERED 
+(
+	[NominalAccountID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblNominalLedgerEntry]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblNominalLedgerEntry](
+	[NominalLedgerEntryID] [uniqueidentifier] NOT NULL,
+	[BatchNumberID] [uniqueidentifier] NOT NULL,
+	[DivisionID] [uniqueidentifier] NOT NULL,
+	[NominalAccountID] [uniqueidentifier] NOT NULL,
+	[NominalLedgerEntryReference] [nvarchar](50) NOT NULL,
+	[NominalLedgerEntryAmount] [float] NOT NULL,
+	[NominalLedgerEntryDate] [smalldatetime] NOT NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblNominalLedgerEntry] PRIMARY KEY CLUSTERED 
+(
+	[NominalLedgerEntryID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblNote]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblNote](
+	[NoteID] [uniqueidentifier] NOT NULL,
+	[NoteDescription] [nvarchar](250) NOT NULL,
+	[NoteText] [text] NOT NULL,
+	[NoteAuthor] [uniqueidentifier] NOT NULL,
+	[NoteCreated] [smalldatetime] NOT NULL,
+	[NoteAmended] [smalldatetime] NOT NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblNote] PRIMARY KEY CLUSTERED 
+(
+	[NoteID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblPrice]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblPrice](
+	[PriceID] [uniqueidentifier] NOT NULL,
+	[CurrentPrice] [nvarchar](50) NOT NULL,
+	[PriceDateTime] [smalldatetime] NOT NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblPrice_1] PRIMARY KEY CLUSTERED 
+(
+	[PriceID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblProduce]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblProduce](
+	[ProduceID] [uniqueidentifier] NOT NULL,
+	[ProduceCode] [nvarchar](50) NOT NULL,
+	[ProduceName] [nvarchar](50) NOT NULL,
+	[ProduceGroupID] [uniqueidentifier] NOT NULL,
+	[MasterGroupID] [uniqueidentifier] NOT NULL,
+	[VATCodeID] [uniqueidentifier] NULL,
+	[IsActive] [bit] NOT NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+ CONSTRAINT [PK_tblProduce] PRIMARY KEY CLUSTERED 
+(
+	[ProduceID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblProduceGroup]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblProduceGroup](
+	[ProduceGroupID] [uniqueidentifier] NOT NULL,
+	[DivisionID] [uniqueidentifier] NOT NULL,
+	[IsActive] [bit] NOT NULL,
+	[ProduceGroupCode] [nvarchar](10) NOT NULL,
+	[ProduceGroupName] [nvarchar](50) NOT NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+ CONSTRAINT [PK_tblProduceMaster] PRIMARY KEY CLUSTERED 
+(
+	[ProduceGroupID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblProduceIntrastat]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblProduceIntrastat](
+	[ProduceIntrastatID] [uniqueidentifier] NOT NULL,
+	[ProduceID] [uniqueidentifier] NOT NULL,
+	[IntrastatCode] [int] NOT NULL,
+	[EndDate] [smalldatetime] NOT NULL,
+	[UpdatedBy] [nvarchar](50) NOT NULL,
+	[UpdatedDate] [smalldatetime] NOT NULL,
+	[CreatedBy] [nvarchar](50) NOT NULL,
+	[CreatedDate] [smalldatetime] NOT NULL,
+ CONSTRAINT [PK_tblProduceIntrastat] PRIMARY KEY CLUSTERED 
+(
+	[ProduceIntrastatID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblPurchaseAllocation]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblPurchaseAllocation](
+	[PurchaseAllocationID] [uniqueidentifier] NOT NULL,
+	[PurchaseInvoiceID] [uniqueidentifier] NOT NULL,
+	[PurchaseAllocationDate] [smalldatetime] NOT NULL,
+	[PurchaseAllocationReference] [nvarchar](50) NOT NULL,
+	[PurchaseLedgerEntryID] [uniqueidentifier] NOT NULL,
+	[PurchaseAllocationAmount] [float] NOT NULL,
+	[FXPurchaseAllocationAmount] [money] NULL,
+	[NoteID] [uniqueidentifier] NULL,
+	[CurrencyID] [uniqueidentifier] NULL,
+	[ExchangeRate] [numeric](16, 4) NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblPurchaseAllocation_1] PRIMARY KEY CLUSTERED 
+(
+	[PurchaseAllocationID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblPurchaseInvoice]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblPurchaseInvoice](
+	[PurchaseInvoiceID] [uniqueidentifier] NOT NULL,
+	[SupplierDepartmentID] [uniqueidentifier] NOT NULL,
+	[AddressID] [uniqueidentifier] NOT NULL,
+	[PurchaseInvoiceReference] [nvarchar](50) NOT NULL,
+	[PurchaseLedgerEntryID] [uniqueidentifier] NOT NULL,
+	[PurchaseInvoiceDate] [smalldatetime] NOT NULL,
+	[CurrencyID] [uniqueidentifier] NULL,
+	[ExchangeRate] [numeric](16, 4) NULL,
+	[NoteID] [uniqueidentifier] NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblPurchaseInvoice_1] PRIMARY KEY CLUSTERED 
+(
+	[PurchaseInvoiceID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblPurchaseInvoiceItem]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblPurchaseInvoiceItem](
+	[PurchaseInvoiceItemID] [uniqueidentifier] NOT NULL,
+	[ConsignmentItemID] [uniqueidentifier] NULL,
+	[TotalPrice] [money] NOT NULL,
+	[FXTotalPrice] [money] NULL,
+	[CurrencyID] [uniqueidentifier] NULL,
+	[ExchangeRate] [numeric](16, 4) NULL,
+	[PurchaseInvoiceID] [uniqueidentifier] NOT NULL,
+	[Quantity] [decimal](12, 4) NOT NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblConsignmentItemPrice] PRIMARY KEY CLUSTERED 
+(
+	[PurchaseInvoiceItemID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblPurchaseLedgerEntry]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblPurchaseLedgerEntry](
+	[PurchaseLedgerEntryID] [uniqueidentifier] NOT NULL,
+	[LedgerEntryTypeID] [uniqueidentifier] NOT NULL,
+	[PurchaseLedgerEntryDescription] [nvarchar](50) NOT NULL,
+	[PurchaseAmount] [money] NOT NULL,
+	[FXPurchaseAmount] [float] NOT NULL,
+	[CurrencyID] [uniqueidentifier] NULL,
+	[ExchangeRate] [numeric](16, 4) NULL,
+	[PurchaseInvoiceID] [uniqueidentifier] NOT NULL,
+	[DepartmentID] [uniqueidentifier] NOT NULL,
+	[BatchNumberID] [uniqueidentifier] NOT NULL,
+	[SupplierDepartmentID] [uniqueidentifier] NOT NULL,
+	[NoteID] [uniqueidentifier] NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblPurchaseLedgerEntry_1] PRIMARY KEY CLUSTERED 
+(
+	[PurchaseLedgerEntryID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblRepository]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[tblRepository](
+	[VersionID] [decimal](6, 4) NOT NULL,
+	[CodeZipFile] [varbinary](max) NOT NULL,
+ CONSTRAINT [PK_tblRepository] PRIMARY KEY CLUSTERED 
+(
+	[VersionID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[tblSalesAllocation]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblSalesAllocation](
+	[SalesAllocationID] [uniqueidentifier] NOT NULL,
+	[ConsignmentID] [uniqueidentifier] NOT NULL,
+	[SalesInvoiceID] [uniqueidentifier] NOT NULL,
+	[SalesAllocationDate] [smalldatetime] NOT NULL,
+	[SalesAllocationReference] [nvarchar](50) NOT NULL,
+	[SalesLedgerEntryID] [uniqueidentifier] NOT NULL,
+	[SalesAllocationAmount] [float] NOT NULL,
+	[CurrencyID] [uniqueidentifier] NULL,
+	[NoteID] [uniqueidentifier] NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblSalesAllocation_1] PRIMARY KEY CLUSTERED 
+(
+	[SalesAllocationID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblSalesInvoice]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblSalesInvoice](
+	[SalesInvoiceID] [uniqueidentifier] NOT NULL,
+	[CustomerDepartmentID] [uniqueidentifier] NOT NULL,
+	[SalesInvoiceAddressID] [uniqueidentifier] NOT NULL,
+	[SalesInvoiceReference] [nvarchar](50) NOT NULL,
+	[SalesInvoiceDate] [smalldatetime] NOT NULL,
+	[SalesLedgerEntryID] [uniqueidentifier] NULL,
+	[AddressID] [uniqueidentifier] NULL,
+	[CurrencyID] [uniqueidentifier] NULL,
+	[ExchangeRate] [numeric](16, 4) NULL,
+	[NoteID] [uniqueidentifier] NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblSalesInvoice] PRIMARY KEY CLUSTERED 
+(
+	[SalesInvoiceID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblSalesInvoiceItem]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblSalesInvoiceItem](
+	[SalesInvoiceItemID] [uniqueidentifier] NOT NULL,
+	[SalesInvoiceID] [uniqueidentifier] NOT NULL,
+	[SalesInvoiceItemDescription] [nvarchar](50) NOT NULL,
+	[SalesInvoiceItemUnitPrice] [float] NOT NULL,
+	[SalesInvoiceItemQuantity] [float] NOT NULL,
+	[SalesInvoiceItemLineTotal] [float] NOT NULL,
+	[Description] [nchar](10) NOT NULL,
+	[Quantity] [nchar](10) NOT NULL,
+	[TicketItemID] [uniqueidentifier] NOT NULL,
+	[SalesInvoiceItemVAT] [float] NOT NULL,
+	[CurrencyID] [uniqueidentifier] NULL,
+	[ExchangeRate] [numeric](16, 4) NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblSalesInvoiceItem] PRIMARY KEY CLUSTERED 
+(
+	[SalesInvoiceItemID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblSalesLedgerEntry]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblSalesLedgerEntry](
+	[SalesLedgerEntryID] [uniqueidentifier] NOT NULL,
+	[LedgerEntryTypeID] [uniqueidentifier] NOT NULL,
+	[Description] [nvarchar](50) NOT NULL,
+	[SaleAmount] [money] NOT NULL,
+	[FXSaleAmount] [money] NULL,
+	[CurrencyID] [uniqueidentifier] NULL,
+	[ExchangeRate] [numeric](16, 4) NULL,
+	[CustomerDepartmentID] [uniqueidentifier] NOT NULL,
+	[DepartmentID] [uniqueidentifier] NOT NULL,
+	[BatchNumberID] [uniqueidentifier] NOT NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblSalesLedgerEntry_1] PRIMARY KEY CLUSTERED 
+(
+	[SalesLedgerEntryID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblSetup]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblSetup](
+	[SetupName] [nvarchar](50) NOT NULL,
+	[SetupValueType] [tinyint] NOT NULL,
+	[SetupValueInt] [int] NULL,
+	[SetupValueNumeric] [numeric](38, 9) NULL,
+	[SetupValueBit] [bit] NULL,
+	[SetupValueNvarchar] [nvarchar](50) NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblSetup] PRIMARY KEY CLUSTERED 
+(
+	[SetupName] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblSupplier]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblSupplier](
+	[SupplierID] [uniqueidentifier] NOT NULL,
+	[SupplierCompanyName] [nvarchar](50) NOT NULL,
+	[ParentSupplierID] [uniqueidentifier] NULL,
+	[SupplierCode] [nvarchar](10) NOT NULL,
+	[IsHaulier] [bit] NULL CONSTRAINT [DF_tblSupplier_IsHaulier]  DEFAULT ((0)),
+	[IsFactor] [bit] NULL,
+	[CompanyID] [uniqueidentifier] NULL,
+	[NoteID] [uniqueidentifier] NULL,
+	[VATRegNo] [nvarchar](20) NULL,
+	[IsEUVATExempt] [bit] NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL CONSTRAINT [DF__tblSuppli__IsAct__2EDAF651]  DEFAULT ((1)),
+ CONSTRAINT [PK_tblSupplier] PRIMARY KEY CLUSTERED 
+(
+	[SupplierID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblSupplierBankAccount]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblSupplierBankAccount](
+	[SupplierBankAccountID] [uniqueidentifier] NOT NULL,
+	[BankAccountID] [uniqueidentifier] NOT NULL,
+	[SupplierID] [uniqueidentifier] NULL,
+	[SupplierDepartmentID] [uniqueidentifier] NULL,
+	[SupplierLocationID] [uniqueidentifier] NULL,
+ CONSTRAINT [PK_tblSupplierBankAccount] PRIMARY KEY CLUSTERED 
+(
+	[SupplierBankAccountID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblSupplierContact]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblSupplierContact](
+	[SupplierContactID] [uniqueidentifier] NOT NULL,
+	[SupplierLocationID] [uniqueidentifier] NOT NULL,
+	[SupplierDepartmentID] [uniqueidentifier] NULL,
+	[ContactID] [uniqueidentifier] NOT NULL,
+	[SortOrder] [uniqueidentifier] NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblSupplierContact] PRIMARY KEY CLUSTERED 
+(
+	[SupplierContactID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblSupplierDepartment]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblSupplierDepartment](
+	[SupplierDepartmentID] [uniqueidentifier] NOT NULL,
+	[SupplierID] [uniqueidentifier] NOT NULL,
+	[SupplierDepartmentName] [nvarchar](50) NOT NULL,
+	[CreditTerms] [int] NULL,
+	[CreditLimit] [money] NULL,
+	[Commission] [numeric](6, 2) NULL,
+	[Handling] [numeric](6, 2) NULL,
+	[FactorSupplierDepartmentID] [uniqueidentifier] NULL,
+	[NoteID] [uniqueidentifier] NULL,
+	[Rebate] [numeric](6, 2) NULL,
+	[EmailAddress] [nvarchar](100) NULL,
+	[EDIType] [tinyint] NULL,
+	[EDINumber] [nvarchar](13) NULL,
+	[EDIIdent] [nvarchar](20) NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblSupplierDepartment] PRIMARY KEY CLUSTERED 
+(
+	[SupplierDepartmentID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblSupplierDepartmentLocation]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblSupplierDepartmentLocation](
+	[SupplierDepartmentLocationID] [uniqueidentifier] NOT NULL,
+	[SupplierDepartmentID] [uniqueidentifier] NOT NULL,
+	[SupplierLocationID] [uniqueidentifier] NOT NULL,
+ CONSTRAINT [PK_tblSupplierDepartmentLocation] PRIMARY KEY CLUSTERED 
+(
+	[SupplierDepartmentLocationID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblSupplierLocation]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[tblSupplierLocation](
+	[SupplierLocationID] [uniqueidentifier] NOT NULL,
+	[SupplierID] [uniqueidentifier] NOT NULL,
+	[SupplierLocationName] [varchar](50) NOT NULL,
+	[AddressID] [uniqueidentifier] NOT NULL,
+	[NoteID] [uniqueidentifier] NULL,
+	[TelephoneNumber] [nvarchar](30) NULL,
+	[FaxNumber] [nvarchar](30) NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblSupplierLocation] PRIMARY KEY CLUSTERED 
+(
+	[SupplierLocationID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[tblTicket]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblTicket](
+	[TicketID] [uniqueidentifier] NOT NULL,
+	[TicketDescription] [nvarchar](50) NOT NULL,
+	[TicketReference] [nvarchar](50) NOT NULL,
+	[CustomerID] [uniqueidentifier] NOT NULL,
+	[NoteID] [uniqueidentifier] NULL,
+	[TicketDate] [smalldatetime] NOT NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[CurrencyID] [uniqueidentifier] NULL,
+	[CurrencyRate] [numeric](10, 8) NULL,
+	[IsCashSale] [bit] NULL,
+	[SalesPersonID] [uniqueidentifier] NULL,
+	[FK1] [uniqueidentifier] NULL,
+	[FK2] [uniqueidentifier] NULL,
+	[Bit1] [bit] NULL,
+	[Bit2] [bit] NULL,
+	[String1] [nvarchar](1000) NULL,
+	[String2] [nvarchar](1000) NULL,
+	[Numeric1] [numeric](18, 4) NULL,
+	[Numeric2] [numeric](18, 4) NULL,
+	[Int1] [int] NULL,
+	[Int2] [int] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblTicket_1] PRIMARY KEY CLUSTERED 
+(
+	[TicketID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblTicketItem]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblTicketItem](
+	[TicketItemID] [uniqueidentifier] NOT NULL,
+	[TicketID] [uniqueidentifier] NOT NULL,
+	[TicketItemDescription] [nvarchar](50) NOT NULL,
+	[TicketItemQuantity] [float] NOT NULL,
+	[TicketItemBrand] [nvarchar](50) NOT NULL,
+	[TicketItemSize] [float] NOT NULL,
+	[TicketItemTotalPrice] [float] NOT NULL,
+	[ConsignmentItemID] [uniqueidentifier] NULL,
+	[HaulierSupplierID] [uniqueidentifier] NULL,
+	[VATCodeID] [uniqueidentifier] NULL,
+	[VATRatePercentage] [numeric](6, 4) NULL,
+	[CurrencyAmount] [money] NULL,
+	[PorterageID] [uniqueidentifier] NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblTicketItem_1] PRIMARY KEY CLUSTERED 
+(
+	[TicketItemID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblTicketRange]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblTicketRange](
+	[TicketRangeID] [uniqueidentifier] NOT NULL,
+	[TicketRangeStart] [int] NOT NULL,
+	[TicketRangeEnd] [int] NOT NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblTicketRange_1] PRIMARY KEY CLUSTERED 
+(
+	[TicketRangeID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tblVersion]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblVersion](
+	[MasterVersion] [decimal](6, 4) NOT NULL,
+	[LocalVersion] [decimal](6, 4) NOT NULL,
+ CONSTRAINT [PK_tblVersion] PRIMARY KEY CLUSTERED 
+(
+	[MasterVersion] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tlkpCountry]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tlkpCountry](
+	[CountryID] [uniqueidentifier] NOT NULL,
+	[CountryName] [nvarchar](50) NOT NULL,
+	[CountryCode] [nvarchar](10) NOT NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL DEFAULT ((1)),
+ CONSTRAINT [PK_tlkpCountry] PRIMARY KEY CLUSTERED 
+(
+	[CountryID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tlkpCreditRating]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tlkpCreditRating](
+	[CreditRatingID] [uniqueidentifier] NOT NULL,
+	[CreditRatingCode] [nvarchar](10) NOT NULL,
+	[CreditRatingDescription] [nvarchar](200) NOT NULL,
+ CONSTRAINT [PK_tlkpCreditRating] PRIMARY KEY CLUSTERED 
+(
+	[CreditRatingID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tlkpCurrency]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tlkpCurrency](
+	[CurrencyID] [uniqueidentifier] NOT NULL,
+	[CurrencyName] [nvarchar](50) NOT NULL,
+	[CurrencyCode] [nvarchar](10) NOT NULL,
+	[DefaultExchangeRate] [decimal](16, 4) NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tlkpCurrency] PRIMARY KEY CLUSTERED 
+(
+	[CurrencyID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tlkpCustomerType]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tlkpCustomerType](
+	[CustomerTypeID] [uniqueidentifier] NOT NULL,
+	[CustomerTypeCode] [nvarchar](10) NOT NULL,
+	[CustomerTypeDescription] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_tlkpCustomerType] PRIMARY KEY CLUSTERED 
+(
+	[CustomerTypeID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tlkpDespatch]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tlkpDespatch](
+	[DespatchID] [uniqueidentifier] NOT NULL,
+	[DespatchCode] [nvarchar](10) NOT NULL,
+	[DespatchName] [nvarchar](100) NOT NULL,
+ CONSTRAINT [PK_tlkpDespatch] PRIMARY KEY CLUSTERED 
+(
+	[DespatchID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tlkpLedgerEntryType]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tlkpLedgerEntryType](
+	[LedgerEntryTypeID] [uniqueidentifier] NOT NULL,
+	[LedgerEntryTypeDescription] [nvarchar](50) NOT NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblSalesLedgerEntryType] PRIMARY KEY CLUSTERED 
+(
+	[LedgerEntryTypeID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tlkpPackWtUnit]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tlkpPackWtUnit](
+	[PackWtUnitID] [uniqueidentifier] NOT NULL,
+	[WtUnit] [nvarchar](10) NULL,
+	[KgMultiple] [numeric](10, 4) NULL,
+ CONSTRAINT [PK_tlkpPackWtUnit] PRIMARY KEY CLUSTERED 
+(
+	[PackWtUnitID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tlkpPort]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tlkpPort](
+	[PortID] [uniqueidentifier] NOT NULL,
+	[PortName] [nvarchar](100) NOT NULL,
+	[PortCode] [nvarchar](10) NOT NULL,
+ CONSTRAINT [PK_tlkpPort] PRIMARY KEY CLUSTERED 
+(
+	[PortID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tlkpPorterage]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tlkpPorterage](
+	[PorterageID] [uniqueidentifier] NOT NULL,
+	[PorterageCode] [nvarchar](50) NOT NULL,
+	[UnitPrice] [money] NOT NULL,
+	[MinimumAmount] [money] NULL,
+	[DepartmentID] [uniqueidentifier] NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL CONSTRAINT [DF__tblPorter__IsAct__22751F6C]  DEFAULT ((1)),
+ CONSTRAINT [PK_tblPorterage] PRIMARY KEY CLUSTERED 
+(
+	[PorterageID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tlkpPurchaseChargeType]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tlkpPurchaseChargeType](
+	[PurchaseChargeTypeID] [uniqueidentifier] NOT NULL,
+	[PurchaseChargeTypeCode] [nvarchar](10) NOT NULL,
+	[PurchaseChargeTypeName] [nvarchar](100) NOT NULL,
+	[NominalAccountID] [uniqueidentifier] NOT NULL,
+ CONSTRAINT [PK_tlkpPurchaseChargeType] PRIMARY KEY CLUSTERED 
+(
+	[PurchaseChargeTypeID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tlkpPurchaseType]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tlkpPurchaseType](
+	[PurchaseTypeID] [uniqueidentifier] NOT NULL,
+	[PurchaseType] [nvarchar](50) NOT NULL,
+	[PurchaseCode] [nvarchar](10) NOT NULL,
+ CONSTRAINT [PK_tlkpPurchaseType] PRIMARY KEY CLUSTERED 
+(
+	[PurchaseTypeID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tlkpSalesPerson]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tlkpSalesPerson](
+	[SalesPersonID] [uniqueidentifier] NOT NULL,
+	[IsCurrent] [bit] NOT NULL,
+	[Title] [nvarchar](10) NOT NULL,
+	[FirstName] [nvarchar](20) NOT NULL,
+	[LastName] [nvarchar](30) NOT NULL,
+ CONSTRAINT [PK_tlkpSalesPerson] PRIMARY KEY CLUSTERED 
+(
+	[SalesPersonID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tlkpVATCode]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tlkpVATCode](
+	[VATCodeID] [uniqueidentifier] NOT NULL,
+	[VATCode] [nvarchar](50) NULL,
+	[VATDescription] [nvarchar](50) NOT NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL CONSTRAINT [DF__tlkpVATCo__IsAct__3B40CD36]  DEFAULT ((1)),
+ CONSTRAINT [PK_tblVATCode_1] PRIMARY KEY CLUSTERED 
+(
+	[VATCodeID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tlkpVATRate]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tlkpVATRate](
+	[VATRateID] [uniqueidentifier] NOT NULL,
+	[VATRatePercentage] [numeric](6, 4) NOT NULL,
+	[StartDate] [smalldatetime] NOT NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[VATCodeID] [uniqueidentifier] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblVATRate_1] PRIMARY KEY CLUSTERED 
+(
+	[VATRateID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[tlkpWarehouseLocation]    Script Date: 14/09/2015 10:28:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tlkpWarehouseLocation](
+	[WarehouseLocationID] [uniqueidentifier] NOT NULL,
+	[WarehouseLocationName] [nvarchar](50) NOT NULL,
+	[UpdatedBy] [nvarchar](25) NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [nvarchar](25) NULL,
+	[CreatedDate] [datetime] NULL,
+	[IsActive] [bit] NULL,
+ CONSTRAINT [PK_tblWarehouseLocation] PRIMARY KEY CLUSTERED 
+(
+	[WarehouseLocationID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+ALTER TABLE [dbo].[tblBankReconciliation] ADD  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblBatchNumber] ADD  CONSTRAINT [DF__tblBatchN__IsAct__0C85DE4D]  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblCompanyNominalAccount] ADD  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblCompanySupplier] ADD  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblConsignmentItemArrival] ADD  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblContact] ADD  CONSTRAINT [DF__tblContac__IsAct__1332DBDC]  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblCustomer] ADD  CONSTRAINT [DF__tblCustom__IsAct__14270015]  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblCustomerContact] ADD  CONSTRAINT [DF__tblCustom__IsAct__151B244E]  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblCustomerDepartment] ADD  CONSTRAINT [DF_tblCustomerDepartment_InvoiceFrequency]  DEFAULT ((1)) FOR [InvoiceFrequency]
+GO
+ALTER TABLE [dbo].[tblCustomerDepartment] ADD  CONSTRAINT [DF__tblCustom__IsAct__160F4887]  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblCustomerLocation] ADD  CONSTRAINT [DF__tblCustom__IsAct__17036CC0]  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblGroup] ADD  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblIntrastat] ADD  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblIntrastatItem] ADD  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblMenu] ADD  CONSTRAINT [DF_tblMenu_MenuIDIN]  DEFAULT (newid()) FOR [MenuID]
+GO
+ALTER TABLE [dbo].[tblMenu] ADD  CONSTRAINT [DF_tblMenu_AuditNew]  DEFAULT ((1)) FOR [AuditNew]
+GO
+ALTER TABLE [dbo].[tblMenu] ADD  CONSTRAINT [DF_tblMenu_AuditEdit]  DEFAULT ((1)) FOR [AuditEdit]
+GO
+ALTER TABLE [dbo].[tblMenu] ADD  CONSTRAINT [DF_tblMenu_AuditPrint]  DEFAULT ((1)) FOR [AuditPrint]
+GO
+ALTER TABLE [dbo].[tblMenu] ADD  CONSTRAINT [DF_tblMenu_AuditDelete]  DEFAULT ((1)) FOR [AuditDelete]
+GO
+ALTER TABLE [dbo].[tblMenu] ADD  CONSTRAINT [DF__tblMenu__IsActiv__1CBC4616]  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblNominalAccount] ADD  CONSTRAINT [DF__tblNomina__IsAct__1DB06A4F]  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblNominalLedgerEntry] ADD  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblNote] ADD  CONSTRAINT [DF_tblNote_NoteID]  DEFAULT (newid()) FOR [NoteID]
+GO
+ALTER TABLE [dbo].[tblNote] ADD  CONSTRAINT [DF_tblNote_NoteAmended]  DEFAULT (getdate()) FOR [NoteAmended]
+GO
+ALTER TABLE [dbo].[tblNote] ADD  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblPrice] ADD  CONSTRAINT [DF_tblPrice_PriceDateTime]  DEFAULT (getdate()) FOR [PriceDateTime]
+GO
+ALTER TABLE [dbo].[tblPrice] ADD  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblPurchaseAllocation] ADD  CONSTRAINT [DF__tblPurcha__IsAct__2739D489]  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblPurchaseInvoice] ADD  CONSTRAINT [DF__tblPurcha__IsAct__282DF8C2]  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblPurchaseInvoiceItem] ADD  CONSTRAINT [DF__tblPurcha__IsAct__29221CFB]  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblPurchaseLedgerEntry] ADD  CONSTRAINT [DF__tblPurcha__IsAct__2A164134]  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblSalesAllocation] ADD  CONSTRAINT [DF__tblSalesA__IsAct__2B0A656D]  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblSalesInvoice] ADD  CONSTRAINT [DF__tblSalesI__IsAct__2BFE89A6]  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblSalesInvoiceItem] ADD  CONSTRAINT [DF__tblSalesI__IsAct__2CF2ADDF]  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblSalesLedgerEntry] ADD  CONSTRAINT [DF__tblSalesL__IsAct__2DE6D218]  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblSetup] ADD  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblSupplierContact] ADD  CONSTRAINT [DF__tblSuppli__IsAct__2FCF1A8A]  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblSupplierDepartment] ADD  CONSTRAINT [DF__tblSuppli__IsAct__30C33EC3]  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblSupplierLocation] ADD  CONSTRAINT [DF__tblSuppli__IsAct__31B762FC]  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblTicket] ADD  CONSTRAINT [DF__tblTicket__IsAct__32AB8735]  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblTicketItem] ADD  CONSTRAINT [DF__tblTicket__IsAct__339FAB6E]  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tblTicketRange] ADD  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tlkpCurrency] ADD  CONSTRAINT [DF__tlkpCurre__IsAct__367C1819]  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tlkpLedgerEntryType] ADD  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tlkpVATRate] ADD  CONSTRAINT [DF__tlkpVATRa__IsAct__3C34F16F]  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[tlkpWarehouseLocation] ADD  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [dbo].[AspNetRolePermission]  WITH CHECK ADD  CONSTRAINT [FK_dbo.AspNetRolePermission_dbo.AspNetRoles_RoleId] FOREIGN KEY([RoleId])
+REFERENCES [dbo].[AspNetRoles] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AspNetRolePermission] CHECK CONSTRAINT [FK_dbo.AspNetRolePermission_dbo.AspNetRoles_RoleId]
+GO
+ALTER TABLE [dbo].[AspNetRolePermission]  WITH CHECK ADD  CONSTRAINT [FK_dbo.AspNetRolePermission_dbo.Permissions_PermissionId] FOREIGN KEY([PermissionId])
+REFERENCES [dbo].[AspNetPermissions] ([PermissionId])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[AspNetRolePermission] CHECK CONSTRAINT [FK_dbo.AspNetRolePermission_dbo.Permissions_PermissionId]
+GO
+ALTER TABLE [dbo].[tblAudit]  WITH CHECK ADD  CONSTRAINT [FK_tblAudit_tblNote] FOREIGN KEY([NoteID])
+REFERENCES [dbo].[tblNote] ([NoteID])
+GO
+ALTER TABLE [dbo].[tblAudit] CHECK CONSTRAINT [FK_tblAudit_tblNote]
+GO
+ALTER TABLE [dbo].[tblAuditItem]  WITH CHECK ADD  CONSTRAINT [FK_tblAuditItem_tblAudit] FOREIGN KEY([AuditID])
+REFERENCES [dbo].[tblAudit] ([AuditID])
+GO
+ALTER TABLE [dbo].[tblAuditItem] CHECK CONSTRAINT [FK_tblAuditItem_tblAudit]
+GO
+ALTER TABLE [dbo].[tblBankReconciliation]  WITH CHECK ADD  CONSTRAINT [FK_tblBankReconciliation_AspNetUsers] FOREIGN KEY([UserID])
+REFERENCES [dbo].[AspNetUsers] ([Id])
+GO
+ALTER TABLE [dbo].[tblBankReconciliation] CHECK CONSTRAINT [FK_tblBankReconciliation_AspNetUsers]
+GO
+ALTER TABLE [dbo].[tblBankReconciliation]  WITH CHECK ADD  CONSTRAINT [FK_tblBankReconciliation_tblNominalLedgerEntry] FOREIGN KEY([NominalLedgerEntryID])
+REFERENCES [dbo].[tblNominalLedgerEntry] ([NominalLedgerEntryID])
+GO
+ALTER TABLE [dbo].[tblBankReconciliation] CHECK CONSTRAINT [FK_tblBankReconciliation_tblNominalLedgerEntry]
+GO
+ALTER TABLE [dbo].[tblCompany]  WITH CHECK ADD  CONSTRAINT [FK_tblCompany_tblAddress_AddressID] FOREIGN KEY([AddressID])
+REFERENCES [dbo].[tblAddress] ([AddressID])
+GO
+ALTER TABLE [dbo].[tblCompany] CHECK CONSTRAINT [FK_tblCompany_tblAddress_AddressID]
+GO
+ALTER TABLE [dbo].[tblCompany]  WITH CHECK ADD  CONSTRAINT [FK_tblCompany_tblAddress_RegisteredAddressID] FOREIGN KEY([RegisteredAddressID])
+REFERENCES [dbo].[tblAddress] ([AddressID])
+GO
+ALTER TABLE [dbo].[tblCompany] CHECK CONSTRAINT [FK_tblCompany_tblAddress_RegisteredAddressID]
+GO
+ALTER TABLE [dbo].[tblCompany]  WITH CHECK ADD  CONSTRAINT [FK_tblCompany_tblCompany] FOREIGN KEY([ParentCompanyID])
+REFERENCES [dbo].[tblCompany] ([CompanyID])
+GO
+ALTER TABLE [dbo].[tblCompany] CHECK CONSTRAINT [FK_tblCompany_tblCompany]
+GO
+ALTER TABLE [dbo].[tblCompanyNominalAccount]  WITH CHECK ADD  CONSTRAINT [FK_tblCompanyNominalAccount_tblCompany] FOREIGN KEY([CompanyID])
+REFERENCES [dbo].[tblCompany] ([CompanyID])
+GO
+ALTER TABLE [dbo].[tblCompanyNominalAccount] CHECK CONSTRAINT [FK_tblCompanyNominalAccount_tblCompany]
+GO
+ALTER TABLE [dbo].[tblCompanyNominalAccount]  WITH CHECK ADD  CONSTRAINT [FK_tblCompanyNominalAccount_tblNominalAccount] FOREIGN KEY([NominalAccountID])
+REFERENCES [dbo].[tblNominalAccount] ([NominalAccountID])
+GO
+ALTER TABLE [dbo].[tblCompanyNominalAccount] CHECK CONSTRAINT [FK_tblCompanyNominalAccount_tblNominalAccount]
+GO
+ALTER TABLE [dbo].[tblCompanySupplier]  WITH CHECK ADD  CONSTRAINT [FK_tblCompanySupplier_tblCompany] FOREIGN KEY([CompanyID])
+REFERENCES [dbo].[tblCompany] ([CompanyID])
+GO
+ALTER TABLE [dbo].[tblCompanySupplier] CHECK CONSTRAINT [FK_tblCompanySupplier_tblCompany]
+GO
+ALTER TABLE [dbo].[tblCompanySupplier]  WITH CHECK ADD  CONSTRAINT [FK_tblCompanySupplier_tblSupplier] FOREIGN KEY([SupplierID])
+REFERENCES [dbo].[tblSupplier] ([SupplierID])
+GO
+ALTER TABLE [dbo].[tblCompanySupplier] CHECK CONSTRAINT [FK_tblCompanySupplier_tblSupplier]
+GO
+ALTER TABLE [dbo].[tblConsignment]  WITH CHECK ADD  CONSTRAINT [FK_tblConsignment_tblDepartment] FOREIGN KEY([DepartmentID])
+REFERENCES [dbo].[tblDepartment] ([DepartmentID])
+GO
+ALTER TABLE [dbo].[tblConsignment] CHECK CONSTRAINT [FK_tblConsignment_tblDepartment]
+GO
+ALTER TABLE [dbo].[tblConsignment]  WITH CHECK ADD  CONSTRAINT [FK_tblConsignment_tblSupplier] FOREIGN KEY([SupplierID])
+REFERENCES [dbo].[tblSupplier] ([SupplierID])
+GO
+ALTER TABLE [dbo].[tblConsignment] CHECK CONSTRAINT [FK_tblConsignment_tblSupplier]
+GO
+ALTER TABLE [dbo].[tblConsignment]  WITH CHECK ADD  CONSTRAINT [FK_tblConsignment_tlkpCountry] FOREIGN KEY([OriginCountryID])
+REFERENCES [dbo].[tlkpCountry] ([CountryID])
+GO
+ALTER TABLE [dbo].[tblConsignment] CHECK CONSTRAINT [FK_tblConsignment_tlkpCountry]
+GO
+ALTER TABLE [dbo].[tblConsignment]  WITH CHECK ADD  CONSTRAINT [FK_tblConsignment_tlkpDespatch] FOREIGN KEY([DespatchID])
+REFERENCES [dbo].[tlkpDespatch] ([DespatchID])
+GO
+ALTER TABLE [dbo].[tblConsignment] CHECK CONSTRAINT [FK_tblConsignment_tlkpDespatch]
+GO
+ALTER TABLE [dbo].[tblConsignment]  WITH CHECK ADD  CONSTRAINT [FK_tblConsignment_tlkpPort] FOREIGN KEY([PortID])
+REFERENCES [dbo].[tlkpPort] ([PortID])
+GO
+ALTER TABLE [dbo].[tblConsignment] CHECK CONSTRAINT [FK_tblConsignment_tlkpPort]
+GO
+ALTER TABLE [dbo].[tblConsignment]  WITH CHECK ADD  CONSTRAINT [FK_tblConsignment_tlkpPurchaseType] FOREIGN KEY([PurchaseTypeID])
+REFERENCES [dbo].[tlkpPurchaseType] ([PurchaseTypeID])
+GO
+ALTER TABLE [dbo].[tblConsignment] CHECK CONSTRAINT [FK_tblConsignment_tlkpPurchaseType]
+GO
+ALTER TABLE [dbo].[tblConsignmentItem]  WITH CHECK ADD  CONSTRAINT [FK_tblConsignmentItem_tblConsignment] FOREIGN KEY([ConsignmentID])
+REFERENCES [dbo].[tblConsignment] ([ConsignmentID])
+GO
+ALTER TABLE [dbo].[tblConsignmentItem] CHECK CONSTRAINT [FK_tblConsignmentItem_tblConsignment]
+GO
+ALTER TABLE [dbo].[tblConsignmentItem]  WITH CHECK ADD  CONSTRAINT [FK_tblConsignmentItem_tblNote] FOREIGN KEY([NoteID])
+REFERENCES [dbo].[tblNote] ([NoteID])
+GO
+ALTER TABLE [dbo].[tblConsignmentItem] CHECK CONSTRAINT [FK_tblConsignmentItem_tblNote]
+GO
+ALTER TABLE [dbo].[tblConsignmentItem]  WITH CHECK ADD  CONSTRAINT [FK_tblConsignmentItem_tblProduce] FOREIGN KEY([ProduceID])
+REFERENCES [dbo].[tblProduce] ([ProduceID])
+GO
+ALTER TABLE [dbo].[tblConsignmentItem] CHECK CONSTRAINT [FK_tblConsignmentItem_tblProduce]
+GO
+ALTER TABLE [dbo].[tblConsignmentItem]  WITH CHECK ADD  CONSTRAINT [FK_tblConsignmentItem_tlkpPackWtUnit] FOREIGN KEY([PackWtUnitID])
+REFERENCES [dbo].[tlkpPackWtUnit] ([PackWtUnitID])
+GO
+ALTER TABLE [dbo].[tblConsignmentItem] CHECK CONSTRAINT [FK_tblConsignmentItem_tlkpPackWtUnit]
+GO
+ALTER TABLE [dbo].[tblConsignmentItem]  WITH CHECK ADD  CONSTRAINT [FK_tblConsignmentItem_tlkpPorterage] FOREIGN KEY([PorterageID])
+REFERENCES [dbo].[tlkpPorterage] ([PorterageID])
+GO
+ALTER TABLE [dbo].[tblConsignmentItem] CHECK CONSTRAINT [FK_tblConsignmentItem_tlkpPorterage]
+GO
+ALTER TABLE [dbo].[tblConsignmentItemArrival]  WITH CHECK ADD  CONSTRAINT [FK_tblConsignmentItemArrival_tblConsignmentItem] FOREIGN KEY([ConsignmentItemID])
+REFERENCES [dbo].[tblConsignmentItem] ([ConsignmentItemID])
+GO
+ALTER TABLE [dbo].[tblConsignmentItemArrival] CHECK CONSTRAINT [FK_tblConsignmentItemArrival_tblConsignmentItem]
+GO
+ALTER TABLE [dbo].[tblConsignmentItemArrival]  WITH CHECK ADD  CONSTRAINT [FK_tblConsignmentItemArrival_tblNote] FOREIGN KEY([NoteID])
+REFERENCES [dbo].[tblNote] ([NoteID])
+GO
+ALTER TABLE [dbo].[tblConsignmentItemArrival] CHECK CONSTRAINT [FK_tblConsignmentItemArrival_tblNote]
+GO
+ALTER TABLE [dbo].[tblCustomer]  WITH CHECK ADD  CONSTRAINT [FK_tblCustomer_tblCompany] FOREIGN KEY([CompanyID])
+REFERENCES [dbo].[tblCompany] ([CompanyID])
+GO
+ALTER TABLE [dbo].[tblCustomer] CHECK CONSTRAINT [FK_tblCustomer_tblCompany]
+GO
+ALTER TABLE [dbo].[tblCustomer]  WITH CHECK ADD  CONSTRAINT [FK_tblCustomer_tblCustomer] FOREIGN KEY([ParentCustomerID])
+REFERENCES [dbo].[tblCustomer] ([CustomerID])
+GO
+ALTER TABLE [dbo].[tblCustomer] CHECK CONSTRAINT [FK_tblCustomer_tblCustomer]
+GO
+ALTER TABLE [dbo].[tblCustomer]  WITH CHECK ADD  CONSTRAINT [FK_tblCustomer_tblNote] FOREIGN KEY([NoteID])
+REFERENCES [dbo].[tblNote] ([NoteID])
+GO
+ALTER TABLE [dbo].[tblCustomer] CHECK CONSTRAINT [FK_tblCustomer_tblNote]
+GO
+ALTER TABLE [dbo].[tblCustomerBankAccount]  WITH CHECK ADD  CONSTRAINT [FK_tblCustomerBankAccount_tblBankAccount] FOREIGN KEY([BankAccountID])
+REFERENCES [dbo].[tblBankAccount] ([BankAccountID])
+GO
+ALTER TABLE [dbo].[tblCustomerBankAccount] CHECK CONSTRAINT [FK_tblCustomerBankAccount_tblBankAccount]
+GO
+ALTER TABLE [dbo].[tblCustomerBankAccount]  WITH CHECK ADD  CONSTRAINT [FK_tblCustomerBankAccount_tblCustomer] FOREIGN KEY([CustomerID])
+REFERENCES [dbo].[tblCustomer] ([CustomerID])
+GO
+ALTER TABLE [dbo].[tblCustomerBankAccount] CHECK CONSTRAINT [FK_tblCustomerBankAccount_tblCustomer]
+GO
+ALTER TABLE [dbo].[tblCustomerBankAccount]  WITH CHECK ADD  CONSTRAINT [FK_tblCustomerBankAccount_tblCustomerDepartment] FOREIGN KEY([CustomerDepartmentID])
+REFERENCES [dbo].[tblCustomerDepartment] ([CustomerDepartmentID])
+GO
+ALTER TABLE [dbo].[tblCustomerBankAccount] CHECK CONSTRAINT [FK_tblCustomerBankAccount_tblCustomerDepartment]
+GO
+ALTER TABLE [dbo].[tblCustomerBankAccount]  WITH CHECK ADD  CONSTRAINT [FK_tblCustomerBankAccount_tblCustomerLocation] FOREIGN KEY([CustomerLocationID])
+REFERENCES [dbo].[tblCustomerLocation] ([CustomerLocationID])
+GO
+ALTER TABLE [dbo].[tblCustomerBankAccount] CHECK CONSTRAINT [FK_tblCustomerBankAccount_tblCustomerLocation]
+GO
+ALTER TABLE [dbo].[tblCustomerContact]  WITH CHECK ADD  CONSTRAINT [FK_tblCustomerContact_tblContact] FOREIGN KEY([ContactID])
+REFERENCES [dbo].[tblContact] ([ContactID])
+GO
+ALTER TABLE [dbo].[tblCustomerContact] CHECK CONSTRAINT [FK_tblCustomerContact_tblContact]
+GO
+ALTER TABLE [dbo].[tblCustomerContact]  WITH CHECK ADD  CONSTRAINT [FK_tblCustomerContact_tblCustomerDepartment] FOREIGN KEY([CustomerDepartmentID])
+REFERENCES [dbo].[tblCustomerDepartment] ([CustomerDepartmentID])
+GO
+ALTER TABLE [dbo].[tblCustomerContact] CHECK CONSTRAINT [FK_tblCustomerContact_tblCustomerDepartment]
+GO
+ALTER TABLE [dbo].[tblCustomerContact]  WITH CHECK ADD  CONSTRAINT [FK_tblCustomerContact_tblCustomerLocation] FOREIGN KEY([ContactLocationID])
+REFERENCES [dbo].[tblCustomerLocation] ([CustomerLocationID])
+GO
+ALTER TABLE [dbo].[tblCustomerContact] CHECK CONSTRAINT [FK_tblCustomerContact_tblCustomerLocation]
+GO
+ALTER TABLE [dbo].[tblCustomerCurrency]  WITH CHECK ADD  CONSTRAINT [FK_tblCustomerCurrency_tblCustomer] FOREIGN KEY([CustomerID])
+REFERENCES [dbo].[tblCustomer] ([CustomerID])
+GO
+ALTER TABLE [dbo].[tblCustomerCurrency] CHECK CONSTRAINT [FK_tblCustomerCurrency_tblCustomer]
+GO
+ALTER TABLE [dbo].[tblCustomerCurrency]  WITH CHECK ADD  CONSTRAINT [FK_tblCustomerCurrency_tlkpCurrency] FOREIGN KEY([CurrencyID])
+REFERENCES [dbo].[tlkpCurrency] ([CurrencyID])
+GO
+ALTER TABLE [dbo].[tblCustomerCurrency] CHECK CONSTRAINT [FK_tblCustomerCurrency_tlkpCurrency]
+GO
+ALTER TABLE [dbo].[tblCustomerDepartment]  WITH CHECK ADD  CONSTRAINT [FK_tblCustomerDepartment_tblCustomer] FOREIGN KEY([CustomerID])
+REFERENCES [dbo].[tblCustomer] ([CustomerID])
+GO
+ALTER TABLE [dbo].[tblCustomerDepartment] CHECK CONSTRAINT [FK_tblCustomerDepartment_tblCustomer]
+GO
+ALTER TABLE [dbo].[tblCustomerDepartment]  WITH CHECK ADD  CONSTRAINT [FK_tblCustomerDepartment_tblNote] FOREIGN KEY([NoteID])
+REFERENCES [dbo].[tblNote] ([NoteID])
+GO
+ALTER TABLE [dbo].[tblCustomerDepartment] CHECK CONSTRAINT [FK_tblCustomerDepartment_tblNote]
+GO
+ALTER TABLE [dbo].[tblCustomerDepartment]  WITH CHECK ADD  CONSTRAINT [FK_tblCustomerDepartment_tlkpCustomerType] FOREIGN KEY([CustomerTypeID])
+REFERENCES [dbo].[tlkpCustomerType] ([CustomerTypeID])
+GO
+ALTER TABLE [dbo].[tblCustomerDepartment] CHECK CONSTRAINT [FK_tblCustomerDepartment_tlkpCustomerType]
+GO
+ALTER TABLE [dbo].[tblCustomerDepartment]  WITH CHECK ADD  CONSTRAINT [FK_tblCustomerDepartment_tlkpSalesPerson] FOREIGN KEY([SalesPersonID])
+REFERENCES [dbo].[tlkpSalesPerson] ([SalesPersonID])
+GO
+ALTER TABLE [dbo].[tblCustomerDepartment] CHECK CONSTRAINT [FK_tblCustomerDepartment_tlkpSalesPerson]
+GO
+ALTER TABLE [dbo].[tblCustomerDepartmentLocation]  WITH CHECK ADD  CONSTRAINT [FK_tblCustomerDepartmentLocation_tblCustomerDepartment] FOREIGN KEY([CustomerDepartmentID])
+REFERENCES [dbo].[tblCustomerDepartment] ([CustomerDepartmentID])
+GO
+ALTER TABLE [dbo].[tblCustomerDepartmentLocation] CHECK CONSTRAINT [FK_tblCustomerDepartmentLocation_tblCustomerDepartment]
+GO
+ALTER TABLE [dbo].[tblCustomerDepartmentLocation]  WITH CHECK ADD  CONSTRAINT [FK_tblCustomerDepartmentLocation_tblCustomerLocation] FOREIGN KEY([CustomerLocationID])
+REFERENCES [dbo].[tblCustomerLocation] ([CustomerLocationID])
+GO
+ALTER TABLE [dbo].[tblCustomerDepartmentLocation] CHECK CONSTRAINT [FK_tblCustomerDepartmentLocation_tblCustomerLocation]
+GO
+ALTER TABLE [dbo].[tblCustomerLocation]  WITH CHECK ADD  CONSTRAINT [FK_tblCustomerLocation_tblAddress] FOREIGN KEY([AddressID])
+REFERENCES [dbo].[tblAddress] ([AddressID])
+GO
+ALTER TABLE [dbo].[tblCustomerLocation] CHECK CONSTRAINT [FK_tblCustomerLocation_tblAddress]
+GO
+ALTER TABLE [dbo].[tblCustomerLocation]  WITH CHECK ADD  CONSTRAINT [FK_tblCustomerLocation_tblAddress1] FOREIGN KEY([AddressID])
+REFERENCES [dbo].[tblAddress] ([AddressID])
+GO
+ALTER TABLE [dbo].[tblCustomerLocation] CHECK CONSTRAINT [FK_tblCustomerLocation_tblAddress1]
+GO
+ALTER TABLE [dbo].[tblCustomerLocation]  WITH CHECK ADD  CONSTRAINT [FK_tblCustomerLocation_tblCustomer] FOREIGN KEY([CustomerID])
+REFERENCES [dbo].[tblCustomer] ([CustomerID])
+GO
+ALTER TABLE [dbo].[tblCustomerLocation] CHECK CONSTRAINT [FK_tblCustomerLocation_tblCustomer]
+GO
+ALTER TABLE [dbo].[tblCustomerLocation]  WITH CHECK ADD  CONSTRAINT [FK_tblCustomerLocation_tblNote] FOREIGN KEY([NoteID])
+REFERENCES [dbo].[tblNote] ([NoteID])
+GO
+ALTER TABLE [dbo].[tblCustomerLocation] CHECK CONSTRAINT [FK_tblCustomerLocation_tblNote]
+GO
+ALTER TABLE [dbo].[tblDepartment]  WITH CHECK ADD  CONSTRAINT [FK_tblDepartment_tblAddress] FOREIGN KEY([AddressID])
+REFERENCES [dbo].[tblAddress] ([AddressID])
+GO
+ALTER TABLE [dbo].[tblDepartment] CHECK CONSTRAINT [FK_tblDepartment_tblAddress]
+GO
+ALTER TABLE [dbo].[tblDepartment]  WITH CHECK ADD  CONSTRAINT [FK_tblDepartment_tblDivision] FOREIGN KEY([DivisionID])
+REFERENCES [dbo].[tblDivision] ([DivisionID])
+GO
+ALTER TABLE [dbo].[tblDepartment] CHECK CONSTRAINT [FK_tblDepartment_tblDivision]
+GO
+ALTER TABLE [dbo].[tblDivision]  WITH CHECK ADD  CONSTRAINT [FK_tblDivision_tblAddress] FOREIGN KEY([AddressID])
+REFERENCES [dbo].[tblAddress] ([AddressID])
+GO
+ALTER TABLE [dbo].[tblDivision] CHECK CONSTRAINT [FK_tblDivision_tblAddress]
+GO
+ALTER TABLE [dbo].[tblDivision]  WITH CHECK ADD  CONSTRAINT [FK_tblDivision_tblCompany] FOREIGN KEY([CompanyID])
+REFERENCES [dbo].[tblCompany] ([CompanyID])
+GO
+ALTER TABLE [dbo].[tblDivision] CHECK CONSTRAINT [FK_tblDivision_tblCompany]
+GO
+ALTER TABLE [dbo].[tblIntrastatItem]  WITH CHECK ADD  CONSTRAINT [FK_tblIntrastatItem_tblIntrastat] FOREIGN KEY([IntrastatID])
+REFERENCES [dbo].[tblIntrastat] ([IntrastatID])
+GO
+ALTER TABLE [dbo].[tblIntrastatItem] CHECK CONSTRAINT [FK_tblIntrastatItem_tblIntrastat]
+GO
+ALTER TABLE [dbo].[tblMasterGroup]  WITH CHECK ADD  CONSTRAINT [FK_tblMasterGroup_tblDivision] FOREIGN KEY([DivisionID])
+REFERENCES [dbo].[tblDivision] ([DivisionID])
+GO
+ALTER TABLE [dbo].[tblMasterGroup] CHECK CONSTRAINT [FK_tblMasterGroup_tblDivision]
+GO
+ALTER TABLE [dbo].[tblNominalLedgerEntry]  WITH CHECK ADD  CONSTRAINT [FK_tblNominalLedgerEntry_tblBatchNumber] FOREIGN KEY([BatchNumberID])
+REFERENCES [dbo].[tblBatchNumber] ([BatchNumberID])
+GO
+ALTER TABLE [dbo].[tblNominalLedgerEntry] CHECK CONSTRAINT [FK_tblNominalLedgerEntry_tblBatchNumber]
+GO
+ALTER TABLE [dbo].[tblNominalLedgerEntry]  WITH CHECK ADD  CONSTRAINT [FK_tblNominalLedgerEntry_tblDivision] FOREIGN KEY([DivisionID])
+REFERENCES [dbo].[tblDivision] ([DivisionID])
+GO
+ALTER TABLE [dbo].[tblNominalLedgerEntry] CHECK CONSTRAINT [FK_tblNominalLedgerEntry_tblDivision]
+GO
+ALTER TABLE [dbo].[tblNominalLedgerEntry]  WITH CHECK ADD  CONSTRAINT [FK_tblNominalLedgerEntry_tblNominalAccount] FOREIGN KEY([NominalAccountID])
+REFERENCES [dbo].[tblNominalAccount] ([NominalAccountID])
+GO
+ALTER TABLE [dbo].[tblNominalLedgerEntry] CHECK CONSTRAINT [FK_tblNominalLedgerEntry_tblNominalAccount]
+GO
+ALTER TABLE [dbo].[tblProduce]  WITH CHECK ADD  CONSTRAINT [FK_tblProduce_tblMasterGroup] FOREIGN KEY([MasterGroupID])
+REFERENCES [dbo].[tblMasterGroup] ([MasterGroupID])
+GO
+ALTER TABLE [dbo].[tblProduce] CHECK CONSTRAINT [FK_tblProduce_tblMasterGroup]
+GO
+ALTER TABLE [dbo].[tblProduce]  WITH CHECK ADD  CONSTRAINT [FK_tblProduce_tblProduceMaster1] FOREIGN KEY([ProduceGroupID])
+REFERENCES [dbo].[tblProduceGroup] ([ProduceGroupID])
+GO
+ALTER TABLE [dbo].[tblProduce] CHECK CONSTRAINT [FK_tblProduce_tblProduceMaster1]
+GO
+ALTER TABLE [dbo].[tblProduce]  WITH CHECK ADD  CONSTRAINT [FK_tblProduce_tlkpVATCode] FOREIGN KEY([VATCodeID])
+REFERENCES [dbo].[tlkpVATCode] ([VATCodeID])
+GO
+ALTER TABLE [dbo].[tblProduce] CHECK CONSTRAINT [FK_tblProduce_tlkpVATCode]
+GO
+ALTER TABLE [dbo].[tblProduceGroup]  WITH CHECK ADD  CONSTRAINT [FK_tblProduceGroup_tblDivision] FOREIGN KEY([DivisionID])
+REFERENCES [dbo].[tblDivision] ([DivisionID])
+GO
+ALTER TABLE [dbo].[tblProduceGroup] CHECK CONSTRAINT [FK_tblProduceGroup_tblDivision]
+GO
+ALTER TABLE [dbo].[tblProduceIntrastat]  WITH CHECK ADD  CONSTRAINT [FK_tblProduceIntrastat_tblProduce] FOREIGN KEY([ProduceID])
+REFERENCES [dbo].[tblProduce] ([ProduceID])
+GO
+ALTER TABLE [dbo].[tblProduceIntrastat] CHECK CONSTRAINT [FK_tblProduceIntrastat_tblProduce]
+GO
+ALTER TABLE [dbo].[tblPurchaseAllocation]  WITH CHECK ADD  CONSTRAINT [FK_tblPurchaseAllocation_tblNote] FOREIGN KEY([NoteID])
+REFERENCES [dbo].[tblNote] ([NoteID])
+GO
+ALTER TABLE [dbo].[tblPurchaseAllocation] CHECK CONSTRAINT [FK_tblPurchaseAllocation_tblNote]
+GO
+ALTER TABLE [dbo].[tblPurchaseAllocation]  WITH CHECK ADD  CONSTRAINT [FK_tblPurchaseAllocation_tblNote1] FOREIGN KEY([NoteID])
+REFERENCES [dbo].[tblNote] ([NoteID])
+GO
+ALTER TABLE [dbo].[tblPurchaseAllocation] CHECK CONSTRAINT [FK_tblPurchaseAllocation_tblNote1]
+GO
+ALTER TABLE [dbo].[tblPurchaseAllocation]  WITH CHECK ADD  CONSTRAINT [FK_tblPurchaseAllocation_tblPurchaseInvoice] FOREIGN KEY([PurchaseInvoiceID])
+REFERENCES [dbo].[tblPurchaseInvoice] ([PurchaseInvoiceID])
+GO
+ALTER TABLE [dbo].[tblPurchaseAllocation] CHECK CONSTRAINT [FK_tblPurchaseAllocation_tblPurchaseInvoice]
+GO
+ALTER TABLE [dbo].[tblPurchaseAllocation]  WITH CHECK ADD  CONSTRAINT [FK_tblPurchaseAllocation_tblPurchaseLedgerEntry] FOREIGN KEY([PurchaseLedgerEntryID])
+REFERENCES [dbo].[tblPurchaseLedgerEntry] ([PurchaseLedgerEntryID])
+GO
+ALTER TABLE [dbo].[tblPurchaseAllocation] CHECK CONSTRAINT [FK_tblPurchaseAllocation_tblPurchaseLedgerEntry]
+GO
+ALTER TABLE [dbo].[tblPurchaseAllocation]  WITH CHECK ADD  CONSTRAINT [FK_tblPurchaseAllocation_tlkpCurrency] FOREIGN KEY([CurrencyID])
+REFERENCES [dbo].[tlkpCurrency] ([CurrencyID])
+GO
+ALTER TABLE [dbo].[tblPurchaseAllocation] CHECK CONSTRAINT [FK_tblPurchaseAllocation_tlkpCurrency]
+GO
+ALTER TABLE [dbo].[tblPurchaseInvoice]  WITH CHECK ADD  CONSTRAINT [FK_tblPurchaseInvoice_tblAddress] FOREIGN KEY([AddressID])
+REFERENCES [dbo].[tblAddress] ([AddressID])
+GO
+ALTER TABLE [dbo].[tblPurchaseInvoice] CHECK CONSTRAINT [FK_tblPurchaseInvoice_tblAddress]
+GO
+ALTER TABLE [dbo].[tblPurchaseInvoice]  WITH CHECK ADD  CONSTRAINT [FK_tblPurchaseInvoice_tblNote] FOREIGN KEY([NoteID])
+REFERENCES [dbo].[tblNote] ([NoteID])
+GO
+ALTER TABLE [dbo].[tblPurchaseInvoice] CHECK CONSTRAINT [FK_tblPurchaseInvoice_tblNote]
+GO
+ALTER TABLE [dbo].[tblPurchaseInvoice]  WITH CHECK ADD  CONSTRAINT [FK_tblPurchaseInvoice_tblPurchaseLedgerEntry] FOREIGN KEY([PurchaseLedgerEntryID])
+REFERENCES [dbo].[tblPurchaseLedgerEntry] ([PurchaseLedgerEntryID])
+GO
+ALTER TABLE [dbo].[tblPurchaseInvoice] CHECK CONSTRAINT [FK_tblPurchaseInvoice_tblPurchaseLedgerEntry]
+GO
+ALTER TABLE [dbo].[tblPurchaseInvoice]  WITH CHECK ADD  CONSTRAINT [FK_tblPurchaseInvoice_tblSupplierDepartment] FOREIGN KEY([SupplierDepartmentID])
+REFERENCES [dbo].[tblSupplierDepartment] ([SupplierDepartmentID])
+GO
+ALTER TABLE [dbo].[tblPurchaseInvoice] CHECK CONSTRAINT [FK_tblPurchaseInvoice_tblSupplierDepartment]
+GO
+ALTER TABLE [dbo].[tblPurchaseInvoiceItem]  WITH CHECK ADD  CONSTRAINT [FK_tblPurchaseInvoiceItem_tblConsignmentItem] FOREIGN KEY([ConsignmentItemID])
+REFERENCES [dbo].[tblConsignmentItem] ([ConsignmentItemID])
+GO
+ALTER TABLE [dbo].[tblPurchaseInvoiceItem] CHECK CONSTRAINT [FK_tblPurchaseInvoiceItem_tblConsignmentItem]
+GO
+ALTER TABLE [dbo].[tblPurchaseInvoiceItem]  WITH CHECK ADD  CONSTRAINT [FK_tblPurchaseInvoiceItem_tblPurchaseInvoice] FOREIGN KEY([PurchaseInvoiceID])
+REFERENCES [dbo].[tblPurchaseInvoice] ([PurchaseInvoiceID])
+GO
+ALTER TABLE [dbo].[tblPurchaseInvoiceItem] CHECK CONSTRAINT [FK_tblPurchaseInvoiceItem_tblPurchaseInvoice]
+GO
+ALTER TABLE [dbo].[tblPurchaseInvoiceItem]  WITH CHECK ADD  CONSTRAINT [FK_tblPurchaseInvoiceItem_tlkpCurrency] FOREIGN KEY([CurrencyID])
+REFERENCES [dbo].[tlkpCurrency] ([CurrencyID])
+GO
+ALTER TABLE [dbo].[tblPurchaseInvoiceItem] CHECK CONSTRAINT [FK_tblPurchaseInvoiceItem_tlkpCurrency]
+GO
+ALTER TABLE [dbo].[tblPurchaseLedgerEntry]  WITH CHECK ADD  CONSTRAINT [FK_tblPurchaseLedgerEntry_tblBatchNumber] FOREIGN KEY([BatchNumberID])
+REFERENCES [dbo].[tblBatchNumber] ([BatchNumberID])
+GO
+ALTER TABLE [dbo].[tblPurchaseLedgerEntry] CHECK CONSTRAINT [FK_tblPurchaseLedgerEntry_tblBatchNumber]
+GO
+ALTER TABLE [dbo].[tblPurchaseLedgerEntry]  WITH CHECK ADD  CONSTRAINT [FK_tblPurchaseLedgerEntry_tblDepartment] FOREIGN KEY([DepartmentID])
+REFERENCES [dbo].[tblDepartment] ([DepartmentID])
+GO
+ALTER TABLE [dbo].[tblPurchaseLedgerEntry] CHECK CONSTRAINT [FK_tblPurchaseLedgerEntry_tblDepartment]
+GO
+ALTER TABLE [dbo].[tblPurchaseLedgerEntry]  WITH CHECK ADD  CONSTRAINT [FK_tblPurchaseLedgerEntry_tblNote] FOREIGN KEY([NoteID])
+REFERENCES [dbo].[tblNote] ([NoteID])
+GO
+ALTER TABLE [dbo].[tblPurchaseLedgerEntry] CHECK CONSTRAINT [FK_tblPurchaseLedgerEntry_tblNote]
+GO
+ALTER TABLE [dbo].[tblPurchaseLedgerEntry]  WITH CHECK ADD  CONSTRAINT [FK_tblPurchaseLedgerEntry_tblSupplierDepartment] FOREIGN KEY([SupplierDepartmentID])
+REFERENCES [dbo].[tblSupplierDepartment] ([SupplierDepartmentID])
+GO
+ALTER TABLE [dbo].[tblPurchaseLedgerEntry] CHECK CONSTRAINT [FK_tblPurchaseLedgerEntry_tblSupplierDepartment]
+GO
+ALTER TABLE [dbo].[tblPurchaseLedgerEntry]  WITH CHECK ADD  CONSTRAINT [FK_tblPurchaseLedgerEntry_tblSupplierDepartment1] FOREIGN KEY([SupplierDepartmentID])
+REFERENCES [dbo].[tblSupplierDepartment] ([SupplierDepartmentID])
+GO
+ALTER TABLE [dbo].[tblPurchaseLedgerEntry] CHECK CONSTRAINT [FK_tblPurchaseLedgerEntry_tblSupplierDepartment1]
+GO
+ALTER TABLE [dbo].[tblPurchaseLedgerEntry]  WITH CHECK ADD  CONSTRAINT [FK_tblPurchaseLedgerEntry_tlkpCurrency] FOREIGN KEY([CurrencyID])
+REFERENCES [dbo].[tlkpCurrency] ([CurrencyID])
+GO
+ALTER TABLE [dbo].[tblPurchaseLedgerEntry] CHECK CONSTRAINT [FK_tblPurchaseLedgerEntry_tlkpCurrency]
+GO
+ALTER TABLE [dbo].[tblPurchaseLedgerEntry]  WITH CHECK ADD  CONSTRAINT [FK_tblPurchaseLedgerEntry_tlkpLedgerEntryType] FOREIGN KEY([LedgerEntryTypeID])
+REFERENCES [dbo].[tlkpLedgerEntryType] ([LedgerEntryTypeID])
+GO
+ALTER TABLE [dbo].[tblPurchaseLedgerEntry] CHECK CONSTRAINT [FK_tblPurchaseLedgerEntry_tlkpLedgerEntryType]
+GO
+ALTER TABLE [dbo].[tblSalesAllocation]  WITH CHECK ADD  CONSTRAINT [FK_tblSalesAllocation_tblNote] FOREIGN KEY([NoteID])
+REFERENCES [dbo].[tblNote] ([NoteID])
+GO
+ALTER TABLE [dbo].[tblSalesAllocation] CHECK CONSTRAINT [FK_tblSalesAllocation_tblNote]
+GO
+ALTER TABLE [dbo].[tblSalesAllocation]  WITH CHECK ADD  CONSTRAINT [FK_tblSalesAllocation_tblSalesInvoice] FOREIGN KEY([SalesInvoiceID])
+REFERENCES [dbo].[tblSalesInvoice] ([SalesInvoiceID])
+GO
+ALTER TABLE [dbo].[tblSalesAllocation] CHECK CONSTRAINT [FK_tblSalesAllocation_tblSalesInvoice]
+GO
+ALTER TABLE [dbo].[tblSalesAllocation]  WITH CHECK ADD  CONSTRAINT [FK_tblSalesAllocation_tblSalesInvoice1] FOREIGN KEY([SalesInvoiceID])
+REFERENCES [dbo].[tblSalesInvoice] ([SalesInvoiceID])
+GO
+ALTER TABLE [dbo].[tblSalesAllocation] CHECK CONSTRAINT [FK_tblSalesAllocation_tblSalesInvoice1]
+GO
+ALTER TABLE [dbo].[tblSalesAllocation]  WITH CHECK ADD  CONSTRAINT [FK_tblSalesAllocation_tblSalesLedgerEntry] FOREIGN KEY([SalesLedgerEntryID])
+REFERENCES [dbo].[tblSalesLedgerEntry] ([SalesLedgerEntryID])
+GO
+ALTER TABLE [dbo].[tblSalesAllocation] CHECK CONSTRAINT [FK_tblSalesAllocation_tblSalesLedgerEntry]
+GO
+ALTER TABLE [dbo].[tblSalesAllocation]  WITH CHECK ADD  CONSTRAINT [FK_tblSalesAllocation_tblSalesLedgerEntry1] FOREIGN KEY([SalesLedgerEntryID])
+REFERENCES [dbo].[tblSalesLedgerEntry] ([SalesLedgerEntryID])
+GO
+ALTER TABLE [dbo].[tblSalesAllocation] CHECK CONSTRAINT [FK_tblSalesAllocation_tblSalesLedgerEntry1]
+GO
+ALTER TABLE [dbo].[tblSalesAllocation]  WITH CHECK ADD  CONSTRAINT [FK_tblSalesAllocation_tlkpCurrency] FOREIGN KEY([CurrencyID])
+REFERENCES [dbo].[tlkpCurrency] ([CurrencyID])
+GO
+ALTER TABLE [dbo].[tblSalesAllocation] CHECK CONSTRAINT [FK_tblSalesAllocation_tlkpCurrency]
+GO
+ALTER TABLE [dbo].[tblSalesInvoice]  WITH CHECK ADD  CONSTRAINT [FK_tblSalesInvoice_tblAddress] FOREIGN KEY([SalesInvoiceAddressID])
+REFERENCES [dbo].[tblAddress] ([AddressID])
+GO
+ALTER TABLE [dbo].[tblSalesInvoice] CHECK CONSTRAINT [FK_tblSalesInvoice_tblAddress]
+GO
+ALTER TABLE [dbo].[tblSalesInvoice]  WITH CHECK ADD  CONSTRAINT [FK_tblSalesInvoice_tblAddress1] FOREIGN KEY([AddressID])
+REFERENCES [dbo].[tblAddress] ([AddressID])
+GO
+ALTER TABLE [dbo].[tblSalesInvoice] CHECK CONSTRAINT [FK_tblSalesInvoice_tblAddress1]
+GO
+ALTER TABLE [dbo].[tblSalesInvoice]  WITH CHECK ADD  CONSTRAINT [FK_tblSalesInvoice_tblCustomerDepartment] FOREIGN KEY([CustomerDepartmentID])
+REFERENCES [dbo].[tblCustomerDepartment] ([CustomerDepartmentID])
+GO
+ALTER TABLE [dbo].[tblSalesInvoice] CHECK CONSTRAINT [FK_tblSalesInvoice_tblCustomerDepartment]
+GO
+ALTER TABLE [dbo].[tblSalesInvoice]  WITH CHECK ADD  CONSTRAINT [FK_tblSalesInvoice_tblNote] FOREIGN KEY([NoteID])
+REFERENCES [dbo].[tblNote] ([NoteID])
+GO
+ALTER TABLE [dbo].[tblSalesInvoice] CHECK CONSTRAINT [FK_tblSalesInvoice_tblNote]
+GO
+ALTER TABLE [dbo].[tblSalesInvoice]  WITH CHECK ADD  CONSTRAINT [FK_tblSalesInvoice_tblSalesLedgerEntry] FOREIGN KEY([SalesLedgerEntryID])
+REFERENCES [dbo].[tblSalesLedgerEntry] ([SalesLedgerEntryID])
+GO
+ALTER TABLE [dbo].[tblSalesInvoice] CHECK CONSTRAINT [FK_tblSalesInvoice_tblSalesLedgerEntry]
+GO
+ALTER TABLE [dbo].[tblSalesInvoice]  WITH CHECK ADD  CONSTRAINT [FK_tblSalesInvoice_tlkpCurrency] FOREIGN KEY([CurrencyID])
+REFERENCES [dbo].[tlkpCurrency] ([CurrencyID])
+GO
+ALTER TABLE [dbo].[tblSalesInvoice] CHECK CONSTRAINT [FK_tblSalesInvoice_tlkpCurrency]
+GO
+ALTER TABLE [dbo].[tblSalesInvoiceItem]  WITH CHECK ADD  CONSTRAINT [FK_tblSalesInvoiceItem_tblSalesInvoice] FOREIGN KEY([SalesInvoiceID])
+REFERENCES [dbo].[tblSalesInvoice] ([SalesInvoiceID])
+GO
+ALTER TABLE [dbo].[tblSalesInvoiceItem] CHECK CONSTRAINT [FK_tblSalesInvoiceItem_tblSalesInvoice]
+GO
+ALTER TABLE [dbo].[tblSalesInvoiceItem]  WITH CHECK ADD  CONSTRAINT [FK_tblSalesInvoiceItem_tblTicketItem] FOREIGN KEY([TicketItemID])
+REFERENCES [dbo].[tblTicketItem] ([TicketItemID])
+GO
+ALTER TABLE [dbo].[tblSalesInvoiceItem] CHECK CONSTRAINT [FK_tblSalesInvoiceItem_tblTicketItem]
+GO
+ALTER TABLE [dbo].[tblSalesInvoiceItem]  WITH CHECK ADD  CONSTRAINT [FK_tblSalesInvoiceItem_tlkpCurrency] FOREIGN KEY([CurrencyID])
+REFERENCES [dbo].[tlkpCurrency] ([CurrencyID])
+GO
+ALTER TABLE [dbo].[tblSalesInvoiceItem] CHECK CONSTRAINT [FK_tblSalesInvoiceItem_tlkpCurrency]
+GO
+ALTER TABLE [dbo].[tblSalesLedgerEntry]  WITH CHECK ADD  CONSTRAINT [FK_tblSalesLedgerEntry_tblBatchNumber] FOREIGN KEY([BatchNumberID])
+REFERENCES [dbo].[tblBatchNumber] ([BatchNumberID])
+GO
+ALTER TABLE [dbo].[tblSalesLedgerEntry] CHECK CONSTRAINT [FK_tblSalesLedgerEntry_tblBatchNumber]
+GO
+ALTER TABLE [dbo].[tblSalesLedgerEntry]  WITH CHECK ADD  CONSTRAINT [FK_tblSalesLedgerEntry_tblCustomerDepartment] FOREIGN KEY([CustomerDepartmentID])
+REFERENCES [dbo].[tblCustomerDepartment] ([CustomerDepartmentID])
+GO
+ALTER TABLE [dbo].[tblSalesLedgerEntry] CHECK CONSTRAINT [FK_tblSalesLedgerEntry_tblCustomerDepartment]
+GO
+ALTER TABLE [dbo].[tblSalesLedgerEntry]  WITH CHECK ADD  CONSTRAINT [FK_tblSalesLedgerEntry_tblDepartment] FOREIGN KEY([DepartmentID])
+REFERENCES [dbo].[tblDepartment] ([DepartmentID])
+GO
+ALTER TABLE [dbo].[tblSalesLedgerEntry] CHECK CONSTRAINT [FK_tblSalesLedgerEntry_tblDepartment]
+GO
+ALTER TABLE [dbo].[tblSalesLedgerEntry]  WITH CHECK ADD  CONSTRAINT [FK_tblSalesLedgerEntry_tblSalesLedgerEntryType] FOREIGN KEY([LedgerEntryTypeID])
+REFERENCES [dbo].[tlkpLedgerEntryType] ([LedgerEntryTypeID])
+GO
+ALTER TABLE [dbo].[tblSalesLedgerEntry] CHECK CONSTRAINT [FK_tblSalesLedgerEntry_tblSalesLedgerEntryType]
+GO
+ALTER TABLE [dbo].[tblSupplier]  WITH CHECK ADD  CONSTRAINT [FK_tblSupplier_tblCompany] FOREIGN KEY([CompanyID])
+REFERENCES [dbo].[tblCompany] ([CompanyID])
+GO
+ALTER TABLE [dbo].[tblSupplier] CHECK CONSTRAINT [FK_tblSupplier_tblCompany]
+GO
+ALTER TABLE [dbo].[tblSupplier]  WITH CHECK ADD  CONSTRAINT [FK_tblSupplier_tblNote] FOREIGN KEY([NoteID])
+REFERENCES [dbo].[tblNote] ([NoteID])
+GO
+ALTER TABLE [dbo].[tblSupplier] CHECK CONSTRAINT [FK_tblSupplier_tblNote]
+GO
+ALTER TABLE [dbo].[tblSupplier]  WITH CHECK ADD  CONSTRAINT [FK_tblSupplier_tblSupplier] FOREIGN KEY([ParentSupplierID])
+REFERENCES [dbo].[tblSupplier] ([SupplierID])
+GO
+ALTER TABLE [dbo].[tblSupplier] CHECK CONSTRAINT [FK_tblSupplier_tblSupplier]
+GO
+ALTER TABLE [dbo].[tblSupplierBankAccount]  WITH CHECK ADD  CONSTRAINT [FK_tblSupplierBankAccount_tblBankAccount] FOREIGN KEY([BankAccountID])
+REFERENCES [dbo].[tblBankAccount] ([BankAccountID])
+GO
+ALTER TABLE [dbo].[tblSupplierBankAccount] CHECK CONSTRAINT [FK_tblSupplierBankAccount_tblBankAccount]
+GO
+ALTER TABLE [dbo].[tblSupplierBankAccount]  WITH CHECK ADD  CONSTRAINT [FK_tblSupplierBankAccount_tblSupplier] FOREIGN KEY([SupplierID])
+REFERENCES [dbo].[tblSupplier] ([SupplierID])
+GO
+ALTER TABLE [dbo].[tblSupplierBankAccount] CHECK CONSTRAINT [FK_tblSupplierBankAccount_tblSupplier]
+GO
+ALTER TABLE [dbo].[tblSupplierBankAccount]  WITH CHECK ADD  CONSTRAINT [FK_tblSupplierBankAccount_tblSupplierDepartment] FOREIGN KEY([SupplierDepartmentID])
+REFERENCES [dbo].[tblSupplierDepartment] ([SupplierDepartmentID])
+GO
+ALTER TABLE [dbo].[tblSupplierBankAccount] CHECK CONSTRAINT [FK_tblSupplierBankAccount_tblSupplierDepartment]
+GO
+ALTER TABLE [dbo].[tblSupplierBankAccount]  WITH CHECK ADD  CONSTRAINT [FK_tblSupplierBankAccount_tblSupplierLocation] FOREIGN KEY([SupplierLocationID])
+REFERENCES [dbo].[tblSupplierLocation] ([SupplierLocationID])
+GO
+ALTER TABLE [dbo].[tblSupplierBankAccount] CHECK CONSTRAINT [FK_tblSupplierBankAccount_tblSupplierLocation]
+GO
+ALTER TABLE [dbo].[tblSupplierContact]  WITH CHECK ADD  CONSTRAINT [FK_tblSupplierContact_tblContact] FOREIGN KEY([ContactID])
+REFERENCES [dbo].[tblContact] ([ContactID])
+GO
+ALTER TABLE [dbo].[tblSupplierContact] CHECK CONSTRAINT [FK_tblSupplierContact_tblContact]
+GO
+ALTER TABLE [dbo].[tblSupplierContact]  WITH CHECK ADD  CONSTRAINT [FK_tblSupplierContact_tblSupplierDepartment] FOREIGN KEY([SupplierDepartmentID])
+REFERENCES [dbo].[tblSupplierDepartment] ([SupplierDepartmentID])
+GO
+ALTER TABLE [dbo].[tblSupplierContact] CHECK CONSTRAINT [FK_tblSupplierContact_tblSupplierDepartment]
+GO
+ALTER TABLE [dbo].[tblSupplierContact]  WITH CHECK ADD  CONSTRAINT [FK_tblSupplierContact_tblSupplierLocation] FOREIGN KEY([SupplierLocationID])
+REFERENCES [dbo].[tblSupplierLocation] ([SupplierLocationID])
+GO
+ALTER TABLE [dbo].[tblSupplierContact] CHECK CONSTRAINT [FK_tblSupplierContact_tblSupplierLocation]
+GO
+ALTER TABLE [dbo].[tblSupplierDepartment]  WITH CHECK ADD  CONSTRAINT [FK_tblSupplierDepartment_tblNote] FOREIGN KEY([NoteID])
+REFERENCES [dbo].[tblNote] ([NoteID])
+GO
+ALTER TABLE [dbo].[tblSupplierDepartment] CHECK CONSTRAINT [FK_tblSupplierDepartment_tblNote]
+GO
+ALTER TABLE [dbo].[tblSupplierDepartment]  WITH CHECK ADD  CONSTRAINT [FK_tblSupplierDepartment_tblSupplier] FOREIGN KEY([SupplierID])
+REFERENCES [dbo].[tblSupplier] ([SupplierID])
+GO
+ALTER TABLE [dbo].[tblSupplierDepartment] CHECK CONSTRAINT [FK_tblSupplierDepartment_tblSupplier]
+GO
+ALTER TABLE [dbo].[tblSupplierDepartment]  WITH CHECK ADD  CONSTRAINT [FK_tblSupplierDepartment_tblSupplierDepartment] FOREIGN KEY([FactorSupplierDepartmentID])
+REFERENCES [dbo].[tblSupplierDepartment] ([SupplierDepartmentID])
+GO
+ALTER TABLE [dbo].[tblSupplierDepartment] CHECK CONSTRAINT [FK_tblSupplierDepartment_tblSupplierDepartment]
+GO
+ALTER TABLE [dbo].[tblSupplierDepartmentLocation]  WITH CHECK ADD  CONSTRAINT [FK_tblSupplierDepartmentLocation_tblSupplierDepartment] FOREIGN KEY([SupplierDepartmentID])
+REFERENCES [dbo].[tblSupplierDepartment] ([SupplierDepartmentID])
+GO
+ALTER TABLE [dbo].[tblSupplierDepartmentLocation] CHECK CONSTRAINT [FK_tblSupplierDepartmentLocation_tblSupplierDepartment]
+GO
+ALTER TABLE [dbo].[tblSupplierDepartmentLocation]  WITH CHECK ADD  CONSTRAINT [FK_tblSupplierDepartmentLocation_tblSupplierLocation] FOREIGN KEY([SupplierDepartmentID])
+REFERENCES [dbo].[tblSupplierLocation] ([SupplierLocationID])
+GO
+ALTER TABLE [dbo].[tblSupplierDepartmentLocation] CHECK CONSTRAINT [FK_tblSupplierDepartmentLocation_tblSupplierLocation]
+GO
+ALTER TABLE [dbo].[tblSupplierDepartmentLocation]  WITH CHECK ADD  CONSTRAINT [FK_tblSupplierDepartmentLocation_tblSupplierLocation1] FOREIGN KEY([SupplierLocationID])
+REFERENCES [dbo].[tblSupplierLocation] ([SupplierLocationID])
+GO
+ALTER TABLE [dbo].[tblSupplierDepartmentLocation] CHECK CONSTRAINT [FK_tblSupplierDepartmentLocation_tblSupplierLocation1]
+GO
+ALTER TABLE [dbo].[tblSupplierLocation]  WITH CHECK ADD  CONSTRAINT [FK_tblSupplierLocation_tblAddress] FOREIGN KEY([AddressID])
+REFERENCES [dbo].[tblAddress] ([AddressID])
+GO
+ALTER TABLE [dbo].[tblSupplierLocation] CHECK CONSTRAINT [FK_tblSupplierLocation_tblAddress]
+GO
+ALTER TABLE [dbo].[tblSupplierLocation]  WITH CHECK ADD  CONSTRAINT [FK_tblSupplierLocation_tblNote] FOREIGN KEY([NoteID])
+REFERENCES [dbo].[tblNote] ([NoteID])
+GO
+ALTER TABLE [dbo].[tblSupplierLocation] CHECK CONSTRAINT [FK_tblSupplierLocation_tblNote]
+GO
+ALTER TABLE [dbo].[tblSupplierLocation]  WITH CHECK ADD  CONSTRAINT [FK_tblSupplierLocation_tblSupplier] FOREIGN KEY([SupplierID])
+REFERENCES [dbo].[tblSupplier] ([SupplierID])
+GO
+ALTER TABLE [dbo].[tblSupplierLocation] CHECK CONSTRAINT [FK_tblSupplierLocation_tblSupplier]
+GO
+ALTER TABLE [dbo].[tblTicket]  WITH CHECK ADD  CONSTRAINT [FK_tblTicket_tblCustomer] FOREIGN KEY([CustomerID])
+REFERENCES [dbo].[tblCustomer] ([CustomerID])
+GO
+ALTER TABLE [dbo].[tblTicket] CHECK CONSTRAINT [FK_tblTicket_tblCustomer]
+GO
+ALTER TABLE [dbo].[tblTicket]  WITH CHECK ADD  CONSTRAINT [FK_tblTicket_tblNote] FOREIGN KEY([NoteID])
+REFERENCES [dbo].[tblNote] ([NoteID])
+GO
+ALTER TABLE [dbo].[tblTicket] CHECK CONSTRAINT [FK_tblTicket_tblNote]
+GO
+ALTER TABLE [dbo].[tblTicket]  WITH CHECK ADD  CONSTRAINT [FK_tblTicket_tlkpCurrency] FOREIGN KEY([CurrencyID])
+REFERENCES [dbo].[tlkpCurrency] ([CurrencyID])
+GO
+ALTER TABLE [dbo].[tblTicket] CHECK CONSTRAINT [FK_tblTicket_tlkpCurrency]
+GO
+ALTER TABLE [dbo].[tblTicket]  WITH CHECK ADD  CONSTRAINT [FK_tblTicket_tlkpSalesPerson] FOREIGN KEY([SalesPersonID])
+REFERENCES [dbo].[tlkpSalesPerson] ([SalesPersonID])
+GO
+ALTER TABLE [dbo].[tblTicket] CHECK CONSTRAINT [FK_tblTicket_tlkpSalesPerson]
+GO
+ALTER TABLE [dbo].[tblTicketItem]  WITH CHECK ADD  CONSTRAINT [FK_tblTicketItem_tblConsignmentItem] FOREIGN KEY([ConsignmentItemID])
+REFERENCES [dbo].[tblConsignmentItem] ([ConsignmentItemID])
+GO
+ALTER TABLE [dbo].[tblTicketItem] CHECK CONSTRAINT [FK_tblTicketItem_tblConsignmentItem]
+GO
+ALTER TABLE [dbo].[tblTicketItem]  WITH CHECK ADD  CONSTRAINT [FK_tblTicketItem_tblSupplier] FOREIGN KEY([HaulierSupplierID])
+REFERENCES [dbo].[tblSupplier] ([SupplierID])
+GO
+ALTER TABLE [dbo].[tblTicketItem] CHECK CONSTRAINT [FK_tblTicketItem_tblSupplier]
+GO
+ALTER TABLE [dbo].[tblTicketItem]  WITH CHECK ADD  CONSTRAINT [FK_tblTicketItem_tblTicket] FOREIGN KEY([TicketID])
+REFERENCES [dbo].[tblTicket] ([TicketID])
+GO
+ALTER TABLE [dbo].[tblTicketItem] CHECK CONSTRAINT [FK_tblTicketItem_tblTicket]
+GO
+ALTER TABLE [dbo].[tblTicketItem]  WITH CHECK ADD  CONSTRAINT [FK_tblTicketItem_tlkpPorterage] FOREIGN KEY([PorterageID])
+REFERENCES [dbo].[tlkpPorterage] ([PorterageID])
+GO
+ALTER TABLE [dbo].[tblTicketItem] CHECK CONSTRAINT [FK_tblTicketItem_tlkpPorterage]
+GO
+ALTER TABLE [dbo].[tblTicketItem]  WITH CHECK ADD  CONSTRAINT [FK_tblTicketItem_tlkpVATCode] FOREIGN KEY([VATCodeID])
+REFERENCES [dbo].[tlkpVATCode] ([VATCodeID])
+GO
+ALTER TABLE [dbo].[tblTicketItem] CHECK CONSTRAINT [FK_tblTicketItem_tlkpVATCode]
+GO
+ALTER TABLE [dbo].[tlkpVATRate]  WITH CHECK ADD  CONSTRAINT [FK_tlkpVATRate_tlkpVATCode] FOREIGN KEY([VATCodeID])
+REFERENCES [dbo].[tlkpVATCode] ([VATCodeID])
+GO
+ALTER TABLE [dbo].[tlkpVATRate] CHECK CONSTRAINT [FK_tlkpVATRate_tlkpVATCode]
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'CP=commissionpurchase, OP= outrightpurchase, PO=purchaseonly' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'tblConsignment', @level2type=N'COLUMN',@level2name=N'PurchaseTypeID'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'weight unit' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'tblConsignmentItem', @level2type=N'COLUMN',@level2name=N'PackWtUnitID'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Estimated Profit per item' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'tblConsignmentItem', @level2type=N'COLUMN',@level2name=N'EstimatedProfit'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Estimated Charge Cost per Item' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'tblConsignmentItem', @level2type=N'COLUMN',@level2name=N'EstimatedChargeCost'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'return reduction' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'tblConsignmentItem', @level2type=N'COLUMN',@level2name=N'RetReduce'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Estimated purchase cost per item' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'tblConsignmentItem', @level2type=N'COLUMN',@level2name=N'EstimatedPurchaseCost'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'1=recieved, 2=en route not available, 3 = en route and available' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'tblConsignmentItem', @level2type=N'COLUMN',@level2name=N'Status'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'0=Daily, 1=Weekly, 2=Monthly, 3=Quarterly' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'tblCustomerDepartment', @level2type=N'COLUMN',@level2name=N'InvoiceFrequency'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'0=int, 1=Numeric, 2=Bit, 3=Nvarchar' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'tblSetup', @level2type=N'COLUMN',@level2name=N'SetupValueType'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Multiple To convert to kilograms' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'tlkpPackWtUnit', @level2type=N'COLUMN',@level2name=N'KgMultiple'
+GO

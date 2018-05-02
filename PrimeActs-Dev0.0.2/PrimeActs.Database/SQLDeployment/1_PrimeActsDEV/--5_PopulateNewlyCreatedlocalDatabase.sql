@@ -1,0 +1,96 @@
+------insert into tblAddress select * from PrimeActsDEV..tblAddress GO
+
+------Insert into tblCompany select * from PrimeActsDEV..tblCompany GO
+------Insert into tblDivision select * from PrimeActsDEV..tblDivision GO
+
+------insert into AspNetUsers select * from PrimeActsDEV..AspNetUsers GO
+------insert into AspNetRoles select * from PrimeActsDEV..AspNetRoles GO
+------insert into AspNetUserRoles select * from PrimeActsDEV..AspNetUserRoles GO
+------insert into AspNetPermissions select * from PrimeActsDEV..AspNetPermissions GO
+------insert into AspNetRolePermission select * from PrimeActsDEV..AspNetRolePermission GO
+------insert into tblSetuplocal select *  from PrimeActsDEV..tblSetupLocal GO
+
+------set identity_insert tblSetupGlobal on
+------insert into tblSetupGlobal([SetupID]
+------      ,[SetupName]
+------      ,[SetupValueType]
+------      ,[SetupValueInt]
+------      ,[SetupValueNumeric]
+------      ,[SetupValueBit]
+------      ,[SetupValueNvarchar]
+------      ,[SetupValueUniqueIdentifier]
+------      ,[CompanyID]
+------      ,[DivisionID]
+------      ,[DepartmentID]
+------      ,[UpdatedBy]
+------      ,[UpdatedDate]
+------      ,[CreatedBy]
+------      ,[CreatedDate]
+------      ,[IsActive]) select  * from PrimeActsDEV..tblSetupGlobal GO
+------set identity_insert tblSetupGlobal off 
+
+
+------set identity_insert tblbatchnumberlog on  
+------insert into tblBatchNumberLog(
+------[BatchNumberLogID]
+------      ,[CompanyID]
+------      ,[DivisionID]
+------      ,[ServerPrefix]
+------      ,[BatchNumber]
+------      ,[TransactionDateTime]
+------      ,[UpdatedBy]
+------      ,[UpdatedDate]
+------      ,[CreatedBy]
+------      ,[CreatedDate]
+------      ,[IsActive]
+------	  )
+------	  select * from PrimeActsDEV..tblBatchNumberLog GO
+------set identity_insert tblbatchnumberlog off
+
+------Insert into tblDepartment select * from PrimeActsDEV..tblDepartment GO
+------Insert into tlkpCountry select * from PrimeActsDEV..tlkpCountry GO
+------INSERT into tlkpPackWtUnit SELECT * FROM PrimeActsDEV..tlkpPackWtUnit GO
+------INSERT into tlkpPorterage SELECT * FROM PrimeActsDEV..tlkpPorterage GO
+------INSERT into tlkpPaymentType SELECT * FROM PrimeActsDEV..tlkpPaymentType GO
+------INSERT into tlkpPort SELECT * FROM PrimeActsDEV..tlkpPort GO
+------INSERT into tlkpDespatchLocation SELECT * FROM PrimeActsDEV..tlkpDespatchLocation GO
+------INSERT into tlkpPurchaseType SELECT * FROM PrimeActsDEV..tlkpPurchaseType GO
+------INSERT into tlkpVATCode SELECT * FROM PrimeActsDEV..tlkpVATCode GO
+------INSERT into tlkpVATRate SELECT * FROM PrimeActsDEV..tlkpVATRate GO
+------INSERT into tlkpCreditRating SELECT * FROM PrimeActsDEV..tlkpCreditRating GO
+------INSERT INTO tlkpTransferType SELECT * FROM PrimeActsDEV..tlkpTransferType GO
+------insert into tlkpCurrency select * from PrimeActsDEV..tlkpCurrency GO
+------insert into tlkpLedgerEntryType select * from PrimeActsDEV..tlkpLedgerEntryType GO
+------insert into tlkpStockLocation select * from PrimeActsDEV..tlkpStockLocation GO
+------INSERT into tblNote SELECT * FROM PrimeActsDEV..tblNote GO
+------INSERT into tlkpCustomerType SELECT * FROM PrimeActsDEV..tlkpCustomerType GO
+------INSERT into tblContact SELECT * FROM PrimeActsDEV..tblContact GO
+------INSERT into tblCustomer SELECT * FROM [PrimeActsDeployment0_0_1b]..tblCustomer GO
+------INSERT into tblCustomerLocation SELECT * FROM PrimeActsDEV..tblCustomerLocation GO
+------INSERT into tblCustomerDepartment SELECT * FROM PrimeActsDEV..tblCustomerDepartment GO
+------INSERT into tblCustomerDepartmentLocation SELECT * FROM PrimeActsDEV..tblCustomerDepartmentLocation GO
+------INSERT into tblCustomerContact SELECT * FROM PrimeActsDEV..tblCustomerContact GO
+------insert into tblBankAccount select * from PrimeActsDEV..tblBankAccount GO
+------INSERT into tblCustomerBankAccount SELECT * FROM PrimeActsDEV..tblCustomerBankAccount GO
+------INSERT into tblSupplier SELECT * FROM PrimeActsDEV..tblSupplier GO
+------INSERT into tblSupplierLocation SELECT * FROM PrimeActsDEV..tblSupplierLocation GO
+------INSERT into tblSupplierDepartment SELECT * FROM PrimeActsDEV..tblSupplierDepartment GO
+------INSERT into tblSupplierContact SELECT * FROM PrimeActsDEV..tblSupplierContact GO
+------INSERT into tblSupplierBankAccount SELECT * FROM PrimeActsDEV..tblSupplierBankAccount GO
+------INSERT into tblSupplierDepartmentLocation SELECT * FROM PrimeActsDEV..tblSupplierDepartmentLocation GO
+------INSERT into tblProduceGroup SELECT * FROM PrimeActsDEV..tblProduceGroup GO
+------INSERT into tblMasterGroup SELECT * FROM PrimeActsDEV..tblMasterGroup GO
+------INSERT into tblProduce SELECT * FROM PrimeActsDEV..tblProduce GO
+------INSERT into tblConsignment SELECT * FROM PrimeActsDEV..tblConsignment GO
+------insert into tblFile select * from PrimeActsDEV..tblFile  GO--already inserted.
+------insert into tblConsignmentFile SELECT * FROM PrimeActsDEV..tblConsignmentFile GO
+------INSERT into tblConsignmentItem SELECT * FROM PrimeActsDEV..tblConsignmentItem GO
+------INSERT into tblTicket SELECT * FROM PrimeActsDEV..tblTicket GO
+------INSERT into tblTicketItem SELECT * FROM PrimeActsDEV..tblTicketItem GO
+------insert into tblNominalAccount select * from PrimeActsDEV..tblNominalAccount GO
+------insert into tblNominalLedgerEntry select * from PrimeActsDEV..tblNominalLedgerEntry GO
+------insert into tgenSalesInvoiceNumber select * from PrimeActsDEV..tgenSalesInvoiceNumber GO
+------insert into tblSalesLedgerEntry select * from PrimeActsDEV..tblSalesLedgerEntry GO
+------insert into tblSalesInvoice select * from PrimeActsDEV..tblSalesInvoice GO
+------insert into tblSalesInvoiceitem select * from PrimeActsDEV..tblSalesInvoiceItem GO
+------insert into tblSalesAllocation select * from PrimeActsDEV..tblSalesAllocation GO

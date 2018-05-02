@@ -1,0 +1,7 @@
+﻿CREATE VIEW vwSalesInvoiceBalance
+
+AS
+
+SELECT tblSalesLedgerInvoiceAllocation.SalesInvoiceID, SUM(tblSalesLedgerInvoiceAllocation.SaleAmount) AS InvoiceBalance
+FROM tblSalesLedgerInvoiceAllocation
+GROUP BY tblSalesLedgerInvoiceAllocation.SalesInvoiceID

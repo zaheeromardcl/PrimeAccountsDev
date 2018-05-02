@@ -1,0 +1,131 @@
+﻿@using Newtonsoft.Json;
+@model PrimeActs.Domain.ViewModels.Users.UserPagingModel
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/KJScripts/PagingTS.js"></script>
+<script src="~/TypeScripts/User/User.js"></script>
+<link href="~/Content/css/TableLess.css" rel="stylesheet" />
+@{ string data = JsonConvert.SerializeObject(Model, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }); }
+<script>
+    $(function () {
+        $("#iconFrom").datepicker({ minDate: -365, maxDate: "+1M +10D" });
+        $("#iconTo").datepicker({ minDate: -365, maxDate: "+1M +10D" });
+    });
+</script>
+<div class="col-md-8" id="Users">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h3 class="panel-title text-center">
+                Users<img src="~/Content/images/IconSearch.png" />
+            </h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="col-md-12">
+                <div class="col-md-3 control-group">
+                    <input type="text" class="form-control" placeholder="Any" data-bind="value: userSearch().CommonSearchCriteria" />
+                </div>
+                <div class="col-md-3  control-group">
+                    <input type="text" id="iconFrom" class="form-control-date" placeholder="From" data-bind="value: userSearch().FromDate" />
+                </div>
+                <div class="col-md-3 control-group">
+                    <input type="text" id="iconTo" class=" form-control-date" placeholder="To" data-bind="value: userSearch().ToDate" />
+                </div>
+                <div class="pull-right col-md-3 control-group">
+                    <input type="button" class="btn btn-default" data-bind="click: function () {Search(userSearch)}" value="Search" />
+                    <input type="button" class="btn btn-default" data-bind="click: function () {ClearSearch(userSearch)}" value="Clear" />
+                </div>
+
+            </div>
+
+
+            <div class="col-md-12 well well-sm">
+                <div class="col-md-3 pull-left">
+                    @Html.BuildKnockoutNextPreviousLinks("Index", "/UsersAdmin")
+                </div>
+                
+                <div class="col-md-3 pull-right">
+                    <a href="~/UsersAdmin/Create" class="pull-right btn btn-new" title="New">
+                        <img src="~/Content/images/IconNew-orange.png" />&nbsp;New User <!---->
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-12" id="Users">
+                <div id="no-more-tables">
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th>@Html.BuildKnockoutSortableLinkNewStyle("Username", "Index", "/UsersAdmin", "UserName")</th>
+                                <th>@Html.BuildKnockoutSortableLinkNewStyle("Firstname", "Index", "/UsersAdmin", "Firstname")</th>
+                                <th>@Html.BuildKnockoutSortableLinkNewStyle("Lastname", "Index", "/UsersAdmin", "Lastname")</th>
+                                <th>@Html.BuildKnockoutSortableLinkNewStyle("Nickname", "Index", "/UsersAdmin", "Nickname")</th>
+                                <th>@Html.BuildKnockoutSortableLinkNewStyle("Email Address", "Index", "/UsersAdmin", "Email")</th>
+                                <th>@Html.BuildKnockoutSortableLinkNewStyle("IsActive", "Index", "/UsersAdmin", "IsActive")</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: Paging().entities">
+                            <tr>
+                                <td>
+                                    <img src="~/Content/images/iconuser1.png" />
+                                </td>
+                                <td data-title="UserName">
+                                    <span data-bind="text: UserName"></span>
+                                </td>
+                                <td data-title="Firstname">
+                                    <span data-bind="text: Firstname"></span>
+                                </td>
+                                <td data-title="Lastname">
+                                    <span data-bind="text: Lastname"></span>
+                                </td>
+                                <td data-title="Nickname">
+                                    <span data-bind="text: Nickname"></span>
+                                </td>
+                                <td data-title="Email">
+                                    <span data-bind="text: Email"></span>
+                                </td>
+                                <td data-title="UserStatus">
+                                    <span data-bind="text: IsActive"></span>
+                                </td>
+                                <td>
+                                    <!--spacer-->&nbsp;<a data-bind="attr: { 'href': '@Url.Action("Details", "UsersAdmin")' + '/' + Id }">
+                                        <img alt="Ticket Details" src="~/Content/images/view-details-512.png" />
+                                    </a>&nbsp;
+                                    <a data-bind="attr: { 'href': '@Url.Action("Edit", "UsersAdmin")' + '/' + Id }">
+                                        <img alt="Edit Ticket" src="~/Content/images/IconEditOrange.png" />
+                                    </a>
+                                    <a data-bind="click: function() { DeleteUser($index()) }">
+                                        <img alt="Delete Ticket" src="~/Content/images/IconDelete-orange.png" />
+                                    </a>
+                                    @*<img alt="Print Ticket" src="~/Content/images/IconPrint-orange.png"/>
+                                        <input type="checkbox"/>*@
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <div class="col-md-12">
+                <div class="col-md-3 pull-left">
+                    @Html.BuildKnockoutNextPreviousLinks("Index", "/UsersAdmin")
+                </div>
+                <div class="col-md-6 pull-center-md">
+                    @*@Html.BuildKnockoutSortableLink("Username", "Index", "/UsersAdmin", "Username")
+                        @Html.BuildKnockoutSortableLink("Create Date", "Index", "/UsersAdmin", "CreatedDate")
+                        @Html.BuildKnockoutSortableLink("Email Address", "Index", "/UsersAdmin", "Email")*@
+                </div>
+                <div class="col-md-3 pull-right">
+                    @*<a href="~/UsersAdmin/Create" class="pull-right btn btn-new" title="New">
+                            <img src="~/Content/images/IconNew-orange.png" />&nbsp;New User <!---->
+                        </a>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var users = new UserModel(@Html.Raw(data));
+    ko.applyBindings(users, document.getElementById("Users"));
+</script>

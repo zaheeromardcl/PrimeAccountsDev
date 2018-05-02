@@ -1,0 +1,253 @@
+﻿
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/TypeScripts/Nominal/BankReconciliationHeaderViewModel.js"></script>
+<script src="~/TypeScripts/Nominal/BankReconciliationHeaderItem.js"></script>
+<script src="~/Scripts/jquery-2.2.3.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.js" type="text/javascript"></script>
+<script src="~/Scripts/dropzone.js"></script>
+<script src="~/Scripts/moment.js" type="text/javascript"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
+@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.Nominal.BankReconciliationHeaderViewModel
+@{ var Itemdata = new JavaScriptSerializer().Serialize(Model); }
+
+<style>
+    .navbar-default {
+        background-color: #f8f8f8;
+        border-color: #e7e7e7;
+        margin-bottom: 5px;
+    }
+
+    .pre-scrollable {
+        max-height: 770px;
+    }
+</style>
+<div class="container-fluid" id="nominalhead">
+    <div class="col-md-12"><h3 align="center">Bank Reconciliation: Upload a Statement to reconcile</h3></div>
+    <div class="col-md-12"><h3><i>Step 1 of 3. Please select a bank statement(.csv) to upload</i></h3></div>
+    <div class="col-md-12">
+        <div class="col-md-8" id="dzbody" data-bind=" selector: '#dzbody'">
+            <form action="~/File/SaveUploadedFile"
+                  class="dropzone"
+                  id="dropzonerec"></form>
+            <input type="file" name="file" />
+            @*<div class="col-md-4 pull-right">
+                    <input id="saveFileBtn" type="button" class="btn btn-default" data-bind="" value="Save Files"/>
+                </div>*@
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div><h3><i>Step 2. of 3: Your newly uploaded statement should then appear in the list below. </i></h3>
+        <h3><i>Step 3. of 3: Once added to the list, select it by clicking on the row and click on the "Reconcile" button.</i></h3></div>
+        <form>
+            <div class="panel-gridrow col">
+                <a class="hidden" data-bind="text: BankStatementID"></a>
+                <div class="form-group col-md-2">
+                    <label for="BankStatementImportDate">Statement Import Date:</label>
+                    <input type="text" class="form-control" id="BankStatementImportDate" data-bind="value: BankStatementImportDate"></input>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="BankReconciliationStartDate">Reconciliation Start Date:</label>
+                    <input type="text" class="form-control" id="BankReconciliationStartDate" data-bind="value: BankStatementStartDate"></input>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="BankReconciliationEndDate">Reconciliation End Date:</label>
+                    <input type="text" class="form-control" id="BankReconciliationEndDate" data-bind="value: BankStatementEndDate"></input>
+                </div>
+                <div class="form-group col-md-1">
+                    <label for="OpeningBalance">Opening:</label>
+                    <input type="text" class="form-control" id="OpeningBalance" data-bind="value: OpeningBalance"></input>
+                </div>
+                <div class="form-group col-md-1">
+                    <label for="CurrentBalance">Reconciled:</label>
+                    <input type="text" readonly class="form-control" id="CurrentBalance" data-bind="value: CurrentBalance"></input>
+                </div>
+                <div class="form-group col-md-1">
+                    <label for="ComputedCurrentBalance">Adjusted:</label>
+                    <input type="text" readonly class="form-control" id="ComputedCurrentBalance" data-bind="value: ComputedCurrentBalance"></input>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="BankStatementFileName">Filename:</label>
+                    @*<input type="text" class="form-control" id="BankStatementFileName" data-bind="value: BankStatementFileName, visible:false"></input>*@
+                    <input type="text" readonly class="form-control" data-bind="value: ComputedShortFileName" id="BankStatementFileName"></input>
+                </div>
+                <div class="form-group col-md-1">
+                    <label for="BankStatementReconciled">Complete:</label>
+                    <input type="checkbox" class="form-control input-sm" id="BankStatementReconciled" data-bind="enable:CanBeReconciled, checked: BankStatementReconciled"></input>
+                </div>
+            </div>
+            <div class="panel-gridrow col-md-12">
+                <div class="form-group col-md-1">
+                    <label for="BtnAddStatementHeader">&nbsp;</label>
+                    <span>
+                        <button type="button" class="form-control btn btn-default btn-sm" id="BtnAddStatementHeader" data-bind="click: PostReconciliationChange, enable:ComputedCanAdd ">
+                            <span class="glyphicon glyphicon-plus"></span> Add
+                        </button>
+                    </span>
+                </div>
+                <div class="form-group col-md-1">
+                    <label for="BtnUpdateStatementHeader">&nbsp;</label>
+                    <span>
+                        <button class="form-control btn-primary" data-bind="click: UpdateHeader " id="BtnUpdateStatementHeader"> Update</button>
+                    </span>
+                </div>
+
+                <div class="form-group col-md-1">
+                    <label for="BtnReconcileStatementHeader">&nbsp;</label>
+                    <span>
+                        <button class="form-control btn-success" data-bind="click: ReconcileStatement, enable:CanCallDetailsPage " id="BtnReconcileStatementHeader"> Reconcile</button>
+                        @*<button class="form-control btn-success" data-bind="click: ReconcileStatement " id="BtnReconcileStatementHeader"> Reconcile</button>*@
+                    </span>
+                </div>
+                <div class="form-group col-md-1">
+                    <label for="BtnRemoveStatementHeader">&nbsp;</label>
+                    <span>
+                        <button type="button" class="form-control btn btn-default btn-sm" id="BtnRemoveStatementHeader" data-bind="click: RemoveReconciliation, enable:ComputedCanBeDeleted">
+                            <span class="glyphicon glyphicon-trash"></span> Delete
+                        </button>
+                    </span>
+                </div>
+            </div>
+
+            @*<div class="panel">
+                    <div class="panel-gridrow col-md-12">
+                        <div class="col-md-1">
+                            <button class=" btn-new" data-bind="click: PostReconciliationChange "> Add Statement</button>
+                        </div>
+                        <div class="panel-gridrow col-md-12">&nbsp</div>
+                    </div>
+                </div>*@
+
+            <div class="panel-gridrow col-md-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="panel-title">
+                            <th></th>
+                            <th>
+                                Statement Import Date
+                            </th>
+                            <th>
+                                Reconciliation Start Date
+                            </th>
+                            <th>
+                                Reconciliation End Date
+                            </th>
+                            <th>
+                                Opening Balance
+                            </th>
+                            <th>
+                                Current Balance
+                            </th>
+                            <th>
+                                Statement File Name
+                            </th>
+                            <th>
+                                Complete
+                            </th>
+                            <th>
+                                In Progress
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach:{data:BankReconciliationHeaderItems, as: 'row'}">
+                        <tr data-bind="css:{'danger':row.IsSelected}">
+                            <td>
+                                <button type="button" class="btn btn-default btn-sm" data-bind="click: $parent.statementSelect.bind($data, $index(), $root)">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </button>
+                            </td>
+                            <td>
+                                <p data-bind="text:row.BankStatementImportDate, click: $parent.statementSelect.bind($data, $index(), $root)"></p>
+                            </td>
+                            <td>
+                                <p data-bind="text:row.BankStatementStartDate, click: $parent.statementSelect.bind($data, $index(), $root)"></p>
+                            </td>
+                            <td>
+                                <p data-bind="text:row.BankStatementEndDate, click: $parent.statementSelect.bind($data, $index(), $root)"></p>
+                            </td>
+                            <td>
+                                <p data-bind="text:row.OpeningBalance, click: $parent.statementSelect.bind($data, $index(), $root)"></p>
+                            </td>
+                            <td>
+                                <p data-bind="text:row.CurrentBalance, click: $parent.statementSelect.bind($data, $index(), $root)"></p>
+                            </td>
+                            <td>
+                                @*<p data-bind="text:row.BankStatementFileName, click: $parent.statementSelect.bind($data, $index(), $root)"></p>*@
+                                <p data-bind="text:row.ShortFileName, click: $parent.statementSelect.bind($data, $index(), $root)"></p>
+                            </td>
+                            <td>
+                                @*<p data-bind="text:row.BankStatementReconciled, click: $parent.statementSelect.bind($data, $index(), $root)"></p>*@
+                                @*<p data-bind="css:{'glyphicon glyphicon-remove':row.BankStatementReconciled() == 0 ,'glyphicon glyphicon-ok':row.BankStatementReconciled() != 0}, click: $parent.statementSelect.bind($data, $index(), $root)"></p>*@
+                                @*<p data-bind="css:{'glyphicon glyphicon-remove':row.BankStatementReconciled() == 0 }, click: $parent.statementSelect.bind($data, $index(), $root)"></p>*@
+                                <p data-bind="if:row.BankStatementReconciled() == false,  click: $parent.statementSelect.bind($data, $index(), $root)"><span data-bind="css:'glyphicon glyphicon-remove'"></span></p>
+                                <p data-bind="if:row.BankStatementReconciled() == true,  click: $parent.statementSelect.bind($data, $index(), $root)"><span data-bind="css:'glyphicon glyphicon-ok'"></span></p>
+                            </td>
+                            <td>
+                                <p data-bind="css:{'glyphicon glyphicon-pencil':row.IsActiveReconciliation}, click: $parent.statementSelect.bind($data, $index(), $root)"></p>
+                                @*<p data-bind="text:row.IsActiveReconciliation"></p>*@
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+
+
+
+</div>
+<script type="text/javascript">
+
+    var NominalHeadModel = new BankReconciliationHeaderViewModel(@Html.Raw(Itemdata));
+    //var consignmentSummaryId = '@ViewBag.PanelId';
+    var nominalheadDivId = 'nominalhead';
+    ko.applyBindingsWithValidation(NominalHeadModel, document.getElementById(nominalheadDivId));
+
+    var dropzoneId = "#" + "dropzonerec";
+    var saveFilesBtn = "#" + "saveFileBtn";
+    var uploadGuidFolder = NominalHeadModel.UploadFolder();
+    var maxFileSize = NominalHeadModel.MaxFileSize();
+    var maxNrOfFiles = NominalHeadModel.MaxNrOfFiles;
+    var acceptedFileTypes = NominalHeadModel.AcceptedFileTypes;
+
+    Dropzone.options.dropzonerec = {
+        paramName: "filetest", // The name that will be used to transfer the file
+        maxFilesize: maxFileSize, // MB
+        headers: { "uploadFolder": uploadGuidFolder },
+        renameFilename: function (filename) {
+            var teststring = filename.replace(/[^\w\s\.]/gi, '');
+            return teststring;
+        },
+        accept: function (file, done) {
+
+            if (file.name == "justinbieber.jpg") {
+                done("Naha, you don't.");
+            }
+            else { done(); }
+        },
+        success: function (response) {
+            //alert(JSON.parse(response.xhr.response).FileID);
+            var fileID = JSON.parse(response.xhr.response).FileID;
+            var fileNameResponse = JSON.parse(response.xhr.response).Message;
+            var saveFilePath = uploadGuidFolder + '/' + fileID + '/' + fileNameResponse;
+            if (NominalHeadModel.BankStatementReconciled() == false) {
+                NominalHeadModel.BankStatementFileName(saveFilePath);
+            }
+
+            var currentdate = moment(Date.now());
+
+            var formatteddate = currentdate.format("DD/MM/YYYY");
+            NominalHeadModel.BankStatementImportDate(formatteddate);
+            //consignmentModel.ConsignmentModel().addFileName(fileID, JSON.parse(response.xhr.response).Message);
+
+            //var url = "/File/Show/" + "?fileID=" + fileID + "&itemID=" + consignmentModel.ConsignmentModel().UploadFolder();
+            //consignmentModel.addFileNameWithURL(JSON.parse(response.xhr.response).Message, url);
+
+            //$(document).find(response.previewElement).click(function () {
+            //    window.open(url);
+            //});
+        }
+    };
+
+</script>

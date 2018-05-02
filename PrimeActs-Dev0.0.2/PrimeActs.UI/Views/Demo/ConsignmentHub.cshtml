@@ -1,0 +1,252 @@
+﻿<div class="col-md-12">
+ 
+ 
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <span class="panel-title">Consignments <img src="~/Content/images/IconSearch.png" /></span>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <div class="col-md-2 control-group">
+                            <input type="text" class="form-control" placeholder="Cons. #" data-bind="value: consignmentSearch().ConsignmentReference" />
+                        </div>
+                        <div class="col-md-4  control-group">
+                            <input type="text" class="form-control" placeholder="Supplier" data-bind="ko_autocomplete: { source: getSuppliers, select: selectSupplier },value: consignmentSearch().SupplierName" />
+                        </div>
+                        <div class="col-md-3  control-group">
+                            <!--CP,,EMT-->
+                            @*<input type="text" id="iconFrom" class="form-control-date" placeholder="From" data-bind="value: ticketSearch().FromDate"/>*@
+                            <select class="form-control">
+                                <optgroup label="Period">
+                                    <option>This month</option>
+                                    <option>Last month</option>
+                                    <option>Three months</option>
+                                </optgroup>
+                                <optgroup label="Year">
+                                    <option>2016</option>
+                                    <option>2015</option>
+                                    <option>2014</option>
+
+
+                                </optgroup>
+
+                            </select>
+                        </div>
+                        <div class="pull-right col-md-1 control-group">
+                            <input type="button" class="btn btn-default" data-bind="click: function () {Search(consignmentSearch)}" value="Search" />
+                        </div>
+
+
+                    </div>
+                    </div>
+                </div>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <div class="table-responsive table-striped table-hover">
+                            <table class="table">
+
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Supplier</th>
+                                        <th>Recieved Date</th>
+                                        <th>Department</th>
+                                        <th>Produce</th>
+                                        <th>Mark/Pack/Size</th>
+                                        <th>Quantity</th>
+                                        <th>Average</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="color:green;font-weight:bold">
+                                        <td>123456</td>
+                                        <td>AB Produce</td>
+                                        <td>15/02/2016</td>
+                                        <td>Scott Veg</td>
+                                        <td>Granny Smith</td>
+                                        <td>Brand 1, x12, Med</td>
+                                        <td>50</td>
+                                        <td>1.20</td>
+                                        <td><input type="checkbox" /></td>
+                                    </tr>
+                                    <tr style="color:lightgrey">
+                                        <td>123456</td>
+                                        <td>AB Produce</td>
+                                        <td>15/02/2016</td>
+                                        <td>Scott Veg</td>
+                                        <td>Granny Smith</td>
+                                        <td>Brand 1, x12, Med</td>
+                                        <td>50</td>
+                                        <td>1.20</td>
+                                        <td><input type="checkbox" /></td>
+                                    </tr>
+                                    <tr style="color:red">
+                                        <td>123456</td>
+                                        <td>AB Produce</td>
+                                        <td>15/02/2016</td>
+                                        <td>Scott Veg</td>
+                                        <td>Granny Smith</td>
+                                        <td>Brand 1, x12, Med</td>
+                                        <td>-50</td>
+                                        <td>-1.20</td>
+                                        <td><input type="checkbox" /></td>
+                                    </tr>
+                                    <tr style="color:green; font-weight:bold">
+                                        <td>123456</td>
+                                        <td>AB Produce</td>
+                                        <td>15/02/2016</td>
+                                        <td>Scott Veg</td>
+                                        <td>Granny Smith</td>
+                                        <td>Brand 1, x12, Med</td>
+                                        <td>50</td>
+                                        <td>1.20</td>
+                                        <td><input type="checkbox" /></td>
+                                    </tr>
+                                    <tr style="color:green; font-weight:bold">
+                                        <td>123456</td>
+                                        <td>AB Produce</td>
+                                        <td>15/02/2016</td>
+                                        <td>Scott Veg</td>
+                                        <td>Granny Smith</td>
+                                        <td>Brand 1, x12, Med</td>
+                                        <td>50</td>
+                                        <td>1.20</td>
+                                        <td><input type="checkbox" /></td>
+                                    </tr>
+                                </tbody>
+
+
+                            </table>
+                        </div>
+
+
+                    </div>
+                </div>
+                </div>
+            </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <span class="panel-title">Actions</span>
+                </div>
+                <div class="panel-body">
+
+       
+
+                
+                
+                    <div class="table table-striped table-responsive col-md-12">
+                        <table class="col-md-offset-4 col-md-4">
+                            <thead>
+                                <tr>
+                                    <td></td>
+                                    <td>Actions</td>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Spacer</td><td><button class="btn btn-new">Create New</button></td><td>Spacer</td></tr>
+                                <tr><td>Spacer</td><td>Buttons</td><td>Spacer</td></tr>
+                                <tr><td>Spacer</td><td><button class="btn btn-default">View by Supplier</button></td><td>Spacer</td></tr>
+                                <tr><td>Spacer</td><td>Buttons</td><td>Spacer</td></tr>
+                                <tr><td>Spacer</td><td><button class="btn btn-default">Sales</button></td><td>Spacer</td></tr>
+                                <tr><td>Spacer</td><td>Buttons</td><td>Spacer</td></tr>
+                                <tr><td>Spacer</td><td>Buttons</td><td>Spacer</td></tr>
+                                <tr><td>Spacer</td><td>Buttons</td><td>Spacer</td></tr>
+                                <tr><td>Spacer</td><td>Buttons</td><td>Spacer</td></tr>
+                                <tr><td>Spacer</td><td>Buttons</td><td>Spacer</td></tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                    <div class="table table-striped table-responsive col-md-12">
+                        <table class="col-md-offset-4 col-md-4">
+                            <tr><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td></tr>
+                 
+                        </table>
+
+                    </div>
+                </div>
+              
+                <div class="panel-heading clearfix" id="RecentItems">
+                    <span class="panel-title">Recent</span>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-12">
+
+
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="table table-responsive col-md-12">
+                            <table class="col-md-offset-4 col-md-4">
+                                <thead>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                
+                               
+                                    <tr><td>&nbsp;</td><td><img src="~/Content/images/IconConsignment.png" />Consignment# MO65456</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td></td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td><button class="btn btn-default">Ticket# WE54546</button></td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td></td><td>&nbsp;</td></tr>
+                                    
+                                    <tr><td>&nbsp;</td><td><button class="btn btn-new">Consignment# MO65456</button></td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td></td><td>&nbsp;</td></tr>
+                                    
+                                
+
+                                    <tr><td>&nbsp;</td><td><button class="btn btn-default">Ticket# WE54546</button></td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td></td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td><button class="btn btn-new">Consignment# MO65456</button></td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td><button class="btn btn-default">Ticket# WE54546</button></td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td><button class="btn btn-new">Consignment# MO65456</button></td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td><button class="btn btn-default">Ticket# WE54546</button></td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td><button class="btn btn-new">Consignment# MO65456</button></td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td><button class="btn btn-default">Ticket# WE54546</button></td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td><button class="btn btn-info">Order# MO65456</button></td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td><button class="btn btn-default">Ticket# WE54546</button></td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                    
+        </div>
+    </div>
+</div>
+

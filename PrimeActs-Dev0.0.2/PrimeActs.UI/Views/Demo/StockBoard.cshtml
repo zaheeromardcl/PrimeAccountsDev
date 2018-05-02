@@ -1,0 +1,648 @@
+﻿<script src="~/Views/Demo/Stockboard"></script>
+<script src="~/TypeScripts/Stockboard/StockBoard.js"></script>
+@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.StockBoardModel
+@{ var data = new JavaScriptSerializer().Serialize(Model); }
+<style>
+    .header-fixed {
+    width: 100% 
+}
+
+.header-fixed > thead,
+.header-fixed > tbody,
+.header-fixed > thead > tr,
+.header-fixed > tbody > tr,
+.header-fixed > thead > tr > th,
+.header-fixed > tbody > tr > td {
+    display: block;
+}
+
+.header-fixed > tbody > tr:after,
+.header-fixed > thead > tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+.header-fixed > tbody {
+    overflow-y: auto;
+    height: 150px;
+}
+
+.header-fixed > tbody > tr > td,
+.header-fixed > thead > tr > th {
+    width: 20%;
+    float: left;
+}
+
+.strikethrough {
+  position: relative;
+}
+.strikethrough:before {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 50%;
+  right: 0;
+  border: 1px solid grey;
+  border-top: 1px solid;
+  border-color: inherit;
+
+  -webkit-transform:rotate(-5deg);
+  -moz-transform:rotate(-5deg);
+  -ms-transform:rotate(-5deg);
+  -o-transform:rotate(-5deg);
+  transform:rotate(-5deg);
+}
+
+
+</style>
+<table>
+    <tr>
+        <td width="300px">
+            <table class="table table-striped header-fixed">
+
+                <thead>
+                    <tr><td style="background-color:orange;">HEADS</td></tr>
+                    <tr><td>Subhead 1 &nbsp;&nbsp;&nbsp;S(450) <span class="oversold">(RQ)-60</span>&nbsp;<span class="undersold">(EQ)40</span></td></tr>
+                    </thead>
+                <tr><td><span class="strikethrough">(35)&nbsp;<a href="~/Ticket/details/WE370450">WE370450:GERBER:</a></span></td></tr>
+                <tr><td><span class="strikethrough">(35)&nbsp;<a href="~/Ticket/details/WE370450">WE370450:GERBER:</a></span></td></tr>
+                <tr><td><span class="strikethrough">(35)&nbsp;<a href="~/Ticket/details/WE370450">WE370450:GERBER:</a></span></td></tr>
+                <tr><td><span class="strikethrough">(35)&nbsp;<a href="~/Ticket/details/WE370450">WE370450:GERBER:</a></span></td></tr>
+                <tr><td><span class="strikethrough">(35)&nbsp;<a href="~/Ticket/details/WE370450">WE370450:GERBER:</a></span></td></tr>
+                <tr><td><span class="strikethrough">(35)&nbsp;<a href="~/Ticket/details/WE370450">WE370450:GERBER:</a></span></td></tr>
+                <tr><td><span class="strikethrough">(35)&nbsp;<a href="~/Ticket/details/WE370450">WE370450:GERBER:</a></span></td></tr>
+                <tr><td><span class="strikethrough">(35)&nbsp;<a href="~/Ticket/details/WE370450">WE370450:GERBER:</a></span></td></tr>
+                <tr><td><span class="strikethrough">(35)&nbsp;<a href="~/Ticket/details/WE370450">WE370450:GERBER:</a></span></td></tr>
+                <tr><td><span class="strikethrough">(35)&nbsp;<a href="~/Ticket/details/WE370450">WE370450:GERBER:</a></span></td></tr>
+
+            </table>
+        </td>
+       
+        <td width="300px">
+            <table class="table table-striped header-fixed">
+
+                <thead>
+                    <tr><td>CAPS</td></tr>
+                    <tr><td>Subhead 1 &nbsp;&nbsp;&nbsp;S(450) <span class="oversold">(RQ)-60</span>&nbsp;<span class="undersold">(EQ)40</span></td></tr>
+                </thead>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)30&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)35&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)85&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)88&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)84&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)46&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)25&nbsp;</span></td></tr>
+
+
+            </table>
+        </td>
+        <td width="300px">
+            <table class="table table-striped header-fixed">
+
+                <thead>
+                    <tr><td>AUBO</td></tr>
+                    <tr><td>Subhead 1 &nbsp;&nbsp;&nbsp;S(450) <span class="oversold">(RQ)-60</span>&nbsp;<span class="undersold">(EQ)40</span></td></tr>
+                </thead>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)30&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)35&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)85&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)88&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)84&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)46&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)25&nbsp;</span></td></tr>
+
+
+            </table>
+        </td>
+
+        <td width="300px">
+            <table class="table table-striped header-fixed">
+
+                <thead>
+                    <tr><td>SP-ON</td></tr>
+                    <tr><td>Subhead 1 &nbsp;&nbsp;&nbsp;S(450) <span class="oversold">(RQ)-60</span>&nbsp;<span class="undersold">(EQ)40</span></td></tr>
+                </thead>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)30&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)35&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)85&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)88&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)84&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)46&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)25&nbsp;</span></td></tr>
+
+
+            </table>
+        </td>
+        <td width="300px">
+            <table class="table table-striped header-fixed">
+
+                <thead>
+                    <tr><td>RHUBARB</td></tr>
+                    <tr><td>Subhead 1 &nbsp;&nbsp;&nbsp;S(450) <span class="oversold">(RQ)-60</span>&nbsp;<span class="undersold">(EQ)40</span></td></tr>
+                </thead>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)30&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)35&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)85&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)88&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)84&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)46&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)25&nbsp;</span></td></tr>
+
+
+            </table>
+        </td>
+        <td width="300px">
+            <table class="table table-striped header-fixed">
+
+                <thead>
+                    <tr><td>CELERIAC</td></tr>
+                    <tr><td>Subhead 1 &nbsp;&nbsp;&nbsp;S(450) <span class="oversold">(RQ)-60</span>&nbsp;<span class="undersold">(EQ)40</span></td></tr>
+                </thead>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)30&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)35&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)85&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)88&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)84&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)46&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)25&nbsp;</span></td></tr>
+
+
+            </table>
+        </td>
+    </tr><tr>
+    <td width="300px">
+        <table class="table table-striped header-fixed">
+
+            <thead>
+                <tr><td>TOMS</td></tr>
+                <tr><td>Subhead 1 &nbsp;&nbsp;&nbsp;S(450) <span class="oversold">(RQ)-60</span>&nbsp;<span class="undersold">(EQ)40</span></td></tr>
+            </thead>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)30&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)35&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)85&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)88&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)84&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)46&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)25&nbsp;</span></td></tr>
+
+
+        </table>
+    </td>
+    <td width="300px">
+        <table class="table table-striped header-fixed">
+
+            <thead>
+                <tr><td>BEETROOT</td></tr>
+                <tr><td>Subhead 1 &nbsp;&nbsp;&nbsp;S(450) <span class="oversold">(RQ)-60</span>&nbsp;<span class="undersold">(EQ)40</span></td></tr>
+            </thead>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)30&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)35&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)85&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)88&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)84&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)46&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)25&nbsp;</span></td></tr>
+
+
+        </table>
+    </td>
+    <td width="300px">
+        <table class="table table-striped header-fixed">
+
+            <thead>
+                <tr><td>SPINACH</td></tr>
+                <tr><td>P/P&nbsp;&nbsp;&nbsp;S(450) <span class="oversold">(RQ)-60</span>&nbsp;<span class="undersold">(EQ)40</span></td></tr>
+            </thead>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)30&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)35&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)85&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)88&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)84&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)46&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)25&nbsp;</span></td></tr>
+
+
+        </table>
+    </td>
+    <td width="300px">
+        <table class="table table-striped header-fixed">
+
+            <thead>
+                <tr><td>SPINACH</td></tr>
+                <tr><td>BUNCH &nbsp;&nbsp;&nbsp;S(450) <span class="oversold">(RQ)-60</span>&nbsp;<span class="undersold">(EQ)40</span></td></tr>
+            </thead>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)30&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)35&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)85&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)88&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)84&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)46&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)25&nbsp;</span></td></tr>
+
+
+        </table>
+    </td>
+    <td width="300px">
+        <table class="table table-striped header-fixed">
+
+            <thead>
+                <tr><td>PRIMO</td></tr>
+                <tr><td>Subhead 1 &nbsp;&nbsp;&nbsp;S(450) <span class="oversold">(RQ)-60</span>&nbsp;<span class="undersold">(EQ)40</span></td></tr>
+            </thead>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)30&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)35&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)85&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)88&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)84&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)46&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)25&nbsp;</span></td></tr>
+
+
+        </table>
+    </td>
+
+    <td width="300px">
+        <table class="table table-striped header-fixed">
+
+            <thead>
+                <tr><td>HISPI/GREEN</td></tr>
+                <tr><td>Subhead 1 &nbsp;&nbsp;&nbsp;S(450) <span class="oversold">(RQ)-60</span>&nbsp;<span class="undersold">(EQ)40</span></td></tr>
+            </thead>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)30&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)35&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)85&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)88&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)84&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)46&nbsp;</span></td></tr>
+            <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)25&nbsp;</span></td></tr>
+
+
+        </table>
+    </td>
+</tr>
+    <tr>
+        <td width="300px">
+            <table class="table table-striped header-fixed">
+
+                <thead>
+                    <tr><td>SWEDE</td></tr>
+                    <tr><td>Subhead 1 &nbsp;&nbsp;&nbsp;S(450) <span class="oversold">(RQ)-60</span>&nbsp;<span class="undersold">(EQ)40</span></td></tr>
+                </thead>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)30&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)35&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)85&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)88&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)84&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)46&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)25&nbsp;</span></td></tr>
+
+
+            </table>
+        </td>
+        <td width="300px">
+            <table class="table table-striped header-fixed">
+
+                <thead>
+                    <tr><td>TOMS</td></tr>
+                    <tr><td>Subhead 1 &nbsp;&nbsp;&nbsp;S(450) <span class="oversold">(RQ)-60</span>&nbsp;<span class="undersold">(EQ)40</span></td></tr>
+                </thead>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)30&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)35&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)85&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)88&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)84&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)46&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)25&nbsp;</span></td></tr>
+
+
+            </table>
+        </td>
+        <td width="300px">
+            <table class="table table-striped header-fixed">
+
+                <thead>
+                    <tr><td>BEETROOT</td></tr>
+                    <tr><td>Subhead 1 &nbsp;&nbsp;&nbsp;S(450) <span class="oversold">(RQ)-60</span>&nbsp;<span class="undersold">(EQ)40</span></td></tr>
+                </thead>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)30&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)35&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)85&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)88&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)84&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)46&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)25&nbsp;</span></td></tr>
+
+
+            </table>
+        </td>
+        <td width="300px">
+            <table class="table table-striped header-fixed">
+
+                <thead>
+                    <tr><td>HEADS</td></tr>
+                    <tr><td>Subhead 1 &nbsp;&nbsp;&nbsp;S(450) <span class="oversold">(RQ)-60</span>&nbsp;<span class="undersold">(EQ)40</span></td></tr>
+                </thead>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)30&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)35&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)85&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)88&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)84&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)46&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)25&nbsp;</span></td></tr>
+
+
+            </table>
+        </td>
+        <td width="300px">
+            <table class="table table-striped header-fixed">
+
+                <thead>
+                    <tr><td>HEADS</td></tr>
+                    <tr><td>Subhead 1 &nbsp;&nbsp;&nbsp;S(450) <span class="oversold">(RQ)-60</span>&nbsp;<span class="undersold">(EQ)40</span></td></tr>
+                </thead>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)30&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)35&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)85&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)88&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)84&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)46&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)25&nbsp;</span></td></tr>
+
+
+            </table>
+        </td>
+
+        <td width="300px">
+            <table class="table table-striped header-fixed">
+
+                <thead>
+                    <tr><td>HEADS</td></tr>
+                    <tr><td>Subhead 1 &nbsp;&nbsp;&nbsp;S(450) <span class="oversold">(RQ)-60</span>&nbsp;<span class="undersold">(EQ)40</span></td></tr>
+                </thead>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)30&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)35&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)85&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)88&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)84&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)46&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)25&nbsp;</span></td></tr>
+
+
+            </table>
+        </td>
+      
+    </tr>
+    <tr>
+        <td width="300px">
+            <table class="table table-striped header-fixed">
+
+                <thead>
+                    <tr><td>HEADS</td></tr>
+                    <tr><td>Subhead 1 &nbsp;&nbsp;&nbsp;S(450) <span class="oversold">(RQ)-60</span>&nbsp;<span class="undersold">(EQ)40</span></td></tr>
+                </thead>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)30&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)35&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)85&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)88&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)84&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)46&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)25&nbsp;</span></td></tr>
+
+
+            </table>
+        </td>
+        <td width="300px">
+            <table class="table table-striped header-fixed">
+
+                <thead>
+                    <tr><td>HEADS</td></tr>
+                    <tr><td>Subhead 1 &nbsp;&nbsp;&nbsp;S(450) <span class="oversold">(RQ)-60</span>&nbsp;<span class="undersold">(EQ)40</span></td></tr>
+                </thead>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)30&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)35&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)85&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)88&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)84&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)46&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)25&nbsp;</span></td></tr>
+
+
+            </table>
+        </td>
+        <td width="300px">
+            <table class="table table-striped header-fixed">
+
+                <thead>
+                    <tr><td>HEADS</td></tr>
+                    <tr><td>Subhead 1 &nbsp;&nbsp;&nbsp;S(450) <span class="oversold">(RQ)-60</span>&nbsp;<span class="undersold">(EQ)40</span></td></tr>
+                </thead>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)30&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)35&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)85&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)88&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)84&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)46&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)25&nbsp;</span></td></tr>
+
+
+            </table>
+        </td>
+        <td width="300px">
+            <table class="table table-striped header-fixed">
+
+                <thead>
+                    <tr><td>HEADS</td></tr>
+                    <tr><td>Subhead 1 &nbsp;&nbsp;&nbsp;S(450) <span class="oversold">(RQ)-60</span>&nbsp;<span class="undersold">(EQ)40</span></td></tr>
+                </thead>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)30&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)35&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)85&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)88&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)84&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)46&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)25&nbsp;</span></td></tr>
+
+
+            </table>
+        </td>
+        <td width="300px">
+            <table class="table table-striped header-fixed">
+
+                <thead>
+                    <tr><td>HEADS</td></tr>
+                    <tr><td>Subhead 1 &nbsp;&nbsp;&nbsp;S(450) <span class="oversold">(RQ)-60</span>&nbsp;<span class="undersold">(EQ)40</span></td></tr>
+                </thead>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)30&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)35&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)85&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)88&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)84&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)46&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)25&nbsp;</span></td></tr>
+
+
+            </table>
+        </td>
+        <td width="300px">
+            <table class="table table-striped header-fixed">
+
+                <thead>
+                    <tr><td>HEADS</td></tr>
+                    <tr><td>Subhead 1 &nbsp;&nbsp;&nbsp;S(450) <span class="oversold">(RQ)-60</span>&nbsp;<span class="undersold">(EQ)40</span></td></tr>
+                </thead>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)30&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER<span class="strikethrough">(S)50&nbsp;</span></a></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)35&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)85&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)88&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)84&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)46&nbsp;</span></td></tr>
+                <tr><td><a href="~/Ticket/details/WE370450">WE370450:GERBER:</a><span class="strikethrough">(S)25&nbsp;</span></td></tr>
+
+
+            </table>
+        </td>
+      
+    </tr>
+
+  </table>
+
+    @*<div id="divStockBoard" class="container" data-bind="foreach: { data: ProduceGroupRows, as: 'row' }">
+        <div class="row col-md-12" data-bind="foreach: { data: row.ProduceGroups, as: 'group' }">
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">Balance</div>
+                    <div class="col-md-2">Sold</div>
+                    <div class="col-md-2">Oversold</div>
+                    <div class="col-md-1"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <span data-bind="text:group.ProduceGroupName"></span>
+                        <a data-toggle="collapse" aria-expanded="false" data-bind="attr: { href: '#' + group.ProduceGroupId(), 'aria-controls': group.ProduceGroupId() }">
+                            +
+                        </a>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2" data-bind="attr: { style: group.BalanceStyle() }">
+                        <span data-bind="text: group.TotalBalance"></span>
+                    </div>
+                    <div class="col-md-2" data-bind="text: group.TotalSold"></div>
+                    <div class="col-md-2" data-bind="attr: { style: group.OversoldStyle() }">
+                        <span data-bind="text: group.TotalOversold"></span>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+
+                <div class="table-bordered collapse" data-bind="attr: { id: group.ProduceGroupId }">
+                    <div class="col-md-12" style="display: block;" data-bind="foreach: { data: group.ProduceItems, as: 'item' }">
+                        <div class="row">
+                            <div class="col-md-4" style="font-weight:bold"><span data-bind="text: item.ProduceName"></span></div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-2" data-bind="attr : { style: item.BalanceStyle() }"><span data-bind="text: item.RemainingQuantity"></span></div>
+                            <div class="col-md-2" style="font-weight:bold"><span data-bind="text: item.TicketItemQuantity"></span></div>
+                            <div class="col-md-2" data-bind="attr : { style: item.OversoldStyle() }"><span data-bind="text: item.Oversold"></span></div>
+                            <div class="col-md-1"></div>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped col-md-12" style="display: block;">
+                            <thead></thead>
+                            <tbody class="table-striped" data-bind="foreach: { data: group.ProduceItems, as: 'item' }">
+                                <tr>
+                                    <td class="col-md-4" style="font-weight:bold"><span data-bind="text: item.ProduceName"></span></td>
+                                    <td class="col-md-1"></td>
+                                    <td class="col-md-2" style="font-weight:bold"><span data-bind="text: item.RemainingQuantity"></span></td>
+                                    <td class="col-md-2" style="font-weight:bold"><span data-bind="text: item.TicketItemQuantity"></span></td>
+                                    <td class="col-md-2" data-bind="attr : { style: item.OversoldStyle(item.Oversold()) }"><span data-bind="text: item.Oversold"></span></td>
+                                    <td class="col-md-1"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+    <script type="text/javascript">
+        var stockBoardModel = new StockBoardModel(@Html.Raw(data));
+        ko.validation.init({
+            registerExtenders: true,
+            messagesOnModified: false,
+            insertMessages: true
+        });
+        ko.applyBindings(stockBoardModel, document.getElementById("divStockBoard"));
+    </script>

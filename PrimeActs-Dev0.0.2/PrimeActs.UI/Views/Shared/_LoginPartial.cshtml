@@ -1,0 +1,47 @@
+﻿@using Microsoft.AspNet.Identity
+@using PrimeActs.Domain.ViewModels
+
+@if (Request.IsAuthenticated)
+{
+    <li class="dropdown pull-right">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            My Preferences<span class="caret"></span>
+        </a>
+
+        <ul class="dropdown-menu">
+            <li>@Html.ActionLink(User.Identity.GetUserName(), "Details/" + User.Identity.GetUserId(), "UsersAdmin", null, new { Id = "Manage" })</li>
+            @{
+    if (User.Identity.IsAuthenticated)
+    {
+        var u = User.Identity.GetApplicationUser();
+        if (u.Permissions.Any(p => p.PermissionController == PermissionControllerEnum.UsersAdmin.ToString() && p.PermissionAction == PermissionActionEnum.Index.ToString()))
+        {
+            <li>
+                <a href="~/UsersAdmin/Index">Users</a>
+            </li>
+        }
+        if (u.Permissions.Any(p => p.PermissionController == PermissionControllerEnum.RolesAdmin.ToString() && p.PermissionAction == PermissionActionEnum.Index.ToString()))
+        {
+            <li>
+                <a href="~/RolesAdmin/Index">Roles</a>
+            </li>
+        }
+        if (u.Permissions.Any(p => p.PermissionController == PermissionControllerEnum.Permissions.ToString() && p.PermissionAction == PermissionActionEnum.Index.ToString()))
+        {
+            <li>
+                <a href="~/Permissions/Index">Permissions</a>
+            </li>
+        }
+    }
+            }
+            
+            <li>@Html.ActionLink("Sign out", "LogOff", "Account")</li>
+        </ul>
+
+    </li>
+}
+else
+{
+    <li>@Html.ActionLink("Sign in", "Login", "Account", null, new { id = "loginLink" })</li>
+}
+

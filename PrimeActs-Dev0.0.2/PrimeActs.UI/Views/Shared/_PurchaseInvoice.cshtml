@@ -1,0 +1,104 @@
+﻿
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/KJScripts/PagingTS.js"></script>
+<link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet" />
+@model PrimeActs.Domain.ViewModels.PurchaseInvoice.PurchaseInvoicePagingModel
+@using System.Web.Script.Serialization
+@{string data = new JavaScriptSerializer().Serialize(Model);}
+<script type="text/javascript">
+    //debugger;
+    SupplierModel.initializePurchaseInvoicePagingModel(@Html.Raw(data), subscriberTab);
+</script>
+
+<div class="container-fluid" data-bind="with: PurchaseInvoicePagingModel">
+
+    <div class="panel-body">
+        <div class="col-md-12">
+            <div class="col-md-4"></div>
+            <div class=" col-md-4" data-bind="validationOptions: { insertMessages: false}">
+                <input type="text" class="form-control searchBox" placeholder="Reference" data-bind="value: PurchaseInvoiceSearch().PurchaseInvoiceReference, validationOptions: { insertMessages: false }, valueUpdate: 'afterkeydown', css:{'required-field': IsSearchValid}" />
+            </div>
+
+            <div class="col-md-2 btn-group">
+                <div class="col-md-6">
+                    <input type="button" class="btn btn-default btn-block" data-bind="click: function () {Search()}" value="Search" />
+                </div>
+                <div class="col-md-6">
+                    <input type="button" class="btn btn-default btn-block" data-bind="click: function () {Reset() }" value="Reset" />
+                </div>
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="row well well-sm">
+            <div class="col-md-3 pull-left">
+                @Html.BuildKnockoutNextPreviousLinks("Index", "/PurchaseInvoice", "PurchaseInvoicePagingModel()")
+            </div>
+
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="row row-top5 row-bottom5">
+            <div class="col-md-1"></div>
+            <div class="col-md-3 pull-left p-x-2">
+                @Html.BuildKnockoutSortableLinkNewStyle("Purchase Invoice Number", "Index", "/PurchaseInvoice", "PurchaseInvoiceReference")
+            </div>
+            <div class="col-md-4 pull-left p-x-2">
+                @Html.BuildKnockoutSortableLinkNewStyle("Created Date", "Index", "/PurchaseInvoice", "CreatedDateText", "date")
+            </div>
+            <div class="col-md-3 pull-left p-x-2">
+                @Html.BuildKnockoutSortableLinkNewStyle("Total", "Index", "/PurchaseInvoice", "SupplierInvoiceAmount")
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+
+        <!--Commenting the mockup-->
+
+        <div class="search-results" data-bind="foreach: Paging().entities">
+            <div class="container line">
+                <div class="row row-padding5">
+                    <div class="col-md-1">
+                        <a data-bind="click: function () { $parent.OpenDetails(PurchaseInvoiceID) }, attr: { 'href': '#' }">
+                            <img src="~/Content/images/IconConsignment.png" />
+                        </a>
+                    </div>
+
+                    <div class="col-md-3 pull-left">
+
+                        <span data-bind="text: PurchaseInvoiceReference"></span>
+
+                    </div>
+
+                    <div class="col-md-4 pull-left">
+
+                        <span data-bind="text: CreatedDateText"></span>
+
+                    </div>
+                    <div class="col-md-3 pull-left">
+
+                        <span data-bind="text: SupplierInvoiceAmount"></span>
+
+                    </div>
+                    <div class="col-md-1">
+                        <a data-bind="click: function () { $parent.OpenDetails(PurchaseInvoiceID) }, attr: { 'href': '#' }">
+                            <img src="~/Content/images/view-details-512.png" />
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="well well-sm">
+            @Html.BuildKnockoutNextPreviousLinks("Index", "/PurchaseInvoice", "PurchaseInvoicePagingModel()")
+        </div>
+
+    </div>
+
+
+</div>

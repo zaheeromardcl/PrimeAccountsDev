@@ -1,0 +1,144 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<PrimeActs.Domain.ViewModels.Produce.ProduceEditModel>
+@{
+    ViewBag.Title = "Produce";
+
+    if (ViewBag.activeToggle == null)
+    {
+        ViewBag.activeToggle = "1";
+    }
+    else if (ViewBag.activeToggle == "1")
+    {
+        ViewBag.activeToggle = "2";
+    }
+    else
+    {
+        ViewBag.activeToggle = null;
+    }
+}
+
+
+<div class="panel panel-default">
+    <div class="panel-heading clearfix">
+        <img src="~/Content/images/IconSearch.png" /><span class="panel-title">Search Produce</span>
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <div class="col-md-7  col-md-offset-2">
+                @Html.TextBox("searchString", "", new {@class = "form-control", @placeholder = "Search...."})
+
+            </div>
+            <div class="col-md-1">
+                <input type="button" class="btn btn-default " value="Search" id="search-btn"/>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading clearfix">
+        <span class="panel-title"><img src="~/Content/images/iconproduce.png" />Produce </span>
+
+    </div>
+    <div class="panel-body">
+        <div class="search-results" data-bind="foreach: Paging.Entities">
+            <div class="row panel-default">
+                <div class="col-md-12 panel panel-footer">
+                    <div class="col-md-2">
+                        <a href="~/Produce/ViewProduce">
+                            <img src="~/Content/images/Iconproduce.png"/>
+                            <span data-bind="text: ProduceCode" class="label"></span>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        Description:<span data-bind="text: MasterGroup"></span>Master1
+                    </div>
+                    <div class="col-md-4">
+                        Master Group:<span data-bind="text: SalesPersonName"></span>Master1
+                    </div>
+                    <div class="col-md-2">
+                        VAT Code:<span data-bind="text: VATCode"></span>Master1
+                    </div>
+
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    Master Group: <span data-bind="text: SalesPersonName"></span>&nbsp;Apples
+
+                    VAT Code: <span data-bind="text:CustomerCompanyName"></span>&nbsp;0453d
+
+                    <table border="0" cellpadding="1" cellspacing="1" align="right">
+                        <tr>
+                            <td>
+                                <a data-bind="attr: { 'href': '@Url.Action("TicketItem", "Ticket")/' + TicketID }">
+                                    <img alt="Ticket Details" src="~/Content/images/view-details-512.png"/>
+                                </a>&nbsp;
+                            </td>
+                            <td>
+                                <a data-bind="attr: { 'href': '@Url.Action("Ticket", "Edit")/' + TicketID }">
+                                    <img alt="Edit Ticket" src="~/Content/images/IconEditOrange.png"/>
+                                </a>&nbsp;
+                            </td>
+                            <td>
+                                <a data-bind="attr: { 'href': '@Url.Action("Ticket", "Delete")/' + TicketID }">
+                                    <img alt="Delete Ticket" src="~/Content/images/IconDelete-orange.png"/>
+                                </a>&nbsp;
+                            </td>
+                            <td>
+                                <a data-bind="attr: { 'href': '@Url.Action("PrintTicket", "Ticket")'}">
+                                    <img alt="Print Ticket" src="~/Content/images/IconPrint-orange.png"/>
+                                </a>&nbsp;
+                            </td>
+                            <td>
+                                <a data-bind="attr: { 'href': '@Url.Action("CreateTicket", "Ticket")'}">
+                                    <img alt="New Ticket" src="~/Content/images/IconNew-orange.png"/>
+                                </a>&nbsp;
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row panel panel-footer">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4 ">
+                    @*<p> Showing page <span data-bind="text: Paging.queryOptions.currentPage"></span> of <span data-bind="text: Paging.queryOptions.totalPages"></span></p>*@
+                </div>
+
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-3 ">
+                    @*@Html.BuildKnockoutNextPreviousLinks("Index", "Ticket")*@
+                </div>
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-3 col-md-push-1 ">
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <div class="col-md-12 panel>
+           
+
+
+                <div id="myPager">
+                Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount Products
+                @Html.PagedListPager(Model, page => Url.Action("SearchResult", new {page, pageSize = Model.PageSize, searchString = ViewBag.SearchString}))
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>

@@ -1,0 +1,141 @@
+﻿@model PrimeActs.UI.Models.ProduceViewModel
+@{
+    Layout = null;
+}
+@*<style>
+    input[type=text], input[type=url], input[type=email], input[type=password], input[type=tel], select {
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        border: 2px solid navy;
+        color: grey;
+        display: block;
+        font-size: 1.2em;
+        height: 45px;
+        line-height: 40px;
+        margin: 0;
+        width: 100%;
+    }
+
+    input[type=checkbox] {
+        -moz-border-radius: 22px;
+        -webkit-border-radius: 22px;
+        border: 1px solid #bbb;
+        border-radius: 22px;
+        height: 44px;
+        width: 44px;
+    }
+
+    button[type=submit] {
+        -moz-appearance: none;
+        -moz-border-radius: 10px;
+        -webkit-appearance: none;
+        -webkit-border-radius: 10px;
+        background: navy;
+        background: -moz-linear-gradient(top, navy 0%, #bebebe 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, navy), color-stop(100%, navy));
+        background: -webkit-linear-gradient(top, navy 0%, navy 100%);
+        background: -o-linear-gradient(top, navy 0%, navy 100%);
+        background: -ms-linear-gradient(top, navy 0%, navy 100%);
+        background: linear-gradient(to bottom, navy 0%, navy 100%);
+        border: 1px solid #bbb;
+        border-radius: 10px;
+        color: yellow;
+        display: block;
+        font-size: 1em;
+        font-weight: bold;
+        height: 2.5em;
+        line-height: 2.5em;
+        margin: 1.5em 0;
+        width: 100%;
+    }
+
+  
+
+    .formcontainer_loggedin {
+        border: 5px solid;
+        border-color: grey;
+        color: black;
+        height: 75%;
+        width: 50%;
+    }
+
+    .formcontainer_loggedin_header {
+        background-color: lightgrey;
+        border-bottom: 5px solid;
+        border-bottom-color: grey;
+        height: 10%;
+        text-align: center;
+        width: 100%;
+    }
+
+    .formheader {
+        background-color: lightgrey;
+        border: 1px solid;
+        border-color: navy;
+        color: navy;
+    }
+
+    .formheadertitle {
+        background-color: lightgrey;
+        border: 1px solid;
+        border-color: navy;
+        color: navy;
+    }
+
+    a, label {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: 1.2em;
+        text-align: left;
+    }
+
+    .labelHeader {
+        color: dimgrey;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: 1.4em;
+        text-align: center;
+        text-transform: uppercase;
+    }
+</style>*@
+
+<div class="formcontainer_loggedin">
+    <div class="formcontainer_loggedin_header">
+        <label class="labelHeader">
+            &nbsp;
+            Create Product
+        </label>
+    </div>
+    <table border="0" cellpadding="3" cellspacing="0" align="center">
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                <label>Product&nbsp;Name:</label><input type="text" value="Friendly name" id="ProductName"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Product&nbsp;Code:</label><input type="text" value="unique short code" id="ProductCode"/>
+            </td>
+        </tr>
+        <tr>
+
+            <td>
+                <label>Product&nbsp;Group:</label><a href="NewProductGroup">New&nbsp;Product&nbsp;Group</a>
+                <select id="ProductGroup">
+                    <option>Product Group 1</option>
+                    <option>Product Group 2</option>
+                    <option>Product Group 3</option>
+                    <option>Product Group 4</option>
+                </select>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">Create&nbsp;Product</button>
+            </td>
+        </tr>
+    </table>
+
+</div>

@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Confirm Email";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+<div class="col-md-6 col-md-offset-2">
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+</div>
+<br/>
+<br/>
+<br/>
+<div class="col-md-3 col-xs-12" id="Login">
+    <div class="containerLogin center-block table-bordered ">
+        <div class="row">
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div>&nbsp;</div>
+            <div class="col-md-8 col-md-offset-2">
+                <fieldset>
+                    <img id="loginImg" class="form-group center-block " src="~/Content/images/P&ILogo150x150.png"/>
+
+                    <br/>
+                    <p>
+                        Thank you for confirming your email. Please @Html.ActionLink("Click here to Log in", "Login", "Account", null, new {id = "loginLink"})
+                    </p>
+                </fieldset>
+                <br/>
+                <br/>
+            </div>
+        </div>
+    </div>
+</div>

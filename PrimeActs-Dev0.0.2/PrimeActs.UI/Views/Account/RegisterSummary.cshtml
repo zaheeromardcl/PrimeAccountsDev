@@ -1,0 +1,88 @@
+﻿@model PrimeActs.UI.Models.RegisterViewModel
+@{
+    ViewBag.Title = "RegisterSummaryNew";
+    Layout = "~/Views/Shared/PrimeActsLayout.cshtml";
+}
+
+<h2>Register Summary</h2>
+
+<div class="row">
+    <div class="container">
+        <div class="col-md-5">
+
+        </div>
+    </div>
+</div>
+<div class="col-md-8" id="registration">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <span class="panel-title">Registration Successful</span>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="col-md-7  col-md-offset-2">
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Email)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Email)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Username)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Username)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Firstname)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Firstname)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Lastname)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Lastname)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Alias)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Alias)
+                        </dd>
+                        <dt>
+                            @*@Html.DisplayNameFor(model => model.SelectedDepartment)*@
+                        </dt>
+
+                        <dd>
+                            <a href="~/Account/Login" class="btn btn-default">Login</a>
+
+                        </dd>
+
+                        <dt>
+
+                        </dt>
+                    </dl>
+
+                </div>
+                <div class="col-md-1">
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,139 @@
+﻿@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.OrderPagingModel
+
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/KJScripts/Paging.js"></script>
+<script src="~/KJScripts/OrderIndex.js"></script>
+<link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet" />
+@{ var data = new JavaScriptSerializer().Serialize(Model); }
+@*<script>
+        $(function() {
+            $("#iconFrom").datepicker({ minDate: -365, maxDate: "+1M +10D" });
+            $("#iconTo").datepicker({ minDate: -365, maxDate: "+1M +10D" });
+        });
+    </script>*@
+
+<div class="col-md-8" id="Consignment">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <span class="panel-title">Orders <img src="~/Content/images/IconSearch.png" /></span>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-12">
+                <div class="col-md-2 control-group">
+                    <input type="text" class="form-control" placeholder="Reference" data-bind="value: consignmentSearch().ConsignmentReference" />
+                </div>
+                <div class="col-md-4  control-group">
+                    <input type="text" class="form-control" placeholder="Code" data-bind="ko_autocomplete: { source: getSuppliers, select: selectSupplier },value: consignmentSearch().SupplierName" />
+                </div>
+                <div class="col-md-3  control-group">
+                    @*<input type="text" id="iconFrom" class="form-control-date" placeholder="From" data-bind="value: ticketSearch().FromDate"/>*@
+                    <select class="form-control" data-bind="options: RecordsInDaysList, value: consignmentSearch().RecordsInDays, optionsText: 'optionText', optionsValue: 'optionValue'"></select>
+                </div>
+                <div class="pull-right col-md-1 control-group">
+                    <input type="button" class="btn btn-default" data-bind="click: function () {Search(consignmentSearch)}" value="Search" />
+                </div>
+
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row well well-sm">
+                <div class="col-md-3 pull-left">
+                    @Html.BuildKnockoutNextPreviousLinks("OrderIndex", "/Consignment")
+                </div>
+                <div class="col-md-6 pull-center-md">
+                    @Html.BuildKnockoutSortableLink("Reference", "OrderIndex", "/Consignment", "ConsignmentReference")
+                    @Html.BuildKnockoutSortableLink("Create Date", "OrderIndex", "/Consignment", "CreatedDate")
+                    @Html.BuildKnockoutSortableLink("Supplier", "OrderIndex", "/Consignment", "Supplier")
+                </div>
+                <div class="col-md-3 pull-right">
+                    <a href="~/Consignment/CreateConsignment" class="col-md-push-1 btn btn-new" title="New">
+                        <img src="~/Content/images/IconNew-orange.png" />&nbsp;New Consignment <!---->
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="clearfix"></div>
+            <!--Commenting the mockup-->
+            <div class="search-results" data-bind="foreach: Paging().Entities">
+                <div class="row">
+                    <div class="col-md-1">
+                        <a data-bind="attr: { 'href': '@Url.Action("Details", "Consignment")' + '/' + ConsignmentID }">
+                            <img src="~/Content/images/IconConsignment.png" />
+                        </a>
+                    </div>
+
+                    <div class="col-md-4 pull-left">
+                        <ul style="list-style-type: none">
+                            <li> Reference: <span data-bind="text: ConsignmentReference"></span></li>
+
+                            @*<li> Updated By: <span data-bind="text: UpdatedBy"></span></li>
+                                <li> Updated Date: <span data-bind="text: UpdatedDate"></span></li>*@
+                            <li> Supplier: <span data-bind="text: SupplierCompanyName"></span></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-4 pull-left">
+                        <ul style="list-style-type: none">
+                            <li> CreatedDate: <span data-bind="text: CreatedDate"></span></li>
+                            @*<li>
+                                    Created By: &nbsp;<span data-bind="text:  CreatedBy"></span>
+                                </li>
+                                <li>
+                                    Number of Items: &nbsp;<span data-bind="text:  ItemCount"> Items</span>
+                                </li>
+                                <li>
+                                    Number of Files: &nbsp;<span data-bind="text:  FileCount"> Items</span>
+                                                            </li>*@
+                            <li>
+                                ItemStatus: &nbsp;<span data-bind="text: IsSaved === true ? 'Saved' : 'Draft'"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        @*<a data-bind="attr: { 'href': '@Url.Action("Details", "Consignment")' + '/' + ConsignmentID }">
+                            <img alt="Ticket Details" src="~/Content/images/view-details-512.png" />
+                        </a>&nbsp;
+                        <a data-bind="attr: { 'href': '@Url.Action("Consignment", "Edit")' + ConsignmentID }">
+                            @*<img alt="Edit Ticket" src="~/Content/images/IconEditOrange.png"/>*@
+                        @*</a>&nbsp;
+                        <a data-bind="attr: { 'href': '@Url.Action("Consignment", "Delete")' + ConsignmentID }">
+                            @*<img alt="Delete Ticket" src="~/Content/images/IconDelete-orange.png"/>*@
+                        @*</a>&nbsp;
+                        <a data-bind="attr: { 'href': '@Url.Action("PrintConsignment", "Consignment")'}">
+                            @*<img alt="Print Ticket" src="~/Content/images/IconPrint-orange.png"/>*@
+                        @*</a>&nbsp;
+                        <input type="checkbox" />*@
+                    </div>
+
+
+                </div>
+
+            </div>
+            <div class="clearfix"></div>
+            <div class="well well-sm">
+                <div class="pull-right">
+                    <button class="btn btn-default"></button>
+                    <button class="btn btn-default"></button>
+                    <button class="btn btn-default"></button>
+                </div>
+                @Html.BuildKnockoutNextPreviousLinks("Index", "/Consignment")
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var consignmentModel = new ConsignmentModel(@Html.Raw(data));
+
+    ko.validation.init({
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: true,
+        parseInputAttributes: true,
+        messageTemplate: null
+    }, true);
+
+    ko.applyBindings(consignmentModel, document.getElementById("Consignment"));
+</script>

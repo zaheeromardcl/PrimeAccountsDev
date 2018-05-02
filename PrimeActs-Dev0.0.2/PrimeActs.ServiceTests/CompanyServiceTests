@@ -1,0 +1,36 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using PrimeActs.Service;
+using NUnit.Framework;
+using PrimeActs.Data.Contexts;
+using PrimeActs.Infrastructure.EntityFramework;
+using PrimeActs.Domain;
+using PrimeActs.Infrastructure.Cache;
+using PrimeActs.Data.Service;
+namespace PrimeActs.Service.Tests
+{
+    [TestFixture()]
+    public class CompanyServiceTests
+    {
+
+        [Test()]
+        public void CompanyByNameTest()
+        {
+
+            using (IDataContextAsync context = new PrimeActs.Data.Contexts.PAndIContext() as IDataContextAsync )
+            using (IUnitOfWorkAsync unitOfWork = new UnitOfWork(context))
+            {
+                IRepositoryAsync<Company> companyRepository = new Repository<Company>(context, unitOfWork);
+                ICache cache = Cache.Get(CacheType.Memory);
+                ICompanyService companyService = new CompanyService(companyRepository, cache); ;
+                var company = companyService.CompanyByName("P&I Fruits Ltd");
+                
+                Assert.AreEqual(company.CompanyName, "P&I Fruits Ltd");
+
+            }
+        }
+    }
+}

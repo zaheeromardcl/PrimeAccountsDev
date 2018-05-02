@@ -1,0 +1,4 @@
+/**Add ContractDate Field to tblConsignment - 14/09/2015*/
+
+ALTER TABLE [dbo].[tblConsignment]
+ADD [ContractDate] datetime null

@@ -1,0 +1,334 @@
+﻿@using System.Web.Script.Serialization
+@model PrimeActs.UI.Models.RegisterViewModel
+
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/TypeScripts/Account/AppUserContext.js"></script>
+<script src="~/KJScripts/UserEdit.js"></script>
+@{
+    var data = new JavaScriptSerializer().Serialize(Model);
+}
+<style>
+    /*AK: Accordian styles with nice transition*/
+    #accordion section, #accordion h1, #accordion p {
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        -ms-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+    }
+
+    #accordion {
+        margin-bottom: 30px;
+    }
+
+        #accordion h1 {
+            line-height: 1.2;
+            font-size: 20px;
+            background-color: rgba(255,0,0,0.3);
+            margin: 0;
+            padding: 10px 10px 10px 30px;
+        }
+
+            #accordion h1 a {
+                color: black;
+            }
+
+        #accordion section {
+            overflow: hidden;
+            height: 220px;
+            border: 1px #333 solid;
+        }
+
+        #accordion p {
+            padding: 0 10px;
+            color: black;
+        }
+
+        #accordion section.ac_hidden p:not(.pointer) {
+            color: #fff;
+        }
+
+        #accordion section.ac_hidden {
+            height: 44px;
+        }
+
+        #accordion .pointer {
+            padding: 0;
+            margin: 10px 0 0 6px;
+            line-height: 20px;
+            width: 13px;
+            position: absolute;
+        }
+
+        #accordion section:not(.ac_hidden) h1 {
+            background-color: rgba(255,0,0,0.7);
+        }
+
+        #accordion section:not(.ac_hidden) .pointer {
+            display: block;
+            -webkit-transform: rotate(90deg);
+            -moz-transform: rotate(90deg);
+            -o-transform: rotate(90deg);
+            transform: rotate(90deg);
+            padding: 0;
+        }
+</style>
+
+
+<div class="col-md-8" id="User">
+
+    <br />
+    <br />
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h3 class="panel-title text-center">Edit User</h3>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-12">
+                <a href="~/UsersAdmin/Create" class="col-md-push-1 btn btn-new  pull-right" title="New">
+                    <img src="~/Content/images/IconNew-orange.png" />Create New User
+                </a>
+            </div>
+            <div class="clearfix"></div>
+            <div class="panel-group">
+
+                <section>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapseOne">Basic</a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <div class="col-sm-10">
+                                        <ul data-bind="foreach:  User().servererrors">
+                                            <li class="field-validation-error" data-bind="text: $data"></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        Username
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <span class="col-sm-6"><input type="text" class="form-control" username data-bind="value: User().Username, css:{'required-field':User().showerror(User().Username)}, valueUpdate: 'afterkeydown'" /></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        Firstname
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <span class="col-sm-6"><input type="text" class="form-control" data-bind="value: User().Firstname, css:{'required-field':User().showerror(User().Firstname)}" /></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        Lastname
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <span class="col-sm-6"><input type="text" class="form-control" data-bind="value: User().Lastname, css:{'required-field':User().showerror(User().Lastname)}" /></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        Alias
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <span class="col-sm-6"><input type="text" class="form-control" data-bind="value: User().Nickname, css:{'required-field':User().showerror(User().Nickname)}" /></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        Email
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <span class="col-sm-6"><input type="email" class="form-control" data-bind="value: User().Email, css:{'required-field':User().showerror(User().Email)}" /></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        Default Company
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <span class="col-sm-6"><select data-bind="options: DefaultContext().Companies, value: DefaultContext().SelectedCompanyId, optionsValue : function(item) { return item.itsValue}, optionsText: function(item) { return item.display}" class="form-control"></select></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        Default Division
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <span class="col-sm-6"><select data-bind="options: DefaultContext().Divisions, value: DefaultContext().SelectedDivisionId,  optionsValue : function(item) { return item.itsValue}, optionsText: function(item) { return item.display}" class="form-control col-md-3"></select></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        Default Department
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <span class="col-sm-6"><select data-bind="options: DefaultContext().Departments, value: DefaultContext().SelectedDepartmentId,  optionsValue : function(item) { return item.itsValue}, optionsText: function(item) { return item.display}" class="form-control col-md-3"></select></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-7">
+                                        <span class="col-sm-6"> <input type="submit" class="btn btn-default pull-right" value="Update" data-bind="click: function (){create($data)}" /></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapseTwo">Assign Role</a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <div class="col-sm-10">
+                                        <ul data-bind="foreach:  User().servererrorsRole">
+                                            <li class="field-validation-error" data-bind="text: $data"></li>
+                                        </ul>
+                                    </div>
+                                    <div class="form-group top5">
+                                        <div class="col-sm-3">
+                                            Role
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <span class="col-sm-6"><select data-bind="options: UserRoles, value: NewUserRole().RoleID, optionsValue : function(item) { return item.value}, optionsValue : function(item) { return item.itsValue}, optionsText: function(item) { return item.display}" class="form-control"></select></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-3">
+                                            Company
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <span class="col-sm-6"><select data-bind="options: NewUserRole().Context().Companies, value: NewUserRole().Context().SelectedCompanyId, optionsValue : function(item) { return item.itsValue}, optionsText: function(item) { return item.display}" class="form-control"></select></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-3">
+                                            Division
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <span class="col-sm-6"><select data-bind="options: NewUserRole().Context().Divisions, value: NewUserRole().Context().SelectedDivisionId,  optionsValue : function(item) { return item.itsValue}, optionsText: function(item) { return item.display}" class="form-control col-md-3"></select></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-3">
+                                            Department
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <span class="col-sm-6"><select data-bind="options: NewUserRole().Context().Departments, value: NewUserRole().Context().SelectedDepartmentId,  optionsValue : function(item) { return item.itsValue}, optionsText: function(item) { return item.display}" class="form-control col-md-3"></select></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-7">
+                                            <span class="col-sm-6">
+                                                <input type="submit" class="btn btn-default pull-right" value="Add" data-bind="click: addNewUserRole" />
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapseThree">Assigned Roles</a>
+                            </h4>
+                        </div>
+
+                        <div id="collapseThree">
+                            <div class="panel-body">
+                                <div class="col-sm-10">
+                                    <ul data-bind="foreach:  User().servererrorsRoles">
+                                        <li class="field-validation-error" data-bind="text: $data"></li>
+                                    </ul>
+                                </div>
+                                <div id="no-more-tables">
+                                    <table class="table table-striped table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th>&nbsp;</th>
+                                                <th>Role Name</th>
+                                                <th>Company</th>
+                                                <th>Division</th>
+                                                <th>Department</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody data-bind="foreach: ApplicationUserRoleModels">
+                                            <tr>
+                                                <td>
+                                                    <img src="/Content/images/permissions.png" />
+                                                </td>
+                                                <td>
+                                                    <select data-bind="options: $root.UserRoles, value: RoleID, optionsValue : function(item) { return item.itsValue}, optionsValue : function(item) { return item.itsValue}, optionsText: function(item) { return item.display}" class="form-control" disabled></select>
+                                                </td>
+                                                <td>
+                                                    <select data-bind="options: Context().Companies, value: Context().SelectedCompanyId, optionsValue : function(item) { return item.itsValue}, optionsText: function(item) { return item.display}" class="form-control" disabled></select>
+                                                </td>
+                                                <td>
+                                                    <select data-bind="options: Context().Divisions, value: Context().SelectedDivisionId,  optionsValue : function(item) { return item.itsValue}, optionsText: function(item) { return item.display}" class="form-control col-md-3" disabled></select>
+                                                </td>
+                                                <td>
+                                                    <select data-bind="options: Context().Departments, value: Context().SelectedDepartmentId,  optionsValue : function(item) { return item.itsValue}, optionsText: function(item) { return item.display}" class="form-control col-md-3" disabled></select>
+                                                </td>
+                                                <td>
+                                                    <a data-bind="click: function() { $root.removeUserRole($index()) }">
+                                                        <img alt="Delete Ticket" src="~/Content/images/IconDelete-orange.png" />
+                                                    </a>
+                                                    <!--spacer-->&nbsp;
+                                                    @*<a data-bind="attr: { 'href': '@Url.Action("Details", "Permissions")' + '/' + PermissionID() }">
+                                                            <img alt="Ticket Details" src="~/Content/images/view-details-512.png" />
+                                                        </a>&nbsp;
+                                                        <a data-bind="attr: { 'href': '@Url.Action("Edit", "Permissions")' + '/' + PermissionID() }">
+                                                            <img alt="Edit Ticket" src="~/Content/images/IconEditOrange.png" />
+                                                        </a>
+                                                        <a data-bind="click: function() { $root.removePermission($index()) }">
+                                                            <img alt="Delete Ticket" src="~/Content/images/IconDelete-orange.png" />
+                                                        </a>*@
+                                                    @*<img alt="Print Ticket" src="~/Content/images/IconPrint-orange.png"/>
+                                                        <input type="checkbox"/>*@
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+            <div class="col-md-12">
+                <a class="tab-content pull-right" href="~/UsersAdmin/Index">Back to Users</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+    var user = new UserModel(@Html.Raw(data));
+    ko.validation.init({
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: true
+
+    });
+    ko.applyBindings(user, document.getElementById("User"));
+</script>

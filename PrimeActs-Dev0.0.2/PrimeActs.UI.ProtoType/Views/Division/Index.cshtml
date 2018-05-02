@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+@RenderPage("division.cshtml")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render(
+        "~/bundles/jquery",
+        "~/bundles/jsextlibs",
+        "~/Scripts/lib/require.js",
+        "~/bundles/jsapplibs",
+        "~/bundles/jsmocks", // remove mocks for release
+        "~/Scripts/main.js"
+    )
+
+

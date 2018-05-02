@@ -1,0 +1,46 @@
+﻿@model PrimeActs.Domain.Consignment
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/PrimeActsLayout.cshtml";
+}
+
+<h2>Company</h2>
+<div>
+    @Html.LabelFor(m => m.ConsignmentReference)
+    @Html.EditorFor(m => m.ConsignmentReference)
+</div>
+<fieldset>
+    <legend>Items</legend>
+    <div id="new-item">
+        @foreach (var item in Model.ConsignmentItems)
+        {
+            Html.RenderPartial("_items", item);
+        }
+    </div>
+    <div>
+        <input type="button" id="additem" name="additem" value="Add Item" />
+        <br />
+    </div>
+    <br />
+    @section Scripts
+    {
+        <script type="text/javascript">
+            $('#addemployee').on('click', function () {
+                $.ajax({
+                    async: false,
+                    url: '/Consignment/AddNewItem'
+                }).success(function (partialView) {
+                    $('#new-Employee').append(partialView);
+                });
+            });
+
+            $("#deleteRow").live("click", function () {
+                $(this).parents("#itemRow:first").remove();
+                return false;
+            });
+        </script>
+    }
+</fieldset>
+<div>
+    <input type="submit" value="Submit" />
+</div>

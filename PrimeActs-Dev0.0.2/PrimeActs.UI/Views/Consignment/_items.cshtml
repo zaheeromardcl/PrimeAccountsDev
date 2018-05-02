@@ -1,0 +1,20 @@
+﻿@model PrimeActs.Domain.ConsignmentItem
+
+@using (Html.BeginCollectionItem("ConsignmentItem"))
+{
+    <div id="itemRow" class="itemRow">
+        @Html.LabelFor(m => m.ProduceName)
+        @Html.EditorFor(m => m.ProduceName)
+
+        @Html.LabelFor(m => m.ConsignmentID)
+        @Html.EditorFor(m => m.ConsignmentID)
+
+        @Html.LabelFor(m => m.ConsignmentItemQuantity)
+        @Html.EditorFor(m => m.ConsignmentItemQuantity)
+
+        @Html.LabelFor(m => m.PackWeight)
+        @Html.EditorFor(m => m.PackWeight)
+
+        <a href="#" id="deleteRow" class="deleteRow" onclick="deleteFunction()">Delete</a>
+    </div>
+}

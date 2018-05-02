@@ -1,0 +1,76 @@
+﻿@using System.Web.Script.Serialization
+@model PrimeActs.UI.Models.LoginViewModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/TypeScripts/Account/LoginPageViewModel.js"></script>
+@{
+    var data = new JavaScriptSerializer().Serialize(Model);
+}
+
+<div class="col-md-3 col-md-offset-8 col-xs-12" id="Login">
+    <div class="containerLogin center-block table-bordered">
+        <div class="row">
+            <div class="row">
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
+                <ul data-bind="foreach: Login().ServerErrors">
+                    <li class="field-validation-error" data-bind="text: $data"></li>
+                </ul>
+            </div>
+
+            <div class="col-md-8 col-md-offset-2" id="Login" data-bind="enterKey: function (){login($data)}">
+                <fieldset>
+                    <br />
+                    <img id="loginImg" class="form-group center-block" src="~/Content/images/P&ILogo150x150.png" />
+
+                    <div class="col-md-12 center-block col-xs-offset-2 col-xs-8">
+                        <input type="text" class="form-control" placeholder="Username" data-bind="value: Login().Username, css:{'required-field':Login().showError(Login().Username)}, valueUpdate: 'afterkeydown',executeOnEnter:login" autofocus />
+                    </div>
+                    <br />
+                    <br />
+                    <div class="col-md-12 center-block col-xs-offset-2 col-xs-8">
+                        <input type="Password" class="form-control" placeholder="Password" data-bind="value: Login().Password, css:{'required-field':Login().showError(Login().Password)}, valueUpdate: 'afterkeydown',executeOnEnter:login" />
+                    </div>
+                    <br />
+                    <br />
+                    <div class="col-md-12 center-block  col-xs-12 col-xs-offset-2  col-xs-8">
+                        <label>
+                            <input type="checkbox" data-bind="attr: { value: Login().RememberMe }, checked: Login().RememberMe" />
+                            Remember Me
+                        </label>
+                    </div>
+                    <div class="col-md-12 center-block  col-xs-12 col-xs-offset-2  col-xs-8">
+                        <div class="col-xs-offset-3  ">
+                            <input type="submit" class="btn btn-default  pull-right" value="Sign in" data-bind="click: function (){ login($data); }" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 center-block  col-xs-12 col-xs-offset-2  col-xs-8">
+                        @Html.ActionLink("Register", "Register", "Account")
+                    </div>
+
+                    <div class="col-md-12 center-block  col-xs-12 col-xs-offset-2  col-xs-8 ">
+                        @Html.ActionLink("Logging in Issues", "ForgotPassword", "Account")
+                    </div>
+                    <br />
+                </fieldset>
+                <br />
+                <br />
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var login = new LoginPageViewModel(@Html.Raw(data));
+    ko.validation.init({
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: true
+
+    });
+    ko.applyBindings(login, document.getElementById("Login"));
+</script>

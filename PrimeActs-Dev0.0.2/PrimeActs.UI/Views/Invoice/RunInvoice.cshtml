@@ -1,0 +1,193 @@
+﻿<script src="~/KJScripts/Invoices/RunInvoice.js"></script>
+@model PrimeActs.Domain.ViewModels.Invoice.InvoiceModel
+@using System.Web.Script.Serialization;
+@{string data = new JavaScriptSerializer().Serialize(Model);}
+<script>
+    //$(function () {
+    //    $("#iconFrom").datepicker({ minDate: -365, maxDate: "+1M +10D" });
+    //    $("#iconTo").datepicker({ minDate: -365, maxDate: "+1M +10D" });
+    //});
+</script>
+@Html.Partial("_TabUserContext")
+<div class="col-md-8">
+  
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h3 class="panel-title">Generate Sales Invoices</h3>
+        </div>
+        <div class="panel-body" id="RunInvoice">
+            <div class="col-md-12">
+                <div data-bind="visible: ShowRunInvoice()">
+                    <div class="toggle-btn-grp col-md-12">
+                        type of run:
+                        <label onclick="" class="toggle-btn noscript "><input type="checkbox" data-bind="checked: InvoiceRunModel().IsInvoiceRun" /> invoices</label>
+                        <label onclick="" class="toggle-btn noscript "><input type="checkbox" data-bind="checked: InvoiceRunModel().IsCreditNoteRun " /> credit notes</label>
+                        
+                    </div>
+                    <div class="col-md-12 ">
+                        <br>
+                    </div>
+                    <div class="toggle-btn-grp col-md-12">
+                        date of run:
+                        <label class="toggle-btn noscript "><input type="radio" name="Period" value="Daily" data-bind="checked: InvoiceRunModel().Period" /> Daily</label>
+                        <label class="toggle-btn noscript"><input type="radio" name="Period" value="Weekly" data-bind="checked: InvoiceRunModel().Period" /> Weekly</label>
+                        <label class="toggle-btn noscript"><input type="radio" name="Period" value="Monthly" data-bind="checked: InvoiceRunModel().Period" />Monthly</label>
+                    </div>
+                    <div class="col-md-4 control-group">
+                        division:
+                        <select multiple="multiple" height="5" data-bind="options: DivisionList(), selectedOptions: InvoiceRunModel().SelectedDivisions, optionsText: 'optionText', optionsValue: 'optionValue'" class="form-control">  </select>
+                    </div>
+                    <div class="col-md-12  pull-left  control-group">
+                        <input type="button" class="btn btn-default" data-bind="click: function (){Run()}" value="Generate Invoices" />
+                    </div>
+                </div>
+                <div data-bind="visible: ShowRunningInvoice()">
+
+                    <div class="col-md-offset-6" data-bind="visible: CurrentRun()">
+                        <br />
+                        <br />
+                        <img src="~/Content/images/SpinningWheel.GIF" />
+                        <br />
+                        <br />
+                    </div>
+
+
+                    <div id="no-more-tables" data-bind="if: InvoiceStatusModels().length > 0">
+                        <table class="table table-striped table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <th>UserName</th>
+                                    <th>Period</th>
+                                    <th>Division</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody data-bind="foreach: InvoiceStatusModels">
+                                <tr>
+                                    <td></td>
+                                    <td data-title="UserName">
+                                        <span data-bind="text: Username()"></span>
+                                    </td>
+                                    <td data-title="Period">
+                                        <span data-bind="text: Period()"></span>
+                                    </td>
+                                    <td data-title="DivisionName">
+                                        <span data-bind="text: DivisionName()"></span>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                            <tbody data-bind="if: InvoiceStatusModels().length == 0">
+                                <tr>
+                                    <td colspan="5">No division selected for invoice execution...........</td>
+                                </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <br />
+                    </div>
+                    <div class="col-md-10">
+                        <a href="/Invoice/RunInvoice">Back to Invice Run</a>
+                    </div>
+                </div>
+                <div data-bind="visible: ShowCompletedInvoice()">
+                    <div id="no-more-tables">
+                        <table class="table table-striped table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <th>UserName</th>
+                                    <th>Division</th>
+                                    <th>Batch Number</th>
+                                    <th>Invoice Type</th>
+                                    <th>Sales Invoice Reference</th>
+                                </tr>
+                            </thead>
+                            <tbody data-bind="foreach: InvoiceCompletedModels">
+                                <tr>
+                                    <td></td>
+                                    <td data-title="UserName">
+                                        <span data-bind="text: Username()"></span>
+                                    </td>
+                                    <td data-title="DivisionName">
+                                        <span data-bind="text: DivisionName()"></span>
+                                    </td>
+                                    <td data-title="BatchNumber">
+                                        <span data-bind="text: BatchNumber()"></span>
+                                    </td>
+                                    <td data-title="InvoiceType">
+                                        <span data-bind="text: InvoiceType()"></span>
+                                    </td>
+                                    <td data-title="SalesInvoiceReference">
+                                        <a data-bind="attr: { href: '/invoice/DetailsByRef/?salesReferenceNumber=' + SalesInvoiceReference() }">
+                                            <span data-bind="text: SalesInvoiceReference()"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody data-bind="if: InvoiceCompletedModels().length == 0">
+                                <tr>
+                                    <td colspan="5">No invoice executed...........</td>
+                                </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <br />
+                    </div>
+                    <div class="col-md-10">
+                        <a href="/Invoice/RunInvoice">Back to Invice Run</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h3 class="panel-title">Previous Invoices Generated</h3>
+        </div>
+        <div class="panel-body" id="PreviousRunInvoice">
+            <div id="no-more-tables">
+                <table class="table table-striped table-responsive">
+                    <thead>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th>Division</th>
+                            <th>Invoice Number</th>
+                            <th>Customer Department</th>
+                            <th>Invoice Execution Date</th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach:PreviousInvoiceModels">
+                        <tr>
+                            <td></td>
+                            <td data-title="DivisionName">
+                                <span data-bind="text: DivisionName()"></span>
+                            </td>
+                            <td data-title="InvoiceNumber">
+                                <span data-bind="text: InvoiceNumber()"></span>
+                            </td>
+                            <td data-title="CustomerDepartment">
+                                <span data-bind="text: CustomerDepartment()"></span>
+                            </td>
+                            <td data-title="InvoiceExecutionDate">
+                                <span data-bind="text: InvoiceExecutionDate()"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var invoiceModel = new InvoiceModel();
+    var preInvoiceModel = new PreInvoiceModel();
+    invoiceModel.LoadData(@Html.Raw(data));
+    invoiceModel.LoadDivision(@Html.Raw(data));
+    $(document).ready(function () {
+
+        ko.applyBindings(invoiceModel, document.getElementById("RunInvoice"));
+        ko.applyBindings(preInvoiceModel, document.getElementById("PreviousRunInvoice"));
+    });
+</script>

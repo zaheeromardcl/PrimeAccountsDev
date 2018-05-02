@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\Extensions\Microsoft\SQLDB\DAC\120\sqlpackage.exe" /Action:Publish /SourceFile:"C:\Users\ARUNAKOYA\Source\Repos\PrimeActs5\PrimeActs.Database\Snapshots\PrimeActs.Database_20160405_10-02-52.dacpac" /Profile:"C:\Users\ARUNAKOYA\Source\Repos\PrimeActs5\PrimeActs.Database\PrimeActs.DatabaseSQLAuth1.publish.xml

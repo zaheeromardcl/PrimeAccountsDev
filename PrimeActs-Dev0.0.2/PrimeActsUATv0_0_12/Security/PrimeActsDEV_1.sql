@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [PrimeActsDEV]
+    WITH PASSWORD = N'fapQrVisTqdoklX|hfLfikqFmsFT7_&#$!~<<~cz&znweP0A', SID = 0x11213D2F70A89C4B8A7E54673EAD5EAF, DEFAULT_DATABASE = [PrimeActsDev_v0_0_13], DEFAULT_LANGUAGE = [us_english];
+

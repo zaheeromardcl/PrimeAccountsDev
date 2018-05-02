@@ -1,0 +1,26 @@
+﻿@model PrimeActs.Domain.ViewModels.Produce.ProduceEditModel
+@{
+    ViewBag.Title = "View Produce";
+}
+
+
+<div class="col-md-8">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h3 class="panel-title">Produce Details</h3>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-push-2 col-md-4">
+                <fieldset disabled="disabled">
+                    @Html.EditorFor(model => model.ProduceName, new {htmlAttributes = new {@class = "form-control", @readonly = true, @placeholder = "Produce name"}})
+                    Active @Html.CheckBoxFor(m => m.IsActive.Value, new {@readonly = true, @disable = true})
+                    @Html.EditorFor(model => model.ProduceCode, new {htmlAttributes = new {@class = "form-control", @readonly = true, @placeholder = "Produce name"}})
+                    @Html.EditorFor(model => model.RelatedProduceGroup.ProduceGroupName, new {htmlAttributes = new {@class = "form-control", @readonly = true, @placeholder = "Produce name"}})
+                    @Html.EditorFor(model => model.RelatedMasterGroup.MasterGroupName, new {htmlAttributes = new {@class = "form-control", @readonly = true, @placeholder = "Produce name"}})
+                </fieldset>
+
+            </div>
+            <a href="/Produce/Index" class="NavigationLinks bottom-align-text">Back to list</a>
+        </div>
+    </div>
+</div>

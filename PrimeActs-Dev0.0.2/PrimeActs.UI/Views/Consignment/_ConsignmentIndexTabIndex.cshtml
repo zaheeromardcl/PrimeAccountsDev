@@ -1,0 +1,41 @@
+﻿<script src="~/KJScripts/Helper.js"></script>
+<script src="~/TypeScripts/Consignment/ConsignmentIndexTabIndex.js"></script>
+<script src="~/TypeScripts/Consignment/ConsignmentIndexPartial.js"></script>
+<link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet"/>
+<script type="text/javascript">
+    var SupplierModel = new ConsignmentIndextTabIndexViewModel();
+</script>
+
+<div id="@ViewBag.ConsignmentsPanel" class="container-fluid">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <span class="panel-title">Consignments <img src="~/Content/images/IconSearch.png" /></span>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-3 pull-right">
+                    <a data-bind="click: function () { OpenCreateOnNewTab(subscriberTab) }, attr: { 'href': '#' }" class="col-md-push-1 btn btn-new  pull-right">
+                        <img src="~/Content/images/IconNew-orange.png"/>&nbsp;New Consignment <!---->
+                    </a>
+                </div>
+                <div class="clearfix"></div>
+                @Html.Action("IndexTab", "Consignment", new { forIndex = 1 })
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var identifier = '@ViewBag.ConsignmentsPanel';
+
+        ko.validation.init({
+            registerExtenders: true,
+            messagesOnModified: true,
+            insertMessages: true,
+            parseInputAttributes: true,
+            messageTemplate: null
+        }, true);
+
+        ko.applyBindings(SupplierModel, document.getElementById(identifier));
+    });
+</script>

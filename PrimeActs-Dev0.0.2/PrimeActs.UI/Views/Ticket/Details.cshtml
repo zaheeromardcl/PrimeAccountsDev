@@ -1,0 +1,6 @@
+﻿@using System.Web.Script.Serialization
+
+<script src="~/KJScripts/Helper.js"></script>
+@{ string Itemdata = new JavaScriptSerializer().Serialize(Model); }
+@Html.Action("TicketSummary", "Ticket", new {id = @ViewBag.Id})
+@Html.Action("TicketItemSummary", "Ticket", new {id = @ViewBag.Id})

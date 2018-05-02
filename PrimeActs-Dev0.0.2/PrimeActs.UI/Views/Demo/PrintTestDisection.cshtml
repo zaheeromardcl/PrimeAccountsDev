@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "PrintTestDisection";
+}
+
+<h2>Print Test</h2>
+
+<div class="container">
+    <div class="row">
+        <button class="btn btn-primary" onclick="fnPrintTestPage()">Print Test Disection</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function fnPrintTestPage() {
+        $.ajax({
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            url: '/demo/PrintTestDisection',
+            success: function (result) {
+                //alert('Print request submitted locally.');
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+               // alert('Error submitting print request');
+            }
+        });
+    }
+</script>
+
+
+

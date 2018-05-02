@@ -1,0 +1,329 @@
+﻿
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet" />
+<script src="~/TypeScripts/Ticket/TicketPartial.js"></script>
+<script src="~/TypeScripts/Customer/CustomerHome.js"></script>
+<script src="~/TypeScripts/Util/AddressModel.js"></script>
+<script type="text/javascript">
+    var CustomerDetails = new CustomerMainModel();
+</script>
+
+<div id="@ViewBag.PanelName" class="container-fluid col-md-12">
+    <div class="col-md-12">
+        <div class="col-md-12">&nbsp;</div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                Customer Name
+            </div>
+            <div class="panel-body">
+                <div class="col-md-12">&nbsp;</div>
+                <div class="col-md-2">
+                   Customer Name/Code: <span data-bind="css: 'redTextColor', visible: !validationModel.isValid()">*</span>
+                </div>
+                <div class="col-md-5">
+                    <!--
+                    <input type="text" placeholder="Customer" id="CustomerDepartmentID" data-bind="ko_autocomplete: { source: $root.getCustomers, select: $root.selectCustomer, change: onCustomerChange}, css:{'orangeBorder': !validationModel.isValid()}, value: CustomerDepartmentID, hasFocus:true" autofocus tabindex="0" class="form-control" />
+                    -->
+                    <input type="text" placeholder="@ViewBag.CustomerName" id="CustomerDepartmentID"
+                           data-bind="ko_autocomplete: { source: $root.getCustomers,
+                            select: $root.selectCustomer, change: onCustomerChange},
+                            css:{'orangeBorder': !validationModel.isValid()},
+                            value: CustomerDepartmentID, hasFocus: true"
+                           autofocus tabindex="0" class="form-control" />
+                </div>
+
+            </div>
+            <div class="panel-heading clearfix">
+                Customer Summary
+            </div>
+            <div class="panel-body">
+                <div class="col-md-12">
+                    &nbsp;
+                    <div class="col-md-1">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-3 alert-danger">
+                        Balance <span class="alert-danger">£1500.02</span>
+                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"></div>
+                </div>
+                <div class="col-md-12">
+                    &nbsp;
+                    <div class="col-md-1">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-3">
+                        Cash Limit £1000.00
+                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"></div>
+                </div>
+                <div class="col-md-12">
+                    &nbsp;
+                    <div class="col-md-1">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-3">
+                        Credit Limit £15000.00
+                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"></div>
+                </div>
+                <div class="col-md-12">
+                    &nbsp;
+                    <div class="col-md-1">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-3">
+                        Credit Rating: Med
+                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"></div>
+                </div>
+                <div class="col-md-12">
+                    &nbsp;
+                    <div class="col-md-1">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-3">
+                        Statements
+                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"></div>
+                </div>
+                <div class="col-md-12">
+                    &nbsp;
+                    <div class="col-md-1">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-3">
+                        Allow transfers?
+
+                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"></div>
+                </div>
+                <div class="col-md-12">
+                    &nbsp;
+                    <div class="col-md-1">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-3">
+                        Associated Rebate Account: Gerber Rebate
+                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"></div>
+                </div>
+
+                <div class="col-md-12" id="SupplierLinks">
+                    <div class="col-md-2">
+                        <a href="#" class="Headerlinks" data-bind="click: ToggleContactsVisible">Contacts +/-</a>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="#" class="Headerlinks" data-bind="click: ToggleLocationsVisible">Dept/Loc +/-</a>
+                    </div>
+                    @*<div class="col-md-2">
+                        <a href="#" class="Headerlinks" data-bind="click: ToggleRemittanceVisible">Remittance +/-</a>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="#" class="Headerlinks" data-bind="click: ToggleTicketsVisible">Tickets +/-</a>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="#" class="Headerlinks" data-bind="click: ToggleBankingVisible">Banking +/-</a>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+        
+        <div class="panel panel-default" id="Invoices">
+            <div class="panel-heading clearfix">
+                Customer Invoices
+            </div>
+            <div class="panel-body">
+                @*@Html.Action("IndexTab", "SalesInvoice")*@
+
+            </div>
+        </div>
+
+        <div class="panel panel-default" data-bind="visible: IsTicketsVisible">
+            <div class="panel-heading clearfix">
+                Customer Tickets
+            </div>
+            <div class="panel-body">
+                @*@Html.Partial("_Tickets")*@
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                Rebates
+            </div>
+            <div class="panel-body">
+                @Html.Partial("_Rebates")
+            </div>
+        </div>
+
+        <div class="panel panel-default" id="Contacts" data-bind="visible: IsContactsVisible">
+            <div class="panel-heading clearfix">
+                Contacts
+            </div>
+            <div class="panel-body">
+                <div class="clearfix"></div>
+                <div id="Contacts" class="row">
+                    <ul class="list-group" data-bind="foreach: {data: CustomerDetailsVM().Contacts, as:'contact'}">
+                        <li class="row list-group-item-padding">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    Title:
+                                </div>
+                                <div class="col-md-4">
+                                    <span data-bind="text: contact.Title"></span>
+                                </div>
+                                <div class="col-md-4"></div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    First name:
+                                </div>
+                                <div class="col-md-4">
+                                    <span data-bind="text: contact.FirstName"></span>
+                                </div>
+                                <div class="col-md-4"></div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    Last name:
+                                </div>
+                                <div class="col-md-4">
+                                    <span data-bind="text: contact.LastName"></span>
+                                </div>
+                                <div class="col-md-4"></div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    Email address:
+                                </div>
+                                <div class="col-md-4">
+                                    <span data-bind="text: contact.EmailAddress"></span>
+                                </div>
+                                <div class="col-md-4"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- begen of customer locations panel -->
+        <div class="panel panel-default" id="Locations" data-bind="visible: IsLocationsVisible">
+            <div class="panel-heading clearfix">
+                Customer Department Locations
+            </div>
+            <div class="panel-body">
+                <div id="CustomerLocations">
+                    <div class="col-md-12">
+                        <div class="col-md-4">
+                            Customer Department Name:
+                        </div>
+                        <div class="col-md-4">
+                            <span data-bind="text: CustomerDetailsVM().CustomerDepartmentName"></span>
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="list-group" data-bind="foreach: {data: CustomerDetailsVM().Locations, as:'location'}">
+                        <div class="container list-group-item-padding rowCustDet">
+                            <div class="rowCustDet">
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        Location Name:
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span data-bind="text: location.CustomerLocationName"></span>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        Telephone:
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span data-bind="text: location.Telephone"></span>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        FaxNumber:
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span data-bind="text: location.FaxNumber"></span>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        Address:
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span data-bind="text: location.Address.AddressLines"></span>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        PostalTown:
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span data-bind="text: location.Address.PostalTown"></span>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        CountyCity:
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span data-bind="text: location.Address.CountyCity"></span>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        PostCode:
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span data-bind="text: location.Address.Postcode"></span>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end of customer locations panel -->
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var identifier = '@ViewBag.PanelName';
+
+        ko.validation.init({
+            registerExtenders: true,
+            messagesOnModified: true,
+            insertMessages: true,
+            parseInputAttributes: true,
+            messageTemplate: null
+        }, true);
+
+        ko.applyBindings(CustomerDetails, document.getElementById(identifier));
+    });
+</script>

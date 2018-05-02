@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link href="~/Content/css/PrimeActsStyles.css" rel="stylesheet"/>
+
+    <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
+
+    <script src="~/Scripts/jquery-2.1.4.js"></script>
+
+    <script src="~/Scripts/bootstrap.js"></script>
+
+    <script src="script.js"></script>
+
+    <title>Prime Accounts</title>
+
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+</head>
+
+<body class="tester">
+
+
+<div class="HeaderNavBar">
+
+
+    <div class="HeaderNavBarMain">
+
+        @Html.Partial("_LayoutHeader")
+
+
+    </div>
+
+</div>
+
+
+<div class="RegisterForm">
+
+    <div>
+
+
+        <fieldset class="fieldset-regtop">
+
+
+            <table align="center">
+
+                <tr>
+
+                    <td>
+
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+
+            @RenderBody()
+
+
+        </fieldset>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

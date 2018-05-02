@@ -1,0 +1,218 @@
+﻿@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.PurchaseInvoice.PurchaseInvoiceViewModel
+
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+
+<link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet" />
+
+<script src="~/TypeScripts/PurchaseInvoice/PurchaseInvoiceDetails.js"></script>
+<script src="~/TypeScripts/Util/AddressModel.js"></script>
+<script src="~/TypeScripts/PurchaseInvoice/CreatePurchaseInvoice.js"></script>
+@{string data = new JavaScriptSerializer().Serialize(Model);}
+
+
+<div id="@ViewBag.PanelName" class="container-fluid col-md-12">
+
+    @Html.Partial("_TabUserContext")
+
+    <div class="col-md-12">
+
+
+        <div class="col-md-12">&nbsp;</div>
+
+        <div class="panel panel-default" id="EnterPurchaseInvoice">
+            <div class="panel-heading clearfix">
+                Create Purchase Invoice
+                <span class="glyphicon glyphicon-credit-card"></span>
+            </div>
+            <div class="panel-body" id="InvoiceSummary">
+                <div class="col-md-12">&nbsp;</div>
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                        <input type="radio" name="@(ViewBag.PanelName + "purchaseInvoiceType")" value="Consignment" data-bind="checked: PurchaseInvoice().purchaseInvoiceType, disable: (PurchaseInvoice().Created())">Consignment<br>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="radio" name="@(ViewBag.PanelName + "purchaseInvoiceType")" value="Sundry" data-bind="checked: PurchaseInvoice().purchaseInvoiceType, disable: (PurchaseInvoice().Created())">Sundry<br>
+                    </div>
+                </div>
+                <div class="col-md-12">&nbsp;</div>
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        Supplier Name/Code
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" name="SupplierDepartmentName" placeholder="Supplier" class="form-control" data-bind="hasfocus: PurchaseInvoice().SupplierHasFocus, ko_autocomplete: { source: getSupplierDepartments, select: selectSupplierDepartment }, value: PurchaseInvoice().SupplierDepartmentName, css:{ 'required-field': $root.PurchaseInvoice().showGuidFieldRequired(PurchaseInvoice().SupplierDepartmentID), 'required-field-error': PurchaseInvoice().showError(PurchaseInvoice().SupplierDepartmentID) }, event: { focusout: function() { $root.onSupplierDepartmentFocusOut() } }" autofocus />
+                    </div>
+                    <div class="col-md-2">
+                        &nbsp;
+                    </div>
+                    @*<div class="col-md-4"><span data-bind="text: PurchaseInvoice().fileData"></span>
+                            <label class="btn btn-default col-md-4">
+                                Attach Files
+                                <input type="file" name="files" data-bind="fileupload: fileInput, value: PurchaseInvoice().fileName, event: { change: function() { uploadImages($element.files, $data) } }" accept="image/*" multiple="multiple">
+                            </label>
+                        </div>*@
+                </div>
+
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        Supplier Invoice Ref:
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" placeholder="Invoice Ref." class="form-control" data-bind="value: PurchaseInvoice().PurchaseInvoiceReference, css:{ 'required-field': $root.PurchaseInvoice().showRequired(PurchaseInvoice().PurchaseInvoiceReference), 'required-field-error': PurchaseInvoice().showError(PurchaseInvoice().PurchaseInvoiceReference) }, event: { focusout: function() { $root.onPurchaseInvoiceFocusOut() } }" />
+                    </div>
+
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        Supplier Invoice Date:
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <input type="date" class="form-control-date" data-bind="FormattedDate: {date: PurchaseInvoice().PurchaseInvoiceDate, format: 'short'}, event: { focusout: function() { $root.onPurchaseInvoiceFocusOut() } }" />
+                    </div>
+                    <div class="col-md-2">
+                        Supplier Invoice Amount:
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" placeholder="Invoice Total" class="form-control" id="InvoiceTotal" data-bind="value: PurchaseInvoice().SupplierInvoiceAmount.formatted, event: { focusout: function() { $root.onPurchaseInvoiceFocusOut() } }" />
+                    </div>
+
+                </div>
+                <div class="col-md-12" data-bind="visible: PurchaseInvoice().isFresh">
+                    <div class="col-md-4">
+
+                        <button class="btn btn-default col-md-4" data-bind="click: function() { PurchaseInvoice().AttachFilesVisible(!PurchaseInvoice().AttachFilesVisible()); }, css:{ 'glyphicon-plus': !PurchaseInvoice().AttachFilesVisible(), 'glyphicon-minus': PurchaseInvoice().AttachFilesVisible() }">
+                            Attach Files
+                        </button>
+
+                    </div>
+                    <div class="col-md-12" id="dzbody" data-bind="visible: PurchaseInvoice().AttachFilesVisible, toggleAll: PurchaseInvoice().NoMoreAttachments, selector: '#dzbody'">
+                        <form action="~/File/SaveUploadedFile"
+                              class="dropzone"
+                              id="@(ViewBag.PanelName + "dz")"></form>
+                        <input type="file" name="file" />
+                    </div>
+                    <div class="col-md-4">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-4 pull-right">
+                        <input id="@(ViewBag.PanelName + "saveFileBtn")" type="button" class="btn btn-default" data-bind="click: function() { createPurchaseInvoice($data); }, hasFocus: PurchaseInvoice().FocusAddItems, disable: (PurchaseInvoice().Created())" value="Save Files" />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="Consignments" class="panel panel-default" hidden>
+            <div class="panel-heading clearfix">
+                <span class="panel-title">Supplier Consignments (last 1 month)<img src="~/Content/images/IconSearch.png" /></span>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">Consignment Reference</div>
+                    <div class="col-md-3">Despatch Date</div>
+                    <div class="col-md-4">Total</div>
+                    <div class="col-md-1"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" data-bind="foreach: PurchaseInvoice().Consignments">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <a data-bind="click: function () { $parent.PurchaseInvoice().OpenConsignmentDetails(ConsignmentID) }, attr: { 'href': '#' }">
+                                    <span data-bind="text: ConsignmentReference"></span>
+                                    <span class="glyphicon glyphicon-arrow-left"></span>
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="date" class="form-control-date" data-bind="FormattedDate: {date: DepatchedDate, format: 'short'}, disable: true" />
+                            </div>
+                            <div class="col-md-4">
+                                £<span data-bind="text: TotalEstitamedPurcahseCost"></span>
+                            </div>
+                            <div class="col-md-1">
+                                <a data-bind="click: function () { $parent.PurchaseInvoice().OpenConsignmentDetails(ConsignmentID) }, attr: { 'href': '#' }">
+                                    <img alt="Consignment Details" src="~/Content/images/view-details-512.png" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default" data-bind="visible: PurchaseInvoice().HasItems()">
+            <div class="panel-heading clearfix">
+                Invoice Items
+            </div>
+            <div class="panel-body">
+                <div class="row" data-bind="visible: PurchaseInvoice().purchaseInvoiceType() == 'Consignment'">
+                    @Html.Action("PurchaseInvoiceItemConsignment", "PurchaseInvoice")
+                </div>
+                <div class="row" data-bind="visible: PurchaseInvoice().purchaseInvoiceType() == 'Sundry'">
+                    @Html.Action("PurchaseInvoiceItemSundry", "PurchaseInvoice")
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+    var panelName = '@ViewBag.PanelName';
+    var uploadGuidFolder = '@ViewBag.UploadFolder';
+    var maxFileSize = '@ViewBag.MaxFileSize';
+    var maxNrOfFiles = '@ViewBag.MaxNrOfFiles';
+    var acceptedFileTypes = '@ViewBag.AcceptedFileTypes';
+    var mainFolder = '@ViewBag.MainFolder';
+
+    var createPruchaseInvoiceModel = new CreatePurchaseInvoiceViewModel(panelName, uploadGuidFolder, subscriberTab, subscriberReplaceTab, @Html.Raw(data));
+    createPruchaseInvoiceModel.pageLoadState();
+
+    var saveFilesBtn = "#" + panelName + "saveFileBtn";
+    var dropzoneId = "#" + panelName + "dz";
+
+    ko.applyBindings(createPruchaseInvoiceModel, document.getElementById(panelName));
+
+    $(dropzoneId).dropzone({
+        init: function () {
+            var myDropZone = this;
+            $(saveFilesBtn).click(function () {
+                myDropZone.disable();
+                var allRemoveLinks = dropzoneId + " a.dz-remove";
+                $(allRemoveLinks).hide();
+            }
+            );
+        },
+        success: function (response) {
+            //alert(JSON.parse(response.xhr.response).FileID);
+            var fileID = JSON.parse(response.xhr.response).FileID;
+            createPruchaseInvoiceModel.PurchaseInvoice().addFileName(fileID, JSON.parse(response.xhr.response).Message);
+            $(document).find(response.previewElement).click(function () {
+                //window.open("/" + mainFolder + "/" + createPruchaseInvoiceModel.PurchaseInvoice().UploadFolder() + "/" + response.name);
+                var fID = JSON.parse(response.xhr.response).FileID;
+
+                var url = "/File/Show/" + "?fileID=" + fID + "&itemID=" + createPruchaseInvoiceModel.PurchaseInvoice().UploadFolder();
+                window.open(url);
+            });
+        },
+        headers: { "uploadFolder": createPruchaseInvoiceModel.PurchaseInvoice().UploadFolder() },
+        addRemoveLinks: true,
+        removedfile: function (file) {
+            createPruchaseInvoiceModel.PurchaseInvoice().removeFileName(file.name);
+            $(document).find(file.previewElement).remove();
+        },
+        createImageThumbnails: false,
+        dictDefaultMessage: "Click here to browse or drag and drop files.",
+        maxFilesize: maxFileSize,
+        maxFiles: maxNrOfFiles,
+        acceptedFiles: acceptedFileTypes
+    });
+</script>
+

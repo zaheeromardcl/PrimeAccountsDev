@@ -1,0 +1,217 @@
+﻿@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.Company.CompanyEditModel
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/KJScripts/Company/CompanyCreateTab.js"></script>
+<script src="~/Scripts/amplify.js"></script> <!-- DC testing State Saving before making DB Server save state-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.js"></script>
+@*<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>*@
+@{
+    var data = new JavaScriptSerializer().Serialize(Model);
+}
+<style type="text/css">
+    label {
+        display: block;
+    }
+
+    .validationMessage {
+        color: Red;
+    }
+
+    .customMessage {
+        color: Orange;
+    }
+
+    .required-field {
+        border: 2px solid red !important;
+        color: red;
+    }
+</style>
+
+<div class="col-md-8" id=@ViewBag.CompanyPanel>
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h3 class="panel-title text-center">Create Company</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row"></div>
+            <div class="row">
+                <ul data-bind="foreach: Company().servererrors">
+                    <li class="field-validation-error" data-bind="text: $data"></li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    Name
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6"><input type="text" class="form-control" data-bind="value: Company().CompanyName, css:{'required-field':Company().showerror(Company().CompanyName)}, valueUpdate: 'afterkeydown', event:{focusout:saveState}" /></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    VATNo
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6"><input type="text" class="form-control" data-bind="value: Company().VATNo, event:{focusout:saveState}" /></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    CompanyNo
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6"><input type="text" class="form-control" data-bind="value: Company().CompanyNo, event:{focusout:saveState}" /></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    Telephone
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6"><input type="text" class="form-control" data-bind="value: Company().Telephone, event:{focusout:saveState}" /></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    FaxNo
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6"><input type="text" class="form-control" data-bind="value: Company().FaxNo, event:{focusout:saveState}" /></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    EmailAddress
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6"><input type="text" class="form-control" data-bind="value: Company().EmailAddress, event:{focusout:saveState}" /></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    Website
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6"><input type="text" class="form-control" data-bind="value: Company().Website, event:{focusout:saveState}" /></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3">
+                    InvoiceInfo
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6"><input type="text" class="form-control" data-bind="value: Company().InvoiceInfo, event:{focusout:saveState}" /></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3">
+                    Parent Company
+                </div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6">
+                        <select height="5" data-bind="options: CompanyList(), selectedOptions: Company().RelatedCompanyId, optionsText: 'optionText', optionsValue: 'optionValue', event:{focusout:saveState}" class="form-control">  </select>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-7">
+                    <span class="col-sm-6">
+                        <input type="submit" class="btn btn-default  pull-right" value="Create" data-bind="click: function (){createCompany($data)}" />
+                    </span>
+                </div>
+            </div>
+            <div>
+                <div class="col-sm-3"></div>
+                <div class="col-sm-7">
+                    
+                </div>
+            </div>
+            @*<div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-7">                  
+                  
+                    <span><button data-bind="click: restoreState">Restore Model</button></span>
+                </div>
+            </div>*@
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Collapsible Group 1</a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <input type="submit" class="btn btn-default  pull-right" value="Create in New Tab" data-bind="click: function (){testNewMe($data)}" />
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Collapsible Group 2</a>
+                    </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <input type="submit" class="btn btn-default  pull-right" value="Create in Current Tab" data-bind="click: function (){testReplaceMe($data)}" />
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Collapsible Group 3</a>
+                    </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        <div class="col-md-12">
+            <a class="tab-content pull-right" href="~/Company/Index">Back to Companys</a>
+        </div>
+    </div>
+<script type="text/javascript">
+    
+    function setAccordionAttributes(company_panel_name) {
+        $("#accordion").attr("id", company_panel_name + "accordion");
+        $("a[data-parent='#accordion']").attr("data-parent", "#" + company_panel_name + "accordion");
+        $("#collapse1").attr("id", company_panel_name + "collapse1");
+        $("a[href='#collapse1']").attr("href", "#" + company_panel_name + "collapse1");
+        $("#collapse2").attr("id", company_panel_name + "collapse2");
+        $("a[href='#collapse2']").attr("href", "#" + company_panel_name + "collapse2");
+        $("#collapse3").attr("id", company_panel_name + "collapse3");
+        $("a[href='#collapse3']").attr("href", "#" + company_panel_name + "collapse3");
+    }
+
+    var Company = new CompanyModel(@Html.Raw(data));    
+    var company_panel_name = '@(ViewBag.CompanyPanel)';
+    Company.tabPanelName(company_panel_name);
+    setAccordionAttributes(company_panel_name);
+
+    ko.validation.init({
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: true
+    });
+   // Company.restoreState(); // geting from amplify at the moment but will change method to get from server
+    Company.pageLoadState();
+    ko.applyBindings(Company, document.getElementById(company_panel_name));
+</script>

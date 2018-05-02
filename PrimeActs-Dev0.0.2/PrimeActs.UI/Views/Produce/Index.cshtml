@@ -1,0 +1,88 @@
+﻿@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.Produce.ProducePagingModel
+
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/KJScripts/Paging.js"></script>
+<script src="~/TypeScripts/Produce/ProducePagingModel.js"></script>
+<link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet" />
+@{ var data = new JavaScriptSerializer().Serialize(Model); }
+
+<div class="container-fluid">
+    <div class="col-md-8" id="Produce">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <span class="panel-title">Produces <img src="~/Content/images/IconSearch.png" /></span>
+            </div>
+            <div class="panel-body">                
+                <div class="col-md-12">
+                    <div class="col-md-9  control-group">
+                        <input type="text" class="form-control" placeholder="Name or Code" data-bind="validationOptions: { insertMessages: false}, value: ProduceSearch().ProduceNameOrCode, valueUpdate: 'afterkeydown', css:{'required-field': IsSearchValid}" />
+                    </div>
+                    <div class="pull-right col-md-3 control-group">
+                        <input type="button" class="btn btn-default" data-bind="click: function () { Search() }" value="Search" />
+                        <input type="button" class="btn btn-default" data-bind="click: function () { Reset() }" value="Reset" />
+                    </div>
+
+                </div>
+                <div class="clearfix"></div>
+                <div class="well well-sm">
+                    @Html.BuildKnockoutNextPreviousLinks("Index", "/Produce")
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">Produce Name</div>
+                    <div class="col-md-4">Produce Code</div>
+                    <div class="col-md-3"></div>
+                </div>
+                <!--Commenting the mockup-->
+                <div class="search-results" data-bind="foreach: Paging().Entities">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <a data-bind="attr: { 'href': '@Url.Action("Details", "Produce")' + '/' + ProduceID }">
+                                <img src="~/Content/images/IconProduce.png" />
+                            </a>
+                        </div>
+
+                        <div class="col-md-4 pull-left">
+                            <span data-bind="text: ProduceName"></span>
+                        </div>
+
+                        <div class="col-md-4 pull-left">
+                            <span data-bind="text: ProduceCode"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <a data-bind="attr: { 'href': '@Url.Action("Details", "Produce")' + '/' + ProduceID }">
+                                <img alt="Ticket Details" src="~/Content/images/view-details-512.png" />
+                            </a>&nbsp;
+                            <a data-bind="attr: { 'href': '@Url.Action("Produce", "Edit")' + ProduceID }">
+                                <img alt="Edit Ticket" src="~/Content/images/IconEditOrange.png" />
+                            </a>&nbsp;
+                            <a data-bind="attr: { 'href': '@Url.Action("Produce", "Delete")' + ProduceID }">
+                                <img alt="Delete Ticket" src="~/Content/images/IconDelete-orange.png" />
+                            </a>&nbsp;
+                        </div>
+                    </div>
+
+                </div>
+                <div class="clearfix"></div>
+                <div class="well well-sm">
+                    @Html.BuildKnockoutNextPreviousLinks("Index", "/Produce")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var produceModel = new ProducePagingModel(@Html.Raw(data));
+
+    ko.validation.init({
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: true,
+        parseInputAttributes: true,
+        messageTemplate: null
+    }, true);
+
+    ko.applyBindings(produceModel, document.getElementById("Produce"));
+</script>

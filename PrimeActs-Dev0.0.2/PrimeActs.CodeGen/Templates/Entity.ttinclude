@@ -1,0 +1,22 @@
+<#@ import namespace="System.Collections.Generic" #><#+
+	void GenerateEntity(TableModel table, List<TableModel> allTables)
+	{
+#>
+#region
+
+using PrimeActs.Infrastructure.BaseEntities;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+
+#endregion
+
+namespace PrimeActs.Domain
+{
+	public partial class <#= table.ClassName #>
+	{
+	}
+}
+<#+
+}
+#>

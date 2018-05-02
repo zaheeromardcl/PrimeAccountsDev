@@ -1,0 +1,45 @@
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/TypeScripts/Supplier/SupplierIndexTab.js"></script>
+<script src="~/TypeScripts/Supplier/SupplierPartial.js"></script>
+<link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet" />
+<script type="text/javascript">
+    //debugger; /////////////////////////////////////
+    var SupplierModel = new SupplierIndexTabViewModel();
+    console.log('SupplierIndexTabViewModel  ', SupplierModel);
+</script>
+
+<div id="@ViewBag.SuppliersPanel" class="container-fluid">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <span class="panel-title">Suppliers</span>
+            </div>
+            <div class="panel-body">
+                <!--
+                <div class="col-md-3 pull-right">
+                    <a data-bind="click: function () { OpenCreateOnNewTab(subscriberTab) }, attr: { 'href': '#' }" class="col-md-push-1 btn btn-new  pull-right">
+                        <img src="~/Content/images/IconNew-orange.png"/>&nbsp;New Supplier
+                    </a>
+                </div>
+                <div class="clearfix"></div>
+                -->
+                @Html.Action("IndexTab", "Supplier", new {forIndex = 1})
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var identifier = '@ViewBag.SuppliersPanel';
+
+        ko.validation.init({
+            registerExtenders: true,
+            messagesOnModified: true,
+            insertMessages: true,
+            parseInputAttributes: true,
+            messageTemplate: null
+        }, true);
+        ko.cleanNode(document.getElementById(identifier));
+        ko.applyBindings(SupplierModel, document.getElementById(identifier));
+    });
+</script>

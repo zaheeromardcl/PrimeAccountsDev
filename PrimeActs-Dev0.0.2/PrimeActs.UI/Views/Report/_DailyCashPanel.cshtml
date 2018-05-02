@@ -1,0 +1,80 @@
+﻿<div class="row row-bottom5">
+    <div class="col-md-12 pull-left">
+        <div data-bind="visible: TicketSearch().IsPaid() === 'Paid'">
+            @Html.BuildKnockoutNextPreviousLinks("DailyCashTicketPaidIndex", "/Ticket")
+        </div>
+        <div data-bind="visible: TicketSearch().IsPaid() === 'Unpaid'">
+            @Html.BuildKnockoutNextPreviousLinks("DailyCashTicketUnpaidIndex", "/Ticket")
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+
+        <div class="row">
+            @*<div class=" col-md-2">
+                @Html.BuildKnockoutSortableLinkNewStyle("Department", "Index", "/Ticket", "SalesPersonDepartmentName")
+            </div>*@
+            <div class=" col-md-2">
+                @Html.BuildKnockoutSortableLinkNewStyle("Ticket Reference", "Index", "/Ticket", "TicketReference")
+            </div>
+            <div class=" col-md-2">
+                @Html.BuildKnockoutSortableLinkNewStyle("Amount Paid", "Index", "/Ticket", "AmountPaid", "nr")
+            </div>
+            <div class=" col-md-2">
+                @Html.BuildKnockoutSortableLinkNewStyle("Balance Owed", "Index", "/Ticket", "BalanceOwed", "nr")
+            </div>
+            <div class=" col-md-2">
+                @Html.BuildKnockoutSortableLinkNewStyle("Total Price", "Index", "/Ticket", "TicketTotal", "nr")
+            </div>
+            <div class="col-md-2 pull-left">
+                @Html.BuildKnockoutSortableLinkNewStyle("Ticket Date", "Index", "/Ticket", "CreatedDate", "date")
+            </div>
+            <div class="col-md-2 pull-left">
+                @Html.BuildKnockoutSortableLinkNewStyle("Sales Person", "Index", "/Ticket", "SalesPersonName")
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <div class="search-results" data-bind="foreach: Paging().entities">
+            <div class="container line">
+                <div class="row row-padding5">
+                    @*<div class="col-md-2">
+                        <span data-bind="text: SalesPersonDepartmentName"></span>
+                    </div>*@
+                    <div class="col-md-2">
+                        <span data-bind="text: TicketReference"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span class="greenColorText" data-bind="text: AmountPaid"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span class="redColorText" data-bind="text: BalanceOwed"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span data-bind="text: TicketTotal"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span data-bind="FormattedDate: {date: CreatedDate, format: 'txtonlytime'}"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span data-bind="text: SalesPersonName"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row row-bottom5">
+    <div class="col-md-12 pull-left">
+        <div data-bind="visible: TicketSearch().IsPaid() === 'Paid'">
+            @Html.BuildKnockoutNextPreviousLinks("DailyCashTicketPaidIndex", "/Ticket")
+        </div>
+        <div data-bind="visible: TicketSearch().IsPaid() === 'Unpaid'">
+            @Html.BuildKnockoutNextPreviousLinks("DailyCashTicketUnpaidIndex", "/Ticket")
+        </div>
+    </div>
+</div>

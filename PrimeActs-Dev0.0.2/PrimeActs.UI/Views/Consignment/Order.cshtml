@@ -1,0 +1,183 @@
+﻿@model PrimeActs.Domain.ViewModels.Consignment.OrderViewModel
+
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.js"></script>
+<link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet" />
+<script src="~/KJScripts/OrderModel.js"></script>
+
+@using System.Web.Script.Serialization;
+@{string data = new JavaScriptSerializer().Serialize(Model);}
+
+<div class="container-fluid">
+
+    <div class="col-md-12">
+        <div class="col-md-8" id="Order">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <p class="panel-title">Create Order<span class="navyicons glyphicon glyphicon-shopping-cart"></span></p>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-4">
+
+                            Order #
+                            @*<input type="text" readonly="readonly" class="form-control navyicons" data-bind="text: Order.ConsignmentReference" id="ConsignmentReference" />*@
+                            
+                            
+                         </div>
+                        <div class="col-md-2"><span type="text" data-bind="text: OrderEditModel().ConsignmentReference" id="ConsignmentReference" /> </div>
+
+                        <div class="col-md-4">
+                            <span type="text" data-bind="text: Order.ConsignmentID" id="ConsignmentID" />
+                        </div>
+                        <div class="col-md-1"></div>
+
+                    </div>
+
+
+                    <div class="col-md-12">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-4">
+                            Supplier Name
+                            <input type="text" class="form-control" data-bind="textInput: Order.SupplierDepartmentName,  ko_autocomplete: { source: getSupplier, select: selectSupplier }" id="SupplierDepartmentName" autofocus />
+                        </div>
+                        <div class="col-md-2"> </div>
+
+                        <div class="col-md-4">
+
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-4">
+                            Department
+                            <input type="text" class="form-control" id="OrderDepartment" data-bind="ko_autocomplete: { source: $root.getDepartment, select : $root.selectDepartment }" />
+                        </div>
+                        <div class="col-md-2"> </div>
+
+                        <div class="col-md-4">
+
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-4">
+                            Supplier Reference
+                            <input type="text" class="form-control" id="SupplierReference" />
+                        </div>
+                        <div class="col-md-2"> </div>
+
+                        <div class="col-md-4">
+
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+
+                    @*<div class="col-md-12">
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-4">Purchase Type
+                                        <select class="form-control"><option>OP</option><option>CP</option><option>CO</option></select></div>
+                                        <div class="col-md-2"> </div>
+
+                        <div class="col-md-4">
+
+                        </div>
+                        <div class="col-md-1"></div>
+
+
+                                    </div>*@
+                    <div class="col-md-12 panel-gridrow">
+                        <div class="col-md-6 col-md-offset-0">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-1 col-md-offset-2">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-3">
+                            &nbsp;
+                        </div>
+                    </div>
+                    <div class="col-md-12 panel-gridrow">
+                        <div class="col-md-6 col-md-offset-0">
+                        </div>
+                        <div class="col-md-6">
+                            <button data-bind="click:function(ordermodel){$root.fnpostOrderForm(ordermodel)}" class="btn btn-default">Create Order</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <p class="panel-title">Add Items</p>
+                </div>
+                <div class="panel-body" id="OrderItems">
+
+                    <div class="col-md-12">
+
+
+                        <div class="col-md-4"><p>Produce</p></div>
+                        <div class="col-md-2"><p>Brand</p></div>
+                        <div class="col-md-1"><p>Pack</p></div>
+                        <div class="col-md-2"><p>Size</p></div>
+                        <div class="col-md-1"><p>Quantity</p></div>
+                        <div class="col-md-2"><p>U Cost</p></div>
+
+
+                    </div>
+                    @*<a href='#' data-bind='click: $root.fnpostTicketItemsForm '>Add child</a>*@
+
+                    <ul id="OrderItems" data-bind="foreach: OrderItems">
+
+
+                        <li style="list-style:none">
+                            <div class="col-md-12 bottomborder">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-12">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-12 panel-gridrow">
+
+
+                                <div class="col-md-4"><input type="text" placeholder="Produce" class="form-control" data-bind="ko_autocomplete: { source: $root.getProduce, select : $root.selectProduce }" id="ConsignmentItemID" /></div>
+                                <div class="col-md-2"><input type="text" placeholder="Brand" class="form-control" id="Brand" /></div>
+                                <div class="col-md-1"><input type="text" placeholder="Pack" class="form-control" id="Pack" /></div>
+                                <div class="col-md-2"><input type="text" placeholder="Size" class="form-control" id="Size" /></div>
+                                <div class="col-md-1"><input type="text" placeholder="Quantity" class="form-control" id="Quantity" /></div>
+                                <div class="col-md-2"><input type="text" placeholder="U Cost" class="form-control" id="UnitTotal" /></div>
+
+                            </div>
+
+
+                            <div class="col-md-12 panel-gridrow">
+                                &nbsp;
+                            </div>
+                        </li>
+                    </ul>
+
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    var orderModel = new OrderModel(@Html.Raw(data));
+    ko.applyBindings(orderModel, document.getElementById("Order"));
+
+</script>

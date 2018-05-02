@@ -1,0 +1,41 @@
+﻿
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/TypeScripts/Consignment/CompletedConsignments.js"></script>
+<script src="~/TypeScripts/Consignment/ConsignmentPartial.js"></script>
+<link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet" />
+<script type="text/javascript">
+    var SupplierModel = new CompletedConsignmentsTabViewModel();
+</script>
+
+<div id="@ViewBag.ConsignmentsPanel" class="container-fluid">
+    <div class="clearfix"></div>
+    <div class="row row-padding5">
+        <div class="col-md-12">
+            <div class="panel-default">
+                <div class="clearfix">
+                    <center><span class="panel-title-black-italic">Completed Consignments</span></center>
+                </div>
+                <div class="panel-body">
+
+                    <div class="clearfix"></div>
+                    @Html.Action("CompletedConsignments", "Consignment")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var identifier = '@ViewBag.ConsignmentsPanel';
+
+        ko.validation.init({
+            registerExtenders: true,
+            messagesOnModified: true,
+            insertMessages: true,
+            parseInputAttributes: true,
+            messageTemplate: null
+        }, true);
+
+        ko.applyBindings(SupplierModel, document.getElementById(identifier));
+    });
+</script>

@@ -1,0 +1,520 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>PrimeActs.Database</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{8939a0a1-3698-4370-a339-e57691891178}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql120DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>PrimeActs.Database</RootNamespace>
+    <AssemblyName>PrimeActs.Database</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <AnsiNulls>False</AnsiNulls>
+    <QuotedIdentifier>False</QuotedIdentifier>
+    <DelayedDurability>DISABLED</DelayedDurability>
+    <AutoCreateStatisticsIncremental>False</AutoCreateStatisticsIncremental>
+    <MemoryOptimizedElevateToSnapshot>False</MemoryOptimizedElevateToSnapshot>
+    <Containment>None</Containment>
+    <IsNestedTriggersOn>True</IsNestedTriggersOn>
+    <IsTransformNoiseWordsOn>False</IsTransformNoiseWordsOn>
+    <TwoDigitYearCutoff>2049</TwoDigitYearCutoff>
+    <NonTransactedFileStreamAccess>OFF</NonTransactedFileStreamAccess>
+    <TargetRecoveryTimePeriod>0</TargetRecoveryTimePeriod>
+    <TargetRecoveryTimeUnit>SECONDS</TargetRecoveryTimeUnit>
+    <IsChangeTrackingOn>False</IsChangeTrackingOn>
+    <IsChangeTrackingAutoCleanupOn>True</IsChangeTrackingAutoCleanupOn>
+    <ChangeTrackingRetentionPeriod>2</ChangeTrackingRetentionPeriod>
+    <ChangeTrackingRetentionUnit>Days</ChangeTrackingRetentionUnit>
+    <IsEncryptionOn>False</IsEncryptionOn>
+    <IsBrokerPriorityHonored>False</IsBrokerPriorityHonored>
+    <Trustworthy>False</Trustworthy>
+    <AutoUpdateStatisticsAsynchronously>False</AutoUpdateStatisticsAsynchronously>
+    <PageVerify>CHECKSUM</PageVerify>
+    <ServiceBrokerOption>DisableBroker</ServiceBrokerOption>
+    <DateCorrelationOptimizationOn>False</DateCorrelationOptimizationOn>
+    <Parameterization>SIMPLE</Parameterization>
+    <AllowSnapshotIsolation>True</AllowSnapshotIsolation>
+    <ReadCommittedSnapshot>False</ReadCommittedSnapshot>
+    <VardecimalStorageFormatOn>True</VardecimalStorageFormatOn>
+    <SupplementalLoggingOn>False</SupplementalLoggingOn>
+    <CompatibilityMode>120</CompatibilityMode>
+    <AnsiNullDefault>False</AnsiNullDefault>
+    <AnsiPadding>False</AnsiPadding>
+    <AnsiWarnings>False</AnsiWarnings>
+    <ArithAbort>False</ArithAbort>
+    <ConcatNullYieldsNull>False</ConcatNullYieldsNull>
+    <NumericRoundAbort>False</NumericRoundAbort>
+    <RecursiveTriggersEnabled>False</RecursiveTriggersEnabled>
+    <DatabaseChaining>False</DatabaseChaining>
+    <DatabaseState>ONLINE</DatabaseState>
+    <CloseCursorOnCommitEnabled>False</CloseCursorOnCommitEnabled>
+    <DefaultCursor>GLOBAL</DefaultCursor>
+    <AutoClose>False</AutoClose>
+    <AutoCreateStatistics>True</AutoCreateStatistics>
+    <AutoShrink>False</AutoShrink>
+    <AutoUpdateStatistics>True</AutoUpdateStatistics>
+    <TornPageDetection>False</TornPageDetection>
+    <DatabaseAccess>MULTI_USER</DatabaseAccess>
+    <Recovery>FULL</Recovery>
+    <EnableFullTextSearch>True</EnableFullTextSearch>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="Security\" />
+    <Folder Include="Snapshots" />
+    <Folder Include="Deployment" />
+    <Folder Include="SQLDeployment" />
+    <Folder Include="SQLDeployment\1_PrimeActsDEV" />
+    <Folder Include="SQLDeployment" />
+    <Folder Include="SQLDeployment\1_PrimeActsDEV" />
+    <Folder Include="SQLDeployment\2_PrimeActsSTAG" />
+    <Folder Include="SQLDeployment\3_PrimeActsUAT" />
+    <Folder Include="SQLDeployment\4_PrimeActsProd" />
+    <Folder Include="SQLDeployment\powershellscripts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\tblTicket_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblPurchaseInvoiceItem_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblSalesInvoice_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblRepository_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblConsignment_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblProduceGroup_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblCompany_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblSetupLocal_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblCustomerDepartment_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblSupplierBankAccount_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tlkpPorterage_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblSupplierDepartmentLocation_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblCustomerContactDepartment_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblDivision_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblSupplierLocation_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblCustomerContactLocation_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblProduceIntrastat_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblNominalLedgerEntry_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblSalesInvoiceItem_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblTicketRange_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblPrice_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblBankAccount_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblDepartment_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tlkpCurrency_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblSupplierContactLocation_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblVersion_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tlkpLedgerEntryType_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tgenConsignmentNumber_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblSupplierContact_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tgenDeliveryNoteNumber_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblSupplierContactDepartment_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tgenPurchaseInvoiceNumber_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tlkpCreditRating_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblBatchNumberLog_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblIntrastatItem_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblCustomerContact_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblAddress_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tlkpCountry_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblConsignmentItemArrival_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tlkpPurchaseChargeType_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblIntrastat_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tlkpStockLocation_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblBankReconciliation_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblCompanyNominalAccount_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tlkpWarehouseLocation_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tgenSalesInvoiceNumber_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblConsignmentFile_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tlkpTransferType_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblPurchaseInvoice_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblSalesLedgerEntry_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblCustomerBankAccount_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblCustomerCurrency_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblConsignmentItem_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblNote_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblCustomerDepartmentLocation_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblCustomerLocation_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblContact_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblPurchaseLedgerEntry_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblDepartmentStockLocation_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblCustomer_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblErrorLog_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tlkpCustomerType_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblRoleContext_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblFile_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblGroup_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tlkpDespatchLocation_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tlkpPackWtUnit_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tlkpPort_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblSetupGlobal_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblSupplierDepartment_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblMenu_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tlkpPurchaseType_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblNominalAccount_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblProduce_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblMasterGroup_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblSupplier_1.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\tblPrinter.sql" />
+    <Build Include="dbo\Tables\tblUserTabPanel.sql" />
+    <Build Include="dbo\Tables\tlkpPaymentType.sql" />
+    <Build Include="dbo\Tables\tblApplicationRolePermissions.sql" />
+    <Build Include="dbo\Tables\tblApplicationRoles.sql" />
+    <Build Include="dbo\Tables\tblApplicationUserClaims.sql" />
+    <Build Include="dbo\Tables\tblApplicationUserLogins.sql" />
+    <Build Include="dbo\Tables\tblApplicationUserRoles.sql" />
+    <Build Include="dbo\Tables\tblApplicationUsers.sql" />
+    <Build Include="dbo\Tables\tblPermissions.sql" />
+    <Build Include="SQLDeployment\1_PrimeActsDEV\--4_ClearDownNewlyCreatedlocalDatabase.sql" />
+    <Build Include="SQLDeployment\1_PrimeActsDEV\--5_PopulateNewlyCreatedlocalDatabase.sql" />
+    <Build Include="SQLDeployment\1_PrimeActsDEV\7_CreateEmptyAzureDatabase.sql" />
+    <Build Include="SQLDeployment\2_PrimeActsSTAG\4_ClearDownNewlyCreatedlocalDatabase.sql" />
+    <Build Include="SQLDeployment\2_PrimeActsSTAG\5_PopulateNewlyCreatedlocalDatabase.sql" />
+    <Build Include="SQLDeployment\2_PrimeActsSTAG\7_CreateEmptyAzureDatabase.sql" />
+    <Build Include="SQLDeployment\3_PrimeActsUAT\4_ClearDownNewlyCreatedlocalDatabase.sql" />
+    <Build Include="SQLDeployment\3_PrimeActsUAT\5_PopulateNewlyCreatedlocalDatabase.sql" />
+    <Build Include="SQLDeployment\3_PrimeActsUAT\7_CreateEmptyAzureDatabase.sql" />
+    <Build Include="SQLDeployment\4_PrimeActsProd\4_ClearDownNewlyCreatedlocalDatabase.sql" />
+    <Build Include="SQLDeployment\4_PrimeActsProd\5_PopulateNewlyCreatedlocalDatabase.sql" />
+    <Build Include="SQLDeployment\4_PrimeActsProd\7_CreateEmptyAzureDatabase.sql" />
+    <Build Include="dbo\Tables\tblElmahError.sql" />
+    <Build Include="dbo\Tables\tblPurchaseInvoiceFile_1.sql" />
+    <Build Include="dbo\Tables\tblSalesLedgerInvoiceAllocation_1.sql" />
+    <Build Include="dbo\Tables\tblPurchaseLedgerInvoiceAllocation_1.sql" />
+    <Build Include="dbo\Tables\tlkpTransactionTaxCode_1.sql" />
+    <Build Include="dbo\Tables\tlkpTransactionTaxRate_1.sql" />
+    <Build Include="dbo\Tables\tblAuditAddress.sql" />
+    <Build Include="dbo\Tables\tblTicketItem_1.sql" />
+    <Build Include="dbo\Tables\tblDepartmentPrinter.sql" />
+    <Build Include="dbo\Tables\tblStationery.sql" />
+    <Build Include="dbo\Tables\tblPrinterStationery.sql" />
+    <Build Include="dbo\Tables\tblDepartmentPrintTask.sql" />
+    <Build Include="dbo\Tables\tblPrintTask.sql" />
+    <Build Include="dbo\Tables\tblAudit.sql" />
+    <Build Include="dbo\Tables\tblBankStatementHeader.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Snapshots\PrimeActs.Database_20160331_16-19-38.dacpac" />
+    <None Include="Snapshots\PrimeActs.Database_20160405_10-02-52.dacpac" />
+    <None Include="PrimeActsDev.publish.publish.xml" />
+    <None Include="SQLDeployment\1_PrimeActsDEV\--2_GenerateSQLScript.bat" />
+    <None Include="SQLDeployment\1_PrimeActsDEV\6_ExportBacpacfromlocaDatabase.bat" />
+    <None Include="SQLDeployment\1_PrimeActsDEV\8_UploadLocalBacpacToAzureStorageContainer.ps1" />
+    <None Include="SQLDeployment\1_PrimeActsDEV\9_AzureCreateDatabasefromAzureBacpacinStorageContainer.ps1" />
+    <None Include="SQLDeployment\1_PrimeActsDEV\0-1aVisualStudioChangestofiles.txt" />
+    <None Include="SQLDeployment\1_PrimeActsDEV\--1_DACPACExtract.bat" />
+    <None Include="SQLDeployment\1_PrimeActsDEV\--2_GenerateSQLScript.bat" />
+    <None Include="SQLDeployment\1_PrimeActsDEV\--3_PublishDatabaseSchematoNewDatabase.bat" />
+    <None Include="SQLDeployment\1_PrimeActsDEV\6_ExportBacpacfromlocaDatabase.bat" />
+    <None Include="SQLDeployment\1_PrimeActsDEV\8_ImportBacpacFrom6intoEmptySQLAzureDB.bat" />
+    <None Include="SQLDeployment\1_PrimeActsDEV\8_UploadLocalBacpacToAzureStorageContainer.ps1" />
+    <None Include="SQLDeployment\2_PrimeActsSTAG\0-1aVisualStudioChangestofiles.txt" />
+    <None Include="SQLDeployment\2_PrimeActsSTAG\1_DACPACExtract.bat" />
+    <None Include="SQLDeployment\2_PrimeActsSTAG\2_GenerateSQLScript.bat" />
+    <None Include="SQLDeployment\2_PrimeActsSTAG\3_PublishDatabaseSchematoNewDatabase.bat" />
+    <None Include="SQLDeployment\2_PrimeActsSTAG\6_ExportBacpacfromNewlyCreatedlocaDatabasel.bat" />
+    <None Include="SQLDeployment\2_PrimeActsSTAG\8_ImportBacpacFrom6intoEmptySQLAzureDB.bat" />
+    <None Include="SQLDeployment\2_PrimeActsSTAG\UploadLocalBacpacToAzureStorageContainer.ps1" />
+    <None Include="SQLDeployment\3_PrimeActsUAT\0-1aVisualStudioChangestofiles.txt" />
+    <None Include="SQLDeployment\3_PrimeActsUAT\1_DACPACExtract.bat" />
+    <None Include="SQLDeployment\3_PrimeActsUAT\2_GenerateSQLScript.bat" />
+    <None Include="SQLDeployment\3_PrimeActsUAT\3_PublishDatabaseSchematoNewDatabase.bat" />
+    <None Include="SQLDeployment\3_PrimeActsUAT\6_ExportBacpacfromNewlyCreatedlocaDatabasel.bat" />
+    <None Include="SQLDeployment\3_PrimeActsUAT\8_ImportBacpacFrom6intoEmptySQLAzureDB.bat" />
+    <None Include="SQLDeployment\3_PrimeActsUAT\UploadLocalBacpacToAzureStorageContainer.ps1" />
+    <None Include="SQLDeployment\4_PrimeActsProd\0-1aVisualStudioChangestofiles.txt" />
+    <None Include="SQLDeployment\4_PrimeActsProd\1_DACPACExtract.bat" />
+    <None Include="SQLDeployment\4_PrimeActsProd\2_GenerateSQLScript.bat" />
+    <None Include="SQLDeployment\4_PrimeActsProd\3_PublishDatabaseSchematoNewDatabase.bat" />
+    <None Include="SQLDeployment\4_PrimeActsProd\6_ExportBacpacfromNewlyCreatedlocaDatabasel.bat" />
+    <None Include="SQLDeployment\4_PrimeActsProd\8_ImportBacpacFrom6intoEmptySQLAzureDB.bat" />
+    <None Include="SQLDeployment\4_PrimeActsProd\UploadLocalBacpacToAzureStorageContainer.ps1" />
+    <None Include="SQLDeployment\powershellscripts\AzureCreateDatabasefromAzureBacpacinStorageContainer.ps1" />
+    <None Include="SQLDeployment\powershellscripts\CreatebacpacinStoragefromAzureDB.ps1" />
+    <None Include="SQLDeployment\powershellscripts\CreateDatabaseFromBacpacinAzureStorageContainer.ps1" />
+    <None Include="SQLDeployment\powershellscripts\DeployToAzureDACPAC.ps1" />
+    <None Include="SQLDeployment\powershellscripts\ExportbacpacfromAzure.ps1" />
+    <None Include="SQLDeployment\powershellscripts\Script1.ps1" />
+    <None Include="SQLDeployment\powershellscripts\UploadLocalBacpacToAzureStorageContainer.ps1" />
+    <None Include="PrimeActs.Database.publish.xml" />
+    <None Include="Snapshots\PrimeActs.Database_20160725_08-54-06.dacpac" />
+    <None Include="Snapshots\PrimeActs.Database_20160818_09-15-10.dacpac" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Deployment\Script.PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="PrimeActs.Database.refactorlog" />
+  </ItemGroup>
+</Project>

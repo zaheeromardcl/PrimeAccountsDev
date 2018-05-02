@@ -1,0 +1,202 @@
+﻿<div class="container-fluid">
+    <div class="col-md-12">
+        @Html.Partial("_TabUserContext")
+        
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <p class="panel-title">New Ticket</p>
+                </div>
+                <div class="panel-body">
+                    <div>
+                        <div class="col-md-1"></div>
+
+                        <div class="col-md-4 form-group">
+                            Ref
+                            <input type="text" class="form-control" value="T123456" autofocus />
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-4 col-md-offset-2 form-group">
+                            Date
+                            <input type="date" maxlength="50" class="form-control disabled">
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+           
+                        <div>
+                            <div class="col-md-1"></div>
+
+                            <div class="col-md-4 form-group">
+                                Customer
+                                <select class="form-control">
+
+                                    <option selected>GF Produce</option>
+                                    <option>AB Produce</option>
+                                    <option>Gerber</option>
+                                    <option>Berry Gardens</option>
+
+                                </select>
+                            </div>
+                         
+                            <div class="col-md-4 col-md-offset-2 form-group">
+                                PO Number
+                                <input type="date" maxlength="50" class="form-control disabled">
+                            </div>
+                            <div class="col-md-1"></div>
+                        </div>
+                     
+                        <div class="col-md-5">
+                            Currency
+                            <select class="form-control">
+                                Currency
+                                <option selected>GBP</option>
+                                <option>EUR</option>
+                                <option>USD</option>
+
+                            </select>
+                        </div>
+                        <div class="col-md-5 col-md-offset-2 form-group">
+                            Amount Received
+                            <input type="text" class="form-control" data-bind="value: TicketModel().AmountReceived.formatted, css:{ 'required-field': TicketModel().showAmountReceivedRequired(TicketModel().AmountReceived), 'required-field-error': TicketModel().showError(TicketModel().AmountReceived) }, disable: TicketModel().SelectedPaymentType() == 'CR'" id="AmountReceived" />
+                        </div>
+                    </div>
+                    <div>
+                        <div class="col-md-5">
+                            Sales Person
+                            <select class="form-control">
+
+                                <option selected>Matt</option>
+                                <option>Nick</option>
+                                <option>Bob</option>
+                                <option>Dom</option>
+                                <option>Simon</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="col-md-9 form-group">
+                        Notes
+                        <textarea tabindex="-1" placeholder="Add Notes" data-bind=" value: TicketModel().Notes" rows='2' class="form-control"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-md-offset-10 right">
+                            <button class="btn btn-default">Create Ticket</button>
+                            
+                        </div>
+                    </div>
+                    <div class="row top5">
+                        <div class="col-md-12">
+                            <div class=" panel-default" data-bind="visible: TicketModel().SelectedPaymentType() != 'R' && TicketModel().TicketItems().length > 0">
+                                <div class="panel-heading clearfix">
+                                    <p class="panel-title">Items</p>
+                                </div>
+                                <div class="panel-body" id="TicketItems">
+                                    <ul class="list-group">
+                                        <li class="list-group-item-heading">
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                    <p>Dept.</p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>Description</p>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <p>Quantity</p>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <p>U Cost</p>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <p>Porterage</p>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <p>Total</p>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <p>Net Ave.</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <!-- ko foreach: TicketModel().TicketItems -->
+                                        <li class="list-group-ticketitem topborder" data-bind="setFocus: {}">
+                                            <div id="ticketItemRow" class="row" data-bind="">
+                                                <div class="col-md-1">
+                                                    <input type="text" placeholder="Department" class="form-control" data-bind="ko_autocomplete: { source: $root.getDepartment, select: $root.selectDepartment, change: $root.onDepartmentChange }, value: DepartmentCode, css:{ 'required-field': $root.TicketModel().showGuidFieldRequired(DepartmentID), 'required-field-error': showError(DepartmentID) }, hasFocus: FocusDepartment, event: { focusout: function() { $root.onDepartmentFocusOut($index()) } }" id="DepartmentID" />
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            @*<input type="checkbox" aria-label="...">*@
+                                                            <input type="checkbox" data-bind="checked : IncludeZeroCheckBox">
+                                                        </span>
+                                                       
+                                                        <input type="text" placeholder="Produce" class="form-control" id="ConsignmentItemID" />
+                                                                                                              
+                                                     
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    
+                                                   
+
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <!-- /ko -->
+                                        <li>
+                                            <div class="col-md-1">
+                                                <button class="btn btn-danger btn-block" tabindex="-1" data-bind="click: function() { $root.removeTicketItem($index()) }">
+                                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <button class="btn btn-default btn-block" data-bind="click: function() { $root.addNewTicketItem() }">
+                                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="panel-body topborder" id="TicketTotal">
+                                    <div class="row">
+                                        <div class="col-md-1 col-md-offset-9">Subtotal:</div>
+                                        <div class="col-md-2">
+                                            <span class="pull-right" data-bind="text: TicketModel().TicketSubTotal.formatted"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-1 col-md-offset-9">Porterage:</div>
+                                        <div class="col-md-2">
+                                            <span class="pull-right" data-bind="text: TicketModel().TicketTotalPorterage.formatted"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-1 col-md-offset-9">VAT:</div>
+                                        <div class="col-md-2">
+                                            <span class="pull-right" data-bind="text: TicketModel().TicketVATTotal.formatted"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-1 col-md-offset-9">Total:</div>
+                                        <div class="col-md-2 TicketTotalText">
+                                            <span class="pull-right" data-bind="text: TicketModel().TicketTotalPrice.formatted"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <button class="btn btn-default col-md-offset-10" type="submit" data-bind="click: function() { saveTicket($data, subscriberReplaceTab); }">
+                                        Save Ticket
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+</div>

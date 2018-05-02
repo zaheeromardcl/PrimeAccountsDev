@@ -1,0 +1,53 @@
+﻿<#@ template language="C#" debug="true" hostspecific="true" #>
+<#@ include file="CodeFirstGenerator.Core.ttinclude" #>
+<#@ output extension=".txt" #>
+<#@ include file="Context.ttinclude" #>
+<#@ include file="Entity.ttinclude" #>
+<#@ include file="AutoGenEntity.ttinclude" #>
+<#@ include file="Mapping.ttinclude" #>
+<#@ include file="SaveOutput.ttinclude" #><#
+	var generateContext = false;
+	var generateEntities = false;
+	var overwriteCustomEntities = false;
+	var generateMappings = false;
+
+	var ssdtProjectName = "PrimeActs.Database";
+	var domainProjectName = "PrimeActs.Domain";
+	var contextProjectName = "PrimeActs.Data";
+	var mappingProjectName = "PrimeActs.Data";
+
+	var ssdtProject = GetProjectByName(dte.Solution, ssdtProjectName);
+	var model = LoadDatabaseModel(ssdtProject.ProjectItems);
+
+	if (generateContext)
+	{
+		var contextProject = GetProjectByName(dte.Solution, contextProjectName);
+		GenerateContext(model.Tables);
+		SaveOutput(contextProject, "PAndIContext.cs", "Contexts");
+	}
+
+	var domainProject = GetProjectByName(dte.Solution, domainProjectName);
+	var mappingProject = GetProjectByName(dte.Solution, mappingProjectName);
+	foreach (var table in model.Tables)
+	{
+		if (generateEntities)
+		{
+			var entity = FindProjectItemByName(domainProject, table.ClassName + ".cs");
+			if (entity == null || overwriteCustomEntities)
+			{
+				GenerateEntity(table, model.Tables);
+				SaveOutput(domainProject, table.ClassName + ".cs", "");
+				entity = FindProjectItemByName(domainProject, table.ClassName + ".cs");
+			}
+
+			GenerateAutoGenEntity(table, model.Tables);
+			SaveOutput(domainProject, table.ClassName + ".autogen.cs", "", entity);
+		}
+
+		if (generateMappings)
+		{
+			GenerateMapping(table, model.Tables);
+			SaveOutput(mappingProject, table.ClassName + "Map.cs", "Mapping");
+		}
+	}
+#>

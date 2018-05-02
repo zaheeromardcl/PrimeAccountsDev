@@ -1,0 +1,413 @@
+﻿<script src="~/KJScripts/Helper.js"></script>
+<script src="~/TypeScripts/Consignment/ConsignmentViewModel.js"></script>
+<script src="~/TypeScripts/Consignment/CreateConsignmentModel.js"></script>
+<script src="~/TypeScripts/Util/MyCustomOption.js"></script>
+<script src="~/TypeScripts/Consignment/ConsignmentEdit.js"></script>
+<script src="~/TypeScripts/Consignment/ConsignmentItemViewModel.js"></script>
+<script src="~/Scripts/jquery-2.1.4.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery-ui-1.11.4.js" type="text/javascript"></script>
+@using System.Web.Script.Serialization
+@model PrimeActs.Domain.ViewModels.Consignment.ConsignmentViewModel
+@{ var Itemdata = new JavaScriptSerializer().Serialize(Model); }
+
+<div class="container-fluid">
+    <div class="col-md-12 confirmationdetails" id="@ViewBag.PanelId">
+        <div class="panel panel-default confirmationdetails">
+            <div class="panel-heading clearfix confirmationdetails">
+                Consignment Details
+                <p class="panel-title" data-bind="text: ConsignmentModel().ConsignmentReference()"></p>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        <p class="confirmationdetails">Reference</p>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="confirmationdetails" data-bind="text: ConsignmentModel().ConsignmentReference()" readonly="true"></p>
+                    </div>
+                    <div class="col-md-2">
+                        <p class="confirmationdetails">Description</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bind="text: ConsignmentModel().ConsignmentDescription" readonly="true"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        <span class="confirmationdetails" data-bind="css: {'grayColor': ConsignmentModel().SupplierReference().length < 1, 'navyColor': ConsignmentModel().SupplierReference().length > 0}">Supplier Reference:</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bind="text: ConsignmentModel().SupplierReference" readonly="true" disabled="true" />
+                    </div>
+                    <div class="col-md-2">
+                        <p class="confirmationdetails">Supplier Dept</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bind="text: ConsignmentModel().SupplierCompanyName() +' - ' +  ConsignmentModel().SupplierDepartmentName()" readonly="true" disabled="true" />
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        <p class="confirmationdetails">Contract Date</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bind="FormattedDate: {date: ConsignmentModel().ContractDate(), format: 'txtshort'}" />
+                    </div>
+                    <div class="col-md-2">
+                        <span data-bind="css: {'grayColor': ConsignmentModel().PortName().length < 1, 'navyColor': ConsignmentModel().PortName().length > 0}" class="confirmationdetails"> Port:</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bind="text: ConsignmentModel().PortName" readonly="true" disabled="true" />
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        <span data-bind="css: {'grayColor': ConsignmentModel().DespatchName().length < 1, 'navyColor': ConsignmentModel().DespatchName().length > 0}" class="confirmationdetails">Despatch Name:</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bind="text: ConsignmentModel().DespatchName" readonly="true" disabled="true" />
+                    </div>
+                    <div class="col-md-2">
+                        <p class="confirmationdetails">Handling:</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bind="text: ConsignmentModel().Handling" readonly="true" disabled="true" />
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        <p class="confirmationdetails">Despatch Date:</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bind="FormattedDate: {date: ConsignmentModel().DespatchDate(), format: 'txtshort'}" />
+                    </div>
+                    <div class="col-md-2">
+                        <p class="confirmationdetails">Commision:</p>
+                    </div>
+                    <div class="col-md-2">
+                        <span data-bind="text: ConsignmentModel().Commission" readonly="true" disabled="true" />
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        <p class="confirmationdetails">Created By:</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bind="text: ConsignmentModel().CreatedByName" readonly="true" disabled="true" />
+                    </div>
+                    <div class="col-md-2">
+                        <p class="confirmationdetails">Created Date:</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bind="FormattedDate: {date: ConsignmentModel().CreatedDate(), format: 'txtshort'}" readonly="true" disabled="true" />
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        <span class="confirmationdetails" data-bind="css: {'grayColor': ConsignmentModel().UpdatedByName().length < 1, 'navyColor': ConsignmentModel().UpdatedByName().length > 0}">Updated By:</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bind="text: ConsignmentModel().UpdatedByName" readonly="true" disabled="true"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span class="confirmationdetails" data-bind="css: {'grayColor': ConsignmentModel().UpdatedByName().length < 1, 'navyColor': ConsignmentModel().UpdatedByName().length > 0}">Updated Date:</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bind="FormattedDate: {date: ConsignmentModel().UpdatedDate(), format: 'txtshort'}" readonly="true" disabled="true"></span>
+                    </div>
+                </div>
+                <div class="col-md-12" hidden="hidden">
+                    <div class="col-md-2">
+                        <p class="confirmationdetails">Vehicle:</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bind="text: ConsignmentModel().Vehicle" readonly="true" disabled="true" />
+                    </div>
+                    <div class="col-md-2">
+                        <p class="confirmationdetails">Vehicle Details:</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bind="text: ConsignmentModel().VehicleDetail" readonly="true" disabled="true" />
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div hidden="hidden" class="col-md-2">
+                        <p class="confirmationdetails">Contract Date:</p>
+                    </div>
+                    <div hidden="hidden" class="col-md-4">
+                        <span data-bind="text: ConsignmentModel().ContractDate" readonly="true" disabled="true" />
+                    </div>
+                    @*<div class="col-md-2">
+                            <p class="confirmationdetails">Received Date:</p>
+                        </div>
+                        <div class="col-md-4">
+                            <span data-bind="FormattedDate: {date: ConsignmentModel().ReceivedDate(), format: 'txtlong'}" />
+                        </div>*@
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-2">
+                        <span class="confirmationdetails" data-bind="css: {'grayColor': ConsignmentModel().NoteText().length < 1, 'navyColor': ConsignmentModel().NoteText().length > 0}">Notes:</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span data-bind="text: ConsignmentModel().NoteText  "></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-2">
+                        <span class="confirmationdetails" data-bind="css: {'grayColor': ConsignmentModel().FileEditModels().length < 1, 'navyColor': ConsignmentModel().FileEditModels().length > 0}">Files:</span>
+                    </div>
+                    <ul class=" col-md-4" data-bind="foreach: { data: ConsignmentModel().FileEditModels, as: 'row' }">
+                        <li>
+                            <div>
+                                <span data-bind="text: FileName()"></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" data-bind="visible: hasConsignmentItems">
+            @*<div class="col-md-12">*@
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <p class="panel-title">Items</p>
+                </div>
+                <div class="panel-body" id="ConsignmentItems">
+                    <ul class=" col-md-12" data-bind="foreach: { data: ConsignmentModel().ConsignmentItems(), as: 'row' }">
+                        @*<li data-bind="setFocus: {}">*@
+                        <li>
+                            <span hidden="hidden" data-bind="text: row.Id" class="tall">
+                            </span>
+                            @*<div class="col-md-12" data-bind="css: { 'even': ($index() % 2==0) }">*@
+                            <div class="col-md-12" data-bind="css: { 'even': ($index() % 2==0) }">
+                                    <div class=" col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <p class="labelSt">Department</p>
+                                                @*<input type="text" placeholder="Department" class="form-control" data-bind="value: row.Department,  css:{'required-field':ConsignmentModel().showError(row.Department)}, ko_autocomplete: { source: ConsignmentModel().getDepartments, select : ConsignmentModel().SelectDepartment }" id="Department" />*@
+                                                @*<input type="text" placeholder="Department" class="form-control" data-bind="hasFocus:row.DepartmentNameFocused, css:{'required-field':showDepartmentRequired(row.Department),'required-field-error':showError(row.Department)}, ko_autocomplete: { source: $root.getDepartments, select : $root.SelectDepartment }, value:row.DepartmentName, event: {focusout: function() {$root.onConsignmentItemFocusOut($index())}}" id="Department" />*@
+                                                <input type="text" placeholder="Department" class="form-control" data-bind="css:{'required-field':showDepartmentRequired(row.DepartmentCode),'required-field-error':showError(row.DepartmentCode)}, ko_autocomplete: { source: $root.getDepartments, select : $root.SelectDepartment }, value:row.DepartmentCode, event: {focusout: function() {$root.onConsignmentItemFocusOut($index())}}" id="Department" disabled />
+
+                                            </div>
+                                            <div class="col-md-4">
+                                                <p class="labelSt">Produce</p>
+                                                @*<input type="text" class="form-control" data-bind="textInput: row.Produce,  ko_autocomplete: { source: $root.getProduce, select: $root.selectProduce} ,value: row.ProduceDescription" id="Produce" autofocus />*@
+                                                <input type="text" class="form-control" tabindex=0 data-bind="hasFocus:row.ProduceFocused, css:{'required-field':showProduceNameRequired(row.ProduceName),'required-field-error':showError(row.ProduceName)}, ko_autocomplete: { source: $root.getProduce, select: $root.selectProduce} ,value: row.ProduceName, event: {focusout: function() {$root.onConsignmentItemProduceFocusOut($index())}}" id="Produce" disabled />
+
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <p class="labelSt">Brand</p>
+                                                <input type="text" class="form-control" data-bind="css:{'required-field':showBrandRequired(row.Brand),'required-field-error':showError(row.Brand)},value: row.Brand, event: {focusout: function() {$root.onConsignmentItemFocusOut($index())}}" id="Brand" />
+                                                @*<input type="text" class="form-control" data-bind="value: row.Brand" id="Brand" />*@
+                                                @*<button class="btn btn-default" data-bind="click: ConsignmentModel().testCreateItem">Test Add</button>*@
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="col-md-12">
+                                            <div class="col-md-2">
+                                                <p class="labelSt">Exp Qty</p>
+                                                <input type="hidden" class="form-control" data-bind="value: row.ExpectedQuantity,  css:{'required-field':showExpectedQuantityRequired(row.ExpectedQuantity),'required-error-field':$root.ConsignmentModel().showError(row.ExpectedQuantity)} , event: {focusout: function() {$root.onConsignmentItemFocusOut($index())}}" id="ExpectedQuantity" />
+                                                @*<input type="text" class="form-control" data-bind="value: row.QuantityExpected,  css:{'required-field':showExpectedQuantityRequired(row.QuantityExpected),'required-error-field':showError(row.QuantityExpected)} , event: {focusout: function() {$root.onConsignmentItemFocusOut($index())}}" id="QuantityExpected" />*@
+                                                @*<input type="text" class="form-control" data-bind="value: row.QuantityExpected,  css:{'required-field':showQuantityExpectedRequired(row.QuantityExpected),'required-error-field':showError(row.QuantityExpected)} , event: {focusout: function() {$root.onConsignmentItemFocusOut($index())}}" id="QuantityExpected" />*@
+                                                <input type="text" class="form-control" data-bind="value: row.QuantityExpected, event: {focusout: function() {$root.onConsignmentItemFocusOut($index())}}" id="QuantityExpected" />
+                                            </div>
+                                            <div class="col-md-10">
+
+                                                <ul data-bind="foreach:{data:row.ConsignmentItemArrivals(), as: 'arrivalrow' }">
+                                                    <li>
+                                                        <div class="row">
+
+
+                                                            <div class="col-md-2">
+                                                                <p class="labelSt">Rec Qty</p>
+                                                                <input type="text" class="form-control" data-bind="value: arrivalrow.Quantity, event: {focusout: function() {$root.onConsignmentItemFocusOut($index())}}" id="ArrivalQuantity" />
+                                                            </div>
+
+                                                            <div class="col-md-10">
+                                                                <div class="col-md-1 pull-left">
+                                                                    <label class="labelSt">Arr.&nbsp;Date </label>
+                                                                    @*<input class="form-control-date" data-bind="datepicker: arrivalrow.ConsignmentArrivalDate, datepickerOptions: { dateFormat: 'dd/mm/yy'} " />*@
+                                                                    <input type="date" class="form-control-date" data-bind="FormattedDate: {date: arrivalrow.ConsignmentArrivalDate, format: 'short'}" />
+                                                                </div>
+                                                                <div class="col-md-1">
+                                                                    <button class="col-md-1 btn btn-primary btn-block" tabindex="-1" data-bind="click: function() { $root.addNewArrivalItem($parentContext.$index()) }">
+                                                                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="col-md-1">
+                                                                    <button class="col-md-1 btn btn-primary btn-block" tabindex="-1" data-bind="click: function() { $root.removeArrivalItem($index(), $parentContext.$index()) }">
+                                                                        <span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        @*<div class="col-md-2">
+                <p class="labelSt">Rec Qty</p>*@
+                                        <input type="hidden" class="form-control" data-bind="value: row.ReceivedQuantity,  css:{'required-field':$root.ConsignmentModel().showError(row.ReceivedQuantity)} , event: {focusout: function() {$root.onConsignmentItemFocusOut($index())}}" id="ReceivedQuantity" />
+                                        @*</div>*@
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                                <p class="labelSt">Cost</p> @* DC noticed that was not retaining on State Load because of .formatted*@
+                                                @*<input type="text" class="form-control pull-right" data-bind="value: row.EstimatedPurchaseCostPerPack.formatted,  css:{'required-field':$root.ConsignmentModel().showError(row.EstimatedPurchaseCostPerPack)} , event: {focusout: function() {$root.onConsignmentItemFocusOut($index())}}" id="EstimatedPurchaseCostPerPack"/>*@
+                                                <input type="text" class="form-control pull-right" data-bind="value: row.EstimatedPurchaseCostPerPack,  css:{'required-field':$root.ConsignmentModel().showError(row.EstimatedPurchaseCostPerPack)} , event: {focusout: function() {$root.onConsignmentItemFocusOut($index())}}, disable: row.IsCostDisabled" id="EstimatedPurchaseCostPerPack" />
+
+                                                <span class="glyphicon glyphicon-info-sign" data-bind="css: {'textNavy': true}, visible: row.IsCostDisabled, click: function(){row.IsInfoVisible(!row.IsInfoVisible())}"></span>
+                                                <span data-bind="text: 'Not editable: older than 24 hours.' , css: {'textNavy': true}, visible: row.IsInfoVisible"></span>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <p class="labelSt">Pack Size</p>
+                                                @*<input type="text" class="form-control" data-bind="value: row.PackSize,  css:{'required-field':$root.ConsignmentModel().showError(row.PackSize)}" id="PackSize" />*@
+                                                <input type="text" class="form-control" data-bind="value: row.PackSize, event: {focusout: function() {$root.onConsignmentItemFocusOut($index())}}" id="PackSize" />
+                                            </div>
+                                            <div class="col-md-1">
+                                                <p class="labelSt">PackType</p>
+                                                <input type="text" class="form-control" data-bind=" value: row.PackType, event: {focusout: function() {$root.onConsignmentItemFocusOut($index())}}" id="PackType" />
+                                            </div>
+                                            <div class="col-md-3">
+                                                <p class="labelSt">Origin</p>
+                                                @*<input type="text" class="form-control" data-bind="textInput: row.CountryName, ko_autocomplete: { source: getCountry, select: SelectCountry}, onEnter: $parent.stopEdit" id="Country" />*@
+                                                <input type="text" class="form-control" data-bind="css:{'required-field':showCountryNameRequired(row.CountryName),'required-field-error':showError(row.CountryName)}, ko_autocomplete: { source: $root.getCountry, select: $root.SelectCountry},value: row.CountryName , event: {focusout: function() {$root.onOriginItemFocusOut($index())}}" id="Country" />
+                                            </div>
+                                            <div class="col-md-2">
+                                                <p class="labelSt">PackWeight</p>
+                                                <input class="form-control" data-bind="value: row.PackWeight, event: {focusout: function() {$root.onConsignmentItemFocusOut($index())}}" id="PackWeight" />
+                                            </div>
+                                            <div class="col-md-1" data-bind="if:$root.hasConsignmentItems">
+                                                <p class="labelSt">Unit</p>
+                                                @*<input type="text" class="form-control" data-bind="textInput: row.CountryName, ko_autocomplete: { source: getCountry, select: SelectCountry}, onEnter: $parent.stopEdit" id="Country" />*@
+                                                @*<input type="text" class="form-control" data-bind=" ko_autocomplete: { source: $root.PackWtUnitList, select: $root.SelectPackWtUnit},value: row.PackWtUnit , event: {focusout: function() {$root.onConsignmentItemFocusOut($index())}}" id="Country" />*@
+                                                <select data-bind="enable: hasPackWeight, options: $parent.PackWtUnitList, value: row.PackWtUnitID, optionsText: 'display', optionsValue: 'itsValue'" class="form-control"></select>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <p class="labelSt">Porterage</p>
+                                                @*<input type="text" class="form-control" data-bind="textInput: row.CountryName, ko_autocomplete: { source: getCountry, select: SelectCountry}, onEnter: $parent.stopEdit" id="Country" />*@
+                                                @*<input type="text" class="form-control" data-bind=" ko_autocomplete: { source: $root.PackWtUnitList, select: $root.SelectPackWtUnit},value: row.PackWtUnit , event: {focusout: function() {$root.onConsignmentItemFocusOut($index())}}" id="Country" />*@
+                                                @*<select data-bind="options: $parent.PorterageList, value: row.PorterageID, optionsText: 'display', optionsValue: 'itsValue'" class="form-control"></select>*@
+                                                <select data-bind="options: PorterageListFiltered, value: row.PorterageID, optionsText: 'display', optionsValue: 'itsValue'" class="form-control"></select>
+                                            </div>
+                                            @*<div class="col-md-2" data-bind="if:$root.hasConsignmentItems">
+
+                    </div>*@
+                                        </div>
+
+                                        <button class="btn btn-default" data-bind="click: function(){isReturnVisible(true); addReturn();}, visible: !isReturnVisible()">Add Return</button>
+                                        <div data-bind="visible: isReturnVisible" class="col-md-12">
+                                            <div class="container">
+                                                <div class="row row-padding5 clearfix">
+                                                    <div data-bind="foreach: ReturnsCollection().ConsignmentItemPriceReturnModels" class="col-md-12">
+                                                        <div class="container">
+                                                            <div class="row clearfix">
+                                                                <div class="col-md-1">
+                                                                    <input type="text" placeholder="Quantity" class="form-control" data-bind="value : ReturnQuantity" />
+                                                                </div>
+                                                                <div class="col-md-1">
+                                                                    <input type="text" placeholder="U Cost" class="form-control" data-bind="value : ReturnUnitPrice.formatted" />
+                                                                </div>
+                                                                <div class="col-md-1">
+                                                                    <button class="btn btn-danger btn-block" tabindex="-1" data-bind="click: function() { $parent.removeReturn($index()) }">
+                                                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="container">
+                                                    <div class="row">
+
+                                                        <div class="col-md-1">
+                                                            <button class="btn btn-default btn-block" data-bind="click: function() { addReturn() }">
+                                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row row-top5">
+                                                        <div class="col-md-2">
+                                                            <button class="btn btn-default" data-bind="click: function(){saveReturns($root.ConsignmentModel().CreatedDate())}">Save Returns</button>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <button class="btn btn-default" data-bind="click: function(){isReturnVisible(false); deleteReturns();}">Cancel Returns</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+
+                                            <div class="col-md-2">
+
+                                            </div>
+                                            <div class="col-md-7">
+
+                                            </div>
+                                            <div class="col-md-1">
+                                                <p class="labelSt"> &nbsp;</p>
+                                                <button class="btn btn-danger btn-block" tabindex="-1" data-bind="click: function() { $root.removeConsignmentItem($index()) }">
+                                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @* put back in here*@
+                                </div>
+                        </li>
+                    </ul>
+
+                    <div class="row">
+                        <div class="col-md-3 col-md-offset-10 right">
+                            <button class="btn btn-default" data-bind="click: function(){ $root.saveAllConsignmentItems(subscriberReplaceTab);}, enable:hasConsignmentItems">Save Changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var consignment_panel_name = '@(ViewBag.PanelName)';
+    var supplierDepartmentID = '@(ViewBag.SupplierDepartmentID)';
+    var supplierDepartmentName = '@(ViewBag.SupplierDepartmentName)';
+    var tabidentifier = '@(ViewBag.PanelIdentifier)';
+    var consignmentSummaryId = '@ViewBag.PanelId';
+
+    var consignmentModel = new ConsignmentEditViewModel(@Html.Raw(Itemdata), tabidentifier, supplierDepartmentID, supplierDepartmentName);
+
+
+    ko.validation.init({
+        registerExtenders: true,
+        messagesOnModified: false,
+        insertMessages: true
+    });
+
+    consignmentModel.pageLoadState();
+    ko.applyBindingsWithValidation(consignmentModel, document.getElementById(consignmentSummaryId));
+    $( document ).ready(function() {
+        setTimeout(function() {
+            $("#createbtn"+consignmentSummaryId).focus();
+        }, 0);
+    });
+
+    var section_iterator = -1;
+    $.each(appViewModel.sections(), function(i,item){ // find existing object so that we can create an object with the same Section Details
+        if (item.name === tabidentifier) {
+            section_iterator = i;
+            item.tabTitle(consignment_panel_name);
+            return false;
+        }
+    });
+
+</script>

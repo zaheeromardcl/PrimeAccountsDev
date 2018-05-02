@@ -1,0 +1,147 @@
+﻿
+<script src="~/KJScripts/Helper.js"></script>
+<script src="~/KJScripts/Paging.js"></script>
+<link href="~/Content/css/bootstrap-glyphicons.css" rel="stylesheet" />
+<script src="~/TypeScripts/Admin/AdminPurchaseInvoices.js"></script>
+<script src="~/TypeScripts/PurchaseInvoice/PurchaseInvoicePartial.js"></script>
+@model PrimeActs.Domain.ViewModels.PurchaseInvoice.PurchaseInvoicePagingModel
+@using System.Web.Script.Serialization
+@{string data = new JavaScriptSerializer().Serialize(Model);}
+
+<div class="container-fluid" id="@ViewBag.PanelName">
+
+    <div class="panel-body">
+        <div class="col-md-12">
+            <div class="col-md-4 control-group" data-bind="validationOptions: { insertMessages: false}">
+                <input type="text" class="form-control" placeholder="Reference" data-bind="value: PurchaseInvoiceSearch().PurchaseInvoiceReference, validationOptions: { insertMessages: false }, valueUpdate: 'afterkeydown', css:{'required-field': IsSearchValid}" />
+            </div>
+
+            <div class="pull-right col-md-4 control-group">
+                <span class="pull-right">
+                    <input type="button" class="btn btn-default p-x-2" data-bind="click: function () {Search()}" value="Search" />
+                    <input type="button" class="btn btn-default p-x-2" data-bind="click: function () {Reset() }" value="Reset" />
+                </span>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="row well well-sm">
+            <div class="col-md-3 pull-left">
+                @Html.BuildKnockoutNextPreviousLinks("Index", "/PurchaseInvoice")
+            </div>
+
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-3 pull-left p-x-2">Purchase Invoice Number</div>
+            <div class="col-md-4 pull-left p-x-2">Created Date</div>
+            <div class="col-md-3 pull-left p-x-2">Total</div>
+            <div class="col-md-1"></div>
+        </div>
+
+        <!--Commenting the mockup-->
+
+        <div class="search-results" data-bind="foreach: Paging().Entities">
+            <div class="row">
+                <div class="col-md-1">
+                    <a data-bind="click: function () { $parent.OpenDetails(PurchaseInvoiceID) }, attr: { 'href': '#' }">
+                        <img src="~/Content/images/IconConsignment.png" />
+                    </a>
+                </div>
+
+                <div class="col-md-3 pull-left">
+                    <ul style="list-style-type: none">
+                        <li><span data-bind="text: PurchaseInvoiceReference"></span></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4 pull-left">
+                    <ul style="list-style-type: none">
+                        <li><span data-bind="text: CreatedDate"></span></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 pull-left">
+                    <ul style="list-style-type: none">
+                        <li><span data-bind="text: SupplierInvoiceAmount"></span></li>
+                    </ul>
+                </div>
+                <div class="col-md-1">
+                    <a data-bind="click: function () { $parent.OpenDetails(PurchaseInvoiceID) }, attr: { 'href': '#' }">
+                        <img src="~/Content/images/view-details-512.png" />
+                    </a>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="well well-sm">
+            @Html.BuildKnockoutNextPreviousLinks("Index", "/PurchaseInvoice")
+        </div>
+
+    </div>
+
+
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var identifier = '@ViewBag.PanelName';
+
+        var AdminModel = new AdminPurchaseInvoiceModel(@Html.Raw(data), undefined);
+
+        ko.validation.init({
+            registerExtenders: true,
+            messagesOnModified: true,
+            insertMessages: true,
+            parseInputAttributes: true,
+            messageTemplate: null
+        }, true);
+
+        ko.applyBindings(AdminModel, document.getElementById(identifier));
+    });
+</script>
+
+
+
+
+
+
+<div class="col-md-8">
+
+    <div class="col-md-12">
+        <table class="table-striped col-md-12">
+            <thead>
+                <tr>
+                   
+                </tr>
+                <tr><td></td><td colspan="4"> Purchase Invoices : Approvals</td><td></td><td></td><td></td></tr>
+                <tr><td>Invoice #</td><td>Supplier Name</td><td>Created Date</td><td>Invoice Total</td><td>Status</td></tr>
+            </thead>
+
+            <tbody class="row-padding5">
+                <tr><td><a href="/InvoiceAdmin/ApproveConfirm">123456</a></td><td>Gees</td><td>12/06/2016</td><td>£1200.50</td><td class="label-success">Approved</td></tr>
+                <tr><td><a href="/InvoiceAdmin/RejectConfirm">123456</a></td><td>AB Produce</td><td>12/06/2016</td><td>£1200.50</td><td class="label-warning">Rejected</td></tr>
+                <tr><td><a href="/InvoiceAdmin/InvoiceDetail">123456</a></td><td>Gees</td><td>12/06/2016</td><td>£1200.50</td><td class="label-info">Pending</td></tr>
+                <tr><td><a href="/InvoiceAdmin/InvoiceDetail">123456</a></td><td>Gerber</td><td>12/06/2016</td><td>£1200.50</td><td class="label-info">Pending</td></tr>
+
+            </tbody>
+
+
+
+        </table>
+    </div>
+ 
+
+
+
+</div>
+<div class="col-md-4">
+
+
+</div>
