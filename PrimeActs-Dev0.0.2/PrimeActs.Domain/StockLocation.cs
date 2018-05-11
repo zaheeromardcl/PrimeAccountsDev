@@ -20,7 +20,7 @@ namespace PrimeActs.Domain
         public DateTime? CreatedDate { get; set; }
         public Nullable<System.Guid> AddressID { get; set; }
         public virtual Address Address { get; set; }
-       public virtual Company Company { get; set; }
+        public virtual Company Company { get; set; }
         public virtual ICollection<DepartmentStockLocation> DepartmentStockLocations { get; set; }
 
         [System.ComponentModel.DataAnnotations.Schema.NotMapped]
