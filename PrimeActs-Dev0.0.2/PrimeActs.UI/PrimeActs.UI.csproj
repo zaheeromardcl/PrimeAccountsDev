@@ -681,7 +681,6 @@
     <Content Include="Scripts\CompanyModel.js" />
     <Content Include="Scripts\Company.js" />
     <Content Include="README.md" />
-    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\spilon04 18-11-2016.pubxml" />
     <None Include="Properties\PublishProfiles\spilon04.pubxml" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
