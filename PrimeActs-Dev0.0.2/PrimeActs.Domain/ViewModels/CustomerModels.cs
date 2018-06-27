@@ -70,19 +70,19 @@ namespace PrimeActs.Domain.ViewModels
     // --- !!! --- the class below is very messy --- !!! ----
     // --- !!! --- I am not going to use it --- !!! ----
     // --- !!! --- and I am avoiding it --- !!! ----
-    //public class CustomerViewModel : CustomerEditModel
-    //{
-    //    public CustomerEditModel CustomerEditModel { get; set; }
-    //    public List<CustomerEditModel> CustomerEditModels { get; set; }
-    //    public List<Ticket> Tickets { get; set; }
-    //    public List<SalesInvoice> SalesInvoices { get; set; }
-    //    public List<Contact> Contacts { get; set; }
-    //    public List<Domain.BankAccount> BankAccounts { get; set; }
-    //    public List<SalesLedgerEntry> Statement { get; set; }
-    //    public List<CustomerDepartment> CustomerDepartments { get; set; }
-    //    public List<CustomerLocation> CustomerLocations { get; set;  }
-    //    //calculate Balance from sales ledger entries.
-    //    public decimal Balance { get; set; }
+    public class CustomerViewModel : CustomerEditModel
+    {
+        public CustomerEditModel CustomerEditModel { get; set; }
+        public List<CustomerEditModel> CustomerEditModels { get; set; }
+        public List<Ticket> Tickets { get; set; }
+        public List<SalesInvoice> SalesInvoices { get; set; }
+        public List<Contact> Contacts { get; set; }
+        public List<Domain.BankAccount> BankAccounts { get; set; }
+        public List<SalesLedgerEntry> Statement { get; set; }
+        public List<CustomerDepartment> CustomerDepartments { get; set; }
+        public List<CustomerLocation> CustomerLocations { get; set; }
+        //calculate Balance from sales ledger entries.
+        public decimal Balance { get; set; }
 
-    //}
+    }
 }
